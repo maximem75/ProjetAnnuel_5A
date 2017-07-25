@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "FestiveRoom")
+@Table(name = "festiveRoom")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FestiveRoom {
 
