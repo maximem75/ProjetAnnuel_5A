@@ -1,5 +1,8 @@
 package server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +37,7 @@ public class FestiveRoom {
     }
 
     public int getIdFestiveRoom() {
-        return idPartyRoom;
+        return idFestiveRoom;
     }
 
     public void setIdFestiveRoom(int id) {
