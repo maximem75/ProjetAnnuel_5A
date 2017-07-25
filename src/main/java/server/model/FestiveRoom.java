@@ -21,60 +21,30 @@ public class FestiveRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_festive_room")
     private int idFestiveRoom;
+
+    @Column(name = "event")
+    @NotEmpty(message = "A service must have a name")
     private String event;
+
+
+    @Column(name = "chairsNumber")
+    @NotEmpty(message = "A service must have a name")
     private int chairsNumber;
+
+
+    @Column(name = "numberTables")
+    @NotEmpty(message = "A service must have a name")
     private int numberTables;
-    private int idClient;
-
-    public int getIdFestiveRoom() {
-        return idFestiveRoom;
-    }
-
-    public void setIdFestiveRoom(int id) {
-        this.idFestiveRoom = id;
-    }
-
-    public String getEvent() {
-        return event;
-    }
-
-    public void setEvent(String event) {
-        this.event = event;
-    }
-
-    public int getChairsNumber() {
-        return chairsNumber;
-    }
-
-    public void setChairsNumber(int numberChairs) {
-        this.chairsNumber = numberChairs;
-    }
-
-    public int getNumberTables() {
-        return numberTables;
-    }
-
-    public void setNumberTables(int numberTables) {
-        this.numberTables = numberTables;
-    }
-
-    public int getIdClient() {
-        return idClient;
-    }
-
-    public void setIdClient(int idClient) {
-        this.idClient = idClient;
-    }
 
     @Override
     public String toString() {
         return "FestiveRoom{" +
                 "idFestiveRoom=" + idFestiveRoom +
                 ", event='" + event + '\'' +
-                ", numberChairs=" + chairsNumber +
+                ", chairsNumber=" + chairsNumber +
                 ", numberTables=" + numberTables +
-                ", idClient=" + idClient +
                 '}';
     }
 }

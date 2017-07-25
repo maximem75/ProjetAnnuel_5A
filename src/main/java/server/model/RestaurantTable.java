@@ -21,37 +21,15 @@ public class RestaurantTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_table")
+    @Column(name = "id_restaurant_table")
     private int id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "chair")
+    @Column(name = "number")
     @NotEmpty(message = "A table must have a number of chair")
-    private String firstName;
+    private String number;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "numberChairs")
+    @NotEmpty(message = "A table must have a number of chair")
+    private int numberChairs;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 }
