@@ -15,9 +15,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "table")
+@Table(name = "restaurantTable")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Table {
+public class RestaurantTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
