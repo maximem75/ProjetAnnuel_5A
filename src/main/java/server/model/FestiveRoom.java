@@ -2,11 +2,12 @@ package server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -25,16 +26,6 @@ public class FestiveRoom {
     private int chairsNumber;
     private int numberTables;
     private int idClient;
-
-    public FestiveRoom() {
-    }
-
-    public FestiveRoom(String event, int numberChairs, int numberTables, int idClient) {
-        this.event = event;
-        this.chairsNumber = numberChairs;
-        this.numberTables = numberTables;
-        this.idClient = idClient;
-    }
 
     public int getIdFestiveRoom() {
         return idFestiveRoom;
