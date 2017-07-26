@@ -28,7 +28,6 @@ public class FestiveRoom {
     @NotEmpty(message = "A service must have a name")
     private String event;
 
-
     @Column(name = "chairsNumber")
     @NotEmpty(message = "A service must have a name")
     private int chairsNumber;

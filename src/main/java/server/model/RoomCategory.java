@@ -30,5 +30,5 @@ public class RoomCategory {
 
     @Column(name = "price")
     @NotEmpty(message = "A category must have a price")
-    private Float price;
+    private String price;
 }
