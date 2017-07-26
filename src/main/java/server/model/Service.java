@@ -4,8 +4,8 @@ package server.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
+import javax.persistence.Table;
 
 @Getter
 @Setter
@@ -19,10 +19,9 @@ public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     @Column(name = "id_service")
     @NotEmpty(message = "A service must have a name")
-    private int Id;
+    private int idService;
 
     @Column(name = "name")
     @NotEmpty(message = "A service must have a name")
