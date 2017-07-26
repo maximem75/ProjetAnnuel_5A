@@ -31,10 +31,16 @@ public class RestaurantTableController {
         return restaurantTableRepository.findByNumber(number);
     }
 
-    @RequestMapping( value = "add", method = POST)
+    @RequestMapping( method = POST)
+  //  @RequestMapping( value = "/add", method = POST)
+    public void add(@RequestBody RestaurantTable table){
+//        public void add(@RequestBody final RestaurantTable table){
+        restaurantTableRepository.save(table);
+    }
+    /*
     public RestaurantTable add(@RequestBody final RestaurantTable table){
         restaurantTableRepository.save(table);
         return restaurantTableRepository.findByNumber(table.getNumber());
-    }
+    }*/
 
 }

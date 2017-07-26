@@ -9,13 +9,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Getter
-@Setter
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "restaurantTable")
+@Table(name = "restaurant_table")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RestaurantTable {
 
@@ -25,11 +24,35 @@ public class RestaurantTable {
     private int id;
 
     @Column(name = "number")
-    @NotEmpty(message = "A table must have a number of chair")
+    @NotEmpty(message = "A table must have a number")
     private String number;
 
-    @Column(name = "numberChairs")
+    @Column(name = "number_chairs")
     @NotEmpty(message = "A table must have a number of chair")
-    private int numberChairs;
+    private String numberChairs;
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getNumberChairs() {
+        return numberChairs;
+    }
+
+    public void setNumberChairs(String numberChairs) {
+        this.numberChairs = numberChairs;
+    }
 }
