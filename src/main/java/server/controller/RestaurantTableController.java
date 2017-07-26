@@ -27,20 +27,12 @@ public class RestaurantTableController {
     }
 
     @RequestMapping( value = "/{number}", method = GET)
-    public RestaurantTable RestaurantTableById(@PathVariable final String number){
+    public RestaurantTable RestaurantTableById(@PathVariable String number){
         return restaurantTableRepository.findByNumber(number);
     }
 
-    @RequestMapping( method = POST)
-  //  @RequestMapping( value = "/add", method = POST)
+    @RequestMapping(method = POST)
     public void add(@RequestBody RestaurantTable table){
-//        public void add(@RequestBody final RestaurantTable table){
         restaurantTableRepository.save(table);
     }
-    /*
-    public RestaurantTable add(@RequestBody final RestaurantTable table){
-        restaurantTableRepository.save(table);
-        return restaurantTableRepository.findByNumber(table.getNumber());
-    }*/
-
 }

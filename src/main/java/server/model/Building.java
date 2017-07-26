@@ -24,23 +24,8 @@ public class Building {
     @Column(name = "id_building")
     private int id;
 
-    @Column(name = "building_name")
+    @Column(name = "name")
     @NotEmpty(message = "A building must have a name")
-    private String buildingName;
+    private String name;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getBuildingName() {
-        return buildingName;
-    }
-
-    public void setBuildingName(String buildingName) {
-        this.buildingName = buildingName;
-    }
 }

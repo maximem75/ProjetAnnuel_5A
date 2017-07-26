@@ -1,7 +1,10 @@
 package server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jdk.nashorn.internal.objects.annotations.*;
 import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -9,7 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,28 +35,4 @@ public class RestaurantTable {
     @NotEmpty(message = "A table must have a number of chair")
     private String numberChairs;
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getNumberChairs() {
-        return numberChairs;
-    }
-
-    public void setNumberChairs(String numberChairs) {
-        this.numberChairs = numberChairs;
-    }
 }

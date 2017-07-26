@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import server.model.RestaurantTable;
 
 @Component
-public interface RestaurantTableRepository extends JpaRepository<RestaurantTable,Integer>{
+public interface RestaurantTableRepository extends JpaRepository<RestaurantTable, Long>{
 
 
    // RestaurantTable findById(int number);
