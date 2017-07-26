@@ -13,22 +13,18 @@ import java.util.UUID;
 @Service
 public class ClientService {
 
+    @Autowired
     private ClientRepository clientRepository;
+    @Autowired
     private SecurityClientService securityClientService;
 
-    @Autowired
-    public ClientService(ClientRepository clientRepository, SecurityClientService securityClientService){
-        this.clientRepository = clientRepository;
-        this.securityClientService = securityClientService;
-    }
-
     public Client findByToken(String Token) {
-        List<Client> clients = clientRepository.findByToken(Token);
+        Client client = clientRepository.findByToken(Token);
 
-        if (clients.size() > 0) {
-            boolean available = tokenAvailable(clients.get(0));
+        if (client != null) {
+            boolean available = tokenAvailable(client);
             if (available == true) {
-                return clients.get(0);
+                return client;
             }
             return null;
         }
@@ -119,30 +115,19 @@ public class ClientService {
         }
     }
 
-    public boolean isAdministator(String tokenClient){
-        Client client = clientRepository.findDistinctFirstByToken(tokenClient);
-        if(tokenAvailable(client)) {
-            /*if (client.getAccreditation().equals(AccreditationUers.ADMINISTRATEUR)) {
+    public boolean adminAccess(String token){
+        Client client = findByToken(token);
+        //TEST
+        return true;
+        //PROD
+        /*if(client != null){
+            if(client.getAccreditation().equals("admin"))
                 return true;
-            }*/
+            else
+                return false;
         }
-        return false;
-    }
 
-    public boolean isUser(String tokenClient) {
-        Client client = clientRepository.findDistinctFirstByToken(tokenClient);
-        if(tokenAvailable(client)) {
-            /*if (client.getAccreditation().equals(AccreditationUers.USER)) {
-                return true;
-            }*/
-        }
-        return false;
-    }
+        return false;*/
 
-    public boolean accesPerTokenValidate(String tokenClient){
-        if(isUser(tokenClient) || isAdministator(tokenClient)){
-            return true;
-        }
-        return false;
     }
 }

@@ -21,7 +21,7 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_service")
     @NotEmpty(message = "A service must have a name")
-    private int idService;
+    private int id;
 
     @Column(name = "name")
     @NotEmpty(message = "A service must have a name")

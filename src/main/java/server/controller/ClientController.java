@@ -61,7 +61,7 @@ public class ClientController {
     @RequestMapping(method = GET, value="/adminGetList")
     @ResponseStatus(OK)
     public List<Client> getLIstIsAdmin(@RequestParam(value = "token") String tokenClient) {
-        if(clientService.isAdministator(tokenClient)){
+        if(clientService.adminAccess(tokenClient) == true){
             //return clientRepository.findAll();
             return null;
         }
@@ -130,7 +130,7 @@ public class ClientController {
         if (clientExist == null) {
             securityClientService.createAndUpdatePasswordClient(client);
             client.setStatusActif("inactive"); // active / removed
-            client.setAccreditation("user");
+            client.setAccreditation("user"); // admin
             return clientService.addClient(client);
         } else {
             return null;
