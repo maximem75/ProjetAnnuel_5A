@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import server.model.Building;
 import server.service.BuildingService;
 import server.service.ClientService;
+import server.service.RoomService;
 
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class BuildingController {
 
     @Autowired
     private BuildingService buildingService;
+
+    @Autowired
+    private RoomService roomService;
 
     @RequestMapping(method = GET)
     @ResponseStatus(HttpStatus.FOUND)
@@ -56,6 +60,7 @@ public class BuildingController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteBuilding(@RequestParam("idBuilding") int id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token) == true) {
+            roomService.deleteListRoomByBuilding(id);
             buildingService.deleteBuilding(id);
         }
     }

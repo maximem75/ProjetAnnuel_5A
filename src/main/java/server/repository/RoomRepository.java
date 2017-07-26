@@ -20,4 +20,15 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     @Modifying
     @Query("delete from Room r where id = :IdRoom")
     void deleteRoom(@Param("IdRoom") int id);
+
+    @Transactional
+    @Modifying
+    @Query("delete from Room r where idRoomCategory = :IdRoomCategory")
+    void deleteListRoomByCategory(@Param("IdRoomCategory")int idRoomCategory);
+
+    @Transactional
+    @Modifying
+    @Query("delete from Room r where idBuilding = :IdBuilding")
+    void deleteListRoomByBuilding(@Param("IdBuilding")int idBuilding);
+
 }

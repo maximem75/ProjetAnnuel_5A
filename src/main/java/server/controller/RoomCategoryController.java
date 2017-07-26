@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import server.model.RoomCategory;
 import server.service.ClientService;
 import server.service.RoomCategoryService;
+import server.service.RoomService;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ public class RoomCategoryController {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private RoomService roomService;
 
     @RequestMapping(path = "getListRoomCategories", method = GET)
     @ResponseStatus(value = HttpStatus.FOUND)
@@ -50,7 +54,7 @@ public class RoomCategoryController {
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteRoomCategory(@RequestParam(value = "idRoomCategory") int id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token) == true) {
-            //Suppression des chambre appartenant à la categorie
+            roomService.deleteListRoomByCategory(id);
             roomCategoryService.deleteRoomCategory(id);
         }
     }
