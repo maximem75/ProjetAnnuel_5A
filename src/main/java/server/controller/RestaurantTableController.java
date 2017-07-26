@@ -1,16 +1,13 @@
 package server.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.model.RestaurantTable;
 import server.repository.RestaurantTableRepository;
 
-import java.util.Date;
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -26,13 +23,35 @@ public class RestaurantTableController {
         return restaurantTableRepository.findAll();
     }
 
-    @RequestMapping( value = "/{number}", method = GET)
-    public RestaurantTable RestaurantTableById(@PathVariable String number){
+    @RequestMapping( path = "/{number}", method = GET)
+    public RestaurantTable RestaurantTableByTableNumber(@PathVariable String number){
         return restaurantTableRepository.findByNumber(number);
     }
 
+    @RequestMapping( value = "/table/{id}", method = GET)
+    public RestaurantTable RestaurantTableById(@PathVariable int id){
+        return restaurantTableRepository.findById(id);
+    }
+
+    @RequestMapping( value = "/chairs/{numberOfChairs}", method = GET)
+    public List<RestaurantTable> RestaurantTableByNumberOfChairs(@PathVariable String numberOfChairs){
+        return restaurantTableRepository.findByNumberChairs(numberOfChairs);
+    }
+
     @RequestMapping(method = POST)
-    public void add(@RequestBody RestaurantTable table){
+    public void addTable(@RequestBody RestaurantTable table){
         restaurantTableRepository.save(table);
+    }
+
+    @RequestMapping( value = "/delete/{id}", method = DELETE)
+    @ResponseBody
+    public String deleteTable(@PathVariable int id){
+        try{
+            RestaurantTable r = restaurantTableRepository.findById(id);
+            restaurantTableRepository.delete(r);
+        }catch (Exception ex){
+            return "Error deleting table : "+ex.toString();
+        }
+        return "restaurant table successfully deleted";
     }
 }
