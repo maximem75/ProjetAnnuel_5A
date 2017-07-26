@@ -29,9 +29,7 @@ public class RoomCategoryController {
     @RequestMapping(path = "getListRoomCategories", method = GET)
     @ResponseStatus(value = HttpStatus.FOUND)
     public List<RoomCategory> getListRoomCategories() {
-        List<RoomCategory> listRoomCategories = roomCategoryService.getListRoomCategories();
-
-        return listRoomCategories;
+        return roomCategoryService.getListRoomCategories();
     }
 
     @RequestMapping(method = POST)
