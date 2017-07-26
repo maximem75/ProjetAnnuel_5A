@@ -27,11 +27,9 @@ public class Room {
     @NotEmpty(message = "A category must have a number")
     private String number;
 
-    @Column(name = "id_category")
-    @NotEmpty(message = "A category must have a id_category")
-    private int idCategory;
+    @Column(name = "id_room_category")
+    private int idRoomCategory;
 
     @Column(name = "id_building")
-    @NotEmpty(message = "A category must have a id_building")
     private int idBuilding;
 }

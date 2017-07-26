@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import server.model.Building;
-import server.service.BuildingService;
+import server.model.Room;
 import server.service.ClientService;
+import server.service.RoomService;
 
 import java.util.List;
 
@@ -17,20 +18,19 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 //@CrossOrigin(origins = "*")
 @Controller
-@RequestMapping("/api/building")
-public class BuildingController {
-
+@RequestMapping("/api/room")
+public class RoomController {
     @Autowired
     private ClientService clientService;
 
     @Autowired
-    private BuildingService buildingService;
+    private RoomService roomService;
 
     @RequestMapping(method = GET)
     @ResponseStatus(HttpStatus.FOUND)
-    public List<Building> getListBuildings(@RequestParam("token") String token) {
+    public List<Room> getListRooms(@RequestParam("token") String token) {
         if (clientService.adminAccess(token) == true) {
-            return buildingService.getListBuildings();
+            return roomService.getListRooms();
         }
 
         return null;
@@ -38,25 +38,25 @@ public class BuildingController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addBuilding(@RequestBody Building building, @RequestParam("token") String token) {
+    public void addRoom(@RequestBody Room room, @RequestParam("token") String token) {
         if (clientService.adminAccess(token) == true) {
-            buildingService.addBuilding(building);
+            roomService.addRoom(room);
         }
     }
 
     @RequestMapping(method = PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void updateBuilding(@RequestBody Building building, @RequestParam("token") String token) {
+    public void updateRoom(@RequestBody Room room, @RequestParam("token") String token) {
         if (clientService.adminAccess(token) == true) {
-            buildingService.updateBuilding(building);
+            roomService.updateRoom(room);
         }
     }
 
     @RequestMapping(method = DELETE)
     @ResponseStatus(HttpStatus.OK)
-    public void deleteBuilding(@RequestParam("idBuilding") int id, @RequestParam("token") String token) {
+    public void deleteRoom(@RequestParam("idRoom") int id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token) == true) {
-            buildingService.deleteBuilding(id);
+            roomService.deleteRoom(id);
         }
     }
 }
