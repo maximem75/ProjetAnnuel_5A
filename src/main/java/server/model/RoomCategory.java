@@ -29,6 +29,5 @@ public class RoomCategory {
     private String name;
 
     @Column(name = "price")
-    @NotEmpty(message = "A category must have a price")
-    private String price;
+    private int price;
 }

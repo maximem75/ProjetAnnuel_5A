@@ -32,7 +32,6 @@ public class RestaurantTable {
     private String number;
 
     @Column(name = "number_chairs")
-    @NotEmpty(message = "A table must have a number of chair")
-    private String numberChairs;
+    private int numberChairs;
 
 }

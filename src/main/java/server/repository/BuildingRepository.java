@@ -22,4 +22,6 @@ public interface BuildingRepository extends JpaRepository<Building, Long> {
     @Query("delete from Building rc where id = :IdBuilding")
     void deleteBuilding(@Param("IdBuilding") int id);
 
+    Building findById(int id);
+
 }
