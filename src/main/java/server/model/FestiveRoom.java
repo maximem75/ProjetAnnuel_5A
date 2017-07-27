@@ -22,28 +22,12 @@ public class FestiveRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_festive_room")
-    private int idFestiveRoom;
+    private int id;
 
-    @Column(name = "event")
-    @NotEmpty(message = "A service must have a name")
-    private String event;
+    @Column (name ="price")
+    private double price;
 
-    @Column(name = "chairsNumber")
-    @NotEmpty(message = "A service must have a name")
-    private int chairsNumber;
+    @Column (name ="available")
+    private String available;
 
-
-    @Column(name = "numberTables")
-    @NotEmpty(message = "A service must have a name")
-    private int numberTables;
-
-    @Override
-    public String toString() {
-        return "FestiveRoom{" +
-                "idFestiveRoom=" + idFestiveRoom +
-                ", event='" + event + '\'' +
-                ", chairsNumber=" + chairsNumber +
-                ", numberTables=" + numberTables +
-                '}';
-    }
 }
