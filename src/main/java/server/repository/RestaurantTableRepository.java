@@ -14,5 +14,5 @@ public interface RestaurantTableRepository extends JpaRepository<RestaurantTable
 
     RestaurantTable findByNumber(String number);
 
-    List<RestaurantTable> findByNumberChairs(String numberOfChairs);
+    List<RestaurantTable> findByNumberChairs(int numberChairs);
 }

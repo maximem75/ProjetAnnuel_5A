@@ -21,34 +21,27 @@ public class RestaurantTableService {
     @Autowired
     private RestaurantTableRepository restaurantTableRepository;
 
-    @RequestMapping( value = "/all", method = GET)
     public List<RestaurantTable> getAllRestaurantTable(){
         return restaurantTableRepository.findAll();
     }
 
-    @RequestMapping( value = "/{id}", method = GET)
-    public RestaurantTable getTableById(@PathVariable int id){
+    public RestaurantTable getTableById(int id){
         return restaurantTableRepository.findById(id);
     }
 
-    @RequestMapping( value = "/number/{number}", method = GET)
-    public RestaurantTable getTableByNumber(@PathVariable String number){
+    public RestaurantTable getTableByNumber(String number){
         return restaurantTableRepository.findByNumber(number);
     }
 
-    @RequestMapping( value = "/numberchairs/{numberChairs}", method = GET)
-    public List<RestaurantTable> getTableByChairsNumber(@PathVariable int numberChairs){
+    public List<RestaurantTable> getTableByChairsNumber(int numberChairs){
         return restaurantTableRepository.findByNumberChairs(numberChairs);
     }
 
-    @RequestMapping(method = POST)
-    public void addTable(@RequestBody RestaurantTable table){
+    public void addTable(RestaurantTable table){
         restaurantTableRepository.save(table);
     }
 
-    @RequestMapping( value = "/delete/{id}", method = DELETE)
-    @ResponseBody
-    public String deleteTable(@PathVariable int id){
+    public String deleteTable(int id){
         try{
             RestaurantTable r = restaurantTableRepository.findById(id);
             restaurantTableRepository.delete(r);
