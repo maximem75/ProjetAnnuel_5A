@@ -1,34 +1,31 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import server.model.Service;
-import server.repository.ServiceRepository;
-import java.util.List;
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import server.model.Services;
+import server.repository.ServicesRepository;
+import server.service.ServicesService;
 
-@Controller
-@RequestMapping("/api/service")
-public class ServiceController {
+import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
+@RestController
+@RequestMapping("/api/services")
+public class ServicesController {
 
     @Autowired
-    private ServiceRepository serviceRepository;
-/*
-    @RequestMapping( path = "/all", method = GET)
-    public List<Service> findAll(){
-        return serviceRepository.findAll();
-    }*/
+    private ServicesService servicesService;
 
-    @RequestMapping(path = "/all", method = GET)
-    @ResponseStatus(value = HttpStatus.FOUND)
-    public List<Service> getListServices() {
-        List<Service> listServices = serviceRepository.findAll();
+    @RequestMapping( path = "/all", method = GET)
+    @ResponseStatus(value = OK)
+    public List<Services> getListServices(){
+        List<Services> listServices = servicesService.getListServices();
         return listServices;
     }
+
 /*
     @RequestMapping( value = "/{id}", method = GET)
     public Service getServiceById(@PathVariable int id){

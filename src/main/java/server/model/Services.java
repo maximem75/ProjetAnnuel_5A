@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "service")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Service {
+public class Services {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
