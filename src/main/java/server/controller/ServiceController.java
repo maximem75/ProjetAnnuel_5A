@@ -1,6 +1,7 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import server.model.Service;
@@ -16,12 +17,19 @@ public class ServiceController {
 
     @Autowired
     private ServiceRepository serviceRepository;
-
-    @RequestMapping( value = "/all", method = GET)
+/*
+    @RequestMapping( path = "/all", method = GET)
     public List<Service> findAll(){
         return serviceRepository.findAll();
-    }
+    }*/
 
+    @RequestMapping(path = "/all", method = GET)
+    @ResponseStatus(value = HttpStatus.FOUND)
+    public List<Service> getListServices() {
+        List<Service> listServices = serviceRepository.findAll();
+        return listServices;
+    }
+/*
     @RequestMapping( value = "/{id}", method = GET)
     public Service getServiceById(@PathVariable int id){
         return serviceRepository.findById(id);
@@ -42,5 +50,5 @@ public class ServiceController {
             return "Error deleting service : "+ex.toString();
         }
         return "service successfully deleted";
-    }
+    }*/
 }
