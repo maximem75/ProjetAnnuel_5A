@@ -45,7 +45,7 @@ public class RoomBookingController {
         boolean available = true;
 
         //Rechercher les chambres dans un seul batiment
-
+        //Non terminé, rechercher par catégorie de chambre et batiment celles disponibles
         //Check dates
         for (RoomBooking roomBooking : listRoomBooking) {
             List<RoomBooking> listRoomBookingBdd = roomBookingService.getListRoomBookingById(roomBooking.getIdRoom());
