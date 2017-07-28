@@ -39,22 +39,18 @@ public class DateComparer {
         boolean dateEndEarlierThanDateEnd  = dateEarlier(roomBooking1.getDateEnd(), roomBooking2.getDateEnd());
 
         if (dateStartEarlierThanDateStart == true && dateStartEarlierThanDateEnd == false){
-            System.out.println("1");
             return false;
         }
 
         if(dateEndEarlierThanDateStart == true && dateEndEarlierThanDateEnd == false){
-            System.out.println("2");
             return false;
         }
 
         if(dateStartEarlierThanDateStart == false && dateEndEarlierThanDateEnd == true){
-            System.out.println("3");
             return false;
         }
 
         if(dateEarlier(roomBooking1.getDateStart(), roomBooking1.getDateEnd())){
-            System.out.println("4");
             return false;
         }
 

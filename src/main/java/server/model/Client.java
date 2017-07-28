@@ -22,7 +22,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_client")
-    private Long id;
+    private int id;
 
     @Column(name = "lastname")
     @NotEmpty(message = "A client must have a name")

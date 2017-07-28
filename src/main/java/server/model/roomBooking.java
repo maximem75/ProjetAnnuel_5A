@@ -41,4 +41,7 @@ public class RoomBooking {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "ref_room_book")
+    private String refRoomBook;
 }
