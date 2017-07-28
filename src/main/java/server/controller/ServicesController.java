@@ -1,16 +1,14 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import server.model.Services;
-import server.repository.ServicesRepository;
 import server.service.ServicesService;
-
 import java.util.List;
-
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @RequestMapping("/api/services")
@@ -26,26 +24,24 @@ public class ServicesController {
         return listServices;
     }
 
-/*
+    @RequestMapping( value = "/name/{name}", method = GET)
+    public List<Services> getServiceByName(@PathVariable String name){
+        return servicesService.getServiceByName(name);
+    }
+
     @RequestMapping( value = "/{id}", method = GET)
-    public Service getServiceById(@PathVariable int id){
-        return serviceRepository.findById(id);
+    public Services getServiceById(@PathVariable int id){
+        return servicesService.getServicesById(id);
     }
 
     @RequestMapping(method = POST)
-    public void addService(@RequestBody Service service){
-        serviceRepository.save(service);
+    public void addService(@RequestBody Services service){
+        servicesService.addServices(service);
     }
 
     @RequestMapping( value = "/delete/{id}", method = DELETE)
     @ResponseBody
-    public String deleteService(@PathVariable int id){
-        try{
-            Service service = serviceRepository.findById(id);
-            serviceRepository.delete(service);
-        }catch (Exception ex){
-            return "Error deleting service : "+ex.toString();
-        }
-        return "service successfully deleted";
-    }*/
+    public void deleteService(@PathVariable int id){
+            servicesService.deleteService(id);
+    }
 }

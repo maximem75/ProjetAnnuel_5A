@@ -1,13 +1,15 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import server.model.FestiveRoom;
-import server.repository.FestiveRoomRepository;
+import server.service.FestiveRoomService;
+
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -16,25 +18,40 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class FestiveRoomController {
 
     @Autowired
-    private FestiveRoomRepository festiveRoomRepository;
+    private FestiveRoomService festiveRoomService;
 
-    @RequestMapping( value = "/all", method = GET)
+    @RequestMapping( path = "/all", method = GET)
+    @ResponseStatus(value = OK)
     public List<FestiveRoom> getAllFestiveRoom(){
-        return festiveRoomRepository.findAll();
+        List<FestiveRoom> listFestiveRomm = festiveRoomService.getAllFestiveRoom();
+        return listFestiveRomm;
     }
 
     @RequestMapping( value = "/{id}", method = GET)
+    @ResponseStatus(value = OK)
     public FestiveRoom getFestiveRoomById(@PathVariable int id){
-        return festiveRoomRepository.findById(id);
+        return festiveRoomService.getFestiveRoomById(id);
     }
 
     @RequestMapping( value = "/availability/{available}", method = GET)
+    @ResponseStatus(value = OK)
     public List<FestiveRoom> getFestiveRoomByAvailability(@PathVariable String available){
-        return festiveRoomRepository.findByAvailable(available);
+        return festiveRoomService.getFestiveRoomByAvailability(available);
     }
 
     @RequestMapping(method = POST)
+    @ResponseStatus(HttpStatus.OK)
     public void addFestiveRoom(@RequestBody FestiveRoom festiveRoom){
-        festiveRoomRepository.save(festiveRoom);
+        festiveRoomService.addFestiveRoom(festiveRoom);
     }
+
+
+    @RequestMapping( value = "/delete/{id}", method = DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public void deleteFestiveRoom(int id){
+        festiveRoomService.deleteFestiveRoom(id);
+    }
+
+
 }

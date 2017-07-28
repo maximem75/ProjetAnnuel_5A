@@ -21,29 +21,23 @@ public class FestiveRoomService {
     @Autowired
     private FestiveRoomRepository festiveRoomRepository;
 
-    @RequestMapping( value = "/all", method = GET)
     public List<FestiveRoom> getAllFestiveRoom(){
         return festiveRoomRepository.findAll();
     }
 
-    @RequestMapping( value = "/{id}", method = GET)
-    public FestiveRoom getFestiveRoomById(@PathVariable int id){
+    public FestiveRoom getFestiveRoomById(int id){
         return festiveRoomRepository.findById(id);
     }
 
-    @RequestMapping( value = "/availability/{available}", method = GET)
-    public List<FestiveRoom> getFestiveRoomByAvailability(@PathVariable String available){
+    public List<FestiveRoom> getFestiveRoomByAvailability(String available){
         return festiveRoomRepository.findByAvailable(available);
     }
 
-    @RequestMapping(method = POST)
-    public void addFestiveRoom(@RequestBody FestiveRoom festiveRoom){
+    public void addFestiveRoom(FestiveRoom festiveRoom){
         festiveRoomRepository.save(festiveRoom);
     }
 
-    @RequestMapping( value = "/delete/{id}", method = DELETE)
-    @ResponseBody
-    public String deleteFestiveRoom(@PathVariable int id){
+    public String deleteFestiveRoom(int id){
         try{
             FestiveRoom f = festiveRoomRepository.findById(id);
             festiveRoomRepository.delete(f);
