@@ -18,6 +18,18 @@ public class ClientService {
     @Autowired
     private SecurityClientService securityClientService;
 
+    public Client getById(int id) {
+        return clientRepository.findClientById(id);
+    }
+
+    public Client addClient(Client client) {
+        return clientRepository.save(client);
+    }
+
+    public Client updateClient(Client client) {
+        return clientRepository.save(client);
+    }
+
     public Client findByToken(String Token) {
         Client client = clientRepository.findByToken(Token);
 
@@ -53,19 +65,6 @@ public class ClientService {
         }
     }
 
-
-    public Client getById(int id) {
-        return clientRepository.findClientById(id);
-    }
-
-    public Client addClient(Client client) {
-        return clientRepository.save(client);
-    }
-
-    public Client updateClient(Client client) {
-        return clientRepository.save(client);
-    }
-
     public boolean tokenAvailable(Client client) {
         Date currentDate = new Date();
 
@@ -74,15 +73,6 @@ public class ClientService {
         long diffHours = diff / 3600000;
 
         if (diffHours <= 0 && diffMinutes < 15) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean tokenExists(String token) {
-        Client client = findByToken(token);
-        if (client != null) {
             return true;
         } else {
             return false;
