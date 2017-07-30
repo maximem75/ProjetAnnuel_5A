@@ -104,6 +104,7 @@ public class ClientController {
 
         if (client != null) {
             client.setCode("OK");
+            client.setStatusActif("active");
             clientService.updateClient(client);
 
             return client;

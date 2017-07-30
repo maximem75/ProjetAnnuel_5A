@@ -44,12 +44,12 @@ public class ClientService {
     }
 
     public Client login(String email, String password) {
-        List<Client> clients = clientRepository.login(email, password);
+        Client client = clientRepository.login(email, password);
 
-        if (clients.size() > 0) {
-            clients.get(0).setToken(UUID.randomUUID().toString());
-            clients.get(0).setTokenDate(new Date());
-            return clients.get(0);
+        if (client != null) {
+            client.setToken(securityClientService.generateToken());
+            client.setTokenDate(new Date());
+            return client;
         } else {
             return null;
         }

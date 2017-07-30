@@ -79,6 +79,5 @@ public class Client {
     private String accreditation;
 
     @Column(name = "status_actif")
-    @NotNull
     private String statusActif;
 }

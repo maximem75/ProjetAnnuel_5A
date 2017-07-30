@@ -5,7 +5,7 @@ import server.model.RoomBooking;
 
 import java.util.Date;
 
-@Service
+
 public class DateComparer {
 
     public DateComparer() {
@@ -31,12 +31,14 @@ public class DateComparer {
      * @param roomBooking2
      * @return
      */
-    public boolean dateRoomBookingAvailable(RoomBooking roomBooking1, RoomBooking roomBooking2) {
-        boolean dateStartEarlierThanDateStart = dateEarlier(roomBooking1.getDateStart(), roomBooking2.getDateStart());
-        boolean dateStartEarlierThanDateEnd  = dateEarlier(roomBooking1.getDateStart(), roomBooking2.getDateEnd());
+    public static boolean dateRoomBookingAvailable(RoomBooking roomBooking1, RoomBooking roomBooking2) {
+        DateComparer dc = new DateComparer();
 
-        boolean dateEndEarlierThanDateStart = dateEarlier(roomBooking1.getDateEnd(), roomBooking2.getDateStart());
-        boolean dateEndEarlierThanDateEnd  = dateEarlier(roomBooking1.getDateEnd(), roomBooking2.getDateEnd());
+        boolean dateStartEarlierThanDateStart = dc.dateEarlier(roomBooking1.getDateStart(), roomBooking2.getDateStart());
+        boolean dateStartEarlierThanDateEnd  = dc.dateEarlier(roomBooking1.getDateStart(), roomBooking2.getDateEnd());
+
+        boolean dateEndEarlierThanDateStart = dc.dateEarlier(roomBooking1.getDateEnd(), roomBooking2.getDateStart());
+        boolean dateEndEarlierThanDateEnd  = dc.dateEarlier(roomBooking1.getDateEnd(), roomBooking2.getDateEnd());
 
         if (dateStartEarlierThanDateStart == true && dateStartEarlierThanDateEnd == false){
             return false;
@@ -50,7 +52,7 @@ public class DateComparer {
             return false;
         }
 
-        if(dateEarlier(roomBooking1.getDateStart(), roomBooking1.getDateEnd())){
+        if(dc.dateEarlier(roomBooking1.getDateStart(), roomBooking1.getDateEnd())){
             return false;
         }
 

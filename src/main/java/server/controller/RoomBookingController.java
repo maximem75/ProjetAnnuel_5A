@@ -31,42 +31,39 @@ public class RoomBookingController {
     @Autowired
     private RoomBookingService roomBookingService;
 
-    @Autowired
-    private DateComparer dateComparer;
-
     @RequestMapping(method = POST)
     @ResponseStatus(value = CREATED)
     public void addRoomBooking(@RequestBody List<RoomBooking> listRoomBooking, @RequestParam("token") String token) {
-        /*Client client = clientService.findByToken(token);
+        Client client = clientService.findByToken(token);
 
-        if (client != null) {*/
-        //int refNumber = roomBookingService.getNumberRefBook(client.getId());
-        //String refBookRoom = client.getId() + "_" + refNumber;
-        boolean available = true;
+        if (client != null) {
+            int refNumber = roomBookingService.getNumberRefBook(client.getId());
+            String refBookRoom = client.getId() + "_" + refNumber;
+            boolean available = true;
 
-        //Rechercher les chambres dans un seul batiment
-        //Non terminé, rechercher par catégorie de chambre et batiment celles disponibles
-        //Check dates
-        for (RoomBooking roomBooking : listRoomBooking) {
-            List<RoomBooking> listRoomBookingBdd = roomBookingService.getListRoomBookingById(roomBooking.getIdRoom());
-            if (listRoomBookingBdd.size() > 0) {
-                for (RoomBooking rb : listRoomBookingBdd) {
-                    available = dateComparer.dateRoomBookingAvailable(roomBooking, rb);
-                    if (available == false) {
-                        return;
+            //Rechercher les chambres dans un seul batiment
+            //Non terminé, rechercher par catégorie de chambre et batiment celles disponibles
+            //Check dates
+            for (RoomBooking roomBooking : listRoomBooking) {
+                List<RoomBooking> listRoomBookingBdd = roomBookingService.getListRoomBookingById(roomBooking.getIdRoom());
+                if (listRoomBookingBdd.size() > 0) {
+                    for (RoomBooking rb : listRoomBookingBdd) {
+                        available = DateComparer.dateRoomBookingAvailable(roomBooking, rb);
+                        if (available == false) {
+                            return;
+                        }
                     }
                 }
             }
-        }
 
-        for (RoomBooking rb : listRoomBooking) {
-            rb.setRefRoomBook("");
-            rb.setStatus("inactive");
-            rb.setDateBook(new Date());
-            roomBookingService.addRoomBooking(rb);
-        }
+            for (RoomBooking rb : listRoomBooking) {
+                rb.setRefRoomBook("");
+                rb.setStatus("inactive");
+                rb.setDateBook(new Date());
+                roomBookingService.addRoomBooking(rb);
+            }
 
-        /*}*/
+        }
 
         //EXAMPLE
         /*

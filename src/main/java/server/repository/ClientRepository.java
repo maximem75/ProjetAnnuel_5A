@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("select c from Client c where email = :Email and password = :Password")
-    List<Client> login(@Param("Email") String email, @Param("Password") String password);
+    Client login(@Param("Email") String email, @Param("Password") String password);
 
     @Query("select c from Client c where email = :Email and code = :Code")
     List<Client> confirmation(@Param("Email") String email, @Param("Code") String code);
