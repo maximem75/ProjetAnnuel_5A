@@ -6,8 +6,7 @@ import server.model.RoomBooking;
 import server.model.RoomCategory;
 import server.repository.RoomCategoryRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RoomCategoryService {
@@ -31,16 +30,27 @@ public class RoomCategoryService {
         roomCategoryRepository.deleteRoomCategory(id);
     }
 
-    public List<RoomCategory> getListCategoryFromListRoomBook(List<RoomBooking> listRoomBooking) {
-        List<RoomCategory> listRoomCategory = new ArrayList<>();
+    public HashMap<Integer, Integer> getHashMapCategoryFromListRoomBook(List<RoomBooking> listRoomBooking) {
+        HashMap<Integer, Integer> hmRoomCategory = new HashMap<Integer, Integer>();
+
         for (RoomBooking rb : listRoomBooking) {
             RoomCategory roomCategory = roomCategoryRepository.findById(rb.getIdRoomCategory());
 
-            if (listRoomCategory.contains(roomCategory) == false && roomCategory != null) {
-                listRoomCategory.add(roomCategory);
+            if (hmRoomCategory.get(roomCategory.getId()) == null && roomCategory != null) {
+                hmRoomCategory.put(roomCategory.getId(), 1);
+            } else if (hmRoomCategory.get(roomCategory.getId()) != null && roomCategory != null) {
+                hmRoomCategory.put(roomCategory.getId(), hmRoomCategory.get(roomCategory.getId()) + 1);
             }
         }
 
-        return listRoomCategory;
+//        Iterator it = hmRoomCategory.entrySet().iterator();
+//        while (it.hasNext()) {
+//            Map.Entry pair = (Map.Entry) it.next();
+//            System.out.println(pair.getKey() + " = " + pair.getValue());
+//
+//            it.remove();
+//        }
+
+        return hmRoomCategory;
     }
 }

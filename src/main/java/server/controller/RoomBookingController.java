@@ -8,9 +8,7 @@ import server.repository.ClientRepository;
 import server.service.*;
 import server.utils.DateComparer;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -49,24 +47,43 @@ public class RoomBookingController {
 
             List<Room> listRoom = roomService.getListRoomFree(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
             List<Building> listBuilding = buildingService.getListBuildings();
-            List<RoomCategory> listRoomCategory = roomCategoryService.getListCategoryFromListRoomBook(listRoomBooking);
+            HashMap<Integer, Integer> currentHm = new HashMap<Integer, Integer>();
+            HashMap<Integer, Integer> hmRoomCategory = roomCategoryService.getHashMapCategoryFromListRoomBook(listRoomBooking);
             HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
 
-            System.out.println(listRoom.size());
             for (Building b : listBuilding) {
                 nbr = 0;
+                currentHm = (HashMap<Integer, Integer>)  hmRoomCategory.clone();
 
                 for (Room r : listRoom) {
-                    for (RoomCategory rc : listRoomCategory) {
-                        if (r.getIdBuilding() == b.getId() && r.getIdRoomCategory() == rc.getId()) {
+                    HashMap<Integer, Integer> tempHm = (HashMap<Integer, Integer>) currentHm.clone();
+                    Iterator it = tempHm.entrySet().iterator();
+
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry)it.next();
+                        int pKey = (int) pair.getKey();
+                        int pValue = (int) pair.getValue();
+
+                        if (r.getIdBuilding() == b.getId() && r.getIdRoomCategory() == pKey && pValue > 0) {
+                            int value = (int) pair.getValue() - 1;
+                            currentHm.put(pKey, value);
+
                             nbr += 1;
                         }
+
+                        it.remove();
                     }
                 }
-                System.out.println("-------------");
-                System.out.println(b.getId());
-                System.out.println(nbr);
+
                 hm.put(b.getId(), nbr);
+            }
+
+            Iterator it = hm.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry) it.next();
+                //System.out.println(pair.getKey() + " = " + pair.getValue());
+
+                it.remove();
             }
 
             for (RoomBooking rb : listRoomBooking) {

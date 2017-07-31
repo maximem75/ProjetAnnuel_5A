@@ -60,7 +60,7 @@ public class RoomService {
         List<Room> listRoomBdd = roomRepository.getListRoom();
         List<Room> listRoom = new ArrayList<Room>();
         List<RoomBooking> listRoomBookingBdd = roomBookingRepository.getListRoomBookingByMinDate(dateSart);
-        
+
         for (Room r : listRoomBdd) {
             boolean contain = false;
 
