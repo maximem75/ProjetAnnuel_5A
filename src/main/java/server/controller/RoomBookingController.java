@@ -3,17 +3,13 @@ package server.controller;
 import org.codehaus.groovy.runtime.powerassert.SourceText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import server.model.Client;
-import server.model.Room;
-import server.model.RoomBooking;
+import server.model.*;
 import server.repository.ClientRepository;
-import server.service.ClientService;
-import server.service.RoomBookingService;
-import server.service.RoomService;
-import server.service.SecurityClientService;
+import server.service.*;
 import server.utils.DateComparer;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -34,38 +30,51 @@ public class RoomBookingController {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private BuildingService buildingService;
+
+    @Autowired
+    private RoomCategoryService roomCategoryService;
+
     @RequestMapping(method = POST)
     @ResponseStatus(value = CREATED)
     public void addRoomBooking(@RequestBody List<RoomBooking> listRoomBooking, @RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
 
         if (client != null) {
+            int nbr;
+            boolean available = true;
             int refNumber = roomBookingService.getNumberRefBook(client.getId());
             String refBookRoom = "room_booking_" + client.getId() + "_" + refNumber;
-            boolean available = true;
+
             List<Room> listRoom = roomService.getListRoomFree(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
-            System.out.println("OUT");
-            //Rechercher les chambres dans un seul batiment
-            //Non terminé, rechercher par catégorie de chambre et batiment celles disponibles
-            //Check dates
-            /*for (RoomBooking roomBooking : listRoomBooking) {
-                List<RoomBooking> listRoomBookingBdd = roomBookingService.getListRoomBookingById(roomBooking.getIdRoom());
-                if (listRoomBookingBdd.size() > 0) {
-                    for (RoomBooking rb : listRoomBookingBdd) {
-                        available = DateComparer.dateRoomBookingAvailable(roomBooking, rb);
-                        if (available == false) {
-                            return;
+            List<Building> listBuilding = buildingService.getListBuildings();
+            List<RoomCategory> listRoomCategory = roomCategoryService.getListCategoryFromListRoomBook(listRoomBooking);
+            HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+
+            System.out.println(listRoom.size());
+            for (Building b : listBuilding) {
+                nbr = 0;
+
+                for (Room r : listRoom) {
+                    for (RoomCategory rc : listRoomCategory) {
+                        if (r.getIdBuilding() == b.getId() && r.getIdRoomCategory() == rc.getId()) {
+                            nbr += 1;
                         }
                     }
                 }
+                System.out.println("-------------");
+                System.out.println(b.getId());
+                System.out.println(nbr);
+                hm.put(b.getId(), nbr);
             }
 
             for (RoomBooking rb : listRoomBooking) {
                 rb.setRefRoomBook("");
                 rb.setStatus("inactive");
                 rb.setDateBook(new Date());
-                roomBookingService.addRoomBooking(rb);
-            }*/
+                //roomBookingService.addRoomBooking(rb);
+            }
 
         }
 

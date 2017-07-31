@@ -64,9 +64,9 @@ public class RoomService {
                 if(rb.getIdRoom() == r.getId()){
                     valideRoom = DateComparer.dateRoomBookingAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd());
 
-                    if(valideRoom == true)
+                    if(valideRoom == true && listRoom.contains(r) == false)
                         listRoom.add(r);
-                } else {
+                } else if(listRoom.contains(r) == false){
                     listRoom.add(r);
                 }
             }
