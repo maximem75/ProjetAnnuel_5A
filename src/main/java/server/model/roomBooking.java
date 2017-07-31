@@ -36,6 +36,9 @@ public class RoomBooking {
     @Column(name = "id_room")
     private int idRoom;
 
+    @Column(name = "id_room_cateogry")
+    private int idRoomCategory;
+
     @Column(name = "reason")
     private String reason;
 

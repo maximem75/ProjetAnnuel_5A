@@ -27,18 +27,21 @@ public class DateComparer {
     }
 
     /**
-     * @param roomBooking1
-     * @param roomBooking2
+     *
+     * @param start1
+     * @param end1
+     * @param start2
+     * @param end2
      * @return
      */
-    public static boolean dateRoomBookingAvailable(RoomBooking roomBooking1, RoomBooking roomBooking2) {
+    public static boolean dateRoomBookingAvailable(Date start1, Date end1, Date start2, Date end2) {
         DateComparer dc = new DateComparer();
 
-        boolean dateStartEarlierThanDateStart = dc.dateEarlier(roomBooking1.getDateStart(), roomBooking2.getDateStart());
-        boolean dateStartEarlierThanDateEnd  = dc.dateEarlier(roomBooking1.getDateStart(), roomBooking2.getDateEnd());
+        boolean dateStartEarlierThanDateStart = dc.dateEarlier(start1, start2);
+        boolean dateStartEarlierThanDateEnd  = dc.dateEarlier(start1, end2);
 
-        boolean dateEndEarlierThanDateStart = dc.dateEarlier(roomBooking1.getDateEnd(), roomBooking2.getDateStart());
-        boolean dateEndEarlierThanDateEnd  = dc.dateEarlier(roomBooking1.getDateEnd(), roomBooking2.getDateEnd());
+        boolean dateEndEarlierThanDateStart = dc.dateEarlier(end1, start2);
+        boolean dateEndEarlierThanDateEnd  = dc.dateEarlier(end1, end2);
 
         if (dateStartEarlierThanDateStart == true && dateStartEarlierThanDateEnd == false){
             return false;
@@ -52,7 +55,7 @@ public class DateComparer {
             return false;
         }
 
-        if(dc.dateEarlier(roomBooking1.getDateStart(), roomBooking1.getDateEnd())){
+        if(dc.dateEarlier(start1, end1)){
             return false;
         }
 

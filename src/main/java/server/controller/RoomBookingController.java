@@ -31,6 +31,9 @@ public class RoomBookingController {
     @Autowired
     private RoomBookingService roomBookingService;
 
+    @Autowired
+    private RoomService roomService;
+
     @RequestMapping(method = POST)
     @ResponseStatus(value = CREATED)
     public void addRoomBooking(@RequestBody List<RoomBooking> listRoomBooking, @RequestParam("token") String token) {
@@ -38,13 +41,13 @@ public class RoomBookingController {
 
         if (client != null) {
             int refNumber = roomBookingService.getNumberRefBook(client.getId());
-            String refBookRoom = client.getId() + "_" + refNumber;
+            String refBookRoom = "room_booking_" + client.getId() + "_" + refNumber;
             boolean available = true;
-
+            List<Room> listRoom = roomService.getListRoomFree(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
             //Rechercher les chambres dans un seul batiment
             //Non terminé, rechercher par catégorie de chambre et batiment celles disponibles
             //Check dates
-            for (RoomBooking roomBooking : listRoomBooking) {
+            /*for (RoomBooking roomBooking : listRoomBooking) {
                 List<RoomBooking> listRoomBookingBdd = roomBookingService.getListRoomBookingById(roomBooking.getIdRoom());
                 if (listRoomBookingBdd.size() > 0) {
                     for (RoomBooking rb : listRoomBookingBdd) {
@@ -61,7 +64,7 @@ public class RoomBookingController {
                 rb.setStatus("inactive");
                 rb.setDateBook(new Date());
                 roomBookingService.addRoomBooking(rb);
-            }
+            }*/
 
         }
 

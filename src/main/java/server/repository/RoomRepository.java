@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
     @Query("select r from Room r")
-    List<Building> getListRoom();
+    List<Room> getListRoom();
 
     @Transactional
     @Modifying
