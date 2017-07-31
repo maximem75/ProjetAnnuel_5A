@@ -31,7 +31,7 @@ public class RoomService {
     private RoomBookingRepository roomBookingRepository;
 
     public void addRoom(Room room) {
-        if(buildingRepository.findById(room.getIdBuilding()) != null && roomCategoryRepository.findById(room.getIdRoomCategory()) != null)
+        if (buildingRepository.findById(room.getIdBuilding()) != null && roomCategoryRepository.findById(room.getIdRoomCategory()) != null)
             roomRepository.save(room);
     }
 
@@ -47,28 +47,37 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
-    public void deleteListRoomByCategory(int idRoomCategory) { roomRepository.deleteListRoomByCategory(idRoomCategory); }
+    public void deleteListRoomByCategory(int idRoomCategory) {
+        roomRepository.deleteListRoomByCategory(idRoomCategory);
+    }
 
     public void deleteListRoomByBuilding(int idBuilding) {
         roomRepository.deleteListRoomByBuilding(idBuilding);
     }
 
-    public List<Room> getListRoomFree(Date dateSart, Date dateEnd){
+    public List<Room> getListRoomFree(Date dateSart, Date dateEnd) {
         boolean valideRoom;
         List<Room> listRoomBdd = roomRepository.getListRoom();
         List<Room> listRoom = new ArrayList<Room>();
         List<RoomBooking> listRoomBookingBdd = roomBookingRepository.getListRoomBookingByMinDate(dateSart);
+        
+        for (Room r : listRoomBdd) {
+            boolean contain = false;
 
-        for(RoomBooking rb : listRoomBookingBdd){
-            for(Room r : listRoomBdd){
-                if(rb.getIdRoom() == r.getId()){
+            for (RoomBooking rb : listRoomBookingBdd) {
+                if(r.getId() == rb.getIdRoom()){
                     valideRoom = DateComparer.dateRoomBookingAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd());
 
-                    if(valideRoom == true && listRoom.contains(r) == false)
+                    if (valideRoom == true && listRoom.contains(r) == false){
                         listRoom.add(r);
-                } else if(listRoom.contains(r) == false){
-                    listRoom.add(r);
+                    }
+
+                    contain = true;
                 }
+            }
+
+            if (contain == false && listRoom.contains(r) == false) {
+                listRoom.add(r);
             }
         }
 
