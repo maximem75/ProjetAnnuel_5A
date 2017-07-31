@@ -11,6 +11,7 @@ import server.repository.RoomCategoryRepository;
 import server.repository.RoomRepository;
 import server.utils.DateComparer;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -55,23 +56,22 @@ public class RoomService {
     public List<Room> getListRoomFree(Date dateSart, Date dateEnd){
         boolean valideRoom;
         List<Room> listRoomBdd = roomRepository.getListRoom();
-        List<Room> listRoom = listRoomBdd;
+        List<Room> listRoom = new ArrayList<Room>();
         List<RoomBooking> listRoomBookingBdd = roomBookingRepository.getListRoomBookingByMinDate(dateSart);
-        int index = 0;
-        System.out.println("getList");
+
         for(RoomBooking rb : listRoomBookingBdd){
             for(Room r : listRoomBdd){
                 if(rb.getIdRoom() == r.getId()){
                     valideRoom = DateComparer.dateRoomBookingAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd());
-                    System.out.println("id room -> " + r.getId());
-                    System.out.println("valideRoom -> " + valideRoom);
-                    if(valideRoom == false)
-                        listRoom.remove(index);
-                }
 
-                index += 1;
+                    if(valideRoom == true)
+                        listRoom.add(r);
+                } else {
+                    listRoom.add(r);
+                }
             }
         }
+
         return listRoom;
     }
 }

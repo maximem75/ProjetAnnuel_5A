@@ -44,6 +44,7 @@ public class RoomBookingController {
             String refBookRoom = "room_booking_" + client.getId() + "_" + refNumber;
             boolean available = true;
             List<Room> listRoom = roomService.getListRoomFree(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
+            System.out.println("OUT");
             //Rechercher les chambres dans un seul batiment
             //Non terminé, rechercher par catégorie de chambre et batiment celles disponibles
             //Check dates

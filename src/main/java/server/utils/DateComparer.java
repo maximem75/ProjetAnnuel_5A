@@ -32,7 +32,7 @@ public class DateComparer {
      * @param end1
      * @param start2
      * @param end2
-     * @return
+     * @return true if date is valide else return false
      */
     public static boolean dateRoomBookingAvailable(Date start1, Date end1, Date start2, Date end2) {
         DateComparer dc = new DateComparer();

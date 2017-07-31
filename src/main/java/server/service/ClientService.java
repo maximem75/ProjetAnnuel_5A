@@ -36,6 +36,9 @@ public class ClientService {
         if (client != null) {
             boolean available = tokenAvailable(client);
             if (available == true) {
+                client.setTokenDate(new Date());
+                clientRepository.save(client);
+
                 return client;
             }
             return null;
