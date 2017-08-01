@@ -3,15 +3,15 @@ package server.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.model.Newsletter;
-import server.repository.NewsletterRepository;
+import server.repository.NewsLetterRepository;
 
 import java.util.List;
 
 @Service
-public class NewsletterService {
+public class NewsLetterService {
 
     @Autowired
-    private NewsletterRepository newsletterRepository;
+    private NewsLetterRepository newsletterRepository;
 
     public List<Newsletter> getAllNewsletters() {
         return newsletterRepository.findAll();
