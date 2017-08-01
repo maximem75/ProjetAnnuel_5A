@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import server.model.Client;
 import server.repository.ClientRepository;
+import server.utils.DateComparer;
 
 import java.util.Date;
 import java.util.List;
@@ -69,17 +70,9 @@ public class ClientService {
     }
 
     public boolean tokenAvailable(Client client) {
-        Date currentDate = new Date();
-
-        long diff = Math.abs(currentDate.getTime() - client.getTokenDate().getTime());
-        long diffMinutes = diff / 60000 % 60;
-        long diffHours = diff / 3600000;
-
-        if (diffHours <= 0 && diffMinutes < 15) {
-            return true;
-        } else {
-            return false;
-        }
+        int hours = 0;
+        int minutes = 15;
+        return DateComparer.compareDateByTime(client.getTokenDate(), minutes, hours);
     }
 
     public void updateTokenDate(Client client) {

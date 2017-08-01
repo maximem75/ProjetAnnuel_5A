@@ -11,12 +11,12 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Newsletter")
+@Table(name = "NewsLetter")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Newsletter {
+public class NewsLetter {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_newsletter")
+    @Column(name = "id_news_letter")
     private int id;
     @Column(name = "id_client")
     private long idClient;

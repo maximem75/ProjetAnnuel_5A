@@ -2,7 +2,7 @@ package server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import server.model.Newsletter;
+import server.model.NewsLetter;
 import server.repository.NewsLetterRepository;
 
 import java.util.List;
@@ -13,25 +13,25 @@ public class NewsLetterService {
     @Autowired
     private NewsLetterRepository newsletterRepository;
 
-    public List<Newsletter> getAllNewsletters() {
+    public List<NewsLetter> getAllNewsletters() {
         return newsletterRepository.findAll();
     }
 
-    public Newsletter getNewsletterById(int id) {
+    public NewsLetter getNewsletterById(int id) {
         return newsletterRepository.findById(id);
     }
 
-    public void addNewsletter(Newsletter n) {
+    public void addNewsletter(NewsLetter n) {
         newsletterRepository.save(n);
     }
 
     public String deleteNewsletter(int id){
         try{
-            Newsletter f = newsletterRepository.findById(id);
+            NewsLetter f = newsletterRepository.findById(id);
             newsletterRepository.delete(f);
         }catch (Exception ex){
             return "Error deleting newsletter : "+ex.toString();
         }
-        return " Newsletter successfully deleted";
+        return " NewsLetter successfully deleted";
     }
 }

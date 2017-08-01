@@ -63,4 +63,17 @@ public class DateComparer {
         return true;
     }
 
+    public static boolean compareDateByTime(Date date, int minutes, int hours){
+        Date currentDate = new Date();
+
+        long diff = Math.abs(currentDate.getTime() - date.getTime());
+        long diffMinutes = diff / 60000 % 60;
+        long diffHours = diff / 3600000;
+
+        if (diffHours <= hours && diffMinutes < minutes) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
