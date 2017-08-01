@@ -36,7 +36,7 @@ public class RoomBookingService {
         List<RoomBooking> listRoomBook = roomBookingRepository.getListRoomBookingByIdClient(idClient);
 
         for(RoomBooking rb : listRoomBook){
-            if(!rb.getRefRoomBook().equals(lastRef) && rb.getIdClient() == idClient){
+            if(rb.getRefRoomBook().equals(lastRef) == false && rb.getIdClient() == idClient){
                 lastRef = rb.getRefRoomBook();
                 number += 1;
             }

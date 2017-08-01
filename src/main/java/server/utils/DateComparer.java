@@ -28,7 +28,6 @@ public class DateComparer {
     }
 
     /**
-     *
      * @param start1
      * @param end1
      * @param start2
@@ -37,38 +36,57 @@ public class DateComparer {
      */
     public static boolean dateRoomBookingAvailable(Date start1, Date end1, Date start2, Date end2, String status, Date dateBook) {
         boolean res = true;
+        boolean dateValide = false;
         DateComparer dc = new DateComparer();
 
         boolean dateStartEarlierThanDateStart = dc.dateEarlier(start1, start2);
-        boolean dateStartEarlierThanDateEnd  = dc.dateEarlier(start1, end2);
+        boolean dateStartEarlierThanDateEnd = dc.dateEarlier(start1, end2);
 
         boolean dateEndEarlierThanDateStart = dc.dateEarlier(end1, start2);
-        boolean dateEndEarlierThanDateEnd  = dc.dateEarlier(end1, end2);
+        boolean dateEndEarlierThanDateEnd = dc.dateEarlier(end1, end2);
 
-        if (dateStartEarlierThanDateStart == true && dateStartEarlierThanDateEnd == false){
-            res = false;
-        }
+        if (status.equals("active") == true) {
+            if (dateStartEarlierThanDateStart == true && dateStartEarlierThanDateEnd == false) {
+                res = false;
+            }
 
-        if(dateEndEarlierThanDateStart == true && dateEndEarlierThanDateEnd == false){
-            res = false;
-        }
+            if (dateEndEarlierThanDateStart == true && dateEndEarlierThanDateEnd == false) {
+                res = false;
+            }
 
-        if(dateStartEarlierThanDateStart == false && dateEndEarlierThanDateEnd == true){
-            res = false;
-        }
+            if (dateStartEarlierThanDateStart == false && dateEndEarlierThanDateEnd == true) {
+                res = false;
+            }
 
-        /*if(status.equals("inactive") && res == false){
-            res = !DateComparer.compareDateByTime(dateBook, 15, 0);
-        }*/
+            if (dc.dateEarlier(start1, end1)) {
+                res = false;
+            }
+        } else if (status.equals("inactive") == true) {
+            dateValide = DateComparer.compareDateByTime(dateBook, 15, 0);
 
-        if(dc.dateEarlier(start1, end1)){
-            res = false;
+            if(dateValide == true){
+                if (dateStartEarlierThanDateStart == true && dateStartEarlierThanDateEnd == false) {
+                    res = false;
+                }
+
+                if (dateEndEarlierThanDateStart == true && dateEndEarlierThanDateEnd == false) {
+                    res = false;
+                }
+
+                if (dateStartEarlierThanDateStart == false && dateEndEarlierThanDateEnd == true) {
+                    res = false;
+                }
+
+                if (dc.dateEarlier(start1, end1)) {
+                    res = false;
+                }
+            }
         }
 
         return res;
     }
 
-    public static boolean compareDateByTime(Date date, int minutes, int hours){
+    public static boolean compareDateByTime(Date date, int minutes, int hours) {
         Date currentDate = new Date();
 
         long diff = Math.abs(currentDate.getTime() - date.getTime());
