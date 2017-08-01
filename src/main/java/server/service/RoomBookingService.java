@@ -31,12 +31,12 @@ public class RoomBookingService {
 
     public int getNumberRefBook(int idClient){
         int number = 0;
-        String lastRef = null;
+        String lastRef = "";
 
-        List<RoomBooking> listRoomBook = roomBookingRepository.getListBookRoomByIdClient(idClient);
+        List<RoomBooking> listRoomBook = roomBookingRepository.getListRoomBookingByIdClient(idClient);
 
         for(RoomBooking rb : listRoomBook){
-            if(rb.getRefRoomBook().equals(lastRef) == false){
+            if(!rb.getRefRoomBook().equals(lastRef) && rb.getIdClient() == idClient){
                 lastRef = rb.getRefRoomBook();
                 number += 1;
             }
