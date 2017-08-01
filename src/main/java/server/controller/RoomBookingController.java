@@ -40,81 +40,39 @@ public class RoomBookingController {
         Client client = clientService.findByToken(token);
 
         if (client != null) {
-            int nbr;
-            boolean available = true;
             int refNumber = roomBookingService.getNumberRefBook(client.getId());
             String refBookRoom = "room_booking_" + client.getId() + "_" + refNumber;
 
             List<Room> listRoom = roomService.getListRoomFree(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
             List<Building> listBuilding = buildingService.getListBuildings();
-            HashMap<Integer, Integer> currentHm = new HashMap<Integer, Integer>();
             HashMap<Integer, Integer> hmRoomCategory = roomCategoryService.getHashMapCategoryFromListRoomBook(listRoomBooking);
             HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+            List<Room> listValideRoomBooking = new ArrayList<Room>();
 
-            for (Building b : listBuilding) {
-                nbr = 0;
-                currentHm = (HashMap<Integer, Integer>)  hmRoomCategory.clone();
+            listValideRoomBooking = roomService.findListRoomBooking(listValideRoomBooking, hmRoomCategory, listRoom, listBuilding);
 
-                for (Room r : listRoom) {
-                    HashMap<Integer, Integer> tempHm = (HashMap<Integer, Integer>) currentHm.clone();
-                    Iterator it = tempHm.entrySet().iterator();
-
-                    while (it.hasNext()) {
-                        Map.Entry pair = (Map.Entry)it.next();
-                        int pKey = (int) pair.getKey();
-                        int pValue = (int) pair.getValue();
-
-                        if (r.getIdBuilding() == b.getId() && r.getIdRoomCategory() == pKey && pValue > 0) {
-                            int value = (int) pair.getValue() - 1;
-                            currentHm.put(pKey, value);
-
-                            nbr += 1;
+            if (listValideRoomBooking.size() == listRoomBooking.size()) {
+                for (RoomBooking rb : listRoomBooking) {
+                    List<Room> tmpLs = new ArrayList<Room>(listValideRoomBooking);
+                    for (Room r : tmpLs) {
+                        if (r.getIdRoomCategory() == rb.getIdRoomCategory()) {
+                            rb.setRefRoomBook(refBookRoom);
+                            rb.setStatus("inactive");
+                            rb.setDateBook(new Date());
+                            rb.setIdRoom(r.getId());
+                            rb.setIdClient(client.getId());
+                            roomBookingService.addRoomBooking(rb);
+                            listValideRoomBooking.remove(r);
+                            break;
                         }
-
-                        it.remove();
                     }
                 }
-
-                hm.put(b.getId(), nbr);
+            } else {
+                return;
             }
 
-            Iterator it = hm.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                //System.out.println(pair.getKey() + " = " + pair.getValue());
-
-                it.remove();
-            }
-
-            for (RoomBooking rb : listRoomBooking) {
-                rb.setRefRoomBook("");
-                rb.setStatus("inactive");
-                rb.setDateBook(new Date());
-                //roomBookingService.addRoomBooking(rb);
-            }
 
         }
-
-        //EXAMPLE
-        /*
-        [
-        {
-            "dateStart": "2017-09-31",
-            "dateEnd": "2017-10-30",
-            "idClient": 1,
-            "idRoom": 140,
-            "reason": "vacances"
-	    },
-	    {
-            "dateStart": "2017-09-31",
-            "dateEnd": "2017-10-30",
-            "idClient": 1,
-            "idRoom": 141,
-            "reason": "vacances"
-	    }
-        ]
-         */
-
     }
 
     @RequestMapping(path = "validate", method = POST)

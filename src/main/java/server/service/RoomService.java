@@ -2,6 +2,7 @@ package server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import server.model.Building;
 import server.model.Room;
 import server.model.RoomBooking;
 import server.model.RoomCategory;
@@ -11,9 +12,7 @@ import server.repository.RoomCategoryRepository;
 import server.repository.RoomRepository;
 import server.utils.DateComparer;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RoomService {
@@ -56,6 +55,7 @@ public class RoomService {
     }
 
     public List<Room> getListRoomFree(Date dateSart, Date dateEnd) {
+        //TODO Filtrer les reservation inactives par date de péromption
         boolean valideRoom;
         List<Room> listRoomBdd = roomRepository.getListRoom();
         List<Room> listRoom = new ArrayList<Room>();
@@ -65,10 +65,10 @@ public class RoomService {
             boolean contain = false;
 
             for (RoomBooking rb : listRoomBookingBdd) {
-                if(r.getId() == rb.getIdRoom()){
+                if (r.getId() == rb.getIdRoom()) {
                     valideRoom = DateComparer.dateRoomBookingAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd());
 
-                    if (valideRoom == true && listRoom.contains(r) == false){
+                    if (valideRoom == true && listRoom.contains(r) == false) {
                         listRoom.add(r);
                     }
 
@@ -83,4 +83,94 @@ public class RoomService {
 
         return listRoom;
     }
+
+    public int findIdBuilding(List<Room> listRoom, List<Building> listBuilding, HashMap<Integer, Integer> hmRoomCategory) {
+        int nbr;
+        int nbrMax = 0;
+        int idBuild = -1;
+        HashMap<Integer, Integer> currentHm;
+
+        for (Building b : listBuilding) {
+            nbr = 0;
+            currentHm = (HashMap<Integer, Integer>) hmRoomCategory.clone();
+
+            for (Room r : listRoom) {
+                HashMap<Integer, Integer> tempHm = (HashMap<Integer, Integer>) currentHm.clone();
+                Iterator it = tempHm.entrySet().iterator();
+
+                while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry) it.next();
+                    int pKey = (int) pair.getKey();
+                    int pValue = (int) pair.getValue();
+
+                    if (r.getIdBuilding() == b.getId() && r.getIdRoomCategory() == pKey && pValue > 0) {
+                        int value = (int) pair.getValue() - 1;
+                        currentHm.put(pKey, value);
+
+                        nbr += 1;
+                    }
+
+                    it.remove();
+                }
+            }
+
+            if (nbr > nbrMax) {
+                nbrMax = nbr;
+                idBuild = b.getId();
+            }
+        }
+        return idBuild;
+    }
+
+    public List<Room> findListRoomBooking(List<Room> listValideRoomBooking, HashMap<Integer, Integer> hmRoomCategory, List<Room> listRoom, List<Building> listBuilding) {
+        boolean total = true;
+        boolean valide = true;
+        List<Room> listEmpty = new ArrayList<Room>();
+
+        int idBuild = findIdBuilding(listRoom, listBuilding, hmRoomCategory);
+
+        if(idBuild == -1){
+            return listEmpty;
+        }
+
+        HashMap<Integer, Integer> tmpHm = (HashMap<Integer, Integer>) hmRoomCategory.clone();
+        Iterator it = tmpHm.entrySet().iterator();
+
+        Building rmBuilding = buildingRepository.findById(idBuild);
+        listBuilding.remove(rmBuilding);
+
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            int key = (int) pair.getKey();
+
+            for (int i = 0; i < hmRoomCategory.get(key); i++) {
+                List<Room> tmpListRoom = new ArrayList<Room>(listRoom);
+                for (Room r : tmpListRoom) {
+                    if (r.getIdRoomCategory() == key && r.getIdBuilding() == idBuild && !listValideRoomBooking.contains(r) && hmRoomCategory.get(key) > 0) {
+                        listValideRoomBooking.add(r);
+                        int v = hmRoomCategory.get(key) - 1;
+                        hmRoomCategory.put(key, v);
+                        listRoom.remove(r);
+                    }
+                }
+            }
+
+            if (hmRoomCategory.get(key) > 0)
+                total = false;
+
+            it.remove();
+        }
+
+        if (!total && listBuilding.size() > 0) {
+            findListRoomBooking(listValideRoomBooking, hmRoomCategory, listRoom, listBuilding);
+        } else if(!total && listBuilding.size() == 0){
+            valide = false;
+        }
+
+        if(valide == true)
+            return listValideRoomBooking;
+        else
+            return listEmpty;
+    }
+
 }
