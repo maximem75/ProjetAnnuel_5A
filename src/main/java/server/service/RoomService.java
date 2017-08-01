@@ -55,8 +55,13 @@ public class RoomService {
     }
 
     public List<Room> getListRoomFree(Date dateSart, Date dateEnd) {
-        //TODO Filtrer les reservation inactives par date de péromption
+        boolean dateAvailable;
         boolean valideRoom;
+        boolean valideTime;
+
+        int minutes = 15;
+        int hours = 0;
+
         List<Room> listRoomBdd = roomRepository.getListRoom();
         List<Room> listRoom = new ArrayList<Room>();
         List<RoomBooking> listRoomBookingBdd = roomBookingRepository.getListRoomBookingByMinDate(dateSart);
@@ -65,8 +70,9 @@ public class RoomService {
             boolean contain = false;
 
             for (RoomBooking rb : listRoomBookingBdd) {
+
                 if (r.getId() == rb.getIdRoom()) {
-                    valideRoom = DateComparer.dateRoomBookingAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd());
+                    valideRoom = DateComparer.dateRoomBookingAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd(), rb.getStatus(), rb.getDateBook());
 
                     if (valideRoom == true && listRoom.contains(r) == false) {
                         listRoom.add(r);

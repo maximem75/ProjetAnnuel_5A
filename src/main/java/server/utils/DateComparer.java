@@ -35,7 +35,8 @@ public class DateComparer {
      * @param end2
      * @return true if date is valide else return false
      */
-    public static boolean dateRoomBookingAvailable(Date start1, Date end1, Date start2, Date end2) {
+    public static boolean dateRoomBookingAvailable(Date start1, Date end1, Date start2, Date end2, String status, Date dateBook) {
+        boolean res = true;
         DateComparer dc = new DateComparer();
 
         boolean dateStartEarlierThanDateStart = dc.dateEarlier(start1, start2);
@@ -45,22 +46,26 @@ public class DateComparer {
         boolean dateEndEarlierThanDateEnd  = dc.dateEarlier(end1, end2);
 
         if (dateStartEarlierThanDateStart == true && dateStartEarlierThanDateEnd == false){
-            return false;
+            res = false;
         }
 
         if(dateEndEarlierThanDateStart == true && dateEndEarlierThanDateEnd == false){
-            return false;
+            res = false;
         }
 
         if(dateStartEarlierThanDateStart == false && dateEndEarlierThanDateEnd == true){
-            return false;
+            res = false;
         }
+
+        /*if(status.equals("inactive") && res == false){
+            res = !DateComparer.compareDateByTime(dateBook, 15, 0);
+        }*/
 
         if(dc.dateEarlier(start1, end1)){
-            return false;
+            res = false;
         }
 
-        return true;
+        return res;
     }
 
     public static boolean compareDateByTime(Date date, int minutes, int hours){

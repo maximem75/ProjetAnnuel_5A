@@ -68,6 +68,7 @@ public class RoomBookingController {
                     }
                 }
             } else {
+                System.out.println("CANCEL");
                 return;
             }
         }
