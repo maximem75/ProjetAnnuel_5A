@@ -36,7 +36,7 @@ public class RoomBookingController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(value = CREATED)
-    public void addRoomBooking(@RequestBody List<RoomBooking> listRoomBooking, @RequestParam("token") String token) {
+    public String addRoomBooking(@RequestBody List<RoomBooking> listRoomBooking, @RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
 
         if (client != null) {
@@ -67,20 +67,28 @@ public class RoomBookingController {
                         }
                     }
                 }
-            } else {
-                return;
+                return refBookRoom;
             }
+            return "";
         }
+
+        return "";
     }
 
     @RequestMapping(path = "validate", method = POST)
     @ResponseStatus(value = OK)
-    public void updateListRoomBookingStatus(@RequestParam("refBookRoom") String refBookRoom) {
-        List<RoomBooking> listRoomBooking = roomBookingService.getListRoomBookingByRefBookRoom(refBookRoom);
+    public void updateListRoomBookingStatus(@RequestParam("token") String token, @RequestParam("refBookRoom") String refBookRoom) {
+        Client client = clientService.findByToken(token);
 
-        for (RoomBooking rb : listRoomBooking) {
-            rb.setStatus("active");
-            roomBookingService.updateRoomBooking(rb);
+        if (client != null) {
+            List<RoomBooking> listRoomBooking = roomBookingService.getListRoomBookingByRefBookRoom(refBookRoom);
+
+            for (RoomBooking rb : listRoomBooking) {
+                if (rb.getIdClient() == client.getId()) {
+                    rb.setStatus("active");
+                    roomBookingService.updateRoomBooking(rb);
+                }
+            }
         }
     }
 }
