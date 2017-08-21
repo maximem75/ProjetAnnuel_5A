@@ -1,19 +1,15 @@
 package server.controller;
 
-import org.codehaus.groovy.runtime.powerassert.SourceText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import server.model.*;
-import server.repository.ClientRepository;
 import server.service.*;
-import server.utils.DateComparer;
 
 import java.util.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 //@CrossOrigin(origins = "*")
 @RestController
@@ -46,7 +42,6 @@ public class RoomBookingController {
             List<Room> listRoom = roomService.getListRoomFree(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
             List<Building> listBuilding = buildingService.getListBuildings();
             HashMap<Integer, Integer> hmRoomCategory = roomCategoryService.getHashMapCategoryFromListRoomBook(listRoomBooking);
-            HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
             List<Room> listValideRoomBooking = new ArrayList<Room>();
 
             listValideRoomBooking = roomService.findListRoomBooking(listValideRoomBooking, hmRoomCategory, listRoom, listBuilding);
@@ -63,6 +58,7 @@ public class RoomBookingController {
                             rb.setIdClient(client.getId());
                             roomBookingService.addRoomBooking(rb);
                             listValideRoomBooking.remove(r);
+
                             break;
                         }
                     }

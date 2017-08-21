@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import server.model.Building;
 import server.model.Room;
 import server.model.RoomBooking;
-import server.model.RoomCategory;
 import server.repository.BuildingRepository;
 import server.repository.RoomBookingRepository;
 import server.repository.RoomCategoryRepository;
@@ -55,12 +54,7 @@ public class RoomService {
     }
 
     public List<Room> getListRoomFree(Date dateSart, Date dateEnd) {
-        boolean dateAvailable;
         boolean valideRoom;
-        boolean valideTime;
-
-        int minutes = 15;
-        int hours = 0;
 
         List<Room> listRoomBdd = roomRepository.getListRoom();
         List<Room> listRoom = new ArrayList<Room>();
@@ -74,7 +68,7 @@ public class RoomService {
                 if (r.getId() == rb.getIdRoom()) {
                     valideRoom = DateComparer.dateRoomBookingAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd(), rb.getStatus(), rb.getDateBook());
 
-                    if (valideRoom == true && listRoom.contains(r) == false) {
+                    if (valideRoom && !listRoom.contains(r)) {
                         listRoom.add(r);
                     }
 
@@ -82,7 +76,7 @@ public class RoomService {
                 }
             }
 
-            if (contain == false && listRoom.contains(r) == false) {
+            if (!contain && !listRoom.contains(r)) {
                 listRoom.add(r);
             }
         }
@@ -98,10 +92,10 @@ public class RoomService {
 
         for (Building b : listBuilding) {
             nbr = 0;
-            currentHm = (HashMap<Integer, Integer>) hmRoomCategory.clone();
+            currentHm =  new HashMap<Integer, Integer>(hmRoomCategory);
 
             for (Room r : listRoom) {
-                HashMap<Integer, Integer> tempHm = (HashMap<Integer, Integer>) currentHm.clone();
+                HashMap<Integer, Integer> tempHm = new HashMap<Integer, Integer>(currentHm);
                 Iterator it = tempHm.entrySet().iterator();
 
                 while (it.hasNext()) {
@@ -125,6 +119,7 @@ public class RoomService {
                 idBuild = b.getId();
             }
         }
+
         return idBuild;
     }
 
@@ -139,7 +134,7 @@ public class RoomService {
             return listEmpty;
         }
 
-        HashMap<Integer, Integer> tmpHm = (HashMap<Integer, Integer>) hmRoomCategory.clone();
+        HashMap<Integer, Integer> tmpHm = new HashMap<Integer, Integer>(hmRoomCategory);
         Iterator it = tmpHm.entrySet().iterator();
 
         Building rmBuilding = buildingRepository.findById(idBuild);
@@ -173,7 +168,7 @@ public class RoomService {
             valide = false;
         }
 
-        if(valide == true)
+        if(valide)
             return listValideRoomBooking;
         else
             return listEmpty;

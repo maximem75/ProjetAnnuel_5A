@@ -12,7 +12,7 @@
     Core.controller.includeContainer = Core.controller.includeContainer || {};
 
     /**
-     * Switch the different views
+     * Switch the different controller
      * @param key
      */
     Core.controller.includeContainer.switchView = function (key) {

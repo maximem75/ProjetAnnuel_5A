@@ -2,10 +2,10 @@ package server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import server.model.Room;
 import server.model.RoomBooking;
 import server.repository.RoomBookingRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,12 +32,14 @@ public class RoomBookingService {
     public int getNumberRefBook(int idClient){
         int number = 0;
         String lastRef = "";
+        List<String> refList = new ArrayList<>();
 
         List<RoomBooking> listRoomBook = roomBookingRepository.getListRoomBookingByIdClient(idClient);
 
         for(RoomBooking rb : listRoomBook){
-            if(rb.getRefRoomBook().equals(lastRef) == false && rb.getIdClient() == idClient){
+            if(!rb.getRefRoomBook().equals(lastRef) && rb.getIdClient() == idClient && !refList.contains(rb.getRefRoomBook())){
                 lastRef = rb.getRefRoomBook();
+                refList.add(rb.getRefRoomBook());
                 number += 1;
             }
         }

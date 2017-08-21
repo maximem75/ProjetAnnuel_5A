@@ -12,7 +12,7 @@
     Core.controller.clientAccount = Core.controller.clientAccount || {};
 
     /**
-     * Init the account views
+     * Init the account controller
      */
     Core.controller.initView = function () {
         controller.clientAccount.account();

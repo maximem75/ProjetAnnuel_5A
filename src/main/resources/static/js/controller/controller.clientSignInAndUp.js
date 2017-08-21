@@ -12,7 +12,7 @@
     Core.controller.clientSignInAndUp = Core.controller.clientSignInAndUp || {};
 
     /**
-     * Init the different views
+     * Init the different controller
      */
     Core.controller.clientSignInAndUp.initView = function () {
         controller.clientSignInAndUp.signin();

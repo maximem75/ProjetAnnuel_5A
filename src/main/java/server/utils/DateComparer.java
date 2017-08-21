@@ -1,11 +1,6 @@
 package server.utils;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import org.springframework.stereotype.Service;
-import server.model.RoomBooking;
-
 import java.util.Date;
-
 
 public class DateComparer {
 
@@ -45,35 +40,35 @@ public class DateComparer {
         boolean dateEndEarlierThanDateStart = dc.dateEarlier(end1, start2);
         boolean dateEndEarlierThanDateEnd = dc.dateEarlier(end1, end2);
 
-        if (status.equals("active") == true) {
-            if (dateStartEarlierThanDateStart == true && dateStartEarlierThanDateEnd == false) {
+        if (status.equals("active")) {
+            if (dateStartEarlierThanDateStart && !dateStartEarlierThanDateEnd) {
                 res = false;
             }
 
-            if (dateEndEarlierThanDateStart == true && dateEndEarlierThanDateEnd == false) {
+            if (dateEndEarlierThanDateStart && !dateEndEarlierThanDateEnd) {
                 res = false;
             }
 
-            if (dateStartEarlierThanDateStart == false && dateEndEarlierThanDateEnd == true) {
+            if (!dateStartEarlierThanDateStart && dateEndEarlierThanDateEnd) {
                 res = false;
             }
 
             if (dc.dateEarlier(start1, end1)) {
                 res = false;
             }
-        } else if (status.equals("inactive") == true) {
+        } else if (status.equals("inactive")) {
             dateValide = DateComparer.compareDateByTime(dateBook, 15, 0);
-
-            if(dateValide == true){
-                if (dateStartEarlierThanDateStart == true && dateStartEarlierThanDateEnd == false) {
+            System.out.println(dateValide);
+            if(dateValide){
+                if (dateStartEarlierThanDateStart && !dateStartEarlierThanDateEnd) {
                     res = false;
                 }
 
-                if (dateEndEarlierThanDateStart == true && dateEndEarlierThanDateEnd == false) {
+                if (dateEndEarlierThanDateStart && !dateEndEarlierThanDateEnd) {
                     res = false;
                 }
 
-                if (dateStartEarlierThanDateStart == false && dateEndEarlierThanDateEnd == true) {
+                if (!dateStartEarlierThanDateStart && dateEndEarlierThanDateEnd) {
                     res = false;
                 }
 
@@ -83,6 +78,8 @@ public class DateComparer {
             }
         }
 
+        System.out.println(res);
+        System.out.println("-------------------");
         return res;
     }
 
