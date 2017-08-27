@@ -1,5 +1,6 @@
 package server.service;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.model.Building;
@@ -56,28 +57,24 @@ public class RoomService {
     public List<Room> getListRoomFree(Date dateSart, Date dateEnd) {
         boolean valideRoom;
 
-        List<Room> listRoomBdd = roomRepository.getListRoom();
-        List<Room> listRoom = new ArrayList<Room>();
+        List<Room> listRoom = roomRepository.getListRoom();
+        List<Room> unvalideListRoom = new ArrayList<Room>();
         List<RoomBooking> listRoomBookingBdd = roomBookingRepository.getListRoomBookingByMinDate(dateSart);
 
-        for (Room r : listRoomBdd) {
-            boolean contain = false;
+        for (RoomBooking rb : listRoomBookingBdd) {
+            Room r = roomRepository.findRoomById(rb.getIdRoom());
+            if (!unvalideListRoom.contains(r)) {
+                valideRoom = DateComparer.dateRoomBookingAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd(), rb.getStatus(), rb.getDateBook());
 
-            for (RoomBooking rb : listRoomBookingBdd) {
-
-                if (r.getId() == rb.getIdRoom()) {
-                    valideRoom = DateComparer.dateRoomBookingAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd(), rb.getStatus(), rb.getDateBook());
-
-                    if (valideRoom && !listRoom.contains(r)) {
-                        listRoom.add(r);
-                    }
-
-                    contain = true;
+                if (!valideRoom) {
+                    unvalideListRoom.add(r);
                 }
             }
+        }
 
-            if (!contain && !listRoom.contains(r)) {
-                listRoom.add(r);
+        for(Room r : unvalideListRoom){
+            if(listRoom.contains(r)){
+                listRoom.remove(r);
             }
         }
 

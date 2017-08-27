@@ -2,8 +2,10 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import server.model.RoomBooking;
 import server.model.*;
 import server.service.*;
+import server.utils.DateComparer;
 
 import java.util.*;
 
@@ -34,8 +36,9 @@ public class RoomBookingController {
     @ResponseStatus(value = CREATED)
     public String addRoomBooking(@RequestBody List<RoomBooking> listRoomBooking, @RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
+        boolean dateValide = DateComparer.dateValide(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
 
-        if (client != null) {
+        if (client != null && dateValide) {
             int refNumber = roomBookingService.getNumberRefBook(client.getId());
             String refBookRoom = "room_booking_" + client.getId() + "_" + refNumber;
 

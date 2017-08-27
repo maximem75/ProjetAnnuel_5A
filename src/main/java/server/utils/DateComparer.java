@@ -23,6 +23,20 @@ public class DateComparer {
     }
 
     /**
+     * Return true if date1 equals date 2
+     *
+     * @param date1
+     * @param date2
+     * @return
+     */
+    public boolean dateEquals(Date date1, Date date2) {
+        if (date1.compareTo(date2) == 0)
+            return true;
+        else
+            return false;
+    }
+
+    /**
      * @param start1
      * @param end1
      * @param start2
@@ -30,9 +44,8 @@ public class DateComparer {
      * @return true if date is valide else return false
      */
     public static boolean dateRoomBookingAvailable(Date start1, Date end1, Date start2, Date end2, String status, Date dateBook) {
-        boolean res = true;
-        boolean dateValide = false;
         DateComparer dc = new DateComparer();
+        boolean dateValide = DateComparer.compareDateByTime(dateBook, 15, 0);
 
         boolean dateStartEarlierThanDateStart = dc.dateEarlier(start1, start2);
         boolean dateStartEarlierThanDateEnd = dc.dateEarlier(start1, end2);
@@ -40,47 +53,32 @@ public class DateComparer {
         boolean dateEndEarlierThanDateStart = dc.dateEarlier(end1, start2);
         boolean dateEndEarlierThanDateEnd = dc.dateEarlier(end1, end2);
 
-        if (status.equals("active")) {
-            if (dateStartEarlierThanDateStart && !dateStartEarlierThanDateEnd) {
-                res = false;
-            }
+        if (status.equals("inactive") && !dateValide)
+            return true;
 
-            if (dateEndEarlierThanDateStart && !dateEndEarlierThanDateEnd) {
-                res = false;
-            }
+        if (dateStartEarlierThanDateStart && !dateStartEarlierThanDateEnd)
+            return false;
 
-            if (!dateStartEarlierThanDateStart && dateEndEarlierThanDateEnd) {
-                res = false;
-            }
+        if (dateEndEarlierThanDateStart && !dateEndEarlierThanDateEnd)
+            return false;
 
-            if (dc.dateEarlier(start1, end1)) {
-                res = false;
-            }
-        } else if (status.equals("inactive")) {
-            dateValide = DateComparer.compareDateByTime(dateBook, 15, 0);
-            System.out.println(dateValide);
-            if(dateValide){
-                if (dateStartEarlierThanDateStart && !dateStartEarlierThanDateEnd) {
-                    res = false;
-                }
+        if (!dateStartEarlierThanDateStart && dateEndEarlierThanDateEnd)
+            return false;
 
-                if (dateEndEarlierThanDateStart && !dateEndEarlierThanDateEnd) {
-                    res = false;
-                }
+        if (dc.dateEquals(start1, start2) && dc.dateEquals(end1, end2))
+            return false;
 
-                if (!dateStartEarlierThanDateStart && dateEndEarlierThanDateEnd) {
-                    res = false;
-                }
+        return true;
+    }
 
-                if (dc.dateEarlier(start1, end1)) {
-                    res = false;
-                }
-            }
+    public static boolean dateValide(Date start, Date end) {
+        DateComparer dc = new DateComparer();
+
+        if (!dc.dateEarlier(start, end)) {
+            return true;
         }
 
-        System.out.println(res);
-        System.out.println("-------------------");
-        return res;
+        return false;
     }
 
     public static boolean compareDateByTime(Date date, int minutes, int hours) {

@@ -16,6 +16,9 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     @Query("select r from Room r")
     List<Room> getListRoom();
 
+    @Query("select r from Room r where id = :IdRoom")
+    Room findRoomById(@Param("IdRoom") int id);
+
     @Transactional
     @Modifying
     @Query("delete from Room r where id = :IdRoom")
