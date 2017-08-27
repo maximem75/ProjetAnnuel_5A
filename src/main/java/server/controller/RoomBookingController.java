@@ -36,7 +36,7 @@ public class RoomBookingController {
     @ResponseStatus(value = CREATED)
     public String addRoomBooking(@RequestBody List<RoomBooking> listRoomBooking, @RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
-        boolean dateValide = DateComparer.dateValide(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
+        boolean dateValide = DateComparer.dateValidator(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
 
         if (client != null && dateValide) {
             int refNumber = roomBookingService.getNumberRefBook(client.getId());

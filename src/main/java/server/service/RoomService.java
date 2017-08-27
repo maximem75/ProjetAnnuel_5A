@@ -1,6 +1,5 @@
 package server.service;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.model.Building;
@@ -64,7 +63,7 @@ public class RoomService {
         for (RoomBooking rb : listRoomBookingBdd) {
             Room r = roomRepository.findRoomById(rb.getIdRoom());
             if (!unvalideListRoom.contains(r)) {
-                valideRoom = DateComparer.dateRoomBookingAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd(), rb.getStatus(), rb.getDateBook());
+                valideRoom = DateComparer.dateBookAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd(), rb.getStatus(), rb.getDateBook());
 
                 if (!valideRoom) {
                     unvalideListRoom.add(r);

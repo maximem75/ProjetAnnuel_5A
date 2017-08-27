@@ -23,7 +23,7 @@ public class DateComparer {
     }
 
     /**
-     * Return true if date1 equals date 2
+     * Return true if date1 equals date2
      *
      * @param date1
      * @param date2
@@ -37,32 +37,36 @@ public class DateComparer {
     }
 
     /**
+     * The function return true if the dates are not in collision,
+     * else the function return false.
+     *
      * @param start1
      * @param end1
      * @param start2
      * @param end2
-     * @return true if date is valide else return false
+     * @return true
      */
-    public static boolean dateRoomBookingAvailable(Date start1, Date end1, Date start2, Date end2, String status, Date dateBook) {
+    public static boolean dateBookAvailable(Date start1, Date end1, Date start2, Date end2, String status, Date dateBook, int minDay) {
         DateComparer dc = new DateComparer();
         boolean dateValide = DateComparer.compareDateByTime(dateBook, 15, 0);
 
-        boolean dateStartEarlierThanDateStart = dc.dateEarlier(start1, start2);
-        boolean dateStartEarlierThanDateEnd = dc.dateEarlier(start1, end2);
+        boolean dateStart1EarlierThanDateStart2 = dc.dateEarlier(start1, start2);
+        boolean dateStart1EarlierThanDateEnd2 = dc.dateEarlier(start1, end2);
 
-        boolean dateEndEarlierThanDateStart = dc.dateEarlier(end1, start2);
-        boolean dateEndEarlierThanDateEnd = dc.dateEarlier(end1, end2);
+        boolean dateEnd1EarlierThanDateStart2 = dc.dateEarlier(end1, start2);
+        boolean dateEnd1EarlierThanDateEnd2 = dc.dateEarlier(end1, end2);
 
+        //DateBook expired
         if (status.equals("inactive") && !dateValide)
             return true;
 
-        if (dateStartEarlierThanDateStart && !dateStartEarlierThanDateEnd)
+        if (dateStart1EarlierThanDateStart2 && !dateStart1EarlierThanDateEnd2)
             return false;
 
-        if (dateEndEarlierThanDateStart && !dateEndEarlierThanDateEnd)
+        if (dateEnd1EarlierThanDateStart2 && !dateEnd1EarlierThanDateEnd2)
             return false;
 
-        if (!dateStartEarlierThanDateStart && dateEndEarlierThanDateEnd)
+        if (!dateStart1EarlierThanDateStart2 && dateEnd1EarlierThanDateEnd2)
             return false;
 
         if (dc.dateEquals(start1, start2) && dc.dateEquals(end1, end2))
@@ -71,7 +75,16 @@ public class DateComparer {
         return true;
     }
 
-    public static boolean dateValide(Date start, Date end) {
+    /**
+     * Check if the date Start is holder than the date End.
+     * If the date Start is holder, the function return true
+     * else it return false.
+     *
+     * @param start
+     * @param end
+     * @return
+     */
+    public static boolean dateValidator(Date start, Date end) {
         DateComparer dc = new DateComparer();
 
         if (!dc.dateEarlier(start, end)) {
@@ -81,6 +94,17 @@ public class DateComparer {
         return false;
     }
 
+    /**
+     * The function calculate the difference between the current time
+     * and the date send in parameters.
+     * If the min time send in parameters isn't over,
+     * the function return true else it return false.
+     *
+     * @param date
+     * @param minutes
+     * @param hours
+     * @return
+     */
     public static boolean compareDateByTime(Date date, int minutes, int hours) {
         Date currentDate = new Date();
 
