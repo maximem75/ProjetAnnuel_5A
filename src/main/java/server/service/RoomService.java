@@ -63,7 +63,7 @@ public class RoomService {
         for (RoomBooking rb : listRoomBookingBdd) {
             Room r = roomRepository.findRoomById(rb.getIdRoom());
             if (!unvalideListRoom.contains(r)) {
-                valideRoom = DateComparer.dateBookAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd(), rb.getStatus(), rb.getDateBook());
+                valideRoom = DateComparer.dateBookAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd(), rb.getStatus(), rb.getDateBook(), 1);
 
                 if (!valideRoom) {
                     unvalideListRoom.add(r);

@@ -16,10 +16,7 @@ public class DateComparer {
      * @return
      */
     public boolean dateEarlier(Date date1, Date date2) {
-        if (date1.compareTo(date2) >= 0)
-            return true;
-        else
-            return false;
+        return date1.compareTo(date2) >= 0;
     }
 
     /**
@@ -30,10 +27,24 @@ public class DateComparer {
      * @return
      */
     public boolean dateEquals(Date date1, Date date2) {
-        if (date1.compareTo(date2) == 0)
-            return true;
-        else
-            return false;
+        return date1.compareTo(date2) == 0;
+    }
+
+    /**
+     * The function calculate the difference of days between two dates.
+     * It return true if the number of days is superior or equal to
+     * the days send in parameters. Else it return false.
+     *
+     * @param d1
+     * @param d2
+     * @param days
+     * @return
+     */
+    public boolean compareDateByDays(Date d1, Date d2, int days) {
+        long diff = Math.abs(d2.getTime() - d1.getTime());
+        long diffDays = diff / 86400000;
+
+        return diffDays >= days;
     }
 
     /**
@@ -46,7 +57,7 @@ public class DateComparer {
      * @param end2
      * @return true
      */
-    public static boolean dateBookAvailable(Date start1, Date end1, Date start2, Date end2, String status, Date dateBook, int minDay) {
+    public static boolean dateBookAvailable(Date start1, Date end1, Date start2, Date end2, String status, Date dateBook, int minDays) {
         DateComparer dc = new DateComparer();
         boolean dateValide = DateComparer.compareDateByTime(dateBook, 15, 0);
 
@@ -59,6 +70,9 @@ public class DateComparer {
         //DateBook expired
         if (status.equals("inactive") && !dateValide)
             return true;
+
+        if(!dc.compareDateByDays(start1, end1, minDays))
+            return false;
 
         if (dateStart1EarlierThanDateStart2 && !dateStart1EarlierThanDateEnd2)
             return false;
@@ -112,10 +126,6 @@ public class DateComparer {
         long diffMinutes = diff / 60000 % 60;
         long diffHours = diff / 3600000;
 
-        if (diffHours <= hours && diffMinutes < minutes) {
-            return true;
-        } else {
-            return false;
-        }
+        return diffHours <= hours && diffMinutes < minutes;
     }
 }
