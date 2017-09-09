@@ -30,7 +30,7 @@ public class BuildingController {
     @RequestMapping(method = GET)
     @ResponseStatus(HttpStatus.FOUND)
     public List<Building> getListBuildings(@RequestParam("token") String token) {
-        if (clientService.adminAccess(token) == true) {
+        if (clientService.adminAccess(token)) {
             return buildingService.getListBuildings();
         }
 
@@ -40,7 +40,7 @@ public class BuildingController {
     @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     public void addBuilding(@RequestBody Building building, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token) == true) {
+        if (clientService.adminAccess(token)) {
             buildingService.addBuilding(building);
         }
     }
@@ -48,7 +48,7 @@ public class BuildingController {
     @RequestMapping(method = PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateBuilding(@RequestBody Building building, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token) == true) {
+        if (clientService.adminAccess(token)) {
             buildingService.updateBuilding(building);
         }
     }
@@ -56,8 +56,7 @@ public class BuildingController {
     @RequestMapping(method = DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void deleteBuilding(@RequestParam("idBuilding") int id, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token) == true) {
-            roomService.deleteListRoomByBuilding(id);
+        if (clientService.adminAccess(token)) {
             buildingService.deleteBuilding(id);
         }
     }

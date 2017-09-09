@@ -11,19 +11,17 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "NewsLetter")
+@Table(name = "newsLetter")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NewsLetter {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_news_letter")
     private int id;
-    @Column(name = "id_client")
-    private long idClient;
-    @Column(name = "send_news_letter")
-    private boolean sendNewsLetter;
-    @Column(name = "description")
-    private String description;
+
+    @Column(name = "content")
+    private String content;
+
     @Column(name = "reason")
     private String reason;
 }

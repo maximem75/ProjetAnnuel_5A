@@ -5,10 +5,11 @@ import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.Set;
+
+/**
+ * Created by maxime on 06/09/2017.
+ */
 
 @Getter
 @Setter
@@ -16,20 +17,23 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "building")
+@Table(name = "roomService")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Building {
+public class RoomService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_building")
+    @Column(name = "id_room_service")
     private int id;
 
     @Column(name = "name")
-    @NotEmpty(message = "A building must have a name")
+    @NotEmpty(message = "A service must have a name")
     private String name;
 
-    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
-    private Set<Room> rooms;
+    @Column(name = "price")
+    @NotEmpty(message = "A service must have a price")
+    private float price;
 
+    @OneToMany(mappedBy = "roomService", cascade = CascadeType.ALL)
+    private Set<RoomBookingServices> roomBookingServices;
 }

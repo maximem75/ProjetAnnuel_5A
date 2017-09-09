@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import server.model.RoomBooking;
 import server.model.*;
 import server.service.*;
+import server.service.RoomService;
 import server.utils.DateComparer;
 
 import java.util.*;
@@ -53,7 +54,7 @@ public class RoomBookingController {
                 for (RoomBooking rb : listRoomBooking) {
                     List<Room> tmpLs = new ArrayList<Room>(listValideRoomBooking);
                     for (Room r : tmpLs) {
-                        if (r.getIdRoomCategory() == rb.getIdRoomCategory()) {
+                        if (r.getRoomCategory().getId() == rb.getIdRoomCategory()) {
                             rb.setRefRoomBook(refBookRoom);
                             rb.setStatus("inactive");
                             rb.setDateBook(new Date());
@@ -73,6 +74,8 @@ public class RoomBookingController {
 
         return "";
     }
+
+    //TODO Calcule du cout via le ref_book_room et renvoie au JS
 
     @RequestMapping(path = "validate", method = POST)
     @ResponseStatus(value = OK)

@@ -1,11 +1,15 @@
 package server.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
-import javax.persistence.Table;
+import java.util.Set;
+
+/**
+ * Created by maxime on 06/09/2017.
+ */
 
 @Getter
 @Setter
@@ -13,26 +17,28 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "service")
+@Table(name = "festiveRoomService")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Services {
+public class FestiveRoomService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_service")
-    @NotEmpty(message = "A service must have a name")
+    @Column(name = "id_festive_room_service")
     private int id;
 
     @Column(name = "name")
     @NotEmpty(message = "A service must have a name")
     private String name;
 
+    @Column(name = "price")
+    @NotEmpty(message = "A service must have a price")
+    private float price;
+
     @Column(name = "quantity")
     @NotEmpty(message = "A service must have a quantity")
     private int quantity;
 
-    @Column(name = "price")
-    @NotEmpty(message = "A service must have a price")
-    private double price;
+    @OneToMany(mappedBy = "festiveRoomService", cascade = CascadeType.ALL)
+    private Set<FestiveRoomBookingServices> festiveRoomBookingServices;
 
 }

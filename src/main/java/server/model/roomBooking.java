@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Null;
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -13,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "room_booking")
+@Table(name = "roomBooking")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RoomBooking {
     @Id
@@ -47,4 +48,7 @@ public class RoomBooking {
 
     @Column(name = "ref_room_book")
     private String refRoomBook;
+
+    @OneToMany(mappedBy = "roomBooking", cascade = CascadeType.ALL)
+    private Set<RoomBookingServices> roomBookingServices;
 }

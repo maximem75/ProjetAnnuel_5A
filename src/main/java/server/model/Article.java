@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Article")
+@Table(name = "article")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Article {
 
@@ -25,19 +25,19 @@ public class Article {
     private int id;
 
     @Column(name = "title")
-    @NotEmpty(message = "A article must have a title")
+    @NotEmpty(message = "An article must have a title")
     private String title;
 
     @Column(name = "content")
-    @NotEmpty(message = "A article must have a content")
+    @NotEmpty(message = "An article must have a content")
     private StringBuilder content;
 
     @Column(name = "date")
-    @NotEmpty(message = "A buarticleilding must have a date")
+    @NotEmpty(message = "An article must have a date")
     private Date date;
 
     @Column(name = "picture_path")
-    @NotEmpty(message = "A article must have a picture ")
+    @NotEmpty(message = "An article must have a picture path ")
     private String picturePath;
 
 

@@ -29,7 +29,7 @@ public class RoomService {
     private RoomBookingRepository roomBookingRepository;
 
     public void addRoom(Room room) {
-        if (buildingRepository.findById(room.getIdBuilding()) != null && roomCategoryRepository.findById(room.getIdRoomCategory()) != null)
+        if (room.getBuilding() != null && room.getRoomCategory() != null)
             roomRepository.save(room);
     }
 
@@ -43,14 +43,6 @@ public class RoomService {
 
     public List<Room> getListRooms() {
         return roomRepository.findAll();
-    }
-
-    public void deleteListRoomByCategory(int idRoomCategory) {
-        roomRepository.deleteListRoomByCategory(idRoomCategory);
-    }
-
-    public void deleteListRoomByBuilding(int idBuilding) {
-        roomRepository.deleteListRoomByBuilding(idBuilding);
     }
 
     public List<Room> getListRoomFree(Date dateSart, Date dateEnd) {
@@ -99,7 +91,7 @@ public class RoomService {
                     int pKey = (int) pair.getKey();
                     int pValue = (int) pair.getValue();
 
-                    if (r.getIdBuilding() == b.getId() && r.getIdRoomCategory() == pKey && pValue > 0) {
+                    if (r.getBuilding().getId() == b.getId() && r.getRoomCategory().getId() == pKey && pValue > 0) {
                         int value = (int) pair.getValue() - 1;
                         currentHm.put(pKey, value);
 
@@ -143,7 +135,7 @@ public class RoomService {
             for (int i = 0; i < hmRoomCategory.get(key); i++) {
                 List<Room> tmpListRoom = new ArrayList<Room>(listRoom);
                 for (Room r : tmpListRoom) {
-                    if (r.getIdRoomCategory() == key && r.getIdBuilding() == idBuild && !listValideRoomBooking.contains(r) && hmRoomCategory.get(key) > 0) {
+                    if (r.getRoomCategory().getId() == key && r.getBuilding().getId() == idBuild && !listValideRoomBooking.contains(r) && hmRoomCategory.get(key) > 0) {
                         listValideRoomBooking.add(r);
                         int v = hmRoomCategory.get(key) - 1;
                         hmRoomCategory.put(key, v);

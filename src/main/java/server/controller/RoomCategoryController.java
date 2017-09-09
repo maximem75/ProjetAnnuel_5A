@@ -52,7 +52,6 @@ public class RoomCategoryController {
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteRoomCategory(@RequestParam(value = "idRoomCategory") int id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token) == true) {
-            roomService.deleteListRoomByCategory(id);
             roomCategoryService.deleteRoomCategory(id);
         }
     }

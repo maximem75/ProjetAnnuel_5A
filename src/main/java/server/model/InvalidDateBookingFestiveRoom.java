@@ -1,12 +1,14 @@
 package server.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
+
+/**
+ * Created by maxime on 06/09/2017.
+ */
 
 @Getter
 @Setter
@@ -14,16 +16,14 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "festiveRoomBooking")
+@Table(name = "invalidBookingDateFestiveRoom")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FestiveRoomBooking {
+public class InvalidDateBookingFestiveRoom {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_festive_room_booking")
+    @Column(name = "id_invalid_date_booking")
     private int id;
-
-    @Column(name = "booking_date")
-    private Date bookingDate;
 
     @Column(name = "date_start")
     private Date dateStart;
@@ -31,10 +31,8 @@ public class FestiveRoomBooking {
     @Column(name = "date_end")
     private Date dateEnd;
 
-    @Column(name = "status")
-    private String status;
-
-    @OneToMany(mappedBy = "festiveRoomBooking", cascade = CascadeType.ALL)
-    private Set<FestiveRoomBookingServices> festiveRoomBookingServices;
+    @ManyToOne
+    @JoinColumn(name = "id_festive_room")
+    private FestiveRoom festiveRoom;
 
 }

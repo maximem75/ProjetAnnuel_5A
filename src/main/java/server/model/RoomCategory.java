@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -29,5 +30,9 @@ public class RoomCategory {
     private String name;
 
     @Column(name = "price")
-    private int price;
+    private float price;
+
+    @OneToMany(mappedBy = "roomCategory", cascade = CascadeType.ALL)
+    private Set<Room> rooms;
+
 }

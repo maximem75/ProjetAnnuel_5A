@@ -21,35 +21,5 @@ public class FestiveRoomService {
     @Autowired
     private FestiveRoomRepository festiveRoomRepository;
 
-    public List<FestiveRoom> getAllFestiveRoom(){
-        return festiveRoomRepository.findAll();
-    }
-
-    public FestiveRoom getFestiveRoomById(int id){
-        return festiveRoomRepository.findById(id);
-    }
-
-    public List<FestiveRoom> getFestiveRoomByAvailability(String available){
-        return festiveRoomRepository.findByAvailable(available);
-    }
-
-    public void addFestiveRoom(FestiveRoom festiveRoom){
-        festiveRoomRepository.save(festiveRoom);
-    }
-
-    public String deleteFestiveRoom(int id){
-        try{
-            FestiveRoom f = festiveRoomRepository.findById(id);
-            festiveRoomRepository.delete(f);
-        }catch (Exception ex){
-            return "Error deleting table : "+ex.toString();
-        }
-        return "festiveroom successfully deleted";
-    }
-/*
-    public void updateRoom(Room room) {
-        roomRepository.save(room);
-    }
-    */
 
 }

@@ -18,7 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "restaurant_table")
+@Table(name = "restauranTable")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RestaurantTable {
 
@@ -28,7 +28,6 @@ public class RestaurantTable {
     private int id;
 
     @Column(name = "number")
-    @NotEmpty(message = "A table must have a number")
     private String number;
 
     @Column(name = "number_chairs")

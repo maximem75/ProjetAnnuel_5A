@@ -20,38 +20,4 @@ public class FestiveRoomController {
     @Autowired
     private FestiveRoomService festiveRoomService;
 
-    @RequestMapping( path = "/all", method = GET)
-    @ResponseStatus(value = OK)
-    public List<FestiveRoom> getAllFestiveRoom(){
-        List<FestiveRoom> listFestiveRomm = festiveRoomService.getAllFestiveRoom();
-        return listFestiveRomm;
-    }
-
-    @RequestMapping( value = "/{id}", method = GET)
-    @ResponseStatus(value = OK)
-    public FestiveRoom getFestiveRoomById(@PathVariable int id){
-        return festiveRoomService.getFestiveRoomById(id);
-    }
-
-    @RequestMapping( value = "/availability/{available}", method = GET)
-    @ResponseStatus(value = OK)
-    public List<FestiveRoom> getFestiveRoomByAvailability(@PathVariable String available){
-        return festiveRoomService.getFestiveRoomByAvailability(available);
-    }
-
-    @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.OK)
-    public void addFestiveRoom(@RequestBody FestiveRoom festiveRoom){
-        festiveRoomService.addFestiveRoom(festiveRoom);
-    }
-
-
-    @RequestMapping( value = "/delete/{id}", method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public void deleteFestiveRoom(int id){
-        festiveRoomService.deleteFestiveRoom(id);
-    }
-
-
 }

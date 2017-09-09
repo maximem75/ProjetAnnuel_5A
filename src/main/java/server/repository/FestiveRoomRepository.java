@@ -8,7 +8,4 @@ import java.util.List;
 @Repository
 public interface FestiveRoomRepository extends JpaRepository<FestiveRoom, Long>{
 
-    FestiveRoom findById(int id);
-
-    List<FestiveRoom> findByAvailable(String available);
 }

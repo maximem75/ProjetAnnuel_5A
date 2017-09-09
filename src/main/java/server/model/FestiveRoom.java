@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -24,10 +25,9 @@ public class FestiveRoom {
     @Column(name = "id_festive_room")
     private int id;
 
-    @Column (name ="price")
+    @Column (name = "price")
     private double price;
 
-    @Column (name ="available")
-    private String available;
-
+    @OneToMany(mappedBy = "festiveRoom", cascade = CascadeType.ALL)
+    private Set<InvalidDateBookingFestiveRoom> invalidDateBookingFestiveRooms;
 }
