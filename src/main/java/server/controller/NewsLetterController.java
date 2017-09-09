@@ -19,25 +19,5 @@ public class NewsLetterController {
     @Autowired
     private NewsLetterService newsletterService;
 
-    @RequestMapping( path = "/all", method = GET)
-    @ResponseStatus(value = OK)
-    public List<NewsLetter> getAllNewsletters(){
-        List<NewsLetter> allNewsletters = newsletterService.getAllNewsletters();
-        return allNewsletters;
-    }
-
-    @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.OK)
-    public void addNewsletter(@RequestBody NewsLetter article){
-        newsletterService.addNewsletter(article);
-    }
-
-    @RequestMapping( value = "/delete/{id}", method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public void deleteArticle(int id){
-        newsletterService.deleteNewsletter(id);
-    }
-
 
 }

@@ -21,7 +21,7 @@ public class InvalidBookingDateRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_invalid_date_booking")
+    @Column(name = "id_invalid_booking_date_room")
     private int id;
 
     @Column(name = "date_start")

@@ -29,6 +29,7 @@ public class RoomService {
     private RoomBookingRepository roomBookingRepository;
 
     public void addRoom(Room room) {
+        System.out.println(room.getBuilding().getId());
         if (room.getBuilding() != null && room.getRoomCategory() != null)
             roomRepository.save(room);
     }
@@ -42,7 +43,7 @@ public class RoomService {
     }
 
     public List<Room> getListRooms() {
-        return roomRepository.findAll();
+        return roomRepository.getListRoom();
     }
 
     public List<Room> getListRoomFree(Date dateSart, Date dateEnd) {

@@ -62,9 +62,8 @@ public class ClientController {
     @RequestMapping(method = GET, value="/adminGetList")
     @ResponseStatus(OK)
     public List<Client> getListIsAdmin(@RequestParam("token") String tokenClient) {
-        if(clientService.adminAccess(tokenClient) == true){
-            //return clientRepository.findAll();
-            return null;
+        if(clientService.adminAccess(tokenClient)){
+            return clientRepository.findAll();
         }
 
         return null;

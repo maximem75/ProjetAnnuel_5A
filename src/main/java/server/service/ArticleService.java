@@ -35,6 +35,10 @@ public class ArticleService {
         articleRepository.save(article);
     }
 
+    public void updateArticle(Article article) {
+        articleRepository.save(article);
+    }
+
     public String deleteArticle(int id){
         try{
             Article f = articleRepository.findById(id);

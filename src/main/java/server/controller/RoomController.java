@@ -26,7 +26,7 @@ public class RoomController {
     @RequestMapping(method = GET)
     @ResponseStatus(HttpStatus.FOUND)
     public List<Room> getListRooms(@RequestParam("token") String token) {
-        if (clientService.adminAccess(token) == true) {
+        if (clientService.adminAccess(token)) {
             return roomService.getListRooms();
         }
 
@@ -36,7 +36,8 @@ public class RoomController {
     @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     public void addRoom(@RequestBody Room room, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token) == true) {
+        System.out.println("room controller");
+        if (clientService.adminAccess(token)) {
             roomService.addRoom(room);
         }
     }
@@ -44,18 +45,16 @@ public class RoomController {
     @RequestMapping(method = PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateRoom(@RequestBody Room room, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token) == true) {
+        if (clientService.adminAccess(token)) {
             roomService.updateRoom(room);
         }
     }
 
     @RequestMapping(method = DELETE)
     @ResponseStatus(HttpStatus.OK)
-    public void deleteRoom(@RequestParam("idRoom") int id, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token) == true) {
+    public void deleteRoom(@RequestParam("id") int id, @RequestParam("token") String token) {
+        if (clientService.adminAccess(token)) {
             roomService.deleteRoom(id);
         }
     }
-
-    //TODO recherche chambre en fonction des date de disponibilité (verification via les reservation inatctive date inf 15min)
 }

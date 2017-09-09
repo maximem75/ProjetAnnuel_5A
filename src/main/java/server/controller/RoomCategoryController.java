@@ -50,7 +50,7 @@ public class RoomCategoryController {
 
     @RequestMapping(method = DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteRoomCategory(@RequestParam(value = "idRoomCategory") int id, @RequestParam("token") String token) {
+    public void deleteRoomCategory(@RequestParam(value = "id") int id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token) == true) {
             roomCategoryService.deleteRoomCategory(id);
         }

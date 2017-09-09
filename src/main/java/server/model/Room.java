@@ -1,8 +1,11 @@
 package server.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.omg.CORBA.ServerRequest;
 
 import javax.persistence.*;
 import javax.persistence.Table;
@@ -25,7 +28,7 @@ public class Room {
     private int id;
 
     @Column(name = "number")
-    @NotEmpty(message = "A category must have a number")
+    @NotEmpty(message = "A room must have a number")
     private String number;
 
     @ManyToOne
@@ -35,7 +38,4 @@ public class Room {
     @ManyToOne
     @JoinColumn(name="id_building")
     private Building building;
-
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    private Set<InvalidBookingDateRoom> invalidBookingDateRooms;
 }

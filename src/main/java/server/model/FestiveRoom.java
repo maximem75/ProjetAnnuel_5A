@@ -2,12 +2,9 @@ package server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -29,5 +26,5 @@ public class FestiveRoom {
     private double price;
 
     @OneToMany(mappedBy = "festiveRoom", cascade = CascadeType.ALL)
-    private Set<InvalidDateBookingFestiveRoom> invalidDateBookingFestiveRooms;
+    private Set<InvalidBookingDateFestiveRoom> invalidBookingDateFestiveRooms;
 }

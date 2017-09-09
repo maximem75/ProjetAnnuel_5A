@@ -29,7 +29,4 @@ public class Building {
     @NotEmpty(message = "A building must have a name")
     private String name;
 
-    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
-    private Set<Room> rooms;
-
 }

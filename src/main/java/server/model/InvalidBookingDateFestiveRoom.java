@@ -18,11 +18,11 @@ import java.util.Date;
 @Entity
 @Table(name = "invalidBookingDateFestiveRoom")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class InvalidDateBookingFestiveRoom {
+public class InvalidBookingDateFestiveRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_invalid_date_booking")
+    @Column(name = "id_invalid_booking_date_festive_room")
     private int id;
 
     @Column(name = "date_start")

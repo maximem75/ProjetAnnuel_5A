@@ -24,33 +24,4 @@ public class RestaurantTableController {
         List<RestaurantTable> listTables = restaurantTableService.getAllRestaurantTable();
         return listTables;
     }
-
-    @RequestMapping( path = "/number/{number}", method = GET)
-    @ResponseStatus(value = OK)
-    public RestaurantTable getTableByNumber(@PathVariable String number){
-        return restaurantTableService.getTableByNumber(number);
-    }
-
-    @RequestMapping( path = "/chairs/{numberChairs}", method = GET)
-    @ResponseStatus(value = OK)
-    public List<RestaurantTable> getTableByChairsNumber(@PathVariable int numberChairs){
-        return restaurantTableService.getTableByChairsNumber(numberChairs);
-    }
-
-    @RequestMapping( path = "/{id}", method = GET)
-    @ResponseStatus(value = OK)
-    public RestaurantTable getTableById(@PathVariable int id){
-        return restaurantTableService.getTableById(id);
-    }
-
-    @RequestMapping( method = POST)
-    public void addTable(@RequestBody RestaurantTable restaurantTable){
-        restaurantTableService.addTable(restaurantTable);
-    }
-
-    @RequestMapping( path = "/delete/{id}", method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteTable(@PathVariable int id) {
-        restaurantTableService.deleteTable(id);
-    }
 }

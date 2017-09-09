@@ -55,7 +55,7 @@ public class BuildingController {
 
     @RequestMapping(method = DELETE)
     @ResponseStatus(HttpStatus.OK)
-    public void deleteBuilding(@RequestParam("idBuilding") int id, @RequestParam("token") String token) {
+    public void deleteBuilding(@RequestParam("id") int id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             buildingService.deleteBuilding(id);
         }
