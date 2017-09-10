@@ -13,25 +13,5 @@ public class NewsLetterService {
     @Autowired
     private NewsLetterRepository newsletterRepository;
 
-    public List<NewsLetter> getAllNewsletters() {
-        return newsletterRepository.findAll();
-    }
 
-    public NewsLetter getNewsletterById(Long id) {
-        return newsletterRepository.findById(id);
-    }
-
-    public void addNewsletter(NewsLetter n) {
-        newsletterRepository.save(n);
-    }
-
-    public String deleteNewsletter(Long id){
-        try{
-            NewsLetter f = newsletterRepository.findById(id);
-            newsletterRepository.delete(f);
-        }catch (Exception ex){
-            return "Error deleting newsletter : "+ex.toString();
-        }
-        return " NewsLetter successfully deleted";
-    }
 }

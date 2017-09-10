@@ -23,36 +23,4 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
-    public List<Article> getAllArticles() {
-        return articleRepository.findAll();
-    }
-
-    public Article getArticleById(Long id) {
-        return articleRepository.findById(id);
-    }
-
-    public void addArticle(Article article) {
-        articleRepository.save(article);
-    }
-
-    public void updateArticle(Article article) {
-        articleRepository.save(article);
-    }
-
-    public String deleteArticle(Long id){
-        try{
-            Article f = articleRepository.findById(id);
-            articleRepository.delete(f);
-        }catch (Exception ex){
-            return "Error deleting article : "+ex.toString();
-        }
-        return " article successfully deleted";
-    }
-
-/*
-    public void updateRoom(Room room) {
-        roomRepository.save(room);
-    }
-    */
-
 }

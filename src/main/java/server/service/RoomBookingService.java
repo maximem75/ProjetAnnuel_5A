@@ -14,18 +14,6 @@ public class RoomBookingService {
     @Autowired
     private RoomBookingRepository roomBookingRepository;
 
-    public void addRoomBooking(RoomBooking roomBooking){
-        roomBookingRepository.save(roomBooking);
-    }
-
-    public void updateRoomBooking(RoomBooking roomBooking){
-        roomBookingRepository.save(roomBooking);
-    }
-
-    public List<RoomBooking> getListRoomBookingById(Long idRoom){
-        return roomBookingRepository.getListRoomBookingById(idRoom);
-    }
-
     public List<RoomBooking> getListRoomBookingByRefBookRoom(String refBookRoom){
         return roomBookingRepository.getListRoomBookingByRefBookRoom(refBookRoom);
     }

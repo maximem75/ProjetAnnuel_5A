@@ -6,11 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import server.model.FestiveRoom;
 import server.repository.FestiveRoomRepository;
 import server.service.ClientService;
-import server.service.FestiveRoomService;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController

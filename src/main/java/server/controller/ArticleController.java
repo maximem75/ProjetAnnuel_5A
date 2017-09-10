@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.model.Article;
+import server.repository.ArticleRepository;
 import server.service.ArticleService;
 import server.service.ClientService;
 
@@ -17,7 +18,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class ArticleController {
 
     @Autowired
-    private ArticleService articleService;
+    private ArticleRepository articleRepository;
 
     @Autowired
     private ClientService clientService;
@@ -25,21 +26,21 @@ public class ArticleController {
     @RequestMapping( path = "/all", method = GET)
     @ResponseStatus(value = OK)
     public List<Article> getAllArticles(){
-        List<Article> listArticles = articleService.getAllArticles();
+        List<Article> listArticles = articleRepository.findAll();
         return listArticles;
     }
 
     @RequestMapping(method = GET)
     @ResponseStatus(value = OK)
     public Article getArticleById(@PathVariable Long id){
-        return articleService.getArticleById(id);
+        return articleRepository.getOne(id);
     }
 
     @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.OK)
     public void addArticle(@RequestBody Article article, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
-            articleService.addArticle(article);
+            articleRepository.save(article);
         }
     }
 
@@ -47,7 +48,7 @@ public class ArticleController {
     @ResponseStatus(HttpStatus.OK)
     public void updateArticle(@RequestBody Article article, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
-            articleService.updateArticle(article);
+            articleRepository.save(article);
         }
     }
 
@@ -56,7 +57,7 @@ public class ArticleController {
     @ResponseBody
     public void deleteArticle(@RequestParam("id") Long id, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
-            articleService.deleteArticle(id);
+            articleRepository.delete(id);
         }
     }
 

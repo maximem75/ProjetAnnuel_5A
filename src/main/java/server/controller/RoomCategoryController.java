@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.model.RoomCategory;
+import server.repository.RoomCategoryRepository;
 import server.service.ClientService;
 import server.service.RoomCategoryService;
 import server.service.RoomService;
@@ -21,22 +22,22 @@ public class RoomCategoryController {
     private RoomCategoryService roomCategoryService;
 
     @Autowired
-    private ClientService clientService;
+    private RoomCategoryRepository roomCategoryRepository;
 
     @Autowired
-    private RoomService roomService;
+    private ClientService clientService;
 
     @RequestMapping(path = "getListRoomCategories", method = GET)
     @ResponseStatus(value = HttpStatus.FOUND)
     public List<RoomCategory> getListRoomCategories() {
-        return roomCategoryService.getListRoomCategories();
+        return roomCategoryRepository.findAll();
     }
 
     @RequestMapping(method = POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public void addRoomCategory(@RequestBody RoomCategory roomCategory, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            roomCategoryService.addRoomCategory(roomCategory);
+            roomCategoryRepository.save(roomCategory);
         }
     }
 
@@ -44,7 +45,7 @@ public class RoomCategoryController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public void updateRoomCategory(@RequestBody RoomCategory roomCategory, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            roomCategoryService.updateRoomCategory(roomCategory);
+            roomCategoryRepository.save(roomCategory);
         }
     }
 
@@ -52,7 +53,7 @@ public class RoomCategoryController {
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteRoomCategory(@RequestParam(value = "id") Long id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            roomCategoryService.deleteRoomCategory(id);
+            roomCategoryRepository.delete(id);
         }
     }
 }

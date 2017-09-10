@@ -14,14 +14,4 @@ import java.util.List;
 @Repository
 public interface BuildingRepository extends JpaRepository<Building, Long> {
 
-    @Query("select b from Building b")
-    List<Building> getListBuildings();
-
-    @Transactional
-    @Modifying
-    @Query("delete from Building rc where id = :IdBuilding")
-    void deleteBuilding(@Param("IdBuilding") Long id);
-
-    Building findById(Long id);
-
 }

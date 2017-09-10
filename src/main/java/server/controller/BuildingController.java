@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import server.model.Building;
+import server.repository.BuildingRepository;
 import server.service.BuildingService;
 import server.service.ClientService;
 import server.service.RoomService;
@@ -22,16 +23,13 @@ public class BuildingController {
     private ClientService clientService;
 
     @Autowired
-    private BuildingService buildingService;
-
-    @Autowired
-    private RoomService roomService;
+    private BuildingRepository buildingRepository;
 
     @RequestMapping(method = GET)
     @ResponseStatus(HttpStatus.FOUND)
     public List<Building> getListBuildings(@RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            return buildingService.getListBuildings();
+            return buildingRepository.findAll();
         }
 
         return null;
@@ -41,7 +39,7 @@ public class BuildingController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addBuilding(@RequestBody Building building, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            buildingService.addBuilding(building);
+            buildingRepository.save(building);
         }
     }
 
@@ -49,7 +47,7 @@ public class BuildingController {
     @ResponseStatus(HttpStatus.OK)
     public void updateBuilding(@RequestBody Building building, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            buildingService.updateBuilding(building);
+            buildingRepository.save(building);
         }
     }
 
@@ -57,7 +55,7 @@ public class BuildingController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteBuilding(@RequestParam("id") Long id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            buildingService.deleteBuilding(id);
+            buildingRepository.delete(id);
         }
     }
 }

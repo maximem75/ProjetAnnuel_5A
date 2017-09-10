@@ -33,27 +33,15 @@ public class RoomService {
             roomRepository.save(room);
     }
 
-    public void updateRoom(Room room) {
-        roomRepository.save(room);
-    }
-
-    public void deleteRoom(Long id) {
-        roomRepository.deleteRoom(id);
-    }
-
-    public List<Room> getListRooms() {
-        return roomRepository.getListRoom();
-    }
-
     public List<Room> getListRoomFree(Date dateSart, Date dateEnd) {
         boolean valideRoom;
 
-        List<Room> listRoom = roomRepository.getListRoom();
+        List<Room> listRoom = roomRepository.findAll();
         List<Room> unvalideListRoom = new ArrayList<Room>();
         List<RoomBooking> listRoomBookingBdd = roomBookingRepository.getListRoomBookingByMinDate(dateSart);
 
         for (RoomBooking rb : listRoomBookingBdd) {
-            Room r = roomRepository.findRoomById(rb.getIdRoom());
+            Room r = roomRepository.getOne(rb.getIdRoom());
             if (!unvalideListRoom.contains(r)) {
                 valideRoom = DateComparer.dateBookAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd(), rb.getStatus(), rb.getDateBook(), 1);
 
@@ -72,7 +60,7 @@ public class RoomService {
         return listRoom;
     }
 
-    public Long findIdBuilding(List<Room> listRoom, List<Building> listBuilding, HashMap<Long, Integer> hmRoomCategory) {
+    private Long findIdBuilding(List<Room> listRoom, List<Building> listBuilding, HashMap<Long, Integer> hmRoomCategory) {
         int nbr;
         int nbrMax = 0;
         Long idBuild = -1L;
@@ -91,7 +79,7 @@ public class RoomService {
                     Long pKey = (Long) pair.getKey();
                     int pValue = (int) pair.getValue();
 
-                    if (r.getBuilding().getId() == b.getId() && r.getRoomCategory().getId() == pKey && pValue > 0) {
+                    if (Objects.equals(r.getBuilding().getId(), b.getId()) && Objects.equals(r.getRoomCategory().getId(), pKey) && pValue > 0) {
                         int value = (int) pair.getValue() - 1;
                         currentHm.put(pKey, value);
 
@@ -125,7 +113,7 @@ public class RoomService {
         HashMap<Long, Integer> tmpHm = new HashMap<Long, Integer>(hmRoomCategory);
         Iterator it = tmpHm.entrySet().iterator();
 
-        Building rmBuilding = buildingRepository.findById(idBuild);
+        Building rmBuilding = buildingRepository.getOne(idBuild);
         listBuilding.remove(rmBuilding);
 
         while (it.hasNext()) {

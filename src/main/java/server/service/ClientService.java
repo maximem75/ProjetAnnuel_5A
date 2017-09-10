@@ -19,14 +19,6 @@ public class ClientService {
     @Autowired
     private SecurityClientService securityClientService;
 
-    public Client getById(Long id) {
-        return clientRepository.findClientById(id);
-    }
-
-    public Client addClient(Client client) {
-        return clientRepository.save(client);
-    }
-
     public Client updateClient(Client client) {
         return clientRepository.save(client);
     }
@@ -36,7 +28,7 @@ public class ClientService {
 
         if (client != null) {
             boolean available = tokenAvailable(client);
-            if (available == true) {
+            if (available) {
                 client.setTokenDate(new Date());
                 clientRepository.save(client);
 
@@ -60,10 +52,10 @@ public class ClientService {
     }
 
     public Client confirmation(String email, String code) {
-        List<Client> clients = clientRepository.confirmation(email, code);
+        Client client = clientRepository.confirmation(email, code);
 
-        if (clients.size() > 0) {
-            return clients.get(0);
+        if (client != null) {
+            return client;
         } else {
             return null;
         }

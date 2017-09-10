@@ -39,7 +39,7 @@ public class ClientController {
         Client client = clientService.login(email, pswd);
 
         if(client != null){
-            clientService.updateClient(client);
+            clientRepository.save(client);
             return client;
         } else {
             throw new IllegalArgumentException("error");
@@ -132,7 +132,7 @@ public class ClientController {
             securityClientService.createAndUpdatePasswordClient(client);
             client.setStatusActif("inactive"); // active / removed
             client.setAccreditation("user"); // admin
-            return clientService.addClient(client);
+            return clientRepository.save(client);
         } else {
             return null;
         }

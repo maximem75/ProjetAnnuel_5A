@@ -13,19 +13,4 @@ public class BuildingService {
     @Autowired
     private BuildingRepository buildingRepository;
 
-    public List<Building> getListBuildings(){
-        return buildingRepository.getListBuildings();
-    }
-
-    public void addBuilding(Building building){
-        buildingRepository.save(building);
-    }
-
-    public void updateBuilding(Building building){
-        buildingRepository.save(building);
-    }
-
-    public void deleteBuilding(Long id){
-        buildingRepository.deleteBuilding(id);
-    }
 }

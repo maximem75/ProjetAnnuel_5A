@@ -12,39 +12,4 @@ public class RestaurantTableService {
     @Autowired
     private RestaurantTableRepository restaurantTableRepository;
 
-    public List<RestaurantTable> getAllRestaurantTable(){
-        return restaurantTableRepository.findAll();
-    }
-
-    public RestaurantTable getTableById(Long id){
-        return restaurantTableRepository.findById(id);
-    }
-
-    public RestaurantTable getTableByNumber(String number){
-        return restaurantTableRepository.findByNumber(number);
-    }
-
-    public List<RestaurantTable> getTableByChairsNumber(int numberChairs){
-        return restaurantTableRepository.findByNumberChairs(numberChairs);
-    }
-
-    public void addTable(RestaurantTable table){
-        restaurantTableRepository.save(table);
-    }
-
-    public String deleteTable(Long id){
-        try{
-            RestaurantTable r = restaurantTableRepository.findById(id);
-            restaurantTableRepository.delete(r);
-        }catch (Exception ex){
-            return "Error deleting table : "+ex.toString();
-        }
-        return "table successfully deleted";
-    }
-/*
-    public void updateRoom(Room room) {
-        roomRepository.save(room);
-    }
-    */
-
 }

@@ -14,21 +14,6 @@ public class RoomCategoryService {
     @Autowired
     private RoomCategoryRepository roomCategoryRepository;
 
-    public List<RoomCategory> getListRoomCategories() {
-        return roomCategoryRepository.getListRoomCategories();
-    }
-
-    public void addRoomCategory(RoomCategory roomCategory) {
-        roomCategoryRepository.save(roomCategory);
-    }
-
-    public void updateRoomCategory(RoomCategory roomCategory) {
-        roomCategoryRepository.save(roomCategory);
-    }
-
-    public void deleteRoomCategory(Long id) {
-        roomCategoryRepository.deleteRoomCategory(id);
-    }
 
     public HashMap<Long, Integer> getHashMapCategoryFromListRoomBook(List<RoomBooking> listRoomBooking) {
         HashMap<Long, Integer> hmRoomCategory = new HashMap<Long, Integer>();
@@ -42,14 +27,6 @@ public class RoomCategoryService {
                 hmRoomCategory.put(roomCategory.getId(), hmRoomCategory.get(roomCategory.getId()) + 1);
             }
         }
-
-//        Iterator it = hmRoomCategory.entrySet().iterator();
-//        while (it.hasNext()) {
-//            Map.Entry pair = (Map.Entry) it.next();
-//            System.out.println(pair.getKey() + " = " + pair.getValue());
-//
-//            it.remove();
-//        }
 
         return hmRoomCategory;
     }

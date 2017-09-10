@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import server.model.Building;
 import server.model.Room;
+import server.repository.RoomRepository;
 import server.service.ClientService;
 import server.service.RoomService;
 
@@ -21,13 +22,13 @@ public class RoomController {
     private ClientService clientService;
 
     @Autowired
-    private RoomService roomService;
+    private RoomRepository roomRepository;
 
     @RequestMapping(method = GET)
     @ResponseStatus(HttpStatus.FOUND)
     public List<Room> getListRooms(@RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            return roomService.getListRooms();
+            return roomRepository.findAll();
         }
 
         return null;
@@ -37,7 +38,7 @@ public class RoomController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addRoom(@RequestBody Room room, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            roomService.addRoom(room);
+            roomRepository.save(room);
         }
     }
 
@@ -45,7 +46,7 @@ public class RoomController {
     @ResponseStatus(HttpStatus.OK)
     public void updateRoom(@RequestBody Room room, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            roomService.updateRoom(room);
+            roomRepository.save(room);
         }
     }
 
@@ -53,7 +54,7 @@ public class RoomController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteRoom(@RequestParam("id") Long id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            roomService.deleteRoom(id);
+            roomRepository.delete(id);
         }
     }
 }

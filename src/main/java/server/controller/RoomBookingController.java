@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import server.model.RoomBooking;
 import server.model.*;
+import server.repository.BuildingRepository;
+import server.repository.RoomBookingRepository;
 import server.service.*;
 import server.service.RoomService;
 import server.utils.DateComparer;
@@ -25,10 +27,13 @@ public class RoomBookingController {
     private RoomBookingService roomBookingService;
 
     @Autowired
+    private RoomBookingRepository roomBookingRepository;
+
+    @Autowired
     private RoomService roomService;
 
     @Autowired
-    private BuildingService buildingService;
+    private BuildingRepository buildingRepository;
 
     @Autowired
     private RoomCategoryService roomCategoryService;
@@ -44,7 +49,7 @@ public class RoomBookingController {
             String refBookRoom = "room_booking_" + client.getId() + "_" + refNumber;
 
             List<Room> listRoom = roomService.getListRoomFree(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
-            List<Building> listBuilding = buildingService.getListBuildings();
+            List<Building> listBuilding = buildingRepository.findAll();
             HashMap<Long, Integer> hmRoomCategory = roomCategoryService.getHashMapCategoryFromListRoomBook(listRoomBooking);
             List<Room> listValideRoomBooking = new ArrayList<Room>();
 
@@ -60,7 +65,7 @@ public class RoomBookingController {
                             rb.setDateBook(new Date());
                             rb.setIdRoom(r.getId());
                             rb.setIdClient(client.getId());
-                            roomBookingService.addRoomBooking(rb);
+                            roomBookingRepository.save(rb);
                             listValideRoomBooking.remove(r);
 
                             break;
@@ -88,7 +93,7 @@ public class RoomBookingController {
             for (RoomBooking rb : listRoomBooking) {
                 if (Objects.equals(rb.getIdClient(), client.getId())) {
                     rb.setStatus("active");
-                    roomBookingService.updateRoomBooking(rb);
+                    roomBookingRepository.save(rb);
                 }
             }
         }

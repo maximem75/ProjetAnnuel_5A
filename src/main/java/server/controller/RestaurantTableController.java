@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.model.RestaurantTable;
+import server.repository.RestaurantTableRepository;
 import server.service.RestaurantTableService;
 import java.util.List;
 import static org.springframework.http.HttpStatus.OK;
@@ -16,12 +17,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class RestaurantTableController {
 
     @Autowired
-    private RestaurantTableService restaurantTableService;
+    private RestaurantTableRepository restaurantTableRepository;
 
     @RequestMapping( path = "/all", method = GET)
     @ResponseStatus(value = OK)
     public List<RestaurantTable> getAllTablesList(){
-        List<RestaurantTable> listTables = restaurantTableService.getAllRestaurantTable();
+        List<RestaurantTable> listTables = restaurantTableRepository.findAll();
         return listTables;
     }
 }
