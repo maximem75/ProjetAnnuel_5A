@@ -19,7 +19,7 @@ public class ClientService {
     @Autowired
     private SecurityClientService securityClientService;
 
-    public Client getById(int id) {
+    public Client getById(Long id) {
         return clientRepository.findClientById(id);
     }
 

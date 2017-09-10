@@ -26,19 +26,19 @@ public class RoomCategoryService {
         roomCategoryRepository.save(roomCategory);
     }
 
-    public void deleteRoomCategory(int id) {
+    public void deleteRoomCategory(Long id) {
         roomCategoryRepository.deleteRoomCategory(id);
     }
 
-    public HashMap<Integer, Integer> getHashMapCategoryFromListRoomBook(List<RoomBooking> listRoomBooking) {
-        HashMap<Integer, Integer> hmRoomCategory = new HashMap<Integer, Integer>();
+    public HashMap<Long, Integer> getHashMapCategoryFromListRoomBook(List<RoomBooking> listRoomBooking) {
+        HashMap<Long, Integer> hmRoomCategory = new HashMap<Long, Integer>();
 
         for (RoomBooking rb : listRoomBooking) {
             RoomCategory roomCategory = roomCategoryRepository.findById(rb.getIdRoomCategory());
 
-            if (hmRoomCategory.get(roomCategory.getId()) == null && roomCategory != null) {
+            if (hmRoomCategory.get(roomCategory.getId()) == null) {
                 hmRoomCategory.put(roomCategory.getId(), 1);
-            } else if (hmRoomCategory.get(roomCategory.getId()) != null && roomCategory != null) {
+            } else if (hmRoomCategory.get(roomCategory.getId()) != null) {
                 hmRoomCategory.put(roomCategory.getId(), hmRoomCategory.get(roomCategory.getId()) + 1);
             }
         }

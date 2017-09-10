@@ -24,7 +24,7 @@ public class FestiveRoomService {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_festive_room_service")
-    private int id;
+    private Long id;
 
     @Column(name = "name")
     @NotEmpty(message = "A service must have a name")

@@ -25,7 +25,7 @@ public class BuildingService {
         buildingRepository.save(building);
     }
 
-    public void deleteBuilding(int id){
+    public void deleteBuilding(Long id){
         buildingRepository.deleteBuilding(id);
     }
 }

@@ -25,7 +25,7 @@ public class RestaurantTable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_restaurant_table")
-    private int id;
+    private Long id;
 
     @Column(name = "number")
     private String number;

@@ -20,7 +20,7 @@ public class RestaurantTableBooking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_restaurant_booking")
-    private int id;
+    private Long id;
 
     @Column(name = "booking_date")
     private Date bookingDate;
@@ -29,12 +29,12 @@ public class RestaurantTableBooking {
     private Date restaurantDate;
 
     @Column(name = "number_chairs")
-    private int numberChairs;
+    private Long numberChairs;
 
     @Column(name = "id_client")
-    private int idClient;
+    private Long idClient;
 
     @Column(name = "id_restaurant_table")
-    private int idRestaurantTable;
+    private Long idRestaurantTable;
 
 }

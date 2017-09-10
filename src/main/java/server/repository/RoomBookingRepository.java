@@ -13,7 +13,7 @@ import java.util.List;
 public interface RoomBookingRepository extends JpaRepository<RoomBooking, Long> {
 
     @Query("select rb from RoomBooking rb where idRoom = :IdRoom")
-    List<RoomBooking> getListRoomBookingById(@Param("IdRoom") int IdRoom);
+    List<RoomBooking> getListRoomBookingById(@Param("IdRoom") Long IdRoom);
 
     @Query("select rb from RoomBooking rb where dateEnd > :MinDate or dateEnd = :MinDate")
     List<RoomBooking> getListRoomBookingByMinDate(@Param("MinDate") Date MinDate);
@@ -25,5 +25,5 @@ public interface RoomBookingRepository extends JpaRepository<RoomBooking, Long> 
     List<RoomBooking> getListRoomBookingByRefBookRoom(@Param("RefRoomBook") String RefRoomBook);
 
     @Query("select rb from RoomBooking rb where idClient = :IdClient")
-    List<RoomBooking> getListRoomBookingByIdClient(@Param("IdClient") int IdClient);
+    List<RoomBooking> getListRoomBookingByIdClient(@Param("IdClient") Long IdClient);
 }

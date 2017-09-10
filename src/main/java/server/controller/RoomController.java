@@ -36,7 +36,6 @@ public class RoomController {
     @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     public void addRoom(@RequestBody Room room, @RequestParam("token") String token) {
-        System.out.println("room controller");
         if (clientService.adminAccess(token)) {
             roomService.addRoom(room);
         }
@@ -52,7 +51,7 @@ public class RoomController {
 
     @RequestMapping(method = DELETE)
     @ResponseStatus(HttpStatus.OK)
-    public void deleteRoom(@RequestParam("id") int id, @RequestParam("token") String token) {
+    public void deleteRoom(@RequestParam("id") Long id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             roomService.deleteRoom(id);
         }

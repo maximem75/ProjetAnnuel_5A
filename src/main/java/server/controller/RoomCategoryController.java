@@ -35,7 +35,7 @@ public class RoomCategoryController {
     @RequestMapping(method = POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public void addRoomCategory(@RequestBody RoomCategory roomCategory, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token) == true) {
+        if (clientService.adminAccess(token)) {
             roomCategoryService.addRoomCategory(roomCategory);
         }
     }
@@ -43,15 +43,15 @@ public class RoomCategoryController {
     @RequestMapping(method = PUT)
     @ResponseStatus(value = HttpStatus.CREATED)
     public void updateRoomCategory(@RequestBody RoomCategory roomCategory, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token) == true) {
+        if (clientService.adminAccess(token)) {
             roomCategoryService.updateRoomCategory(roomCategory);
         }
     }
 
     @RequestMapping(method = DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteRoomCategory(@RequestParam(value = "id") int id, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token) == true) {
+    public void deleteRoomCategory(@RequestParam(value = "id") Long id, @RequestParam("token") String token) {
+        if (clientService.adminAccess(token)) {
             roomCategoryService.deleteRoomCategory(id);
         }
     }

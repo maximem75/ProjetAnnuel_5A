@@ -16,7 +16,7 @@ public class RestaurantTableService {
         return restaurantTableRepository.findAll();
     }
 
-    public RestaurantTable getTableById(int id){
+    public RestaurantTable getTableById(Long id){
         return restaurantTableRepository.findById(id);
     }
 
@@ -32,7 +32,7 @@ public class RestaurantTableService {
         restaurantTableRepository.save(table);
     }
 
-    public String deleteTable(int id){
+    public String deleteTable(Long id){
         try{
             RestaurantTable r = restaurantTableRepository.findById(id);
             restaurantTableRepository.delete(r);

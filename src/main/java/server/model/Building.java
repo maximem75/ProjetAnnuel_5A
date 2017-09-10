@@ -23,7 +23,7 @@ public class Building {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_building")
-    private int id;
+    private Long id;
 
     @Column(name = "name")
     @NotEmpty(message = "A building must have a name")

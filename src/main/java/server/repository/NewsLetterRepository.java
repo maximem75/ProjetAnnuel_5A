@@ -6,5 +6,5 @@ package server.repository;
 
 @Repository
 public interface NewsLetterRepository extends JpaRepository<NewsLetter, Long>{
-    NewsLetter findById(int id);
+    NewsLetter findById(Long id);
 }

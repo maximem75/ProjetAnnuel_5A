@@ -7,6 +7,7 @@ import server.repository.RoomBookingRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class RoomBookingService {
@@ -21,7 +22,7 @@ public class RoomBookingService {
         roomBookingRepository.save(roomBooking);
     }
 
-    public List<RoomBooking> getListRoomBookingById(int idRoom){
+    public List<RoomBooking> getListRoomBookingById(Long idRoom){
         return roomBookingRepository.getListRoomBookingById(idRoom);
     }
 
@@ -29,15 +30,15 @@ public class RoomBookingService {
         return roomBookingRepository.getListRoomBookingByRefBookRoom(refBookRoom);
     }
 
-    public int getNumberRefBook(int idClient){
-        int number = 0;
+    public Long getNumberRefBook(Long idClient){
+        Long number = 0L;
         String lastRef = "";
         List<String> refList = new ArrayList<>();
 
         List<RoomBooking> listRoomBook = roomBookingRepository.getListRoomBookingByIdClient(idClient);
 
         for(RoomBooking rb : listRoomBook){
-            if(!rb.getRefRoomBook().equals(lastRef) && rb.getIdClient() == idClient && !refList.contains(rb.getRefRoomBook())){
+            if(!rb.getRefRoomBook().equals(lastRef) && Objects.equals(rb.getIdClient(), idClient) && !refList.contains(rb.getRefRoomBook())){
                 lastRef = rb.getRefRoomBook();
                 refList.add(rb.getRefRoomBook());
                 number += 1;

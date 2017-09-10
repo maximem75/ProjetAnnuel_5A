@@ -40,12 +40,12 @@ public class RoomBookingController {
         boolean dateValide = DateComparer.dateValidator(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
 
         if (client != null && dateValide) {
-            int refNumber = roomBookingService.getNumberRefBook(client.getId());
+            Long refNumber = roomBookingService.getNumberRefBook(client.getId());
             String refBookRoom = "room_booking_" + client.getId() + "_" + refNumber;
 
             List<Room> listRoom = roomService.getListRoomFree(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
             List<Building> listBuilding = buildingService.getListBuildings();
-            HashMap<Integer, Integer> hmRoomCategory = roomCategoryService.getHashMapCategoryFromListRoomBook(listRoomBooking);
+            HashMap<Long, Integer> hmRoomCategory = roomCategoryService.getHashMapCategoryFromListRoomBook(listRoomBooking);
             List<Room> listValideRoomBooking = new ArrayList<Room>();
 
             listValideRoomBooking = roomService.findListRoomBooking(listValideRoomBooking, hmRoomCategory, listRoom, listBuilding);
@@ -54,7 +54,7 @@ public class RoomBookingController {
                 for (RoomBooking rb : listRoomBooking) {
                     List<Room> tmpLs = new ArrayList<Room>(listValideRoomBooking);
                     for (Room r : tmpLs) {
-                        if (r.getRoomCategory().getId() == rb.getIdRoomCategory()) {
+                        if (Objects.equals(r.getRoomCategory().getId(), rb.getIdRoomCategory())) {
                             rb.setRefRoomBook(refBookRoom);
                             rb.setStatus("inactive");
                             rb.setDateBook(new Date());
@@ -86,7 +86,7 @@ public class RoomBookingController {
             List<RoomBooking> listRoomBooking = roomBookingService.getListRoomBookingByRefBookRoom(refBookRoom);
 
             for (RoomBooking rb : listRoomBooking) {
-                if (rb.getIdClient() == client.getId()) {
+                if (Objects.equals(rb.getIdClient(), client.getId())) {
                     rb.setStatus("active");
                     roomBookingService.updateRoomBooking(rb);
                 }

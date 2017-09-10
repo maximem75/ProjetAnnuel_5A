@@ -23,7 +23,7 @@ public class RoomBookingServices {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_room_booking_services")
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_room_booking")

@@ -19,7 +19,7 @@ public interface RoomCategoryRepository extends JpaRepository<RoomCategory, Long
     @Transactional
     @Modifying
     @Query("delete from RoomCategory rc where id = :IdRoomCategory")
-    void deleteRoomCategory(@Param("IdRoomCategory") int id);
+    void deleteRoomCategory(@Param("IdRoomCategory") Long id);
 
-    RoomCategory findById(int id);
+    RoomCategory findById(Long id);
 }

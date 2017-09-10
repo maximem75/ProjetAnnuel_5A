@@ -25,7 +25,7 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_room")
-    private int id;
+    private Long id;
 
     @Column(name = "number")
     @NotEmpty(message = "A room must have a number")

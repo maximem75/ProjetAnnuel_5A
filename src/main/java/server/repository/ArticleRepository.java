@@ -7,5 +7,5 @@ import server.model.Article;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long>{
 
-    Article findById(int id);
+    Article findById(Long id);
 }

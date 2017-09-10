@@ -22,7 +22,7 @@ public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_article")
-    private int id;
+    private Long id;
 
     @Column(name = "title")
     @NotEmpty(message = "An article must have a title")

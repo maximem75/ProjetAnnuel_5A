@@ -27,7 +27,7 @@ public class ArticleService {
         return articleRepository.findAll();
     }
 
-    public Article getArticleById(int id) {
+    public Article getArticleById(Long id) {
         return articleRepository.findById(id);
     }
 
@@ -39,7 +39,7 @@ public class ArticleService {
         articleRepository.save(article);
     }
 
-    public String deleteArticle(int id){
+    public String deleteArticle(Long id){
         try{
             Article f = articleRepository.findById(id);
             articleRepository.delete(f);

@@ -24,14 +24,13 @@ public class RoomService {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_room_service")
-    private int id;
+    private Long id;
 
     @Column(name = "name")
     @NotEmpty(message = "A service must have a name")
     private String name;
 
     @Column(name = "price")
-    @NotEmpty(message = "A service must have a price")
     private float price;
 
     @OneToMany(mappedBy = "roomService", cascade = CascadeType.ALL)

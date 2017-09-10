@@ -31,7 +31,7 @@ public class ArticleController {
 
     @RequestMapping(method = GET)
     @ResponseStatus(value = OK)
-    public Article getArticleById(@PathVariable int id){
+    public Article getArticleById(@PathVariable Long id){
         return articleService.getArticleById(id);
     }
 
@@ -54,7 +54,7 @@ public class ArticleController {
     @RequestMapping(method = DELETE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public void deleteArticle(@RequestParam("id") int id, @RequestParam("token") String token){
+    public void deleteArticle(@RequestParam("id") Long id, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
             articleService.deleteArticle(id);
         }

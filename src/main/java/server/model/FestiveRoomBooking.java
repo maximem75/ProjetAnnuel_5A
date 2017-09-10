@@ -20,7 +20,7 @@ public class FestiveRoomBooking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_festive_room_booking")
-    private int id;
+    private Long id;
 
     @Column(name = "booking_date")
     private Date bookingDate;

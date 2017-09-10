@@ -20,7 +20,7 @@ public class RoomBooking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_room_booking")
-    private int id;
+    private Long id;
 
     @Column(name = "date_start")
     private Date dateStart;
@@ -32,13 +32,13 @@ public class RoomBooking {
     private Date dateBook;
 
     @Column(name = "id_client")
-    private int idClient;
+    private Long idClient;
 
     @Column(name = "id_room")
-    private int idRoom;
+    private Long idRoom;
 
     @Column(name = "id_room_category")
-    private int idRoomCategory;
+    private Long idRoomCategory;
 
     @Column(name = "reason")
     private String reason;

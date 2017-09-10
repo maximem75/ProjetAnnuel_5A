@@ -8,4 +8,9 @@ import java.util.List;
 @Repository
 public interface FestiveRoomRepository extends JpaRepository<FestiveRoom, Long>{
 
+    FestiveRoom save(FestiveRoom festiveRoom);
+
+    FestiveRoom findById(FestiveRoom festiveRoom);
+
+    List<FestiveRoom> findAll();
 }

@@ -20,7 +20,7 @@ public class FestiveRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_festive_room")
-    private int id;
+    private Long id;
 
     @Column (name = "price")
     private double price;

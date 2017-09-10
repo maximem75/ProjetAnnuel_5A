@@ -21,7 +21,7 @@ public class FestiveRoomBookingServices {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_festive_room_booking_services")
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_festive_room_booking")

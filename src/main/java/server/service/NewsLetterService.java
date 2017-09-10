@@ -17,7 +17,7 @@ public class NewsLetterService {
         return newsletterRepository.findAll();
     }
 
-    public NewsLetter getNewsletterById(int id) {
+    public NewsLetter getNewsletterById(Long id) {
         return newsletterRepository.findById(id);
     }
 
@@ -25,7 +25,7 @@ public class NewsLetterService {
         newsletterRepository.save(n);
     }
 
-    public String deleteNewsletter(int id){
+    public String deleteNewsletter(Long id){
         try{
             NewsLetter f = newsletterRepository.findById(id);
             newsletterRepository.delete(f);

@@ -29,7 +29,6 @@ public class RoomService {
     private RoomBookingRepository roomBookingRepository;
 
     public void addRoom(Room room) {
-        System.out.println(room.getBuilding().getId());
         if (room.getBuilding() != null && room.getRoomCategory() != null)
             roomRepository.save(room);
     }
@@ -38,7 +37,7 @@ public class RoomService {
         roomRepository.save(room);
     }
 
-    public void deleteRoom(int id) {
+    public void deleteRoom(Long id) {
         roomRepository.deleteRoom(id);
     }
 
@@ -73,23 +72,23 @@ public class RoomService {
         return listRoom;
     }
 
-    public int findIdBuilding(List<Room> listRoom, List<Building> listBuilding, HashMap<Integer, Integer> hmRoomCategory) {
+    public Long findIdBuilding(List<Room> listRoom, List<Building> listBuilding, HashMap<Long, Integer> hmRoomCategory) {
         int nbr;
         int nbrMax = 0;
-        int idBuild = -1;
-        HashMap<Integer, Integer> currentHm;
+        Long idBuild = -1L;
+        HashMap<Long, Integer> currentHm;
 
         for (Building b : listBuilding) {
             nbr = 0;
-            currentHm =  new HashMap<Integer, Integer>(hmRoomCategory);
+            currentHm =  new HashMap<Long, Integer>(hmRoomCategory);
 
             for (Room r : listRoom) {
-                HashMap<Integer, Integer> tempHm = new HashMap<Integer, Integer>(currentHm);
+                HashMap<Long, Integer> tempHm = new HashMap<Long, Integer>(currentHm);
                 Iterator it = tempHm.entrySet().iterator();
 
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry) it.next();
-                    int pKey = (int) pair.getKey();
+                    Long pKey = (Long) pair.getKey();
                     int pValue = (int) pair.getValue();
 
                     if (r.getBuilding().getId() == b.getId() && r.getRoomCategory().getId() == pKey && pValue > 0) {
@@ -112,18 +111,18 @@ public class RoomService {
         return idBuild;
     }
 
-    public List<Room> findListRoomBooking(List<Room> listValideRoomBooking, HashMap<Integer, Integer> hmRoomCategory, List<Room> listRoom, List<Building> listBuilding) {
+    public List<Room> findListRoomBooking(List<Room> listValideRoomBooking, HashMap<Long, Integer> hmRoomCategory, List<Room> listRoom, List<Building> listBuilding) {
         boolean total = true;
         boolean valide = true;
         List<Room> listEmpty = new ArrayList<Room>();
 
-        int idBuild = findIdBuilding(listRoom, listBuilding, hmRoomCategory);
+        Long idBuild = findIdBuilding(listRoom, listBuilding, hmRoomCategory);
 
         if(idBuild == -1){
             return listEmpty;
         }
 
-        HashMap<Integer, Integer> tmpHm = new HashMap<Integer, Integer>(hmRoomCategory);
+        HashMap<Long, Integer> tmpHm = new HashMap<Long, Integer>(hmRoomCategory);
         Iterator it = tmpHm.entrySet().iterator();
 
         Building rmBuilding = buildingRepository.findById(idBuild);
@@ -131,12 +130,12 @@ public class RoomService {
 
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
-            int key = (int) pair.getKey();
+            Long key = (Long) pair.getKey();
 
-            for (int i = 0; i < hmRoomCategory.get(key); i++) {
+            for (Long i = 0L; i < hmRoomCategory.get(key); i++) {
                 List<Room> tmpListRoom = new ArrayList<Room>(listRoom);
                 for (Room r : tmpListRoom) {
-                    if (r.getRoomCategory().getId() == key && r.getBuilding().getId() == idBuild && !listValideRoomBooking.contains(r) && hmRoomCategory.get(key) > 0) {
+                    if (Objects.equals(r.getRoomCategory().getId(), key) && Objects.equals(r.getBuilding().getId(), idBuild) && !listValideRoomBooking.contains(r) && hmRoomCategory.get(key) > 0L) {
                         listValideRoomBooking.add(r);
                         int v = hmRoomCategory.get(key) - 1;
                         hmRoomCategory.put(key, v);

@@ -11,7 +11,7 @@ import java.util.List;
 public interface RestaurantTableRepository extends JpaRepository<RestaurantTable, Long>{
 
 
-    RestaurantTable findById(int number);
+    RestaurantTable findById(Long id);
 
     RestaurantTable findByNumber(String number);
 

@@ -17,7 +17,7 @@ public class NewsLetter {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_news_letter")
-    private int id;
+    private Long id;
 
     @Column(name = "content")
     private String content;
