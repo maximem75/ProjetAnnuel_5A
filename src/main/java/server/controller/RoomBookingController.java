@@ -44,6 +44,8 @@ public class RoomBookingController {
         Client client = clientService.findByToken(token);
         boolean dateValide = DateComparer.dateValidator(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
 
+        //TODO Check into invalid dateRoomBooking
+
         if (client != null && dateValide) {
             Long refNumber = roomBookingService.getNumberRefBook(client.getId());
             String refBookRoom = "room_booking_" + client.getId() + "_" + refNumber;

@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -40,13 +41,20 @@ public class SecurityClientService {
     }
 
 
-    public Client createAndUpdatePasswordClient(Client client) {
-        int randomCode = ThreadLocalRandom.current().nextInt(0, 9999);
+    public String createCodeClient() {
+        return String.valueOf(ThreadLocalRandom.current().nextInt(0, 9999));
+    }
 
-        String pswd = hashPassword(client.getPassword());
-        client.setCode(String.valueOf(randomCode));
-        client.setPassword(pswd.toString());
-        return client;
+    public String generateNewPassword() {
+        char[] chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 8; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        System.out.println(sb.toString());
+        return sb.toString();
     }
 
     private static String bytesToHex(byte[] hash) {

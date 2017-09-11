@@ -33,7 +33,7 @@ public class ClientController {
     private SecurityClientService securityClientService;
 
     @RequestMapping(path = "/login", method = GET)
-    @ResponseStatus(value = OK)
+    @ResponseStatus(HttpStatus.FOUND)
     public Client login(@RequestParam("email") String email, @RequestParam("password") String password) {
         String pswd = securityClientService.hashPassword(password);
         Client client = clientService.login(email, pswd);
@@ -48,7 +48,7 @@ public class ClientController {
 
 
     @RequestMapping(path = "/logout", method = GET)
-    @ResponseStatus(value = OK)
+    @ResponseStatus(HttpStatus.FOUND)
     public boolean logout(@RequestParam("token") String token){
         Client client = clientService.findByToken(token);
         client.setToken(null);
@@ -60,7 +60,7 @@ public class ClientController {
 
 
     @RequestMapping(method = GET, value="/adminGetList")
-    @ResponseStatus(OK)
+    @ResponseStatus(HttpStatus.FOUND)
     public List<Client> getListIsAdmin(@RequestParam("token") String tokenClient) {
         if(clientService.adminAccess(tokenClient)){
             return clientRepository.findAll();
@@ -71,13 +71,10 @@ public class ClientController {
 
 
     @RequestMapping(path = "/reloadToken", method = GET)
-    @ResponseStatus(value = OK)
+    @ResponseStatus(HttpStatus.FOUND)
     public Date reloadToken(@RequestParam("token") String token){
         Client client = clientService.findByToken(token);
         if(client != null){
-            clientService.updateTokenDate(client);
-            clientService.updateClient(client);
-
             return client.getTokenDate();
         } else {
             return null;
@@ -85,7 +82,7 @@ public class ClientController {
     }
 
     @RequestMapping(path = "/getByToken", method = GET)
-    @ResponseStatus(value = OK)
+    @ResponseStatus(HttpStatus.FOUND)
     public Client getClientByToken(@RequestParam("token") String token){
         Client client = clientService.findByToken(token);
 
@@ -96,8 +93,9 @@ public class ClientController {
         return null;
     }
 
+
     @RequestMapping(path = "/confirmation", method = GET)
-    @ResponseStatus(value = OK)
+    @ResponseStatus(HttpStatus.FOUND)
     public Client confirmation(@RequestParam("email") String email, @RequestParam("code") String code) {
         Client client = clientService.confirmation(email, code);
 
@@ -112,36 +110,40 @@ public class ClientController {
         }
     }
 
-    /*@RequestMapping(value = "/recovery", method = GET)
-    @ResponseStatus(OK)
+
+    @RequestMapping(value = "/recovery", method = GET)
+    @ResponseStatus(HttpStatus.FOUND)
     public void recoveryPasswordClient(@RequestParam("email") String email){
         Client client = clientRepository.findClientByEmailEquals(email);
         if(client != null) {
-            client = securityClientService.createAndUpdatePasswordClient(client);
-        }
-    }*/
+            String newPassword = securityClientService.generateNewPassword();
+            client.setPassword(securityClientService.hashPassword(newPassword));
 
+            clientRepository.save(client);
+            //TODO Send new password by email
+        }
+    }
 
 
     @RequestMapping(method = POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED)
     public Client addClient(@RequestBody Client client) {
 
         Client clientExist = clientRepository.findClientByEmailEquals(client.getEmail());
         if (clientExist == null) {
-            securityClientService.createAndUpdatePasswordClient(client);
+            client.setCode(securityClientService.createCodeClient());
+            client.setPassword(securityClientService.hashPassword(client.getPassword()));
             client.setStatusActif("inactive"); // active / removed
             client.setAccreditation("user"); // admin
+
             return clientRepository.save(client);
         } else {
             return null;
         }
     }
 
-
-
     @RequestMapping(path = "/update",method = POST)
-    @ResponseStatus(value = OK)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public Client updateClient(@RequestBody Client newClient, @RequestParam("token") String token, @RequestParam("password") String password) {
         Client client = clientService.findByToken(token);
         String psw = securityClientService.hashPassword(password);
@@ -149,9 +151,8 @@ public class ClientController {
     }
 
 
-
     @RequestMapping(method = DELETE)
-    @ResponseStatus(value = ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public String deleteClient(@RequestParam("token") String token){
         Client client = clientRepository.findClientByTokenEquals(token);
         client.setStatusActif("removed");

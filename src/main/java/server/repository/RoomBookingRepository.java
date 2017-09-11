@@ -18,9 +18,6 @@ public interface RoomBookingRepository extends JpaRepository<RoomBooking, Long> 
     @Query("select rb from RoomBooking rb where dateEnd > :MinDate or dateEnd = :MinDate")
     List<RoomBooking> getListRoomBookingByMinDate(@Param("MinDate") Date MinDate);
 
-    @Query("select rb from RoomBooking rb")
-    List<RoomBooking> getListRoomBooking();
-
     @Query("select rb from RoomBooking rb where refRoomBook = :RefRoomBook")
     List<RoomBooking> getListRoomBookingByRefBookRoom(@Param("RefRoomBook") String RefRoomBook);
 

@@ -24,20 +24,20 @@ public class ArticleController {
     private ClientService clientService;
 
     @RequestMapping( path = "/all", method = GET)
-    @ResponseStatus(value = OK)
+    @ResponseStatus(HttpStatus.FOUND)
     public List<Article> getAllArticles(){
         List<Article> listArticles = articleRepository.findAll();
         return listArticles;
     }
 
     @RequestMapping(method = GET)
-    @ResponseStatus(value = OK)
+    @ResponseStatus(HttpStatus.FOUND)
     public Article getArticleById(@PathVariable Long id){
         return articleRepository.getOne(id);
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public void addArticle(@RequestBody Article article, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
             articleRepository.save(article);
@@ -45,7 +45,7 @@ public class ArticleController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void updateArticle(@RequestBody Article article, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
             articleRepository.save(article);

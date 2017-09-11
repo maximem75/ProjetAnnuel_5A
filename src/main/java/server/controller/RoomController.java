@@ -26,12 +26,8 @@ public class RoomController {
 
     @RequestMapping(method = GET)
     @ResponseStatus(HttpStatus.FOUND)
-    public List<Room> getListRooms(@RequestParam("token") String token) {
-        if (clientService.adminAccess(token)) {
-            return roomRepository.findAll();
-        }
-
-        return null;
+    public List<Room> getListRooms() {
+        return roomRepository.findAll();
     }
 
     @RequestMapping(method = POST)

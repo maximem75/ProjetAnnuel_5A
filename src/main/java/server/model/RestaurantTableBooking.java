@@ -37,4 +37,7 @@ public class RestaurantTableBooking {
     @Column(name = "id_restaurant_table")
     private Long idRestaurantTable;
 
+    @Column(name = "status")
+    private String status;
+
 }

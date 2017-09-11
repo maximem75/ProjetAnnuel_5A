@@ -101,11 +101,8 @@ public class DateComparer {
     public static boolean dateValidator(Date start, Date end) {
         DateComparer dc = new DateComparer();
 
-        if (!dc.dateEarlier(start, end)) {
-            return true;
-        }
+        return !dc.dateEarlier(start, end);
 
-        return false;
     }
 
     /**
