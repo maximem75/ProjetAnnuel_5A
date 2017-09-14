@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import server.model.RoomBooking;
+import server.model.Room;
 
 import java.util.Date;
 import java.util.List;
@@ -23,4 +24,5 @@ public interface RoomBookingRepository extends JpaRepository<RoomBooking, Long> 
 
     @Query("select rb from RoomBooking rb where idClient = :IdClient")
     List<RoomBooking> getListRoomBookingByIdClient(@Param("IdClient") Long IdClient);
+
 }

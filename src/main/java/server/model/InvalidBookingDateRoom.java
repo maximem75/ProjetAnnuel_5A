@@ -30,7 +30,9 @@ public class InvalidBookingDateRoom {
     @Column(name = "date_end")
     private Date dateEnd;
 
-    @ManyToOne
-    @JoinColumn(name = "id_room")
-    private Room room;
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "id_room")
+    private Long idRoom;
 }

@@ -26,8 +26,7 @@ public class ArticleController {
     @RequestMapping( path = "/all", method = GET)
     @ResponseStatus(HttpStatus.FOUND)
     public List<Article> getAllArticles(){
-        List<Article> listArticles = articleRepository.findAll();
-        return listArticles;
+        return articleRepository.findAll();
     }
 
     @RequestMapping(method = GET)

@@ -25,6 +25,4 @@ public class FestiveRoom {
     @Column (name = "price")
     private double price;
 
-    @OneToMany(mappedBy = "festiveRoom", cascade = CascadeType.ALL)
-    private Set<InvalidBookingDateFestiveRoom> invalidBookingDateFestiveRooms;
 }

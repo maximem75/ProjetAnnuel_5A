@@ -3,7 +3,6 @@ package server.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import server.model.Client;
 import server.model.FestiveRoomBookingServices;
 import server.repository.FestiveRoomBookingServicesRepository;
 import server.service.ClientService;
@@ -28,8 +27,19 @@ public class FestiveRoomBookingServicesController {
     @RequestMapping(method = GET)
     @ResponseStatus(HttpStatus.FOUND)
     public List<FestiveRoomBookingServices> listFestiveRoomBookingServices(@RequestParam("token") String token) {
-        if (clientService.findByToken(token) != null) {
+        if (clientService.adminAccess(token)) {
             return festiveRoomBookingServicesRepository.findAll();
+        }
+
+        return null;
+    }
+
+    @RequestMapping(path = "/getById", method = GET)
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<FestiveRoomBookingServices> getFestiveRoomBookingServicesByIdFestiveRoomBooking(@RequestParam("id") Long id, @RequestParam("token") String token) {
+
+        if (clientService.findByToken(token) != null) {
+            return festiveRoomBookingServicesRepository.getFestiveRoomBookingServicesByIdFestiveRoomBooking(id);
         }
 
         return null;
@@ -37,26 +47,11 @@ public class FestiveRoomBookingServicesController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addFestiveRoomBookingServices(@RequestBody FestiveRoomBookingServices festiveRoomBookingServices, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token)) {
-            festiveRoomBookingServicesRepository.save(festiveRoomBookingServices);
+    public void addFestiveRoomBookingServices(@RequestBody List<FestiveRoomBookingServices> listFestiveRoomBookingServices, @RequestParam("token") String token) {
+        if (clientService.findByToken(token) != null) {
+            for(FestiveRoomBookingServices f : listFestiveRoomBookingServices){
+                festiveRoomBookingServicesRepository.save(f);
+            }
         }
     }
-
-    @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateFestiveRoomBookingServices(@RequestBody FestiveRoomBookingServices festiveRoomBookingServices, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token)) {
-            festiveRoomBookingServicesRepository.save(festiveRoomBookingServices);
-        }
-    }
-
-    @RequestMapping(method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteFestiveRoomBookingServices(@RequestParam("id") Long id, @RequestParam("token") String token) {
-        if (clientService.adminAccess(token)) {
-            festiveRoomBookingServicesRepository.delete(id);
-        }
-    }
-
 }

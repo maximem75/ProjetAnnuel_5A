@@ -4,12 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.model.Building;
 import server.model.Room;
-import server.model.RoomBooking;
-import server.repository.BuildingRepository;
-import server.repository.RoomBookingRepository;
-import server.repository.RoomCategoryRepository;
-import server.repository.RoomRepository;
-import server.utils.DateComparer;
+import server.repository.*;
 
 import java.util.*;
 
@@ -17,48 +12,10 @@ import java.util.*;
 public class RoomService {
 
     @Autowired
-    private RoomRepository roomRepository;
-
-    @Autowired
     private BuildingRepository buildingRepository;
 
     @Autowired
-    private RoomCategoryRepository roomCategoryRepository;
-
-    @Autowired
-    private RoomBookingRepository roomBookingRepository;
-
-    public void addRoom(Room room) {
-        if (room.getBuilding() != null && room.getRoomCategory() != null)
-            roomRepository.save(room);
-    }
-
-    public List<Room> getListRoomFree(Date dateSart, Date dateEnd) {
-        boolean valideRoom;
-
-        List<Room> listRoom = roomRepository.findAll();
-        List<Room> unvalideListRoom = new ArrayList<Room>();
-        List<RoomBooking> listRoomBookingBdd = roomBookingRepository.getListRoomBookingByMinDate(dateSart);
-
-        for (RoomBooking rb : listRoomBookingBdd) {
-            Room r = roomRepository.getOne(rb.getIdRoom());
-            if (!unvalideListRoom.contains(r)) {
-                valideRoom = DateComparer.dateBookAvailable(dateSart, dateEnd, rb.getDateStart(), rb.getDateEnd(), rb.getStatus(), rb.getDateBook(), 1);
-
-                if (!valideRoom) {
-                    unvalideListRoom.add(r);
-                }
-            }
-        }
-
-        for(Room r : unvalideListRoom){
-            if(listRoom.contains(r)){
-                listRoom.remove(r);
-            }
-        }
-
-        return listRoom;
-    }
+    private RoomRepository roomRepository;
 
     private Long findIdBuilding(List<Room> listRoom, List<Building> listBuilding, HashMap<Long, Integer> hmRoomCategory) {
         int nbr;
@@ -148,6 +105,25 @@ public class RoomService {
             return listValideRoomBooking;
         else
             return listEmpty;
+    }
+
+    public List<Room> getListRoomFree(Date dateStart, Date dateEnd){
+        Date dateMin = new Date();
+        dateMin.setTime((dateMin.getTime() - (15 * 60000)));
+
+        List<Room> listRoom = roomRepository.findAll();
+
+        List<Room> listRoomNotValid = new ArrayList<>();
+        listRoomNotValid.addAll(roomRepository.getListRoomNotFree(dateStart, dateEnd, dateMin));
+        listRoomNotValid.addAll(roomRepository.getListRoomDateBookingNotFree(dateStart, dateEnd));
+
+        for(Room r : listRoomNotValid){
+            if(listRoom.contains(r)){
+                listRoom.remove(r);
+            }
+        }
+
+        return  listRoom;
     }
 
 }

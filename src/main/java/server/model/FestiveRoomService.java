@@ -27,18 +27,12 @@ public class FestiveRoomService {
     private Long id;
 
     @Column(name = "name")
-    @NotEmpty(message = "A service must have a name")
     private String name;
 
     @Column(name = "price")
-    @NotEmpty(message = "A service must have a price")
     private float price;
 
     @Column(name = "quantity")
-    @NotEmpty(message = "A service must have a quantity")
     private int quantity;
-
-    @OneToMany(mappedBy = "festiveRoomService", cascade = CascadeType.ALL)
-    private Set<FestiveRoomBookingServices> festiveRoomBookingServices;
 
 }

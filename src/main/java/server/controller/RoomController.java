@@ -2,14 +2,13 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import server.model.Building;
 import server.model.Room;
 import server.repository.RoomRepository;
 import server.service.ClientService;
 import server.service.RoomService;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -18,8 +17,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 @RequestMapping("/api/room")
 public class RoomController {
+
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private RoomService roomService;
 
     @Autowired
     private RoomRepository roomRepository;
@@ -28,6 +31,12 @@ public class RoomController {
     @ResponseStatus(HttpStatus.FOUND)
     public List<Room> getListRooms() {
         return roomRepository.findAll();
+    }
+
+    @RequestMapping(path = "/getListRoomFree", method = GET)
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<Room> getListRoomFree(@RequestParam("dateStart") Date dateStart, @RequestParam("dateEnd") Date dateEnd) {
+        return roomService.getListRoomFree(dateStart, dateEnd);
     }
 
     @RequestMapping(method = POST)
@@ -53,4 +62,5 @@ public class RoomController {
             roomRepository.delete(id);
         }
     }
+
 }

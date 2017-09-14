@@ -31,8 +31,10 @@ public class InvalidBookingDateFestiveRoom {
     @Column(name = "date_end")
     private Date dateEnd;
 
-    @ManyToOne
-    @JoinColumn(name = "id_festive_room")
-    private FestiveRoom festiveRoom;
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "id_festive_room")
+    private Long idFestiveRoom;
 
 }

@@ -19,9 +19,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class RoomCategoryController {
 
     @Autowired
-    private RoomCategoryService roomCategoryService;
-
-    @Autowired
     private RoomCategoryRepository roomCategoryRepository;
 
     @Autowired

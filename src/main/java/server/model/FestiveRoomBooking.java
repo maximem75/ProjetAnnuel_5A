@@ -22,8 +22,8 @@ public class FestiveRoomBooking {
     @Column(name = "id_festive_room_booking")
     private Long id;
 
-    @Column(name = "booking_date")
-    private Date bookingDate;
+    @Column(name = "date_book")
+    private Date dateBook;
 
     @Column(name = "date_start")
     private Date dateStart;
@@ -34,7 +34,10 @@ public class FestiveRoomBooking {
     @Column(name = "status")
     private String status;
 
-    @OneToMany(mappedBy = "festiveRoomBooking", cascade = CascadeType.ALL)
-    private Set<FestiveRoomBookingServices> festiveRoomBookingServices;
+    @Column(name = "id_festive_room")
+    private Long idFestiveRoom;
+
+    @Column(name = "id_client")
+    private Long idClient;
 
 }
