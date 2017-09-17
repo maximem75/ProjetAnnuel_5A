@@ -3,7 +3,10 @@ package server.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.model.RoomBooking;
+import server.model.RoomBookingServices;
 import server.repository.RoomBookingRepository;
+import server.repository.RoomRepository;
+import server.utils.DateComparer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +14,12 @@ import java.util.Objects;
 
 @Service
 public class RoomBookingService {
+
     @Autowired
     private RoomBookingRepository roomBookingRepository;
+
+    @Autowired
+    private RoomRepository roomRepository;
 
     public List<RoomBooking> getListRoomBookingByRefBookRoom(String refBookRoom){
         return roomBookingRepository.getListRoomBookingByRefBookRoom(refBookRoom);
@@ -34,5 +41,23 @@ public class RoomBookingService {
         }
 
         return number;
+    }
+
+    public float calculatePrice(String refBookRoom){
+        float price = 0f;
+        int days = 0;
+        List<RoomBooking> listRoomBooking = getListRoomBookingByRefBookRoom(refBookRoom);
+
+        for (RoomBooking rb : listRoomBooking) {
+
+            days = DateComparer.getDaysBetweenDates(rb.getDateEnd(), rb.getDateStart());
+            price += (roomRepository.getOne(rb.getIdRoom()).getRoomCategory().getPrice() * days);
+
+            for (RoomBookingServices rbs : rb.getRoomBookingServices()) {
+                price += (rbs.getRoomService().getPrice() * days);
+            }
+        }
+
+        return price;
     }
 }

@@ -40,4 +40,7 @@ public class FestiveRoomBooking {
     @Column(name = "id_client")
     private Long idClient;
 
+    @OneToMany(mappedBy = "festiveRoomBooking", cascade = CascadeType.ALL)
+    private Set<FestiveRoomBookingServices> festiveRoomBookingServices;
+
 }

@@ -33,6 +33,4 @@ public class RoomService {
     @Column(name = "price")
     private float price;
 
-    @OneToMany(mappedBy = "roomService", cascade = CascadeType.ALL)
-    private Set<RoomBookingServices> roomBookingServices;
 }

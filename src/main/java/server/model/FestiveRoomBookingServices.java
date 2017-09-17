@@ -23,11 +23,13 @@ public class FestiveRoomBookingServices {
     @Column(name = "id_festive_room_booking_services")
     private Long id;
 
-    @Column(name = "id_festive_room_booking")
-    private Long idFestiveRoomBooking;
+    @ManyToOne
+    @JoinColumn(name = "id_festive_room_booking")
+    private FestiveRoomBooking festiveRoomBooking;
 
-    @Column(name = "id_festive_room_service")
-    private Long idFestiveRoomService;
+    @ManyToOne
+    @JoinColumn(name = "id_festive_room_service")
+    private FestiveRoomService festiveRoomService;
 
     @Column(name = "quantity")
     private int quantity;

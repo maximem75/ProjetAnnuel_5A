@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.model.FestiveRoomBooking;
+import server.repository.FestiveRoomBookingServicesRepository;
 import server.service.FestiveRoomService;
 import server.repository.FestiveRoomBookingRepository;
 import server.service.ClientService;
 import server.service.FestiveRoomBookingService;
 
-import java.lang.reflect.Array;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -31,6 +30,12 @@ public class FestiveRoomBookingController {
     private FestiveRoomBookingRepository festiveRoomBookingRepository;
 
     @Autowired
+    private FestiveRoomBookingServicesRepository festiveRoomBookingServicesRepository;
+
+    @Autowired
+    private FestiveRoomBookingService festiveRoomBookingService;
+
+    @Autowired
     private ClientService clientService;
 
     @RequestMapping(method = POST)
@@ -48,6 +53,34 @@ public class FestiveRoomBookingController {
         return null;
     }
 
+    @RequestMapping(path = "/validate", method = POST)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public FestiveRoomBooking validateFestiveRoomBooking(@RequestParam ("id") Long id, @RequestParam("token") String token) {
+
+        FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
+
+        if (clientService.findByToken(token) != null && festiveRoomBooking != null) {
+            festiveRoomBooking.setStatus("active");
+
+            return festiveRoomBookingRepository.save(festiveRoomBooking);
+        }
+
+        return null;
+    }
+
+    @RequestMapping(path = "/getPrice", method = GET)
+    @ResponseStatus(HttpStatus.FOUND)
+    public float getFestiveRoomBookingPrice(@RequestParam("id") Long id, @RequestParam("token") String token) {
+
+        FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
+
+        if (clientService.findByToken(token) != null && festiveRoomBooking != null) {
+            return festiveRoomBookingService.calculatePrice(id);
+        }
+
+        return 0f;
+    }
+
     @RequestMapping(method = GET)
     @ResponseStatus(HttpStatus.FOUND)
     public List<FestiveRoomBooking> getListFestiveRoomBookings(@RequestParam("token") String token) {
@@ -58,5 +91,4 @@ public class FestiveRoomBookingController {
 
         return null;
     }
-
 }

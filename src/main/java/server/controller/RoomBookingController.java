@@ -1,28 +1,22 @@
 package server.controller;
 
-import org.apache.commons.collections.ListUtils;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import server.model.RoomBooking;
 import server.model.*;
-import server.repository.BuildingRepository;
-import server.repository.RoomBookingRepository;
-import server.repository.RoomCategoryRepository;
-import server.repository.RoomRepository;
+import server.repository.*;
 import server.service.*;
 import server.service.RoomService;
 import server.utils.DateComparer;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 import static org.springframework.http.HttpStatus.FOUND;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 //@CrossOrigin(origins = "*")
 @RestController
@@ -36,6 +30,9 @@ public class RoomBookingController {
 
     @Autowired
     private RoomBookingRepository roomBookingRepository;
+
+    @Autowired
+    private RoomBookingServicesRepository roomBookingServicesRepository;
 
     @Autowired
     private RoomRepository roomRepository;
@@ -112,21 +109,22 @@ public class RoomBookingController {
     @RequestMapping(path = "/getPrice", method = GET)
     @ResponseStatus(value = FOUND)
     public float getTotalPriceBook(@RequestParam("refBookRoom") String refBookRoom, @RequestParam("token") String token) {
-        Client client = clientService.findByToken(token);
 
-        if (client != null) {
-            float price = 0f;
-            List<RoomBooking> listRoomBooking = roomBookingService.getListRoomBookingByRefBookRoom(refBookRoom);
-
-            for (RoomBooking rb : listRoomBooking) {
-                if (Objects.equals(rb.getIdClient(), client.getId())) {
-                    price += roomRepository.getOne(rb.getIdRoom()).getRoomCategory().getPrice();
-                }
-            }
-
-            return price;
+        if (clientService.findByToken(token) != null || clientService.adminAccess(token)) {
+            return roomBookingService.calculatePrice(refBookRoom);
         }
 
         return 0f;
+    }
+
+    @RequestMapping(method = PUT)
+    @ResponseStatus(value = FOUND)
+    public void updateRoomBooking(@RequestBody RoomBooking roomBooking, @RequestParam("token") String token) {
+        Client client = clientService.findByToken(token);
+
+        if (((client != null) && Objects.equals(roomBooking.getIdClient(), client.getId())) || clientService.adminAccess(token)) {
+            roomBookingRepository.save(roomBooking);
+        }
+
     }
 }
