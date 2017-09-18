@@ -19,23 +19,20 @@ import java.util.List;
 public class RestaurantTableBooking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_restaurant_booking")
+    @Column(name = "id_restaurant_table_booking")
     private Long id;
 
     @Column(name = "booking_date")
     private Date bookingDate;
 
     @Column(name = "date")
-    private Date restaurantDate;
+    private Date date;
 
-    @Column(name = "number_chairs")
-    private Long numberChairs;
+    @Column(name = "number")
+    private Long number;
 
     @Column(name = "id_client")
     private Long idClient;
-
-    @Column(name = "id_restaurant_table")
-    private Long idRestaurantTable;
 
     @Column(name = "status")
     private String status;

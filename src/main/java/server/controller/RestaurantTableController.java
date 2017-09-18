@@ -12,7 +12,7 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
-@RequestMapping("/api/restaurant")
+@RequestMapping("/api/restaurantTable")
 public class RestaurantTableController {
 
     @Autowired

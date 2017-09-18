@@ -18,7 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "restauranTable")
+@Table(name = "restaurantTable")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RestaurantTable {
 
