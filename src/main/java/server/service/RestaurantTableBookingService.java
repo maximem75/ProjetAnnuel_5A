@@ -24,7 +24,6 @@ public class RestaurantTableBookingService {
     private RestaurantTableRepository restaurantTableRepository;
 
     public int validateRestaurantTableBooking(RestaurantTableBooking restaurantTableBooking){
-        System.out.println(restaurantTableBooking.getDate());
         Long bookingTime = restaurantTableBooking.getDate().getTime();
         Long dateBookingTime = restaurantTableBooking.getBookingDate().getTime();
 
@@ -47,8 +46,7 @@ public class RestaurantTableBookingService {
         maxAM.set(Calendar.MILLISECOND,0);
 
         Calendar minPM = Calendar.getInstance();
-        //minPM.set(Calendar.HOUR_OF_DAY,18);
-        minPM.set(Calendar.HOUR_OF_DAY,20);
+        minPM.set(Calendar.HOUR_OF_DAY,19);
         minPM.set(Calendar.MINUTE,30);
         minPM.set(Calendar.SECOND,0);
         minPM.set(Calendar.MILLISECOND,0);
@@ -68,11 +66,6 @@ public class RestaurantTableBookingService {
         if(!(dateBookingTime >= minDateDay.getTime())) {
             return -1;
         }
-
-        //System.out.println(bookingTime >= minDateAM.getTime());
-        //System.out.println(bookingTime <= maxDateAM.getTime());
-        System.out.println(bookingTime >= minDatePM.getTime());
-        System.out.println(bookingTime <= maxDatePM.getTime());
 
         if((bookingTime >= minDateAM.getTime()) && (bookingTime <= maxDateAM.getTime())){
             if(minDateAM.getTime() >= dateBookingTime){
@@ -119,5 +112,28 @@ public class RestaurantTableBookingService {
         }
 
         return nbPlaceFree;
+    }
+
+    public boolean clientAlreadyBook(int hourStart, int minuteStart, int hourEnd, int minuteEnd, Long idClient){
+
+        Calendar minAM = Calendar.getInstance();
+        minAM.set(Calendar.HOUR_OF_DAY,hourStart);
+        minAM.set(Calendar.MINUTE,minuteStart);
+        minAM.set(Calendar.SECOND,0);
+        minAM.set(Calendar.MILLISECOND,0);
+
+        Calendar maxAM = Calendar.getInstance();
+        maxAM.set(Calendar.HOUR_OF_DAY,hourEnd);
+        maxAM.set(Calendar.MINUTE,minuteEnd);
+        maxAM.set(Calendar.SECOND,0);
+        maxAM.set(Calendar.MILLISECOND,0);
+
+        Date minDateAM = minAM.getTime();
+        Date maxDateAM = maxAM.getTime();
+
+        List<RestaurantTableBooking> list = restaurantTableBookingRepository.getBookByIdClient(minDateAM, maxDateAM, idClient);
+
+        return list.size() > 0;
+
     }
 }

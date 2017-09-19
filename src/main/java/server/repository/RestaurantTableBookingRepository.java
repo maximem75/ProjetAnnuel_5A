@@ -15,7 +15,12 @@ import java.util.List;
 @Repository
 public interface RestaurantTableBookingRepository extends JpaRepository<RestaurantTableBooking, Long> {
 
-    @Query("select rtb from  RestaurantTableBooking rtb where date >= :dateStart and date <= :dateEnd")
+    @Query("select rtb from  RestaurantTableBooking rtb where date >= :dateStart and date <= :dateEnd and status = 'active'")
     List<RestaurantTableBooking> getBook(@Param("dateStart")Date dateStart, @Param("dateEnd") Date dateEnd);
 
+    @Query("select rtb from  RestaurantTableBooking rtb where date >= :dateStart and date <= :dateEnd and idClient = :IdClient and status = 'active'")
+    List<RestaurantTableBooking> getBookByIdClient(@Param("dateStart")Date dateStart, @Param("dateEnd") Date dateEnd, @Param("IdClient") Long IdClient);
+
+    @Query("select rtb from RestaurantTableBooking rtb where idClient = :IdClient and date >= current_date and status = 'active'")
+    List<RestaurantTableBooking> getListAvailableBookByIdClient(@Param("IdClient") Long IdClient);
 }

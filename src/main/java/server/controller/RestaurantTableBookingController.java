@@ -3,6 +3,7 @@ package server.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import server.model.Client;
 import server.model.RestaurantTableBooking;
 import server.repository.RestaurantTableBookingRepository;
 import server.service.ClientService;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
  * Created by maxime on 09/09/2017.
@@ -37,18 +39,26 @@ public class RestaurantTableBookingController {
         restaurantTableBooking.setBookingDate(new Date());
 
         if(clientService.findByToken(token) != null && restaurantTableBookingService.validateRestaurantTableBooking(restaurantTableBooking) != -1){
-            System.out.println(restaurantTableBooking.getDate());
+
             if(restaurantTableBookingService.validateRestaurantTableBooking(restaurantTableBooking) == 0){
-                if(restaurantTableBooking.getNumber() <= restaurantTableBookingService.getNumberPlaceFree(12, 0, 13, 15)){
+                if(restaurantTableBooking.getNumber() <= restaurantTableBookingService.getNumberPlaceFree(12, 0, 13, 15) && !restaurantTableBookingService.clientAlreadyBook(12, 0, 13, 15, restaurantTableBooking.getIdClient())){
                     restaurantTableBookingRepository.save(restaurantTableBooking);
                 }
             }
 
             if(restaurantTableBookingService.validateRestaurantTableBooking(restaurantTableBooking) == 1){
-                if(restaurantTableBooking.getNumber() <= restaurantTableBookingService.getNumberPlaceFree(19, 30, 21, 45)){
+                if(restaurantTableBooking.getNumber() <= restaurantTableBookingService.getNumberPlaceFree(19, 30, 21, 45) && !restaurantTableBookingService.clientAlreadyBook(19, 30, 21, 45, restaurantTableBooking.getIdClient())){
                     restaurantTableBookingRepository.save(restaurantTableBooking);
                 }
             }
+        }
+    }
+
+    @RequestMapping(method = PUT)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void updateRestaurantTableBooking(@RequestBody RestaurantTableBooking restaurantTableBooking, @RequestParam("token") String token){
+        if(clientService.findByToken(token) != null){
+            restaurantTableBookingRepository.save(restaurantTableBooking);
         }
     }
 
@@ -58,6 +68,18 @@ public class RestaurantTableBookingController {
 
         if(clientService.adminAccess(token)){
             return restaurantTableBookingRepository.findAll();
+        }
+
+        return null;
+    }
+
+    @RequestMapping(path="/getByIdClient", method = GET)
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<RestaurantTableBooking> getListRestaurantTableByIdClient(@RequestParam("token") String token){
+        Client client = clientService.findByToken(token);
+
+        if(client != null){
+            return restaurantTableBookingRepository.getListAvailableBookByIdClient(client.getId());
         }
 
         return null;
