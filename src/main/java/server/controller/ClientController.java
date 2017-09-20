@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import server.Exception.*;
 import server.model.Client;
 import server.repository.ClientRepository;
 import server.service.ClientService;
@@ -42,24 +43,22 @@ public class ClientController {
             clientRepository.save(client);
             return client;
         } else {
-            throw new IllegalArgumentException("error");
+            throw new LoginException();
         }
     }
 
 
-    @RequestMapping(path = "/logout", method = GET)
+    @RequestMapping(path = "/logout", method = POST)
     @ResponseStatus(HttpStatus.FOUND)
-    public boolean logout(@RequestParam("token") String token){
+    public void logout(@RequestParam("token") String token){
         Client client = clientService.findByToken(token);
         client.setToken(null);
         client.setTokenDate(null);
         clientService.updateClient(client);
-
-        return true;
     }
 
 
-    @RequestMapping(method = GET, value="/adminGetList")
+    @RequestMapping(method = GET, value="/GetListClient")
     @ResponseStatus(HttpStatus.FOUND)
     public List<Client> getListIsAdmin(@RequestParam("token") String tokenClient) {
         if(clientService.adminAccess(tokenClient)){
@@ -77,7 +76,7 @@ public class ClientController {
         if(client != null){
             return client.getTokenDate();
         } else {
-            return null;
+            throw new ReloadTokenException();
         }
     }
 
@@ -106,7 +105,7 @@ public class ClientController {
 
             return client;
         } else {
-            throw new IllegalArgumentException("error");
+            throw new CodeConfirmationException();
         }
     }
 
@@ -115,12 +114,15 @@ public class ClientController {
     @ResponseStatus(HttpStatus.FOUND)
     public void recoveryPasswordClient(@RequestParam("email") String email){
         Client client = clientRepository.findClientByEmailEquals(email);
+
         if(client != null) {
             String newPassword = securityClientService.generateNewPassword();
             client.setPassword(securityClientService.hashPassword(newPassword));
 
             clientRepository.save(client);
             //TODO Send new password by email
+        } else {
+            throw new FindClientByEmailException();
         }
     }
 
@@ -133,12 +135,12 @@ public class ClientController {
         if (clientExist == null) {
             client.setCode(securityClientService.createCodeClient());
             client.setPassword(securityClientService.hashPassword(client.getPassword()));
-            client.setStatusActif("inactive"); // active / removed
-            client.setAccreditation("user"); // admin
+            client.setStatusActif("inactive");
+            client.setAccreditation("user");
 
             return clientRepository.save(client);
         } else {
-            return null;
+            throw new ClientEmailAlreadyExistException();
         }
     }
 

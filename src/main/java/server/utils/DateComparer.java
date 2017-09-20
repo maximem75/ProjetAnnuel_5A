@@ -1,5 +1,8 @@
 package server.utils;
 
+import server.Exception.DateBookInvalidException;
+
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateComparer {
@@ -9,29 +12,37 @@ public class DateComparer {
     }
 
     /**
-     * Return true if date1 is earlier than date2
-     *
-     * @param date1
-     * @param date2
-     * @return
-     */
-    public boolean dateEarlier(Date date1, Date date2) {
-        return date1.compareTo(date2) >= 0;
-    }
-
-    /**
      * Check if the date Start is holder than the date End.
      * If the date Start is holder, the function return true
      * else it return false.
      *
-     * @param start
-     * @param end
+     * @param dateStart
+     * @param dateEnd
      * @return
      */
-    public static boolean dateValidator(Date start, Date end) {
-        DateComparer dc = new DateComparer();
+    public static boolean dateRoomBookValidator(Date dateStart, Date dateEnd) {
+        Calendar calMin = Calendar.getInstance();
+        calMin.setTime(new Date());
+        calMin.add(Calendar.DATE, 1);
+        calMin.set(Calendar.HOUR_OF_DAY, 0);
+        calMin.set(Calendar.MINUTE, 0);
+        calMin.set(Calendar.SECOND, 0);
 
-        return !dc.dateEarlier(start, end);
+        Calendar calDateEndMin = Calendar.getInstance();
+        calDateEndMin.setTime(dateStart);
+        calMin.add(Calendar.DATE, 1);
+        calMin.set(Calendar.HOUR_OF_DAY, 0);
+        calMin.set(Calendar.MINUTE, 0);
+        calMin.set(Calendar.SECOND, 0);
+
+        Date dateMin = calMin.getTime();
+        Date dateEndMin = calDateEndMin.getTime();
+
+        if(dateStart.getTime() < dateMin.getTime() || dateEndMin.getTime() > dateEnd.getTime()){
+            throw new DateBookInvalidException();
+        }
+
+        return true;
 
     }
 

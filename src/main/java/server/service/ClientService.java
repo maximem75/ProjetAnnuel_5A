@@ -3,13 +3,13 @@ package server.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import server.Exception.AdminAccessNotAvailableException;
+import server.Exception.ClientTokenUnvailableException;
 import server.model.Client;
 import server.repository.ClientRepository;
 import server.utils.DateComparer;
 
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ClientService {
@@ -33,10 +33,13 @@ public class ClientService {
                 clientRepository.save(client);
 
                 return client;
+            } else {
+                throw new ClientTokenUnvailableException();
             }
-            return null;
+
+        } else {
+            throw new ClientTokenUnvailableException();
         }
-        return null;
     }
 
     public Client login(String email, String password) {
@@ -95,17 +98,14 @@ public class ClientService {
 
     public boolean adminAccess(String token){
         Client client = findByToken(token);
-        //TEST
-        return true;
-        //PROD
-        /*if(client != null){
+
+        if(client != null){
             if(client.getAccreditation().equals("admin"))
                 return true;
             else
-                return false;
+                throw  new AdminAccessNotAvailableException();
         }
 
-        return false;*/
-
+        return false;
     }
 }

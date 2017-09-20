@@ -2,6 +2,7 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import server.Exception.RoomBookingNotCompletedException;
 import server.model.RoomBooking;
 import server.model.*;
 import server.repository.*;
@@ -32,12 +33,6 @@ public class RoomBookingController {
     private RoomBookingRepository roomBookingRepository;
 
     @Autowired
-    private RoomBookingServicesRepository roomBookingServicesRepository;
-
-    @Autowired
-    private RoomRepository roomRepository;
-
-    @Autowired
     private RoomService roomService;
 
     @Autowired
@@ -50,7 +45,7 @@ public class RoomBookingController {
     @ResponseStatus(value = CREATED)
     public String addRoomBooking(@RequestBody List<RoomBooking> listRoomBooking, @RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
-        boolean dateValide = DateComparer.dateValidator(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
+        boolean dateValide = DateComparer.dateRoomBookValidator(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
 
         if (client != null && dateValide) {
             Long refNumber = roomBookingService.getNumberRefBook(client.getId());
@@ -63,7 +58,7 @@ public class RoomBookingController {
             List<Room> listValideRoomBooking = new ArrayList<>();
             listValideRoomBooking = roomService.findListRoomBooking(listValideRoomBooking, hmRoomCategory, listRoom, listBuilding);
 
-            if (listValideRoomBooking.size() == listRoomBooking.size()) {
+            if (listValideRoomBooking.size() >= listRoomBooking.size()) {
                 for (RoomBooking rb : listRoomBooking) {
                     List<Room> tmpLs = new ArrayList<Room>(listValideRoomBooking);
                     for (Room r : tmpLs) {
@@ -83,10 +78,11 @@ public class RoomBookingController {
                     }
                 }
                 return refBookRoom;
+            } else {
+                throw new RoomBookingNotCompletedException();
             }
-            return "";
         }
-        return "";
+        return null;
     }
 
     @RequestMapping(path = "/validate", method = POST)

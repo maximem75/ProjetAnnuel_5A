@@ -3,8 +3,9 @@ package server.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import server.Exception.FestiveRoomFreeException;
+import server.Exception.GetFestiveRoomBookingByIdException;
 import server.model.FestiveRoomBooking;
-import server.repository.FestiveRoomBookingServicesRepository;
 import server.service.FestiveRoomService;
 import server.repository.FestiveRoomBookingRepository;
 import server.service.ClientService;
@@ -30,9 +31,6 @@ public class FestiveRoomBookingController {
     private FestiveRoomBookingRepository festiveRoomBookingRepository;
 
     @Autowired
-    private FestiveRoomBookingServicesRepository festiveRoomBookingServicesRepository;
-
-    @Autowired
     private FestiveRoomBookingService festiveRoomBookingService;
 
     @Autowired
@@ -42,12 +40,18 @@ public class FestiveRoomBookingController {
     @ResponseStatus(HttpStatus.CREATED)
     public FestiveRoomBooking addFestiveRoomBooking(@RequestBody FestiveRoomBooking festiveRoomBooking, @RequestParam("token") String token) {
 
-        if (clientService.findByToken(token) != null && festiveRoomService.festiveRoomFree(festiveRoomBooking.getDateStart(), festiveRoomBooking.getDateEnd(), festiveRoomBooking.getIdFestiveRoom())) {
+        if (clientService.findByToken(token) != null) {
 
-            festiveRoomBooking.setDateBook(new Date());
-            festiveRoomBooking.setStatus("inactive");
+            if(festiveRoomService.festiveRoomFree(festiveRoomBooking.getDateStart(), festiveRoomBooking.getDateEnd(), festiveRoomBooking.getIdFestiveRoom())){
 
-            return festiveRoomBookingRepository.save(festiveRoomBooking);
+                festiveRoomBooking.setDateBook(new Date());
+                festiveRoomBooking.setStatus("inactive");
+
+                return festiveRoomBookingRepository.save(festiveRoomBooking);
+            } else {
+                throw new FestiveRoomFreeException();
+            }
+
         }
 
         return null;
@@ -57,12 +61,17 @@ public class FestiveRoomBookingController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public FestiveRoomBooking validateFestiveRoomBooking(@RequestParam ("id") Long id, @RequestParam("token") String token) {
 
-        FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
+        if (clientService.findByToken(token) != null) {
 
-        if (clientService.findByToken(token) != null && festiveRoomBooking != null) {
-            festiveRoomBooking.setStatus("active");
+            FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
 
-            return festiveRoomBookingRepository.save(festiveRoomBooking);
+            if(festiveRoomBooking != null){
+                festiveRoomBooking.setStatus("active");
+                return festiveRoomBookingRepository.save(festiveRoomBooking);
+            } else {
+                throw new GetFestiveRoomBookingByIdException();
+            }
+
         }
 
         return null;
@@ -72,10 +81,13 @@ public class FestiveRoomBookingController {
     @ResponseStatus(HttpStatus.FOUND)
     public float getFestiveRoomBookingPrice(@RequestParam("id") Long id, @RequestParam("token") String token) {
 
-        FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
+        if (clientService.findByToken(token) != null) {
+            FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
 
-        if (clientService.findByToken(token) != null && festiveRoomBooking != null) {
-            return festiveRoomBookingService.calculatePrice(id);
+            if(festiveRoomBooking != null)
+                return festiveRoomBookingService.calculatePrice(id);
+            else
+                throw new GetFestiveRoomBookingByIdException();
         }
 
         return 0f;
@@ -86,7 +98,7 @@ public class FestiveRoomBookingController {
     public List<FestiveRoomBooking> getListFestiveRoomBookings(@RequestParam("token") String token) {
 
         if (clientService.adminAccess(token)) {
-            festiveRoomBookingRepository.findAll();
+            return festiveRoomBookingRepository.findAll();
         }
 
         return null;

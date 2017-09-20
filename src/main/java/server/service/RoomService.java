@@ -2,6 +2,7 @@ package server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import server.Exception.DateBookInvalidException;
 import server.model.Building;
 import server.model.Room;
 import server.repository.*;
@@ -63,9 +64,9 @@ public class RoomService {
 
         Long idBuild = findIdBuilding(listRoom, listBuilding, hmRoomCategory);
 
-        if(idBuild == -1){
+        if(idBuild == -1)
             return listEmpty;
-        }
+
 
         HashMap<Long, Integer> tmpHm = new HashMap<Long, Integer>(hmRoomCategory);
         Iterator it = tmpHm.entrySet().iterator();
@@ -95,11 +96,10 @@ public class RoomService {
             it.remove();
         }
 
-        if (!total && listBuilding.size() > 0) {
+        if (!total && listBuilding.size() > 0)
             findListRoomBooking(listValideRoomBooking, hmRoomCategory, listRoom, listBuilding);
-        } else if(!total && listBuilding.size() == 0){
+         else if(!total && listBuilding.size() == 0)
             valide = false;
-        }
 
         if(valide)
             return listValideRoomBooking;
@@ -108,8 +108,9 @@ public class RoomService {
     }
 
     public List<Room> getListRoomFree(Date dateStart, Date dateEnd){
+        int minutes = 15;
         Date dateMin = new Date();
-        dateMin.setTime((dateMin.getTime() - (15 * 60000)));
+        dateMin.setTime((dateMin.getTime() - (minutes * 60000)));
 
         List<Room> listRoom = roomRepository.findAll();
 
