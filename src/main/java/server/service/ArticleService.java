@@ -20,7 +20,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Service
 public class ArticleService {
 
-    @Autowired
-    private ArticleRepository articleRepository;
+    public String generatePath(String path){
+        int length = path.split("\\\\").length;
+        String fileName = path.split("\\\\")[length -1];
+
+        return System.getProperty("user.dir")+ "\\src\\main\\resources\\static\\img" + fileName;
+    }
 
 }

@@ -25,19 +25,15 @@ public class Article {
     private Long id;
 
     @Column(name = "title")
-    @NotEmpty(message = "An article must have a title")
     private String title;
 
     @Column(name = "content")
-    @NotEmpty(message = "An article must have a content")
-    private StringBuilder content;
+    private String content;
 
     @Column(name = "date")
-    @NotEmpty(message = "An article must have a date")
     private Date date;
 
     @Column(name = "picture_path")
-    @NotEmpty(message = "An article must have a picture path ")
     private String picturePath;
 
 

@@ -8,6 +8,7 @@ import server.repository.ArticleRepository;
 import server.service.ArticleService;
 import server.service.ClientService;
 
+import java.util.Date;
 import java.util.List;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -16,6 +17,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 @RequestMapping("/api/article")
 public class ArticleController {
+
+    @Autowired
+    private ArticleService articleService;
 
     @Autowired
     private ArticleRepository articleRepository;
@@ -39,6 +43,8 @@ public class ArticleController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addArticle(@RequestBody Article article, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
+            article.setDate(new Date());
+            article.setPicturePath(articleService.generatePath(article.getPicturePath()));
             articleRepository.save(article);
         }
     }
@@ -47,6 +53,8 @@ public class ArticleController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void updateArticle(@RequestBody Article article, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
+            article.setDate(new Date());
+            article.setPicturePath(articleService.generatePath(article.getPicturePath()));
             articleRepository.save(article);
         }
     }
