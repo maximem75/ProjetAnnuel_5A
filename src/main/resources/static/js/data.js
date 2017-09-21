@@ -12,13 +12,13 @@
     Core.data = Core.data || {};
 
     Core.data = {
-        pathHtml   : "../resources/view/",
-        pathScript : "../resources/js/",
+        pathHtml   : "html/",
+        pathScript : "js/",
         viewList   : {
             accueil    : {
                 name      : "accueil",
                 viewPath  : "view.accueil.html",
-                listImage : ["../resources/img/home-bg.jpg"]
+                listImage : ["img/home-bg.jpg"]
             },
             connexion : {
                 name       : "connexion",
