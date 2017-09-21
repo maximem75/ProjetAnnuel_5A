@@ -23,6 +23,8 @@
         <spring-test-dbunit.version>1.2.1</spring-test-dbunit.version>
     </properties>
     
+    <packaging>war</packaging>
+    
     <dependencies>
         <!--Spring-->
         <dependency>
