@@ -91,6 +91,12 @@
             <version>${dbunit.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
         <!--Others-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -144,5 +150,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
