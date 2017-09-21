@@ -12,9 +12,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -33,4 +30,27 @@ public class RestaurantTable {
     @Column(name = "number_chairs")
     private int numberChairs;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public int getNumberChairs() {
+        return numberChairs;
+    }
+
+    public void setNumberChairs(int numberChairs) {
+        this.numberChairs = numberChairs;
+    }
 }

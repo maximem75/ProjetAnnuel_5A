@@ -9,9 +9,6 @@ import javax.persistence.*;
  * Created by maxime on 06/09/2017.
  */
 
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -32,4 +29,27 @@ public class RoomBookingServices {
     @JoinColumn(name = "id_room_service")
     private RoomService roomService;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public RoomBooking getRoomBooking() {
+        return roomBooking;
+    }
+
+    public void setRoomBooking(RoomBooking roomBooking) {
+        this.roomBooking = roomBooking;
+    }
+
+    public RoomService getRoomService() {
+        return roomService;
+    }
+
+    public void setRoomService(RoomService roomService) {
+        this.roomService = roomService;
+    }
 }

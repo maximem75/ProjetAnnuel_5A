@@ -11,9 +11,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -33,4 +30,36 @@ public class RoomCategory {
 
     @OneToMany(mappedBy = "roomCategory", cascade = CascadeType.ALL)
     private Set<PictureRoomCategory> listPictureRoomCategory;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public Set<PictureRoomCategory> getListPictureRoomCategory() {
+        return listPictureRoomCategory;
+    }
+
+    public void setListPictureRoomCategory(Set<PictureRoomCategory> listPictureRoomCategory) {
+        this.listPictureRoomCategory = listPictureRoomCategory;
+    }
 }

@@ -8,9 +8,6 @@ import javax.persistence.*;
 /**
  * Created by maxime on 05/09/2017.
  */
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -34,5 +31,35 @@ public class FestiveRoomBookingServices {
     @Column(name = "quantity")
     private int quantity;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public FestiveRoomBooking getFestiveRoomBooking() {
+        return festiveRoomBooking;
+    }
+
+    public void setFestiveRoomBooking(FestiveRoomBooking festiveRoomBooking) {
+        this.festiveRoomBooking = festiveRoomBooking;
+    }
+
+    public FestiveRoomService getFestiveRoomService() {
+        return festiveRoomService;
+    }
+
+    public void setFestiveRoomService(FestiveRoomService festiveRoomService) {
+        this.festiveRoomService = festiveRoomService;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

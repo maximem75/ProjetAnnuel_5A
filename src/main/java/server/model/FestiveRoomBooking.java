@@ -8,9 +8,6 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -43,4 +40,67 @@ public class FestiveRoomBooking {
     @OneToMany(mappedBy = "festiveRoomBooking", cascade = CascadeType.ALL)
     private Set<FestiveRoomBookingServices> festiveRoomBookingServices;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDateBook() {
+        return dateBook;
+    }
+
+    public void setDateBook(Date dateBook) {
+        this.dateBook = dateBook;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Long getIdFestiveRoom() {
+        return idFestiveRoom;
+    }
+
+    public void setIdFestiveRoom(Long idFestiveRoom) {
+        this.idFestiveRoom = idFestiveRoom;
+    }
+
+    public Long getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(Long idClient) {
+        this.idClient = idClient;
+    }
+
+    public Set<FestiveRoomBookingServices> getFestiveRoomBookingServices() {
+        return festiveRoomBookingServices;
+    }
+
+    public void setFestiveRoomBookingServices(Set<FestiveRoomBookingServices> festiveRoomBookingServices) {
+        this.festiveRoomBookingServices = festiveRoomBookingServices;
+    }
 }

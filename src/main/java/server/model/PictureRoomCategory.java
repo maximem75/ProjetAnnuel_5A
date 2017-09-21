@@ -9,9 +9,6 @@ import javax.persistence.*;
  * Created by maxime on 20/09/2017.
  */
 @Entity
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "pictureRoomCategory")
@@ -29,4 +26,28 @@ public class PictureRoomCategory {
 
     @Column(name = "path")
     private String path;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public RoomCategory getRoomCategory() {
+        return roomCategory;
+    }
+
+    public void setRoomCategory(RoomCategory roomCategory) {
+        this.roomCategory = roomCategory;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 }

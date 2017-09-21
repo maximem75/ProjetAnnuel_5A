@@ -8,9 +8,6 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "festiveRoom")
@@ -28,4 +25,27 @@ public class FestiveRoom {
     @Column(name = "picturePath")
     private String picturePath;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
+    }
 }

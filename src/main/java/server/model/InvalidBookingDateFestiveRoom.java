@@ -9,10 +9,6 @@ import java.util.Date;
 /**
  * Created by maxime on 06/09/2017.
  */
-
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -37,4 +33,43 @@ public class InvalidBookingDateFestiveRoom {
     @Column(name = "id_festive_room")
     private Long idFestiveRoom;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Long getIdFestiveRoom() {
+        return idFestiveRoom;
+    }
+
+    public void setIdFestiveRoom(Long idFestiveRoom) {
+        this.idFestiveRoom = idFestiveRoom;
+    }
 }

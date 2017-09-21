@@ -8,9 +8,6 @@ import javax.validation.constraints.Null;
 import java.util.Date;
 import java.util.Set;
 
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -52,4 +49,92 @@ public class RoomBooking {
 
     @OneToMany(mappedBy = "roomBooking", cascade = CascadeType.ALL)
     private Set<RoomBookingServices> roomBookingServices;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public Date getDateBook() {
+        return dateBook;
+    }
+
+    public void setDateBook(Date dateBook) {
+        this.dateBook = dateBook;
+    }
+
+    public Long getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(Long idClient) {
+        this.idClient = idClient;
+    }
+
+    public Long getIdRoom() {
+        return idRoom;
+    }
+
+    public void setIdRoom(Long idRoom) {
+        this.idRoom = idRoom;
+    }
+
+    public Long getIdRoomCategory() {
+        return idRoomCategory;
+    }
+
+    public void setIdRoomCategory(Long idRoomCategory) {
+        this.idRoomCategory = idRoomCategory;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getRefRoomBook() {
+        return refRoomBook;
+    }
+
+    public void setRefRoomBook(String refRoomBook) {
+        this.refRoomBook = refRoomBook;
+    }
+
+    public Set<RoomBookingServices> getRoomBookingServices() {
+        return roomBookingServices;
+    }
+
+    public void setRoomBookingServices(Set<RoomBookingServices> roomBookingServices) {
+        this.roomBookingServices = roomBookingServices;
+    }
 }

@@ -9,9 +9,6 @@ import javax.persistence.*;
  * Created by maxime on 20/09/2017.
  */
 @Entity
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "pictureGalery")
@@ -25,4 +22,20 @@ public class PictureGalery {
 
     @Column(name = "path")
     private String path;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 }
