@@ -17,6 +17,7 @@ import java.util.Set;
 @Table(name = "roomBooking")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RoomBooking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_room_booking")

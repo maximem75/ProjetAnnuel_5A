@@ -2,7 +2,6 @@ package server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import server.service.*;
 
 import javax.persistence.*;
 
