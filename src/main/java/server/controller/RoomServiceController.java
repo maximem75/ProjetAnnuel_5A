@@ -2,6 +2,8 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +27,7 @@ public class RoomServiceController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<RoomService> getListRoomService(@RequestParam("token") String token){
 
         if(clientService.findByToken(token) != null){
@@ -36,7 +38,7 @@ public class RoomServiceController {
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public void addRoomService(@RequestBody RoomService roomService, @RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){
@@ -45,7 +47,7 @@ public class RoomServiceController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(ACCEPTED)
     public void updateRoomService(@RequestBody RoomService roomService, @RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){
@@ -54,7 +56,7 @@ public class RoomServiceController {
     }
 
     @RequestMapping(method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public void deleteRoomService(@RequestParam("id") Long id, @RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){

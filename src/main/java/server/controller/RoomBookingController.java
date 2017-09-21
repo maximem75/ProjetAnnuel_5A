@@ -12,11 +12,9 @@ import server.utils.DateComparer;
 
 import java.util.*;
 
-import static org.springframework.http.HttpStatus.FOUND;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 //@CrossOrigin(origins = "*")
@@ -42,7 +40,7 @@ public class RoomBookingController {
     private RoomCategoryService roomCategoryService;
 
     @RequestMapping(method = POST)
-    @ResponseStatus(value = CREATED)
+    @ResponseStatus(CREATED)
     public String addRoomBooking(@RequestBody List<RoomBooking> listRoomBooking, @RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
         boolean dateValide = DateComparer.dateRoomBookValidator(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
@@ -85,8 +83,8 @@ public class RoomBookingController {
         return null;
     }
 
-    @RequestMapping(path = "/validate", method = POST)
-    @ResponseStatus(value = OK)
+    @RequestMapping(path = "/validate", method = PUT)
+    @ResponseStatus(ACCEPTED)
     public void updateListRoomBookingStatus(@RequestParam("refBookRoom") String refBookRoom, @RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
 
@@ -103,7 +101,7 @@ public class RoomBookingController {
     }
 
     @RequestMapping(path = "/getPrice", method = GET)
-    @ResponseStatus(value = FOUND)
+    @ResponseStatus(FOUND)
     public float getTotalPriceBook(@RequestParam("refBookRoom") String refBookRoom, @RequestParam("token") String token) {
 
         if (clientService.findByToken(token) != null || clientService.adminAccess(token)) {
@@ -113,8 +111,8 @@ public class RoomBookingController {
         return 0f;
     }
 
-    @RequestMapping(method = PUT)
-    @ResponseStatus(value = FOUND)
+    @RequestMapping(path = "/update", method = PUT)
+    @ResponseStatus(ACCEPTED)
     public void updateRoomBooking(@RequestBody RoomBooking roomBooking, @RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
 

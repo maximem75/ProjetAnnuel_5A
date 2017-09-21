@@ -26,9 +26,11 @@ public class RoomCategory {
     private Long id;
 
     @Column(name = "name")
-    @NotEmpty(message = "A category must have a name")
     private String name;
 
     @Column(name = "price")
     private float price;
+
+    @OneToMany(mappedBy = "roomCategory", cascade = CascadeType.ALL)
+    private Set<PictureRoomCategory> listPictureRoomCategory;
 }

@@ -14,6 +14,9 @@ import server.service.RestaurantTableBookingService;
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.ACCEPTED;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.FOUND;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -35,7 +38,7 @@ public class RestaurantTableBookingController {
     private ClientService clientService;
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public void addRestaurantTableBooking(@RequestBody RestaurantTableBooking restaurantTableBooking, @RequestParam("token") String token) {
 
         restaurantTableBooking.setBookingDate(new Date());
@@ -74,7 +77,7 @@ public class RestaurantTableBookingController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(ACCEPTED)
     public void updateRestaurantTableBooking(@RequestBody RestaurantTableBooking restaurantTableBooking, @RequestParam("token") String token) {
         if (clientService.findByToken(token) != null) {
             restaurantTableBookingRepository.save(restaurantTableBooking);
@@ -82,7 +85,7 @@ public class RestaurantTableBookingController {
     }
 
     @RequestMapping(method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<RestaurantTableBooking> listRestaurantTableBooking(@RequestParam("token") String token) {
 
         if (clientService.adminAccess(token)) {
@@ -93,7 +96,7 @@ public class RestaurantTableBookingController {
     }
 
     @RequestMapping(path = "/getByIdClient", method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<RestaurantTableBooking> getListRestaurantTableByIdClient(@RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
 

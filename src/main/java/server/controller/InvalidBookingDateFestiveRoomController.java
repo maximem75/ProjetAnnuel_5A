@@ -11,6 +11,7 @@ import server.service.InvalidBookingDateFestiveRoomService;
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
@@ -27,7 +28,7 @@ public class InvalidBookingDateFestiveRoomController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<InvalidBookingDateFestiveRoom> getListInvalidBookingDateFestiveRoomByMinDate(@RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             return invalidBookingDateFestiveRoomRepository.getListInvalidBookingDateFestiveRoomByMinDate(new Date());
@@ -37,7 +38,7 @@ public class InvalidBookingDateFestiveRoomController {
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(CREATED)
     public void addInvalidBookingDateFestiveRoom(@RequestBody InvalidBookingDateFestiveRoom invalidBookingDateFestiveRoom, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             invalidBookingDateFestiveRoomRepository.save(invalidBookingDateFestiveRoom);
@@ -45,7 +46,7 @@ public class InvalidBookingDateFestiveRoomController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(ACCEPTED)
     public void updateInvalidBookingDateFestiveRoom(@RequestBody InvalidBookingDateFestiveRoom invalidBookingDateFestiveRoom, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             invalidBookingDateFestiveRoomRepository.save(invalidBookingDateFestiveRoom);
@@ -53,7 +54,7 @@ public class InvalidBookingDateFestiveRoomController {
     }
 
     @RequestMapping(method = DELETE)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(OK)
     public void deleteInvalidBookingDateFestiveRoom(@RequestBody InvalidBookingDateFestiveRoom invalidBookingDateFestiveRoom, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             invalidBookingDateFestiveRoomRepository.delete(invalidBookingDateFestiveRoom);

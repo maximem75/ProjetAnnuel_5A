@@ -11,6 +11,7 @@ import server.service.InvalidBookingDateRoomService;
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
@@ -27,7 +28,7 @@ public class InvalidBookingDateRoomController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<InvalidBookingDateRoom> getListInvalidBookingDateRoomByMinDate(@RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             return invalidBookingDateRoomRepository.getListInvalidBookingDateRoomByMinDate(new Date());
@@ -37,7 +38,7 @@ public class InvalidBookingDateRoomController {
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(CREATED)
     public void addInvalidBookingDateFestiveRoom(@RequestBody InvalidBookingDateRoom invalidBookingDateRoom, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             invalidBookingDateRoomRepository.save(invalidBookingDateRoom);
@@ -45,7 +46,7 @@ public class InvalidBookingDateRoomController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(ACCEPTED)
     public void updateInvalidBookingDateFestiveRoom(@RequestBody InvalidBookingDateRoom invalidBookingDateRoom, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             invalidBookingDateRoomRepository.save(invalidBookingDateRoom);
@@ -53,7 +54,7 @@ public class InvalidBookingDateRoomController {
     }
 
     @RequestMapping(method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public void deleteInvalidBookingDateFestiveRoom(@RequestBody InvalidBookingDateRoom invalidBookingDateRoom, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             invalidBookingDateRoomRepository.delete(invalidBookingDateRoom);

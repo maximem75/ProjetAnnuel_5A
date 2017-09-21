@@ -11,6 +11,9 @@ import server.service.RoomService;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.FOUND;
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 //@CrossOrigin(origins = "*")
@@ -25,13 +28,13 @@ public class RoomCategoryController {
     private ClientService clientService;
 
     @RequestMapping(path = "getListRoomCategories", method = GET)
-    @ResponseStatus(value = HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<RoomCategory> getListRoomCategories() {
         return roomCategoryRepository.findAll();
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public void addRoomCategory(@RequestBody RoomCategory roomCategory, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             roomCategoryRepository.save(roomCategory);
@@ -39,7 +42,7 @@ public class RoomCategoryController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public void updateRoomCategory(@RequestBody RoomCategory roomCategory, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             roomCategoryRepository.save(roomCategory);
@@ -47,7 +50,7 @@ public class RoomCategoryController {
     }
 
     @RequestMapping(method = DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(OK)
     public void deleteRoomCategory(@RequestParam(value = "id") Long id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             roomCategoryRepository.delete(id);

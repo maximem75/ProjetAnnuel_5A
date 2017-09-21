@@ -9,6 +9,8 @@ import server.service.ClientService;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.FOUND;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
@@ -25,7 +27,7 @@ public class FestiveRoomBookingServicesController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<FestiveRoomBookingServices> listFestiveRoomBookingServices(@RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             return festiveRoomBookingServicesRepository.findAll();
@@ -35,7 +37,7 @@ public class FestiveRoomBookingServicesController {
     }
 
     @RequestMapping(path = "/getById", method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<FestiveRoomBookingServices> getFestiveRoomBookingServicesByIdFestiveRoomBooking(@RequestParam("id") Long id, @RequestParam("token") String token) {
 
         if (clientService.findByToken(token) != null) {
@@ -46,7 +48,7 @@ public class FestiveRoomBookingServicesController {
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public void addFestiveRoomBookingServices(@RequestBody List<FestiveRoomBookingServices> listFestiveRoomBookingServices, @RequestParam("token") String token) {
         if (clientService.findByToken(token) != null) {
             for(FestiveRoomBookingServices f : listFestiveRoomBookingServices){

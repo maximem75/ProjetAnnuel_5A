@@ -6,14 +6,18 @@ import org.springframework.web.bind.annotation.*;
 import server.model.FestiveRoom;
 import server.repository.FestiveRoomRepository;
 import server.service.ClientService;
+import server.utils.FilePathGenerator;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/api/festiveRoom")
 public class FestiveRoomController {
+
+    private String prePath = "\\src\\main\\resources\\static\\img\\FestiveRoom";
 
     @Autowired
     private FestiveRoomRepository festiveRoomRepository;
@@ -22,7 +26,7 @@ public class FestiveRoomController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<FestiveRoom> getListFestiveRooms(@RequestParam("id") int id, @RequestParam("token") String token){
 
         if(clientService.findByToken(token) != null){
@@ -33,16 +37,17 @@ public class FestiveRoomController {
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public void addFestiveRoom(@RequestBody FestiveRoom festiveRoom, @RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){
+            festiveRoom.setPicturePath(FilePathGenerator.generatePath(festiveRoom.getPicturePath(), prePath));
             festiveRoomRepository.save(festiveRoom);
         }
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(ACCEPTED)
     public void updateFestiveRoom(@RequestBody FestiveRoom festiveRoom,  @RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){
@@ -51,7 +56,7 @@ public class FestiveRoomController {
     }
 
     @RequestMapping(method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public void deleteFestiveRoomById(@RequestParam("id") Long id,  @RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){

@@ -8,6 +8,9 @@ import server.repository.NewsLetterRepository;
 import server.service.ClientService;
 import server.service.NewsLetterService;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.FOUND;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -25,7 +28,7 @@ public class NewsLetterController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<NewsLetter> listNewsLetter(@RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){
@@ -36,7 +39,7 @@ public class NewsLetterController {
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public void addNewsLetter(@RequestBody NewsLetter newsLetter, @RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){

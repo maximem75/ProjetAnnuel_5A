@@ -11,6 +11,7 @@ import server.service.RoomService;
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 //@CrossOrigin(origins = "*")
@@ -28,19 +29,19 @@ public class RoomController {
     private RoomRepository roomRepository;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<Room> getListRooms() {
         return roomRepository.findAll();
     }
 
     @RequestMapping(path = "/getListRoomFree", method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<Room> getListRoomFree(@RequestParam("dateStart") Date dateStart, @RequestParam("dateEnd") Date dateEnd) {
         return roomService.getListRoomFree(dateStart, dateEnd);
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public void addRoom(@RequestBody Room room, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             roomRepository.save(room);
@@ -48,7 +49,7 @@ public class RoomController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(ACCEPTED)
     public void updateRoom(@RequestBody Room room, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             roomRepository.save(room);
@@ -56,7 +57,7 @@ public class RoomController {
     }
 
     @RequestMapping(method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public void deleteRoom(@RequestParam("id") Long id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             roomRepository.delete(id);

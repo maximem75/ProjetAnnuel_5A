@@ -4,28 +4,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.persistence.Table;
-import java.util.Set;
 
+/**
+ * Created by maxime on 20/09/2017.
+ */
 @Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "festiveRoom")
+@Table(name = "pictureGalery")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FestiveRoom {
+public class PictureGalery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_festive_room")
+    @Column(name = "id_picture_galery")
     private Long id;
 
-    @Column (name = "price")
-    private float price;
-
-    @Column(name = "picturePath")
-    private String picturePath;
-
+    @Column(name = "path")
+    private String path;
 }

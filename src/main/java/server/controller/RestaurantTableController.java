@@ -11,7 +11,7 @@ import server.service.RestaurantTableService;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -25,7 +25,7 @@ public class RestaurantTableController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(value = OK)
+    @ResponseStatus(FOUND)
     public List<RestaurantTable> getAllTablesList(@Param("token") String token) {
         if (clientService.adminAccess(token)) {
             return restaurantTableRepository.findAll();
@@ -35,7 +35,7 @@ public class RestaurantTableController {
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public void createRestaurantTable(@RequestBody RestaurantTable restaurantTable, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             restaurantTableRepository.save(restaurantTable);
@@ -43,7 +43,7 @@ public class RestaurantTableController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(ACCEPTED)
     public void updateRestaurantTable(@RequestBody RestaurantTable restaurantTable, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             restaurantTableRepository.save(restaurantTable);
@@ -51,7 +51,7 @@ public class RestaurantTableController {
     }
 
     @RequestMapping(method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public void deleteRestaurantTable(@RequestParam("id") Long id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             restaurantTableRepository.delete(id);

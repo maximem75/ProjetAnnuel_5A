@@ -13,8 +13,7 @@ import server.service.SecurityClientService;
 import java.util.Date;
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.ACCEPTED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -34,7 +33,7 @@ public class ClientController {
     private SecurityClientService securityClientService;
 
     @RequestMapping(path = "/login", method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public Client login(@RequestParam("email") String email, @RequestParam("password") String password) {
         String pswd = securityClientService.hashPassword(password);
         Client client = clientService.login(email, pswd);
@@ -49,7 +48,7 @@ public class ClientController {
 
 
     @RequestMapping(path = "/logout", method = POST)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public void logout(@RequestParam("token") String token){
         Client client = clientService.findByToken(token);
         client.setToken(null);
@@ -59,7 +58,7 @@ public class ClientController {
 
 
     @RequestMapping(method = GET, value="/GetListClient")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<Client> getListIsAdmin(@RequestParam("token") String tokenClient) {
         if(clientService.adminAccess(tokenClient)){
             return clientRepository.findAll();
@@ -70,7 +69,7 @@ public class ClientController {
 
 
     @RequestMapping(path = "/reloadToken", method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public Date reloadToken(@RequestParam("token") String token){
         Client client = clientService.findByToken(token);
         if(client != null){
@@ -81,7 +80,7 @@ public class ClientController {
     }
 
     @RequestMapping(path = "/getByToken", method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public Client getClientByToken(@RequestParam("token") String token){
         Client client = clientService.findByToken(token);
 
@@ -94,7 +93,7 @@ public class ClientController {
 
 
     @RequestMapping(path = "/confirmation", method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public Client confirmation(@RequestParam("email") String email, @RequestParam("code") String code) {
         Client client = clientService.confirmation(email, code);
 
@@ -111,7 +110,7 @@ public class ClientController {
 
 
     @RequestMapping(value = "/recovery", method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public void recoveryPasswordClient(@RequestParam("email") String email){
         Client client = clientRepository.findClientByEmailEquals(email);
 
@@ -128,7 +127,7 @@ public class ClientController {
 
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public Client addClient(@RequestBody Client client) {
 
         Client clientExist = clientRepository.findClientByEmailEquals(client.getEmail());
@@ -145,7 +144,7 @@ public class ClientController {
     }
 
     @RequestMapping(path = "/update",method = POST)
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(ACCEPTED)
     public Client updateClient(@RequestBody Client newClient, @RequestParam("token") String token, @RequestParam("password") String password) {
         Client client = clientService.findByToken(token);
         String psw = securityClientService.hashPassword(password);
@@ -154,7 +153,7 @@ public class ClientController {
 
 
     @RequestMapping(method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public String deleteClient(@RequestParam("token") String token){
         Client client = clientRepository.findClientByTokenEquals(token);
         client.setStatusActif("removed");

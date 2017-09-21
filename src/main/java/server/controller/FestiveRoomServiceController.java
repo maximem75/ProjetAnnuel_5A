@@ -10,6 +10,7 @@ import server.service.FestiveRoomServiceService;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -29,7 +30,7 @@ public class FestiveRoomServiceController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<FestiveRoomService> getListFestiveRoomServices(@RequestParam("token") String token){
         if(clientService.findByToken(token) != null){
             return festiveRoomServiceRepository.findAll();
@@ -39,7 +40,7 @@ public class FestiveRoomServiceController {
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(CREATED)
     public void addFestiveRoomService(@RequestBody FestiveRoomService festiveRoomService, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             festiveRoomServiceRepository.save(festiveRoomService);
@@ -47,7 +48,7 @@ public class FestiveRoomServiceController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(ACCEPTED)
     public void updateFestiveRoomService(@RequestBody FestiveRoomService festiveRoomService, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             festiveRoomServiceRepository.save(festiveRoomService);
@@ -55,7 +56,7 @@ public class FestiveRoomServiceController {
     }
 
     @RequestMapping(method = DELETE)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(OK)
     public void deleteFestiveRoomServiceById(@RequestParam("id") Long id, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             festiveRoomServiceRepository.delete(id);

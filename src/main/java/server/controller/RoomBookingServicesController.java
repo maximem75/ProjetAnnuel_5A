@@ -12,6 +12,7 @@ import server.service.RoomBookingServicesService;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
@@ -28,7 +29,7 @@ public class RoomBookingServicesController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<RoomBookingServices> getListRoomBookingServices(@RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){
@@ -39,7 +40,7 @@ public class RoomBookingServicesController {
     }
 
     @RequestMapping(path = "/findByIdRoomBooking", method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<RoomBookingServices> getListRoomBookingServicesByIdRoomBooking(@RequestParam("idRoomBooking") Long idRoomBooking, @RequestParam("token") String token){
 
         if(clientService.findByToken(token) != null){
@@ -50,7 +51,7 @@ public class RoomBookingServicesController {
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public void addRoomBookingServices(@RequestBody RoomBookingServices roomBookingServices, @RequestParam("token") String token){
 
         if(clientService.findByToken(token) != null){
@@ -59,7 +60,7 @@ public class RoomBookingServicesController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(ACCEPTED)
     public void updateRoomBookingServices(@RequestBody RoomBookingServices roomBookingServices, @RequestParam("token") String token){
 
         if(clientService.findByToken(token) != null){
@@ -68,7 +69,7 @@ public class RoomBookingServicesController {
     }
 
     @RequestMapping(method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public void deleteRoomBookingServices(@RequestParam("id") Long id, @RequestParam("token") String token){
 
         if(clientService.findByToken(token) != null){

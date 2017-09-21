@@ -12,6 +12,7 @@ import server.service.RoomService;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 //@CrossOrigin(origins = "*")
@@ -26,7 +27,7 @@ public class BuildingController {
     private BuildingRepository buildingRepository;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(FOUND)
     public List<Building> getListBuildings(@RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             return buildingRepository.findAll();
@@ -36,7 +37,7 @@ public class BuildingController {
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public void addBuilding(@RequestBody Building building, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             buildingRepository.save(building);
@@ -44,7 +45,7 @@ public class BuildingController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(ACCEPTED)
     public void updateBuilding(@RequestBody Building building, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             buildingRepository.save(building);
@@ -52,7 +53,7 @@ public class BuildingController {
     }
 
     @RequestMapping(method = DELETE)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public void deleteBuilding(@RequestParam("id") Long id, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             buildingRepository.delete(id);
