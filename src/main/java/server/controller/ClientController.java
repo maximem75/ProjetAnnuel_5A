@@ -7,7 +7,6 @@ import server.model.Client;
 import server.repository.ClientRepository;
 import server.service.ClientService;
 import server.service.SecurityClientService;
-import server.utils.mail.MailManager;
 
 import java.util.Date;
 import java.util.List;
@@ -158,11 +157,5 @@ public class ClientController {
         return "redirect:index.html";
     }
 
-    @RequestMapping(path = "/sendMail", method = POST)
-    @ResponseStatus(OK)
-    public void testMail(){
-        MailManager mail = new MailManager();
-        mail.sendEmailToClient("mollard.maxime75@gmail.com");
 
-    }
 }
