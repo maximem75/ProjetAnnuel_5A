@@ -162,7 +162,7 @@ public class ClientController {
     @ResponseStatus(OK)
     public boolean sendMAil(){
         MailManager mailManager = new MailManager();
-
+        mailManager.sendEmailToClient("mollard.maxime75@gmail.com");
         return true;
     }
 }
