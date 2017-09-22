@@ -18,10 +18,6 @@ public class FileManager {
         return fileName;
     }
 
-    public void saveFile(String filePath, String prePath) throws FileNotFoundException {
-        File files = new File(prePath, filePath);
-    }
-
     public String saveImage(String pathClient, String pathServer) {
         InputStream is = null;
         OutputStream os = null;
