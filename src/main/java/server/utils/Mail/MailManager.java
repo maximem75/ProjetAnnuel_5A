@@ -22,7 +22,8 @@ public class MailManager {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.port", "465");
+        //props.put("mail.smtp.port", "587");
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
         session = Session.getInstance(props,
@@ -42,10 +43,8 @@ public class MailManager {
             message.setSubject("Confirmation de réservation RHM");
             //String email = convertHtmlFileIntoString("C:\\Users\\stanley\\Downloads\\Spring-Email-Gmail-Smtp-Example\\ModulesIntelligents\\src\\invoiceHobby.html");
             String email = "test";
-            System.out.println("On a "+email);
             message.setContent(email,"text/html");
             Transport.send(message);
-            System.out.println("Done");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
