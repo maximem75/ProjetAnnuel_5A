@@ -1,12 +1,11 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.model.FestiveRoom;
 import server.repository.FestiveRoomRepository;
 import server.service.ClientService;
-import server.utils.FilePathGenerator;
+import server.utils.File.FilePathGenerator;
 
 import java.util.List;
 

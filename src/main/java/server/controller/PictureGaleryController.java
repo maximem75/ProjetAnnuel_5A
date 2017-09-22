@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import server.model.PictureGalery;
 import server.repository.PictureGaleryRepository;
 import server.service.ClientService;
-import server.utils.FilePathGenerator;
+import server.utils.File.FilePathGenerator;
 
 import java.util.List;
 

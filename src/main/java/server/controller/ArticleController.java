@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import server.model.Article;
 import server.repository.ArticleRepository;
 import server.service.ClientService;
-import server.utils.FilePathGenerator;
+import server.utils.File.FilePathGenerator;
 
 import java.util.Date;
 import java.util.List;

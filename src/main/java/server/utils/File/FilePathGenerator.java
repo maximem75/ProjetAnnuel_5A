@@ -1,4 +1,4 @@
-package server.utils;
+package server.utils.File;
 
 /**
  * Created by maxime on 20/09/2017.
