@@ -24,7 +24,7 @@
     </properties>
 
     <packaging>war</packaging>
-    
+
     <dependencies>
         <!--Spring-->
         <dependency>
@@ -91,19 +91,6 @@
             <version>${dbunit.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-
-        <!--Others-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-        </dependency>
-
         <!-- WebJar -->
         <dependency>
             <groupId>org.webjars.bower</groupId>
@@ -140,6 +127,14 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>1.9.4.RELEASE</version>
         </dependency>
+
+        <!-- mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+
     </dependencies>
 
     <build>
