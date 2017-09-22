@@ -7,6 +7,7 @@ import server.model.Client;
 import server.repository.ClientRepository;
 import server.service.ClientService;
 import server.service.SecurityClientService;
+import server.utils.Mail.MailManager;
 
 import java.util.Date;
 import java.util.List;
@@ -139,7 +140,7 @@ public class ClientController {
         }
     }
 
-    @RequestMapping(path = "/update",method = POST)
+    @RequestMapping(path = "/update", method = POST)
     @ResponseStatus(ACCEPTED)
     public Client updateClient(@RequestBody Client newClient, @RequestParam("token") String token, @RequestParam("password") String password) {
         Client client = clientService.findByToken(token);
@@ -157,5 +158,11 @@ public class ClientController {
         return "redirect:index.html";
     }
 
+    @RequestMapping(path = "sendMail", method = GET)
+    @ResponseStatus(OK)
+    public boolean sendMAil(){
+        MailManager mailManager = new MailManager();
 
+        return true;
+    }
 }
