@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import server.model.Article;
 import server.repository.ArticleRepository;
 import server.service.ClientService;
-import server.utils.File.FilePathGenerator;
+import server.utils.File.FileManager;
 
 import java.util.Date;
 import java.util.List;
@@ -41,8 +41,10 @@ public class ArticleController {
     @ResponseStatus(CREATED)
     public void addArticle(@RequestBody Article article, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
+            FileManager fm = new FileManager();
+
             article.setDate(new Date());
-            article.setPicturePath(FilePathGenerator.generatePath(article.getPicturePath(), PRE_PATH));
+            //article.setPicturePath(fm.generatePath(article.getPicturePath(), PRE_PATH));
             articleRepository.save(article);
         }
     }
@@ -51,8 +53,10 @@ public class ArticleController {
     @ResponseStatus(ACCEPTED)
     public void updateArticle(@RequestBody Article article, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
+            FileManager fm = new FileManager();
+
             article.setDate(new Date());
-            article.setPicturePath(FilePathGenerator.generatePath(article.getPicturePath(), PRE_PATH));
+            //article.setPicturePath(fm.generatePath(article.getPicturePath(), PRE_PATH));
             articleRepository.save(article);
         }
     }

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import server.model.FestiveRoom;
 import server.repository.FestiveRoomRepository;
 import server.service.ClientService;
-import server.utils.File.FilePathGenerator;
+import server.utils.File.FileManager;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping("/api/festiveRoom")
 public class FestiveRoomController {
 
-    private String prePath = "\\src\\main\\resources\\static\\img\\FestiveRoom";
+    private String PRE_PATH = "\\src\\main\\resources\\static\\img\\FestiveRoom";
 
     @Autowired
     private FestiveRoomRepository festiveRoomRepository;
@@ -40,7 +40,9 @@ public class FestiveRoomController {
     public void addFestiveRoom(@RequestBody FestiveRoom festiveRoom, @RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){
-            festiveRoom.setPicturePath(FilePathGenerator.generatePath(festiveRoom.getPicturePath(), prePath));
+            FileManager fm = new FileManager();
+
+            //festiveRoom.setPicturePath(fm.generatePath(festiveRoom.getPicturePath(), PRE_PATH));
             festiveRoomRepository.save(festiveRoom);
         }
     }
