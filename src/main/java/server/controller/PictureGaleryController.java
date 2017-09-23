@@ -37,7 +37,7 @@ public class PictureGaleryController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public void addPictureGalery(@RequestParam("file") MultipartFile file, @RequestParam("token") String token) {
+    public boolean addPictureGalery(@RequestParam("file") MultipartFile file, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             PictureGalery pictureGalery = new PictureGalery();
             FileManager fm = new FileManager();
@@ -47,7 +47,11 @@ public class PictureGaleryController {
 
             pictureGalery.setPath(PRE_PATH_FRONT);
             pictureGaleryRepository.save(pictureGalery);
+
+            return true;
         }
+
+        return false;
     }
 
     @RequestMapping(method = DELETE)
