@@ -1,5 +1,7 @@
 package server.utils.File;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.*;
 
 /**
@@ -11,40 +13,30 @@ public class FileManager {
 
     }
 
-    public String getFileName(String imagePath) {
-        int length = imagePath.split("\\\\").length;
-        String fileName = imagePath.split("\\\\")[length - 1];
-
-        return fileName;
-    }
-
-    public String saveImage(String pathClient, String pathServer) {
+    public void saveImage(MultipartFile fileClient, String pathServer) {
         InputStream is = null;
         OutputStream os = null;
 
         try {
-            is = new FileInputStream(new File(pathClient));
+            is = fileClient.getInputStream();
             os = new FileOutputStream(new File(System.getProperty("user.dir") + pathServer));
             byte[] buffer = new byte[1024];
             int length;
             while ((length = is.read(buffer)) > 0) {
                 os.write(buffer, 0, length);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
+                assert is != null;
                 is.close();
-                os.close();
 
-                return System.getProperty("user.dir") + pathServer;
+                assert os != null;
+                os.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-        return "";
     }
 }

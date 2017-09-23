@@ -2,6 +2,7 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import server.model.PictureGalery;
 import server.repository.PictureGaleryRepository;
 import server.service.ClientService;
@@ -20,6 +21,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class PictureGaleryController {
 
     private String PRE_PATH = "\\src\\main\\resources\\static\\img\\Galery\\";
+    private String PRE_PATH_FRONT = "img/Galery";
 
     @Autowired
     private PictureGaleryRepository pictureGaleryRepository;
@@ -35,15 +37,15 @@ public class PictureGaleryController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public void addPictureGalery(@RequestBody PictureGalery pictureGalery, @RequestParam("token") String token) {
+    public void addPictureGalery(@RequestParam("file") MultipartFile file, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
+            PictureGalery pictureGalery = new PictureGalery();
             FileManager fm = new FileManager();
 
-            String pathClient = pictureGalery.getPath();
-            String pathServer = PRE_PATH + fm.getFileName(pathClient);
-            String pathBdd = fm.saveImage(pathClient, pathServer);
+            String pathServer = PRE_PATH + file.getOriginalFilename();
+            fm.saveImage(file, pathServer);
 
-            pictureGalery.setPath(pathBdd);
+            pictureGalery.setPath(PRE_PATH_FRONT);
             pictureGaleryRepository.save(pictureGalery);
         }
     }
