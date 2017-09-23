@@ -42,10 +42,10 @@ public class PictureGaleryController {
             PictureGalery pictureGalery = new PictureGalery();
             FileManager fm = new FileManager();
 
-            String pathServer = PRE_PATH + file.getOriginalFilename();
+            String pathServer = System.getProperty("user.dir") + PRE_PATH + file.getOriginalFilename();
             fm.saveImage(file, pathServer);
 
-            pictureGalery.setPath(PRE_PATH_FRONT);
+            pictureGalery.setPath(PRE_PATH_FRONT + file.getOriginalFilename());
             pictureGaleryRepository.save(pictureGalery);
 
             return true;
