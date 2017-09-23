@@ -20,7 +20,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping("/api/pictureGalery")
 public class PictureGaleryController {
 
-    private String PRE_PATH = "\\src\\main\\resources\\static\\img\\Galery\\";
+    private String PRE_PATH = "/src/main/resources/static/img/Galery/";
     private String PRE_PATH_FRONT = "img/Galery";
 
     @Autowired
