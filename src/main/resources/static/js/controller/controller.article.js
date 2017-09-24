@@ -15,7 +15,6 @@
      * Send a request to display articles in the article View
      */
     Core.controller.article.initView = function () {
-        var paramRequest = "token=" + client.token;
-        utils.ajaxRequest(Core.service.article.getList(), paramRequest, null);
+        Core.service.article.getList();
     };
 })();

@@ -26,7 +26,7 @@
         Core.class.building.initAdminViewListBuilding();
         Core.class.services.initAdminViewListServices();
         Core.class.client.initAdminViewListClients();
-        Core.class.article.initAdminViewListArticles();
+        Core.service.article.initAdminViewListArticles();
         Core.class.iniAdminViewNewsLetter();
 
         var list_menu = document.getElementsByClassName("li_menu");

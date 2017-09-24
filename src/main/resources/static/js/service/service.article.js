@@ -15,8 +15,10 @@
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.article.create = function () {
-        return {
+    Core.service.article.create = function (json) {
+        var paramRequest = "token=" + client.token;
+
+        var object =  {
             name   : "create",
             method : "POST",
             url    : "/article",
@@ -27,14 +29,18 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest, json);
     };
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.article.udapte = function () {
-        return {
+    Core.service.article.udapte = function (json) {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name   : "udapte",
             method : "PUT",
             url    : "/article",
@@ -45,6 +51,8 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest, json);
     };
 
     /**
@@ -52,7 +60,9 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.article.delete = function () {
-        return {
+        var paramRequest = "token=" + client.token + "&id=" + id;
+
+        var object = {
             name   : "delete",
             method : "DELETE",
             url    : "/article",
@@ -63,6 +73,8 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest, null);
     };
 
     /**
@@ -70,7 +82,7 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.article.getList = function () {
-        return {
+        var object = {
             name   : "getList",
             method : "GET",
             url    : "/article",
@@ -83,6 +95,8 @@
 
             }
         };
+
+        utils.ajaxRequest(object);
     };
 
     /**
@@ -90,7 +104,7 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.article.initAdminViewListArticles = function () {
-        return {
+        var object = {
             name   : "initAdminViewListArticles",
             method : "GET",
             url    : "/article",
@@ -135,5 +149,7 @@
 
             }
         };
+
+        utils.ajaxRequest(object);
     };
 })();

@@ -193,7 +193,7 @@
                         '}';
 
 
-                    Core.class.client.signup(client);
+                    Core.service.client.signup(client);
                 } else {
                     utils.captcha(captchaElement);
                 }

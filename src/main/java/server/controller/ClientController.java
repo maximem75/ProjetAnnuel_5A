@@ -158,7 +158,7 @@ public class ClientController {
         return "redirect:index.html";
     }
 
-    @RequestMapping(path = "sendMail", method = GET)
+    @RequestMapping(path = "/sendMail", method = GET)
     @ResponseStatus(OK)
     public boolean sendMAil(){
         MailManager mailManager = new MailManager();
