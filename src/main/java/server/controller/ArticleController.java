@@ -36,7 +36,7 @@ public class ArticleController {
 
     @RequestMapping(method = GET)
     @ResponseStatus(FOUND)
-    public Article getArticleById(@PathVariable Long id){
+    public Article getArticleById(@RequestParam("idArticle") Long id){
         return articleRepository.getOne(id);
     }
 

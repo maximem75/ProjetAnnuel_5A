@@ -16,6 +16,9 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("select c from Client c where email = :Email and code = :Code")
     Client confirmation(@Param("Email") String email, @Param("Code") String code);
 
+    @Query("select c from Client c where statusActif = 'active' and accreditation = 'user'")
+    List<Client> getListUserActif();
+
     Client findByToken(@Param("Token") String token);
 
     Client findClientByEmailEquals(String email);

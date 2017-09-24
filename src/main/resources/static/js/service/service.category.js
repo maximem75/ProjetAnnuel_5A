@@ -16,7 +16,9 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.category.create = function () {
-        return {
+        var paramRequest = "token" + client.token;
+
+        var object =  {
             name: "create",
             method: "POST",
             url: "/category",
@@ -27,6 +29,8 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest, null);
     };
 
     /**
@@ -34,7 +38,9 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.category.delete = function () {
-        return {
+        var paramRequest = "token" + client.token + "&id=" + id;
+
+        var object = {
             name: "delete",
             method: "DELETE",
             url: "/category",
@@ -45,6 +51,8 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest, null);
     };
 
     /**
@@ -52,7 +60,7 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.category.getListCategories = function () {
-        return {
+        var object = {
             name: "getListCategories",
             method: "GET",
             url: "/category",
@@ -72,7 +80,7 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.category.initViewListCategories = function () {
-        return {
+        var object = {
             name: "initViewListCategories",
             method: "GET",
             url: "/category",

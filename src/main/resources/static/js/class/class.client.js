@@ -76,7 +76,7 @@
         if(token !== null && token !== undefined){
             utils.ajaxRequest(Core.service.client.getClientByToken(), paramRequest, null, true);
         } else {
-            Core.views.menu.addContextualMenuButtons();
+            Core.controller.menu.addContextualMenuButtons();
         }
     };
 

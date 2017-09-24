@@ -179,7 +179,7 @@
                     birthday = year.value + "-" + month.getElementsByTagName("option")[month.selectedIndex].getAttribute("name") + "-" + day.value;
 
                     client = '{' +
-                        '"name"       : "' + lastname.value + '",' +
+                        '"lastName"   : "' + lastname.value + '",' +
                         '"firstName"  : "' + firstname.value + '",' +
                         '"sexe"       : "' + sexe + '",' +
                         '"birthday"   : "' + birthday + '",' +
@@ -193,7 +193,7 @@
                         '}';
 
 
-                    Core.service.client.signup(client);
+                    Core.class.client.signup(client);
                 } else {
                     utils.captcha(captchaElement);
                 }

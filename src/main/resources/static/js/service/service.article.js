@@ -85,7 +85,7 @@
         var object = {
             name   : "getList",
             method : "GET",
-            url    : "/article",
+            url    : "/article/all",
             func : function (json) {
                 for(var j in json){
                     utils.template.createArticleTemplate(document.getElementById("article_container"), json[j]);
@@ -97,6 +97,24 @@
         };
 
         utils.ajaxRequest(object);
+    };
+
+    Core.service.article.getById = function (id) {
+        var paramRequest = "idArticle=" + id;
+
+        var object = {
+            name   : "getById",
+            method : "GET",
+            url    : "/article",
+            func : function (json) {
+
+            },
+            error : function(){
+
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
     /**

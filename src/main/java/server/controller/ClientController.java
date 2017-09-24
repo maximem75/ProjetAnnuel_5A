@@ -11,6 +11,7 @@ import server.utils.Mail.MailManager;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -115,8 +116,10 @@ public class ClientController {
             String newPassword = securityClientService.generateNewPassword();
             client.setPassword(securityClientService.hashPassword(newPassword));
 
+            MailManager mailManager = new MailManager();
+            mailManager.sendNewPassword(client, newPassword);
+
             clientRepository.save(client);
-            //TODO Send new password by email
         } else {
             throw new FindClientByEmailException();
         }
@@ -129,11 +132,20 @@ public class ClientController {
 
         Client clientExist = clientRepository.findClientByEmailEquals(client.getEmail());
         if (clientExist == null) {
+            int max = 9999;
+            int min = 1000;
+
+            Random r = new Random();
+            String code = Integer.toString((r.nextInt((max - min) + 1) + min));
+
             client.setCode(securityClientService.createCodeClient());
             client.setPassword(securityClientService.hashPassword(client.getPassword()));
             client.setStatusActif("inactive");
             client.setAccreditation("user");
+            client.setCode(code);
 
+            MailManager mailManager = new MailManager();
+            mailManager.sendCodeConfirmation(client, code);
             return clientRepository.save(client);
         } else {
             throw new ClientEmailAlreadyExistException();
@@ -147,7 +159,6 @@ public class ClientController {
         String psw = securityClientService.hashPassword(password);
         return clientService.updateNewInformationsClient(newClient, client, psw);
     }
-
 
     @RequestMapping(method = DELETE)
     @ResponseStatus(OK)
