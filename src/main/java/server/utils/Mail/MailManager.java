@@ -15,9 +15,11 @@ public class MailManager {
     private Session session;
 
     public MailManager(){
-        String username = "alvin.ondzounga@gmail.com";
-        String password = "vdmvdmvdm";
+        /*String username = "alvin.ondzounga@gmail.com";
+        String password = "vdmvdmvdm";*/
 
+        String username = "noreply.zky@gmail.com";
+        String password = "123soleil";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
