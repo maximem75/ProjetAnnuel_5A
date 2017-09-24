@@ -1,23 +1,22 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.Exception.FestiveRoomFreeException;
 import server.Exception.GetFestiveRoomBookingByIdException;
+import server.model.Client;
 import server.model.FestiveRoomBooking;
-import server.service.FestiveRoomService;
 import server.repository.FestiveRoomBookingRepository;
 import server.service.ClientService;
 import server.service.FestiveRoomBookingService;
+import server.service.FestiveRoomService;
 
 import java.util.Date;
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.ACCEPTED;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.FOUND;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.http.HttpStatus.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by molla on 27/08/2017.
@@ -102,6 +101,18 @@ public class FestiveRoomBookingController {
 
         if (clientService.adminAccess(token)) {
             return festiveRoomBookingRepository.findAll();
+        }
+
+        return null;
+    }
+
+    @RequestMapping(path = "/getByIdClient", method = GET)
+    @ResponseStatus(FOUND)
+    public List<FestiveRoomBooking> getListFestiveRoomBookingByIdClient(@RequestParam("token") String token) {
+        Client client = clientService.findByToken(token);
+
+        if (client != null) {
+            return festiveRoomBookingRepository.findByIdClient(client.getId());
         }
 
         return null;

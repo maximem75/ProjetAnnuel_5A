@@ -103,7 +103,6 @@ public class RoomBookingController {
     @RequestMapping(path = "/getPrice", method = GET)
     @ResponseStatus(FOUND)
     public float getTotalPriceBook(@RequestParam("refBookRoom") String refBookRoom, @RequestParam("token") String token) {
-
         if (clientService.findByToken(token) != null || clientService.adminAccess(token)) {
             return roomBookingService.calculatePrice(refBookRoom);
         }
@@ -119,6 +118,16 @@ public class RoomBookingController {
         if (((client != null) && Objects.equals(roomBooking.getIdClient(), client.getId())) || clientService.adminAccess(token)) {
             roomBookingRepository.save(roomBooking);
         }
+    }
 
+    @RequestMapping(path = "/getListByIdClient", method = GET)
+    @ResponseStatus(FOUND)
+    public List<RoomBooking> getListRoomBookingByIdClient(@RequestParam("token") String token) {
+        Client client = clientService.findByToken(token);
+        if (client != null) {
+            return roomBookingRepository.getListRoomBookingByIdClient(client.getId());
+        }
+
+        return null;
     }
 }

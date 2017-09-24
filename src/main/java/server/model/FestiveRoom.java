@@ -1,11 +1,10 @@
 package server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.persistence.Table;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -22,7 +21,7 @@ public class FestiveRoom {
     @Column (name = "price")
     private float price;
 
-    @Column(name = "picturePath")
+    @Column(name = "picture_path")
     private String picturePath;
 
     public Long getId() {

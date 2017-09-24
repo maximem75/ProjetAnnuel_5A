@@ -2,6 +2,7 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import server.model.FestiveRoom;
 import server.repository.FestiveRoomRepository;
 import server.service.ClientService;
@@ -16,7 +17,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping("/api/festiveRoom")
 public class FestiveRoomController {
 
-    private String PRE_PATH = "\\src\\main\\resources\\static\\img\\FestiveRoom";
+    private String PRE_PATH = "/src/main/resources/static/img/FestiveRoom/";
+    private String PRE_PATH_FRONT = "img/FestiveRoom/";
 
     @Autowired
     private FestiveRoomRepository festiveRoomRepository;
@@ -26,8 +28,7 @@ public class FestiveRoomController {
 
     @RequestMapping(method = GET)
     @ResponseStatus(FOUND)
-    public List<FestiveRoom> getListFestiveRooms(@RequestParam("id") int id, @RequestParam("token") String token){
-
+    public List<FestiveRoom> getListFestiveRooms(@RequestParam("token") String token){
         if(clientService.findByToken(token) != null){
             return festiveRoomRepository.findAll();
         }
@@ -37,21 +38,29 @@ public class FestiveRoomController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public void addFestiveRoom(@RequestBody FestiveRoom festiveRoom, @RequestParam("token") String token){
-
+    public void addFestiveRoom(@RequestBody FestiveRoom festiveRoom, @RequestParam("file") MultipartFile file, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
-            FileManager fm = new FileManager();
+            String pathServer = PRE_PATH + file.getOriginalFilename();
 
-            //festiveRoom.setPicturePath(fm.generatePath(festiveRoom.getPicturePath(), PRE_PATH));
+            FileManager fm = new FileManager();
+            fm.saveImage(file, pathServer);
+
+            festiveRoom.setPicturePath(PRE_PATH_FRONT + file.getOriginalFilename());
             festiveRoomRepository.save(festiveRoom);
         }
     }
 
     @RequestMapping(method = PUT)
     @ResponseStatus(ACCEPTED)
-    public void updateFestiveRoom(@RequestBody FestiveRoom festiveRoom,  @RequestParam("token") String token){
+    public void updateFestiveRoom(@RequestBody FestiveRoom festiveRoom, @RequestParam("file") MultipartFile file, @RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){
+            String pathServer = PRE_PATH + file.getOriginalFilename();
+
+            FileManager fm = new FileManager();
+            fm.saveImage(file, pathServer);
+
+            festiveRoom.setPicturePath(PRE_PATH_FRONT + file.getOriginalFilename());
             festiveRoomRepository.save(festiveRoom);
         }
     }

@@ -1,12 +1,11 @@
 package server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.util.Date;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -46,9 +45,6 @@ public class RoomBooking {
 
     @Column(name = "ref_room_book")
     private String refRoomBook;
-
-    @OneToMany(mappedBy = "roomBooking", cascade = CascadeType.ALL)
-    private Set<RoomBookingServices> roomBookingServices;
 
     public Long getId() {
         return id;
@@ -130,11 +126,4 @@ public class RoomBooking {
         this.refRoomBook = refRoomBook;
     }
 
-    public Set<RoomBookingServices> getRoomBookingServices() {
-        return roomBookingServices;
-    }
-
-    public void setRoomBookingServices(Set<RoomBookingServices> roomBookingServices) {
-        this.roomBookingServices = roomBookingServices;
-    }
 }

@@ -2,14 +2,10 @@ package server.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
-import org.hibernate.validator.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,9 +24,6 @@ public class RoomCategory {
 
     @Column(name = "price")
     private float price;
-
-    @OneToMany(mappedBy = "roomCategory", cascade = CascadeType.ALL)
-    private Set<PictureRoomCategory> listPictureRoomCategory;
 
     public Long getId() {
         return id;
@@ -56,11 +49,4 @@ public class RoomCategory {
         this.price = price;
     }
 
-    public Set<PictureRoomCategory> getListPictureRoomCategory() {
-        return listPictureRoomCategory;
-    }
-
-    public void setListPictureRoomCategory(Set<PictureRoomCategory> listPictureRoomCategory) {
-        this.listPictureRoomCategory = listPictureRoomCategory;
-    }
 }

@@ -21,13 +21,11 @@ public class RoomBookingServices {
     @Column(name = "id_room_booking_services")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_room_booking")
-    private RoomBooking roomBooking;
+    @Column(name = "id_room_booking")
+    private Long idRoomBooking;
 
-    @ManyToOne
-    @JoinColumn(name = "id_room_service")
-    private RoomService roomService;
+    @Column(name = "id_room_service")
+    private Long idRoomService;
 
     public Long getId() {
         return id;
@@ -37,19 +35,19 @@ public class RoomBookingServices {
         this.id = id;
     }
 
-    public RoomBooking getRoomBooking() {
-        return roomBooking;
+    public Long getIdRoomBooking() {
+        return idRoomBooking;
     }
 
-    public void setRoomBooking(RoomBooking roomBooking) {
-        this.roomBooking = roomBooking;
+    public void setIdRoomBooking(Long idRoomBooking) {
+        this.idRoomBooking = idRoomBooking;
     }
 
-    public RoomService getRoomService() {
-        return roomService;
+    public Long getIdRoomService() {
+        return idRoomService;
     }
 
-    public void setRoomService(RoomService roomService) {
-        this.roomService = roomService;
+    public void setIdRoomService(Long idRoomService) {
+        this.idRoomService = idRoomService;
     }
 }

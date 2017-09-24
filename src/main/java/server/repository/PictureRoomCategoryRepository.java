@@ -9,4 +9,5 @@ import server.model.PictureRoomCategory;
  */
 @Repository
 public interface PictureRoomCategoryRepository extends JpaRepository<PictureRoomCategory, Long> {
+
 }

@@ -2,6 +2,7 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import server.model.Article;
 import server.repository.ArticleRepository;
 import server.service.ClientService;
@@ -17,7 +18,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 @RequestMapping("/api/article")
 public class ArticleController {
-    private String PRE_PATH = "\\src\\main\\resources\\static\\img\\Article";
+
+    private String PRE_PATH = "/src/main/resources/static/img/Article/";
+    private String PRE_PATH_FRONT = "img/Article/";
 
     @Autowired
     private ArticleRepository articleRepository;
@@ -39,24 +42,30 @@ public class ArticleController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public void addArticle(@RequestBody Article article, @RequestParam("token") String token){
+    public void addArticle(@RequestBody Article article, @RequestParam("file") MultipartFile file, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
+            String pathServer = PRE_PATH + file.getOriginalFilename();
+
             FileManager fm = new FileManager();
+            fm.saveImage(file, pathServer);
 
             article.setDate(new Date());
-            //article.setPicturePath(fm.generatePath(article.getPicturePath(), PRE_PATH));
+            article.setPicturePath(PRE_PATH_FRONT + file.getOriginalFilename());
             articleRepository.save(article);
         }
     }
 
     @RequestMapping(method = PUT)
     @ResponseStatus(ACCEPTED)
-    public void updateArticle(@RequestBody Article article, @RequestParam("token") String token){
+    public void updateArticle(@RequestBody Article article, @RequestParam("file") MultipartFile file, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
+            String pathServer = PRE_PATH + file.getOriginalFilename();
+
             FileManager fm = new FileManager();
+            fm.saveImage(file, pathServer);
 
             article.setDate(new Date());
-            //article.setPicturePath(fm.generatePath(article.getPicturePath(), PRE_PATH));
+            article.setPicturePath(PRE_PATH_FRONT + file.getOriginalFilename());
             articleRepository.save(article);
         }
     }

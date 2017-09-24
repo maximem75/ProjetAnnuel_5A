@@ -1,19 +1,14 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.model.RoomCategory;
 import server.repository.RoomCategoryRepository;
 import server.service.ClientService;
-import server.service.RoomCategoryService;
-import server.service.RoomService;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.FOUND;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 //@CrossOrigin(origins = "*")
@@ -27,7 +22,7 @@ public class RoomCategoryController {
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping(path = "getListRoomCategories", method = GET)
+    @RequestMapping(method = GET)
     @ResponseStatus(FOUND)
     public List<RoomCategory> getListRoomCategories() {
         return roomCategoryRepository.findAll();
@@ -42,7 +37,7 @@ public class RoomCategoryController {
     }
 
     @RequestMapping(method = PUT)
-    @ResponseStatus(CREATED)
+    @ResponseStatus(ACCEPTED)
     public void updateRoomCategory(@RequestBody RoomCategory roomCategory, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             roomCategoryRepository.save(roomCategory);

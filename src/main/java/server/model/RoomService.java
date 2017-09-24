@@ -1,11 +1,10 @@
 package server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
-import org.hibernate.validator.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Created by maxime on 06/09/2017.
@@ -24,7 +23,6 @@ public class RoomService {
     private Long id;
 
     @Column(name = "name")
-    @NotEmpty(message = "A service must have a name")
     private String name;
 
     @Column(name = "price")

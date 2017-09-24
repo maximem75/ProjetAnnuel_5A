@@ -20,9 +20,8 @@ public class PictureRoomCategory {
     @Column(name = "id_picture_room_category")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="id_room_category")
-    private RoomCategory roomCategory;
+    @Column(name = "id_room_category")
+    private Long idRoomCategory;
 
     @Column(name = "path")
     private String path;
@@ -35,12 +34,12 @@ public class PictureRoomCategory {
         this.id = id;
     }
 
-    public RoomCategory getRoomCategory() {
-        return roomCategory;
+    public Long getIdRoomCategory() {
+        return idRoomCategory;
     }
 
-    public void setRoomCategory(RoomCategory roomCategory) {
-        this.roomCategory = roomCategory;
+    public void setIdRoomCategory(Long idRoomCategory) {
+        this.idRoomCategory = idRoomCategory;
     }
 
     public String getPath() {

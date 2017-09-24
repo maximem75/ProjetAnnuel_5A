@@ -90,7 +90,7 @@
             return document.getElementById("include_content");
         },
         roomPath : {
-            "0" : ["Chambre simple/img/IMG_5533.jpg"],
+            "0" : ["Chambre Simple/img/IMG_5533.jpg"],
             "1" : ["Chambre double/img/IMG_5523.jpg","img/IMG_5531.jpg"],
             "2" : ["Suite junior/img/IMG_5507.jpg", "img/IMG_5548.jpg", "img/IMG_5549.jpg"],
             "3" : ["img/suiteExecutive/IMG_5551.jpg", "img/suiteExecutive/IMG_5552.jpg", "img/suiteExecutive/IMG_5553.jpg", "img/suiteExecutive/IMG_5554.jpg", "img/suiteExecutive/IMG_5555.jpg"]

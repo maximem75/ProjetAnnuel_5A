@@ -2,14 +2,15 @@ package server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import server.model.FestiveRoom;
 import server.model.FestiveRoomBooking;
+import server.model.FestiveRoomService;
 import server.model.FestiveRoomBookingServices;
 import server.repository.FestiveRoomBookingRepository;
+import server.repository.FestiveRoomBookingServicesRepository;
 import server.repository.FestiveRoomRepository;
+import server.repository.FestiveRoomServiceRepository;
 import server.utils.DateComparer;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,14 +26,22 @@ public class FestiveRoomBookingService {
     @Autowired
     private FestiveRoomBookingRepository festiveRoomBookingRepository;
 
+    @Autowired
+    private FestiveRoomServiceRepository festiveRoomServiceRepository;
+
+    @Autowired
+    private FestiveRoomBookingServicesRepository festiveRoomBookingServicesRepository;
+
     public float calculatePrice(Long id){
         FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
+        List<FestiveRoomBookingServices> festiveRoomBookingServicesList = festiveRoomBookingServicesRepository.getFestiveRoomBookingServicesByIdFestiveRoomBooking(id);
 
         int days = DateComparer.getDaysBetweenDates(festiveRoomBooking.getDateEnd(), festiveRoomBooking.getDateStart());
         float  price = (festiveRoomRepository.getOne(festiveRoomBooking.getIdFestiveRoom()).getPrice() * days);
 
-        for (FestiveRoomBookingServices frbs : festiveRoomBooking.getFestiveRoomBookingServices()) {
-            price += (frbs.getFestiveRoomService().getPrice() * frbs.getQuantity() * days);
+        for (FestiveRoomBookingServices frbs : festiveRoomBookingServicesList) {
+            FestiveRoomService frb = festiveRoomServiceRepository.getOne(frbs.getIdFestiveRoomService());
+            price += (frb.getPrice() * frbs.getQuantity() * days);
         }
 
         return price;

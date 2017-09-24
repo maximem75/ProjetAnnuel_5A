@@ -21,7 +21,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class PictureGaleryController {
 
     private String PRE_PATH = "/src/main/resources/static/img/Galery/";
-    private String PRE_PATH_FRONT = "img/Galery";
+    private String PRE_PATH_FRONT = "img/Galery/";
 
     @Autowired
     private PictureGaleryRepository pictureGaleryRepository;
@@ -37,7 +37,7 @@ public class PictureGaleryController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public String addPictureGalery(@RequestParam("file") MultipartFile file, @RequestParam("token") String token) {
+    public void addPictureGalery(@RequestParam("file") MultipartFile file, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             PictureGalery pictureGalery = new PictureGalery();
             FileManager fm = new FileManager();
@@ -47,11 +47,7 @@ public class PictureGaleryController {
 
             pictureGalery.setPath(PRE_PATH_FRONT + file.getOriginalFilename());
             pictureGaleryRepository.save(pictureGalery);
-
-            return System.getProperty("user.dir");
         }
-
-        return System.getProperty("user.dir");
     }
 
     @RequestMapping(method = DELETE)

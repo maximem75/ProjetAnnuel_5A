@@ -1,8 +1,11 @@
 package server.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import server.model.FestiveRoomBooking;
+
+import java.util.List;
 
 /**
  * Created by molla on 27/08/2017.
@@ -11,4 +14,5 @@ import server.model.FestiveRoomBooking;
 @Repository
 public interface FestiveRoomBookingRepository extends JpaRepository<FestiveRoomBooking, Long>{
 
+    List<FestiveRoomBooking> findByIdClient(@Param("idClient") Long idClient);
 }

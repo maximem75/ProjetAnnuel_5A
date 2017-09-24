@@ -3,9 +3,12 @@ package server.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.model.RoomBooking;
+import server.model.RoomService;
 import server.model.RoomBookingServices;
 import server.repository.RoomBookingRepository;
+import server.repository.RoomBookingServicesRepository;
 import server.repository.RoomRepository;
+import server.repository.RoomServiceRepository;
 import server.utils.DateComparer;
 
 import java.util.ArrayList;
@@ -20,6 +23,13 @@ public class RoomBookingService {
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private RoomBookingServicesRepository roomBookingServicesRepository;
+
+    @Autowired
+    private RoomServiceRepository roomServiceRepository;
+
 
     public List<RoomBooking> getListRoomBookingByRefBookRoom(String refBookRoom){
         return roomBookingRepository.getListRoomBookingByRefBookRoom(refBookRoom);
@@ -49,12 +59,14 @@ public class RoomBookingService {
         List<RoomBooking> listRoomBooking = getListRoomBookingByRefBookRoom(refBookRoom);
 
         for (RoomBooking rb : listRoomBooking) {
+            List<RoomBookingServices> listRoomBookingServices = roomBookingServicesRepository.getListByIdRoomBooking(rb.getId());
 
             days = DateComparer.getDaysBetweenDates(rb.getDateEnd(), rb.getDateStart());
             price += (roomRepository.getOne(rb.getIdRoom()).getRoomCategory().getPrice() * days);
 
-            for (RoomBookingServices rbs : rb.getRoomBookingServices()) {
-                price += (rbs.getRoomService().getPrice() * days);
+            for (RoomBookingServices rbs : listRoomBookingServices) {
+                RoomService roomService = roomServiceRepository.getOne(rbs.getIdRoomService());
+                price += (roomService.getPrice() * days);
             }
         }
 

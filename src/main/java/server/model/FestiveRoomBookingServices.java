@@ -20,13 +20,11 @@ public class FestiveRoomBookingServices {
     @Column(name = "id_festive_room_booking_services")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_festive_room_booking")
-    private FestiveRoomBooking festiveRoomBooking;
+    @Column(name = "id_festive_room_booking")
+    private Long idFestiveRoomBooking;
 
-    @ManyToOne
-    @JoinColumn(name = "id_festive_room_service")
-    private FestiveRoomService festiveRoomService;
+    @Column(name = "id_festive_room_service")
+    private Long idFestiveRoomService;
 
     @Column(name = "quantity")
     private int quantity;
@@ -39,20 +37,20 @@ public class FestiveRoomBookingServices {
         this.id = id;
     }
 
-    public FestiveRoomBooking getFestiveRoomBooking() {
-        return festiveRoomBooking;
+    public Long getIdFestiveRoomBooking() {
+        return idFestiveRoomBooking;
     }
 
-    public void setFestiveRoomBooking(FestiveRoomBooking festiveRoomBooking) {
-        this.festiveRoomBooking = festiveRoomBooking;
+    public void setIdFestiveRoomBooking(Long idFestiveRoomBooking) {
+        this.idFestiveRoomBooking = idFestiveRoomBooking;
     }
 
-    public FestiveRoomService getFestiveRoomService() {
-        return festiveRoomService;
+    public Long getIdFestiveRoomService() {
+        return idFestiveRoomService;
     }
 
-    public void setFestiveRoomService(FestiveRoomService festiveRoomService) {
-        this.festiveRoomService = festiveRoomService;
+    public void setIdFestiveRoomService(Long idFestiveRoomService) {
+        this.idFestiveRoomService = idFestiveRoomService;
     }
 
     public int getQuantity() {
