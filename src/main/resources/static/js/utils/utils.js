@@ -40,7 +40,7 @@
         xhr.setRequestHeader('Content-type', 'application/json');
 
         xhr.onload = function (re) {
-            if(xhr.status === 200 || xhr.status === 201){
+            if(data.httpCodeValide.indexOf(xhr.status) !== -1){
                 if(option === true && (this.responseText == undefined || this.responseText == "")){
                     objectService.error(xhr.status);
                 } else {

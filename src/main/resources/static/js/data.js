@@ -97,6 +97,7 @@
         },
         currentPath : null,
         captchaResult : null,
-        mainImageID : "main_header"
+        mainImageID : "main_header",
+        httpCodeValide : [200, 201, 202, 302]
     };
 })();

@@ -23,13 +23,13 @@
             func : function (clt) {
                 if(clt.code !== "OK"){
                     Core.utils.empty(data.getIncludeContainer());
-                    views.includeContainer.switchView("confirmation");
+                    Core.controller.includeContainer.switchView("confirmation");
                     window.sessionStorage.setItem("tmp_email", clt.email);
                 } else {
                     window.client = new Core.class.client(clt);
                     client.createSessionStorage(client.token, client.tokenDate);
-                    views.includeContainer.switchView("accueil");
-                    views.menu.addContextualMenuButtons();
+                    Core.controller.includeContainer.switchView("accueil");
+                    Core.controller.menu.addContextualMenuButtons();
                 }
             },
             error : function(statusCode){
