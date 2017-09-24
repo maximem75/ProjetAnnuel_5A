@@ -135,7 +135,7 @@ INSERT INTO `client` (`id_client`, `accreditation`, `address`, `birthday`, `city
 CREATE TABLE `festive_room` (
   `id_festive_room` int(100) NOT NULL,
   `price` float(100,4) NOT NULL,
-  `picturePath` varchar(100) NOT NULL
+  `picture_path` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
