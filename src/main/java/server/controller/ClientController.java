@@ -45,13 +45,15 @@ public class ClientController {
     }
 
 
-    @RequestMapping(path = "/logout", method = POST)
-    @ResponseStatus(FOUND)
+    @RequestMapping(path = "/logout", method = GET)
+    @ResponseStatus(ACCEPTED)
     public void logout(@RequestParam("token") String token){
         Client client = clientService.findByToken(token);
-        client.setToken(null);
-        client.setTokenDate(null);
-        clientService.updateClient(client);
+        if(client != null) {
+            client.setToken(null);
+            client.setTokenDate(null);
+            clientService.updateClient(client);
+        }
     }
 
 
@@ -144,8 +146,8 @@ public class ClientController {
             client.setAccreditation("user");
             client.setCode(code);
 
-            MailManager mailManager = new MailManager();
-            mailManager.sendCodeConfirmation(client, code);
+            //MailManager mailManager = new MailManager();
+            //mailManager.sendCodeConfirmation(client, code);
             return clientRepository.save(client);
         } else {
             throw new ClientEmailAlreadyExistException();

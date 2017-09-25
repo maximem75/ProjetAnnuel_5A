@@ -3,10 +3,10 @@
  *
  * version 1.0.0
  */
-;(function(undefined) {
+;(function (undefined) {
     "use strict";
 
-    if(typeof Core === "undefined")
+    if (typeof Core === "undefined")
         throw "Core is not declared";
 
     Core.utils = Core.utils || {};
@@ -21,27 +21,27 @@
      * @param option
      */
     Core.utils.ajaxRequest = function (objectService, paramRequest, paramBody, option) {
-        var requestUrl, requestBody;
-        
+        var requestUrl = "", requestBody = "";
+
         var initVariables = function () {
-            if(paramRequest !== null && paramRequest !== undefined)
+            if (paramRequest !== null && paramRequest !== undefined)
                 requestUrl = data.basicUrl + objectService.url + "?" + paramRequest;
             else
                 requestUrl = data.basicUrl + objectService.url;
 
-            if(paramBody !== null && paramBody !== undefined)
+            if (paramBody !== null && paramBody !== undefined)
                 requestBody = paramBody;
             else
                 requestBody = "";
         }();
-
+        console.log(requestUrl);
         var xhr = new XMLHttpRequest();
-        xhr.open(objectService.method, requestUrl , false);
+        xhr.open(objectService.method, requestUrl, false);
         xhr.setRequestHeader('Content-type', 'application/json');
 
         xhr.onload = function (re) {
-            if(data.httpCodeValide.indexOf(xhr.status) !== -1){
-                if(option === true && (this.responseText == undefined || this.responseText == "")){
+            if (data.httpCodeValide.indexOf(xhr.status) !== -1) {
+                if (option === true && (this.responseText == undefined || this.responseText == "")) {
                     objectService.error(xhr.status);
                 } else {
                     var response = JSON.parse(this.responseText);
@@ -67,7 +67,7 @@
     Core.utils.include = function (path, name) {
         var fullPath = data.pathHtml + path;
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", fullPath , true);
+        xhr.open("GET", fullPath, true);
         xhr.onload = function () {
             document.getElementById("include_content").innerHTML = this.responseText;
             controller.includeContainer.initViewEvents(name);
@@ -81,7 +81,7 @@
      * @param element
      */
     Core.utils.empty = function (element) {
-        while(element.firstChild){
+        while (element.firstChild) {
             element.removeChild(element.firstChild);
         }
     };
@@ -91,11 +91,33 @@
      */
     Core.utils.removeTimeouts = function () {
         var length = _timeoutsID.length;
-        for(var  i = 0 ; i < length ; i++){
+        for (var i = 0; i < length; i++) {
             window.clearTimeout(_timeoutsID[i]);
         }
 
         _timeoutsID = [];
+    };
+    
+    Core.utils.imageOpacityAnimation = function (background, idContainer) {
+        var divHeader = document.getElementById(idContainer);
+
+        var timeOut = function(i){
+            utils.removeTimeouts();
+
+            var tmID = setTimeout(function(){
+                if(i < 10){
+                    i += 1;
+                    divHeader.style.opacity = (1 -(0.1 * i));
+                    timeOut(i);
+                } else {
+                    divHeader.style.backgroundImage = "url(" + background + ")";
+                    divHeader.style.opacity = 1;
+                    utils.removeTimeouts();
+                }
+            }, 40);
+        };
+
+        timeOut(1);
     };
 
     /**
@@ -105,21 +127,21 @@
      */
     Core.utils.manageImages = function (background, idContainer) {
         var divHeader = document.getElementById(idContainer);
-        var jqueryID  = "#" + idContainer;
+        var jqueryID = "#" + idContainer;
 
-        divHeader.style.backgroundImage = "url(" + background[background.length-1] +")";
+        divHeader.style.backgroundImage = "url(" + background[background.length - 1] + ")";
 
-        var timeOut = function(i){
+        var timeOut = function (i) {
             utils.removeTimeouts();
 
-            if (i == background.length-1)
+            if (i == background.length - 1)
                 i = 0;
             else
                 i += 1;
 
-            var tmID = setTimeout(function(){
-                $(jqueryID).fadeOut(1000,function(){
-                    divHeader.style.backgroundImage = "url(" + background[i] +")";
+            var tmID = setTimeout(function () {
+                $(jqueryID).fadeOut(1000, function () {
+                    divHeader.style.backgroundImage = "url(" + background[i] + ")";
                     $(jqueryID).fadeIn(1000);
                 })
 
@@ -142,7 +164,7 @@
         value1 = Math.floor((Math.random() * 10) + 1);
         value2 = Math.floor((Math.random() * 10) + 1);
 
-        switch (type){
+        switch (type) {
             case 1:
                 operator = "+";
                 data.captchaResult = value1 + value2;
@@ -157,9 +179,9 @@
                 break;
         }
 
-        catchpaElement = '<span>'+ value1 +'</span><span> '+ operator +' </span><span>'+ value2 +'</span> = <input id="captcha_value" type="text" style ="width: 100px; text-align: center;">'
-            +'<div id="captcha_reload" href="#" style="margin-left: 10px; display: inline-block; cursor: pointer;"><i class="glyphicon glyphicon-repeat"></i></div>'
-            +'<span id="captcha_error" style="margin-left: 10px;color: red; font: 16px Lora,Times New Roman,serif;"></span>';
+        catchpaElement = '<span>' + value1 + '</span><span> ' + operator + ' </span><span>' + value2 + '</span> = <input id="captcha_value" type="text" style ="width: 100px; text-align: center;">'
+            + '<div id="captcha_reload" href="#" style="margin-left: 10px; display: inline-block; cursor: pointer;"><i class="glyphicon glyphicon-repeat"></i></div>'
+            + '<span id="captcha_error" style="margin-left: 10px;color: red; font: 16px Lora,Times New Roman,serif;"></span>';
         element.innerHTML = catchpaElement;
 
         utils.removeListener(document.getElementById("captcha_reload"), "click");
@@ -177,9 +199,9 @@
     Core.utils.checkDate = function (type, value) {
         var currentTime = new Date();
 
-        switch (type){
+        switch (type) {
             case "year":
-                if(value > 1900 && value <= currentTime.getFullYear())
+                if (value > 1900 && value <= currentTime.getFullYear())
                     return true;
                 else
                     return false;
@@ -187,7 +209,7 @@
                 break;
 
             case "month":
-                if(value >= 1 && value <= 12)
+                if (value >= 1 && value <= 12)
                     return true;
                 else
                     return false;
@@ -195,13 +217,14 @@
                 break;
 
             case "day":
-                if(value >= 1 && value <= 31)
+                if (value >= 1 && value <= 31)
                     return true;
                 else
                     return false;
 
                 break;
-        };
+        }
+        ;
     };
 
     /**
@@ -217,48 +240,51 @@
         var initVariables = function () {
             year = dateObject.getFullYear();
 
-            if(dateObject.getMonth() < 9)
+            if (dateObject.getMonth() < 9)
                 month = "0" + (parseInt(dateObject.getMonth()) + 1);
             else
                 month = (parseInt(dateObject.getMonth()) + 1);
 
-            if(dateObject.getDate() < 10)
+            if (dateObject.getDate() < 10)
                 day = "0" + dateObject.getDate();
             else
                 day = dateObject.getDate();
         }();
 
 
-        switch (type){
+        switch (type) {
             case "view_account":
                 return day + "/" + month + "/" + year;
             case  "update_account":
                 return year + "-" + month + "-" + day;
             case "reservation":
-        }       return  year + "-" + month + "-" + day;
+        }
+        return year + "-" + month + "-" + day;
     };
 
     /**
      * Set the datePicker in french language
      */
     Core.utils.setDatepickerLanguage = function () {
-        $.datepicker.regional['fr'] = {clearText: 'Effacer', clearStatus: '',
+        $.datepicker.regional['fr'] = {
+            clearText: 'Effacer', clearStatus: '',
             closeText: 'Fermer', closeStatus: 'Fermer sans modifier',
             prevText: '<Préc', prevStatus: 'Voir le mois précédent',
             nextText: 'Suiv>', nextStatus: 'Voir le mois suivant',
             currentText: 'Courant', currentStatus: 'Voir le mois courant',
-            monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
-                'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
-            monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
-                'Jul','Aoû','Sep','Oct','Nov','Déc'],
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+                'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun',
+                'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'],
             monthStatus: 'Voir un autre mois', yearStatus: 'Voir un autre année',
             weekHeader: 'Sm', weekStatus: '',
-            dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
-            dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
-            dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+            dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
             dayStatus: 'Utiliser DD comme premier jour de la semaine', dateStatus: 'Choisir le DD, MM d',
             dateFormat: 'dd/mm/yy', firstDay: 0,
-            initStatus: 'Choisir la date', isRTL: false};
+            initStatus: 'Choisir la date', isRTL: false
+        };
         $.datepicker.setDefaults($.datepicker.regional['fr']);
     };
 
@@ -279,25 +305,25 @@
      */
     Core.utils.verifSessionStorage = function (token_date) {
         var currentDate = new Date();
-        var tokenDate   = new Date(token_date);
+        var tokenDate = new Date(token_date);
 
-        var diffHours  = currentDate.getHours()   - tokenDate.getHours();
-        var diffMin    = currentDate.getMinutes() - tokenDate.getMinutes();
-        var diffMinExc = (tokenDate.getMinutes() +  60) - currentDate.getMinutes();
+        var diffHours = currentDate.getHours() - tokenDate.getHours();
+        var diffMin = currentDate.getMinutes() - tokenDate.getMinutes();
+        var diffMinExc = (tokenDate.getMinutes() + 60) - currentDate.getMinutes();
 
-        if(tokenDate.getFullYear()  !== currentDate.getFullYear()
+        if (tokenDate.getFullYear() !== currentDate.getFullYear()
             || tokenDate.getMonth() !== currentDate.getMonth()
-            || tokenDate.getDate()  !== currentDate.getDate())
+            || tokenDate.getDate() !== currentDate.getDate())
             return false;
 
-        if(diffHours === 0){
-            if(diffMin <= 15){
+        if (diffHours === 0) {
+            if (diffMin <= 15) {
                 return true;
             } else {
                 return false;
             }
 
-        } else if(diffHours === 1 && diffMinExc <= 15){
+        } else if (diffHours === 1 && diffMinExc <= 15) {
             return true;
         }
         return false;
@@ -313,16 +339,16 @@
         var diff = {};
         var tmp = date_end - date_start;
 
-        tmp = Math.floor(tmp/1000);
+        tmp = Math.floor(tmp / 1000);
         diff.sec = tmp % 60;
 
-        tmp = Math.floor((tmp-diff.sec)/60);
+        tmp = Math.floor((tmp - diff.sec) / 60);
         diff.min = tmp % 60;
 
-        tmp = Math.floor((tmp-diff.min)/60);
+        tmp = Math.floor((tmp - diff.min) / 60);
         diff.hour = tmp % 24;
 
-        tmp = Math.floor((tmp-diff.hour)/24);
+        tmp = Math.floor((tmp - diff.hour) / 24);
         diff.day = tmp;
 
         return diff;
@@ -345,10 +371,10 @@
      * @param capture
      */
     Core.utils.addListener = function (node, event, handler, capture) {
-        if(!(node in _eventHandlers)) {
+        if (!(node in _eventHandlers)) {
             _eventHandlers[node] = {};
         }
-        if(!(event in _eventHandlers[node])) {
+        if (!(event in _eventHandlers[node])) {
             _eventHandlers[node][event] = [];
         }
         _eventHandlers[node][event].push([handler, capture]);
@@ -361,11 +387,11 @@
      * @param event
      */
     Core.utils.removeListener = function (node, event) {
-        if(node in _eventHandlers) {
+        if (node in _eventHandlers) {
             var handlers = _eventHandlers[node];
-            if(event in handlers) {
+            if (event in handlers) {
                 var eventHandlers = handlers[event];
-                for(var i = eventHandlers.length; i--;) {
+                for (var i = eventHandlers.length; i--;) {
                     var handler = eventHandlers[i];
                     node.removeEventListener(event, handler[0], handler[1]);
                 }
@@ -378,11 +404,11 @@
      * @param e
      * @returns {boolean}
      */
-    Core.utils.pauseEvent = function (e){
-        if(e.stopPropagation) e.stopPropagation();
-        if(e.preventDefault) e.preventDefault();
-        e.cancelBubble=true;
-        e.returnValue=false;
+    Core.utils.pauseEvent = function (e) {
+        if (e.stopPropagation) e.stopPropagation();
+        if (e.preventDefault) e.preventDefault();
+        e.cancelBubble = true;
+        e.returnValue = false;
 
         return false;
     };

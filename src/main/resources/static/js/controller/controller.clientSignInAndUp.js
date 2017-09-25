@@ -225,4 +225,23 @@
         }();
     };
 
+    Core.controller.clientSignInAndUp.loginSuccess = function (client) {
+        if(client.code !== "OK"){
+            Core.utils.empty(data.getIncludeContainer());
+            Core.controller.includeContainer.switchView("confirmation");
+            window.sessionStorage.setItem("tmp_email", client.email);
+        } else {
+            window.client = new Core.class.client(client);
+            window.client.createSessionStorage(client.token, client.tokenDate);
+            Core.controller.includeContainer.switchView("accueil");
+            Core.controller.menu.addContextualMenuButtons();
+        }
+    };
+
+    Core.controller.clientSignInAndUp.loginFailed = function (statusCode) {
+        document.getElementById("error_container").textContent = "Identifiants incorrects";
+        document.getElementById("emailBtn").value = "";
+        document.getElementById("passwordBtn").value = "";
+    };
+
 })();

@@ -22,7 +22,7 @@
             Core.class.client.reloadClient();
             utils.empty(data.getIncludeContainer());
             utils.include(pageObject.viewPath, pageObject.name);
-            //utils.manageImages(pageObject.listImage, data.mainImageID);
+            utils.imageOpacityAnimation(pageObject.listImage, data.mainImageID);
             data.currentPath = pageObject.viewPath;
         }
     };
@@ -37,7 +37,7 @@
                 controller.clientSignInAndUp.initView();
                 break;
             case "logout" :
-                client.logout();
+                window.client.logout();
                 break;
             case "compte" :
                 controller.clientAccount.initView();

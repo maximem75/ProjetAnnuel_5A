@@ -18,15 +18,15 @@
         this.birthday      = clientJson.birthday;
         this.sexe          = clientJson.sexe;
         this.city          = clientJson.city;
-        this.clientId      = clientJson.clientId;
+        this.id            = clientJson.id;
         this.country       = clientJson.country;
         this.email         = clientJson.email;
         this.firstName     = clientJson.firstName;
-        this.name          = clientJson.name;
+        this.lastName      = clientJson.lastName;
         this.password      = clientJson.password;
         this.phone         = clientJson.phone;
         this.postalCode    = clientJson.postalCode;
-        this.status_actif  = clientJson.status_actif;
+        this.statusActif  = clientJson.statusActif;
         this.token         = clientJson.token;
         this.tokenDate     = clientJson.tokenDate;
     };
@@ -38,7 +38,7 @@
      */
     Core.class.client.login = function (email, password) {
         var paramRequest = "email="+email+"&password="+password;
-        utils.ajaxRequest(Core.service.client.login(), paramRequest, null);
+         utils.ajaxRequest(Core.service.client.login(), paramRequest, null);
     };
 
     /**
@@ -94,8 +94,8 @@
      * Disconnect the client and remove the session
      */
     Core.class.client.prototype.logout = function () {
-        var paramRequest = "token="+ window.client.token;
-        utils.ajaxRequest(Core.service.client.logout(), paramRequest, null, false);
+        var paramRequest = "token=" + client.token;
+        utils.ajaxRequest(Core.service.client.logout(), paramRequest);
     };
 
     /**

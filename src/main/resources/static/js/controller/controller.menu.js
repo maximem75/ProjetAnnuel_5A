@@ -17,11 +17,11 @@
     Core.controller.menu.manageMenuButtons = function () {
         utils.addListener(data.getMenu(), "click", function (e) {
             if(e.target.tagName === "A"){
-                if(window.client !== null && window.client !== undefined)
-                    window.client.reloadTokenDate();
-
                 var pageName = e.target.id.substring(4);
                 controller.includeContainer.switchView(pageName);
+
+                if(window.client !== null && window.client !== undefined)
+                    window.client.reloadTokenDate();
             }
         }, false);
     };
@@ -61,10 +61,10 @@
                 createButton("btn_restaurant", "Restaurant", menuLastChild);
                 createButton("btn_festiveRoom", "Salle des fêtes", menuLastChild);
 
-                if(client.accreditation === "ADMINISTRATEUR")
+                if(client.accreditation === "admin")
                     createButton("btn_admin", "Administration", menuLastChild);
 
-                if(client.accreditation === "USER")
+                if(client.accreditation === "user")
                     createButton("btn_clientListBook", "Réservations", menuLastChild);
 
                 createButton("btn_listArticle", "Article", menuLastChild);

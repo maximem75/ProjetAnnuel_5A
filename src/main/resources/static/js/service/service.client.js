@@ -20,23 +20,11 @@
             name   : "login",
             method : "GET",
             url    : "/client/login",
-            func : function (clt) {
-                if(clt.code !== "OK"){
-                    Core.utils.empty(data.getIncludeContainer());
-                    Core.controller.includeContainer.switchView("confirmation");
-                    window.sessionStorage.setItem("tmp_email", clt.email);
-                } else {
-                    window.client = new Core.class.client(clt);
-                    client.createSessionStorage(client.token, client.tokenDate);
-                    Core.controller.includeContainer.switchView("accueil");
-                    Core.controller.menu.addContextualMenuButtons();
-                }
+            func : function (client) {
+                Core.controller.clientSignInAndUp.loginSuccess(client);
             },
             error : function(statusCode){
-                document.getElementById("error_container").textContent = "Identifiants incorrects";
-
-                document.getElementById("emailBtn").value = "";
-                document.getElementById("passwordBtn").value = "";
+                Core.controller.clientSignInAndUp.loginFailed(statusCode);
             }
         };
     };
@@ -90,8 +78,8 @@
             func : function () {
                 Core.class.client.removeSessionStorage();
                 window.client = null;
-                views.includeContainer.switchView("accueil");
-                views.menu.addContextualMenuButtons();
+                controller.includeContainer.switchView("accueil");
+                controller.menu.addContextualMenuButtons();
             },
             error : function(statusCode){
             }
@@ -110,7 +98,7 @@
             func : function (clt) {
                 window.client = new Core.class.client(clt);
                 client.createSessionStorage(client.token, client.tokenDate);
-                views.includeContainer.switchView("compte");
+                controller.includeContainer.switchView("compte");
             },
             error : function(statusCode){
                 var error_container = document.getElementById("error_container");
@@ -131,13 +119,13 @@
             func : function (newTokenDate) {
                 client.tokenDate = newTokenDate;
                 client.createSessionStorage(client.tokenDate);
-                views.menu.addContextualMenuButtons();
+                controller.menu.addContextualMenuButtons();
             },
             error : function(statusCode){
                 Core.class.client.removeSessionStorage();
                 window.client = null;
-                views.includeContainer.switchView("user");
-                views.menu.addContextualMenuButtons();
+                controller.includeContainer.switchView("user");
+                controller.menu.addContextualMenuButtons();
             }
         };
     };
@@ -156,7 +144,7 @@
             },
             error : function(statusCode){
                 Core.class.client.removeSessionStorage();
-                utils.menu.addContextualMenuButtons();
+                controller.menu.addContextualMenuButtons();
             }
         };
     };
@@ -174,8 +162,8 @@
                 window.sessionStorage.removeItem("tmp_email");
                 window.client = new Core.class.client(clt);
                 client.createSessionStorage(client.token, client.tokenDate);
-                views.includeContainer.switchView("accueil");
-                views.menu.addContextualMenuButtons();
+                controller.includeContainer.switchView("accueil");
+                controller.menu.addContextualMenuButtons();
             },
             error : function(statusCode){
                 var error_container = document.getElementById("error_container");

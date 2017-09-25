@@ -18,71 +18,71 @@
             accueil    : {
                 name      : "accueil",
                 viewPath  : "view.accueil.html",
-                listImage : ["img/home-bg.jpg"]
+                listImage : "img/home-bg.jpg"
             },
             connexion : {
                 name       : "connexion",
                 viewPath   : "view.signin.html",
-                listImage : ["img/contact1.jpg","img/contact2.jpg","img/contact3.jpg","img/contact4.jpg","img/contact5.jpg"]
+                listImage : "img/home-bg.jpg"
             },
             chambre : {
                 name      : "chambre",
                 viewPath  : "view.chambre.html",
-                listImage : ["img/room1.jpg","img/room2.jpg","img/room3.jpg","img/room4.jpg","img/room5.jpg","img/room6.jpg","img/room7.jpg","img/room8.jpg","img/room9.jpg","img/room10.jpg"]
+                listImage : "img/room1.jpg"
             },
             restaurant : {
                 name      : "restaurant",
                 viewPath  : "view.restaurant.html",
-                listImage : ["img/restau1.jpg","img/restau2.jpg","img/restau3.jpg","img/restau4.jpg","img/restau5.jpg","img/restau6.jpg","img/restau7.jpg"]
+                listImage : "img/restau1.jpg"
             },
             contact : {
                 name      : "contact",
                 viewPath  : "view.contact.html",
-                listImage : ["img/contact1.jpg","img/contact2.jpg","img/contact3.jpg","img/contact4.jpg","img/contact5.jpg"]
+                listImage : "img/contact1.jpg"
             },
             compte : {
                 name      : "compte",
                 viewPath  : "view.compte.html",
-                listImage : ["img/contact1.jpg","img/contact2.jpg","img/contact3.jpg","img/contact4.jpg","img/contact5.jpg"]
+                listImage : "img/contact1.jpg"
             },
             about      : {
                 name      : "about",
                 viewPath  : "view.about.html",
-                listImage : ["img/about-bg.jpg"]
+                listImage : "img/about-bg.jpg"
             },
             logout     : {
                 name      : "logout",
                 viewPath  : "view.accueil.html",
-                listImage : ["img/home-bg.jpg"]
+                listImage : "img/home-bg.jpg"
             },
             confirmation : {
                 name      : "confirmation",
                 viewPath  : "view.confirmation.html",
-                listImage : ["img/contact1.jpg","img/contact2.jpg","img/contact3.jpg","img/contact4.jpg","img/contact5.jpg"]
+                listImage : "img/contact1.jpg"
             },
             festiveRoom : {
                 name      : "festiveRoom",
                 viewPath  : "view.festiveRoom.html",
-                listImage : ["img/contact1.jpg","img/contact2.jpg","img/contact3.jpg","img/contact4.jpg","img/contact5.jpg"]
+                listImage : "img/contact1.jpg"
             },
             clientListBook : {
                 name      : "clientListBook",
                 viewPath  : "view.clientListBook.html",
-                listImage : ["img/contact1.jpg","img/contact2.jpg","img/contact3.jpg","img/contact4.jpg","img/contact5.jpg"]
+                listImage : "img/contact1.jpg"
             },
             admin : {
                 name      : "admin",
                 viewPath  : "view.admin.html",
-                listImage : ["img/contact1.jpg","img/contact2.jpg","img/contact3.jpg","img/contact4.jpg","img/contact5.jpg"]
+                listImage : "img/contact1.jpg"
             },
             listArticle : {
                 name      : "listArticle",
                 viewPath  : "view.article.html",
-                listImage : ["img/contact1.jpg","img/contact2.jpg","img/contact3.jpg","img/contact4.jpg","img/contact5.jpg"]
+                listImage : "img/contact1.jpg"
             }
         },
-        basicUrl   : "https://residencedeshautsdemenaye.fr/api",
-        //basicUrl   : "http://localhost:8080/api",
+        //basicUrl   : "https://residencedeshautsdemenaye.fr/api",
+        basicUrl   : "http://localhost:8080/api",
         getMenu : function () {
             return document.getElementById("ul_menu");
         },
