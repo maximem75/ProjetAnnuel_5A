@@ -10,6 +10,32 @@ footer{
 	margin-top: 50px;
 }
 
+.panel.panel-info {
+	margin: auto;
+	max-width: 800px;
+	font-family: Open Sans;
+	border-color: #efefef;
+	border-radius: 0px;
+}
+
+.panel-heading {
+	color: #fff!important;
+	background-color: #01923f!important;
+	padding: 15px 15px!important;
+	border-radius: 0!important;
+}
+
+.btn-success {
+	color: #fff;
+	background-color: #01923f!important;
+	border-color: #01923f!important;
+}
+
+a#show_forgetpassword {
+	font-size: 13px;
+	color: white;
+}
+
 ul {
 	list-style:none;
 }
@@ -221,14 +247,14 @@ ul {
 	font: 14px Roboto, Helvetica, Arial, sans-serif;
 	padding: 15px 15px 15px 15px;
 	line-height: 14px;
-	background-color: #007395;
+	background-color: #01923f;
 	border-radius: 2px;
 	font-weight: 700;
 	cursor: pointer;
 }
 
 .btn_form:active{
-	background-color: #006483;
+	background-color: #197F31;
 }
 
 
@@ -240,14 +266,14 @@ ul {
 	font: 14px Roboto, Helvetica, Arial, sans-serif;
 	padding: 15px 0px 15px 0px;
 	line-height: 14px;
-	background-color: #007395;
+	background-color: #197F31;
 	border-radius: 2px;
 	font-weight: 700;
 	cursor: pointer;
 }
 
 .btn_reservation:active{
-	background-color: #006483;
+	background-color: #197F31;
 }
 
 .datepicker{
@@ -322,19 +348,19 @@ ul {
 .room_title{
 	font-size: 16px;
 	padding-top: 5px;
-	color: #006483;
+	color: #197F31;
 }
 
 .title_span{
 	font-size: 14px;
 	text-align: center;
-	color: #007395;
+	color: #4cae4c;
 }
 
 .title_span_black{
 	font-size: 14px;
 	text-align: center;
-	color: #454545;
+	color: #197F31;
 	display: block;;
 }
 
@@ -429,7 +455,7 @@ ul {
 	width: 100%;
 	border: 1px solid #9B9B9B;
 	border-top: 0px;
-	color: #006483;
+	color: #197F31;
 	font-weight: 600;
 	font-size: 18px;
 
@@ -497,7 +523,7 @@ ul {
 
 .article_title {
 	display: block;
-	color: #006483;
+	color: #197F31;
 	font-size: 30px;
 	padding-bottom: 40px;
 	margin-top: 80px;
