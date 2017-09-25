@@ -15,11 +15,13 @@
      * Return the listRoom found
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.room.search = function () {
-        return {
+    Core.service.room.search = function (json) {
+        var paramRequest = "date_start=" + json.dateStart + "&date_end=" + json.dateEnd;
+
+        var object = {
             name   : "searchRoom",
             method : "GET",
-            url    : "/room/search",
+            url    : "/room/getListRoomFree",
             func : function (listRoom) {
                 if(listRoom !== null && listRoom !== undefined)
                     Core.views.room.roomSearch(listRoom);
@@ -29,14 +31,18 @@
             error : function(statusCode){
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.room.create = function () {
-        return {
+    Core.service.room.create = function (room) {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name   : "create",
             method : "POST",
             url    : "/room",
@@ -46,14 +52,18 @@
             error : function(statusCode){
             }
         };
+
+        utils.ajaxRequest(object, paramRequest, room);
     };
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.room.update = function () {
-        return {
+    Core.service.room.update = function (room) {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name   : "update",
             method : "PUT",
             url    : "/room",
@@ -63,6 +73,8 @@
             error : function(statusCode){
             }
         };
+
+        utils.ajaxRequest(object, paramRequest, room);
     };
 
     /**
@@ -70,7 +82,9 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.room.delete = function () {
-        return {
+        var paramRequest = "id=" + id + "&token=" + client.token;
+
+        var object = {
             name   : "delete",
             method : "DELETE",
             url    : "/room",
@@ -80,6 +94,8 @@
             error : function(statusCode){
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
     /**
@@ -87,7 +103,9 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.room.initAdminListRoom = function () {
-        return {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name   : "initAdminListRoom",
             method : "GET",
             url    : "/room",
@@ -135,6 +153,8 @@
             error : function(statusCode){
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
 })();

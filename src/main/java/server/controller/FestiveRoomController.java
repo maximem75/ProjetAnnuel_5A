@@ -38,7 +38,7 @@ public class FestiveRoomController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public void addFestiveRoom(@RequestBody FestiveRoom festiveRoom, @RequestParam("file") MultipartFile file, @RequestParam("token") String token){
+    public void addFestiveRoom(@RequestBody FestiveRoom festiveRoom, @RequestParam("token") String token, @RequestParam("file") MultipartFile file){
         if(clientService.adminAccess(token)){
             String pathServer = PRE_PATH + file.getOriginalFilename();
 
@@ -52,7 +52,7 @@ public class FestiveRoomController {
 
     @RequestMapping(method = PUT)
     @ResponseStatus(ACCEPTED)
-    public void updateFestiveRoom(@RequestBody FestiveRoom festiveRoom, @RequestParam("file") MultipartFile file, @RequestParam("token") String token){
+    public void updateFestiveRoom(@RequestBody FestiveRoom festiveRoom, @RequestParam("token") String token, @RequestParam("file") MultipartFile file){
 
         if(clientService.adminAccess(token)){
             String pathServer = PRE_PATH + file.getOriginalFilename();

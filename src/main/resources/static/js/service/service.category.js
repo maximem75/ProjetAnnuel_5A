@@ -21,7 +21,7 @@
         var object =  {
             name: "create",
             method: "POST",
-            url: "/category",
+            url: "/roomCategory",
             func: function () {
                 
             },
@@ -43,7 +43,7 @@
         var object = {
             name: "delete",
             method: "DELETE",
-            url: "/category",
+            url: "/roomCategory",
             func: function () {
 
             },
@@ -63,7 +63,7 @@
         var object = {
             name: "getListCategories",
             method: "GET",
-            url: "/category",
+            url: "/roomCategory",
             func: function (listCategories) {
                 if (listCategories !== null && listCategories !== undefined)
                     data.listCategories = listCategories;
@@ -83,7 +83,7 @@
         var object = {
             name: "initViewListCategories",
             method: "GET",
-            url: "/category",
+            url: "/roomCategory",
             func: function (json) {
                 var headers = {
                     id: {

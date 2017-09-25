@@ -144,8 +144,8 @@ public class ClientController {
             client.setAccreditation("user");
             client.setCode(code);
 
-            /*MailManager mailManager = new MailManager();
-            mailManager.sendCodeConfirmation(client, code);*/
+            MailManager mailManager = new MailManager();
+            mailManager.sendCodeConfirmation(client, code);
             return clientRepository.save(client);
         } else {
             throw new ClientEmailAlreadyExistException();

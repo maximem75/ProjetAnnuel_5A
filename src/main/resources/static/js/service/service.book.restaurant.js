@@ -13,11 +13,13 @@
      * The callback func display to the client if the book is available
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.book.restaurant.bookRestaurant = function () {
-        return {
+    Core.service.book.restaurant.bookRestaurant = function (restaurantBook) {
+        var paramRequest = "token=" + client.token;
+
+        var object =  {
             name: "bookRestaurant",
             method: "POST",
-            url: "",
+            url: "/restaurantTableBooking",
             func: function () {
                 document.getElementById("error_container").textContent = "";
                 document.getElementById("valide_container").textContent = "Réservation effectuée"
@@ -27,6 +29,44 @@
                 document.getElementById("error_container").textContent = "La réservation n'a pas été effectuée."
             }
         };
+
+        utils.ajaxRequest(object, paramRequest, restaurantBook);
+    };
+
+    Core.service.book.restaurant.update = function (restaurantBook) {
+        var paramRequest = "token=" + client.token;
+
+        var object =  {
+            name: "update",
+            method: "PUT",
+            url: "/restaurantTableBooking",
+            func: function () {
+
+            },
+            error: function (statusCode) {
+
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest, restaurantBook);
+    };
+
+    Core.service.book.restaurant.getByIdClient = function () {
+        var paramRequest = "token=" + client.token;
+
+        var object =  {
+            name: "getByIdClient",
+            method: "GET",
+            url: "/restaurantTableBooking/getByIdClient",
+            func: function () {
+
+            },
+            error: function (statusCode) {
+
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
     /**
@@ -34,10 +74,12 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.book.restaurant.getListBookById = function () {
-        return {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name: "bookRestaurant",
             method: "GET",
-            url: "",
+            url: "/restaurantTableBooking",
             func: function (json) {
                 var headers = {
                     date : {
@@ -57,6 +99,8 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
 })();

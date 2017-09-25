@@ -15,11 +15,13 @@
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.restaurant.create = function () {
-        return {
+    Core.service.restaurant.create = function (restaurantTable) {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name   : "create",
             method : "POST",
-            url    : "/restaurant",
+            url    : "/restaurantTable",
             func : function () {
 
             },
@@ -27,17 +29,21 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest, restaurantTable);
     };
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.restaurant.udapte = function () {
-        return {
+    Core.service.restaurant.udapte = function (restaurantTable) {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name   : "create",
             method : "PUT",
-            url    : "/restaurant",
+            url    : "/restaurantTable",
             func : function () {
 
             },
@@ -45,17 +51,21 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest, restaurantTable);
     };
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.restaurant.delete = function () {
-        return {
+    Core.service.restaurant.delete = function (id) {
+        var paramRequest = "id=" + id + "&token=" + client.token;
+
+        var object = {
             name   : "delete",
             method : "DELETE",
-            url    : "/restaurant",
+            url    : "/restaurantTable",
             func : function () {
 
             },
@@ -63,6 +73,8 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
     /**
@@ -70,10 +82,12 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.restaurant.initAdminViewListRestaurant = function () {
-        return {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name   : "initViewListRestaurant",
             method : "GET",
-            url    : "/restaurant",
+            url    : "/restaurantTable",
             func : function (json) {
                 var headers = {
                     id: {
@@ -113,5 +127,7 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 })();

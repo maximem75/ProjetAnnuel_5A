@@ -86,9 +86,9 @@
             name   : "getList",
             method : "GET",
             url    : "/article/all",
-            func : function (json) {
-                for(var j in json){
-                    utils.template.createArticleTemplate(document.getElementById("article_container"), json[j]);
+            func : function (list) {
+                for(var a in list){
+                    utils.template.createArticleTemplate(document.getElementById("article_container"), list[a]);
                 }
             },
             error : function(){
@@ -106,7 +106,7 @@
             name   : "getById",
             method : "GET",
             url    : "/article",
-            func : function (json) {
+            func : function (article) {
 
             },
             error : function(){

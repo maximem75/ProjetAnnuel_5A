@@ -14,7 +14,9 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.building.create = function () {
-        return {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name   : "create",
             method : "POST",
             url    : "/building",
@@ -25,6 +27,8 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
     /**
@@ -32,7 +36,9 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.building.update = function () {
-        return {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name   : "update",
             method : "PUT",
             url    : "/building",
@@ -43,6 +49,8 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
     /**
@@ -50,7 +58,9 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.building.delete = function () {
-        return {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name   : "delete",
             method : "DELETE",
             url    : "/building",
@@ -61,6 +71,26 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
+    };
+
+    Core.service.building.get = function () {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
+            name   : "get",
+            method : "GET",
+            url    : "/building",
+            func : function (list) {
+
+            },
+            error : function(){
+
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
     /**
@@ -68,7 +98,9 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.building.initAdminViewListBuilding = function () {
-        return {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name   : "initViewListBuilding",
             method : "GET",
             url    : "/building",
@@ -111,5 +143,7 @@
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 })();

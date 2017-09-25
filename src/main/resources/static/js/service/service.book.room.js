@@ -14,7 +14,7 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.book.room.bookRoom = function () {
-        return {
+        var object = {
             name   : "bookRoom",
             method : "POST",
             url    : "",
@@ -36,12 +36,12 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.book.room.cancelBookRoom = function () {
-        return {
+        var object = {
             name   : "cancelBookRoom",
             method : "DELETE",
             url    : "",
             func : function () {
-                views.includeContainer.switchView("chambre");
+                controller.includeContainer.switchView("chambre");
             },
             error : function(statusCode){
             }

@@ -1,7 +1,6 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.Exception.ClientAlreadyBookTableException;
 import server.Exception.RestaurantTableNotFreeException;
@@ -14,12 +13,8 @@ import server.service.RestaurantTableBookingService;
 import java.util.Date;
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.ACCEPTED;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.FOUND;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.http.HttpStatus.*;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * Created by maxime on 09/09/2017.
