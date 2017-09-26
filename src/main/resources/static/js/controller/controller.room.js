@@ -15,7 +15,7 @@
      * Init the room view and events
      */
     Core.controller.room.initView = function () {
-        var startDatepicker, endDatepicker, type, btnSearch;
+        var startDatepicker, endDatepicker, btnSearch;
         var container;
         var startDateID = "#reservation_start_date";
         var endDateID = "#reservation_end_date";
@@ -26,14 +26,16 @@
         var initVariables = function () {
             startDatepicker = document.getElementById("reservation_start_date");
             endDatepicker = document.getElementById("reservation_end_date");
-            type = document.getElementById("reservation_type");
             btnSearch = document.getElementById("btn_search");
             container = document.getElementById("include_room");
         }();
         var manageEvents = function () {
             $(startDateID).datepicker("option", "onSelect", function () {
                 var minDate = $(startDateID).datepicker("getDate");
-                $(endDateID).datepicker("option", "minDate", minDate);
+                var minDateEnd = $(startDateID).datepicker("getDate", "+1d");
+                minDateEnd.setDate(minDateEnd.getDate()+1);
+
+                $(endDateID).datepicker("option", "minDate", minDateEnd);
                 utils.empty(container);
             });
 
@@ -52,8 +54,7 @@
 
                 var jsonRoom = {
                     dateStart: startDatepicker.value,
-                    dateEnd: endDatepicker.value,
-                    datepicker_type: type.value
+                    dateEnd: endDatepicker.value
                 };
 
                 var startString = startDatepicker.value.split("/");
@@ -77,7 +78,7 @@
      */
     Core.controller.room.roomSearch = function (listRoom) {
         var container, searchContainer, bookingContainer, listReservationContainer;
-        var startDatepicker, endDatepicker, type_input, reason, list_reservation, btn_book;
+        var startDatepicker, endDatepicker, reason, list_reservation, btn_book;
         var startString, endString, formatDateStart, formatDateEnd;
         var list_simple, list_double, list_junior, list_executive;
         var error_container;
@@ -138,7 +139,7 @@
 
                 imageRoom = document.createElement("img");
                 imageRoom.classList.add("room_type_image");
-                imageRoom.src = json.imagePath;
+                imageRoom.src = "img/Chambre Simple/img/IMG_5533.jpg";
 
                 contentRoom = document.createElement("div");
                 contentRoom.classList.add("room_content");
@@ -285,7 +286,6 @@
             container = document.getElementById("include_room");
             searchContainer = document.getElementById("search_container");
             bookingContainer = document.getElementById("include_reservation");
-            type_input = document.getElementById("reservation_type");
             reason = document.getElementById("reservation_reason");
             list_reservation = document.getElementById("list_reservation");
             listReservationContainer = document.getElementById("include_reservation_list");
@@ -312,24 +312,17 @@
         }();
         var initView = function () {
             var listType = new Object(null);
-            
-            for (var r in listRoom) {
-                listType[listRoom[r].type] = listType[listRoom[r].type] || {};
 
-                if (listType[listRoom[r].type].number === undefined)
-                    listType[listRoom[r].type].number = 1;
-                else
-                    listType[listRoom[r].type].number += 1;
-            }
-
-            for (var type in listType) {
-                if (type_input.value === "all" || type_input.value === type) {
-                    for (var c in data.listCategories) {
-                        if (data.listCategories[c].id == type) {
-                            var viewRoomBtn = viewRoom("room_" + type, listType[type].number, data.listCategories[c]);
-                        }
+            for(var c in data.listRoomCategories){
+                listType[data.listRoomCategories[c].id] = 0;
+                for(var r in listRoom){
+                    if(listRoom[r].roomCategory.id === data.listRoomCategories[c].id){
+                        listType[data.listRoomCategories[c].id] += 1;
                     }
                 }
+
+                var viewRoomBtn = viewRoom("room_" + c, listType[data.listRoomCategories[c].id], data.listRoomCategories[c]);
+
             }
 
             for (type in listType) {
