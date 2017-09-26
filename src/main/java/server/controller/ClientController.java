@@ -31,7 +31,7 @@ public class ClientController {
     private SecurityClientService securityClientService;
 
     @RequestMapping(path = "/login", method = GET)
-    @ResponseStatus(OK)
+    @ResponseStatus(ACCEPTED)
     public Client login(@RequestParam("email") String email, @RequestParam("password") String password) {
         String pswd = securityClientService.hashPassword(password);
         Client client = clientService.login(email, pswd);
@@ -62,7 +62,7 @@ public class ClientController {
 
 
     @RequestMapping(method = GET, value="/GetListClient")
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<Client> getListIsAdmin(@RequestParam("token") String tokenClient) {
         if(clientService.adminAccess(tokenClient)){
             return clientRepository.findAll();
@@ -73,7 +73,7 @@ public class ClientController {
 
 
     @RequestMapping(path = "/reloadToken", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public Date reloadToken(@RequestParam("token") String token){
         Client client = clientService.findByToken(token);
         if(client != null){
@@ -84,7 +84,7 @@ public class ClientController {
     }
 
     @RequestMapping(path = "/getByToken", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public Client getClientByToken(@RequestParam("token") String token){
         Client client = clientService.findByToken(token);
 
@@ -97,7 +97,7 @@ public class ClientController {
 
 
     @RequestMapping(path = "/confirmation", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public Client confirmation(@RequestParam("email") String email, @RequestParam("code") String code) {
         Client client = clientService.confirmation(email, code);
 
@@ -114,7 +114,7 @@ public class ClientController {
 
 
     @RequestMapping(value = "/recovery", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public void recoveryPasswordClient(@RequestParam("email") String email){
         Client client = clientRepository.findClientByEmailEquals(email);
 

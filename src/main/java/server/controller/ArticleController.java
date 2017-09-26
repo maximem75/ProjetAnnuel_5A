@@ -29,13 +29,13 @@ public class ArticleController {
     private ClientService clientService;
 
     @RequestMapping( path = "/all", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<Article> getAllArticles(){
         return articleRepository.findAll();
     }
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public Article getArticleById(@RequestParam("idArticle") Long id){
         return articleRepository.getOne(id);
     }

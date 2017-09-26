@@ -23,7 +23,7 @@ public class BuildingController {
     private BuildingRepository buildingRepository;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<Building> getListBuildings(@RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
             return buildingRepository.findAll();

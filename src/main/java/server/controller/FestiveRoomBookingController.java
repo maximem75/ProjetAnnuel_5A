@@ -81,7 +81,7 @@ public class FestiveRoomBookingController {
     }
 
     @RequestMapping(path = "/getPrice", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public float getFestiveRoomBookingPrice(@RequestParam("id") Long id, @RequestParam("token") String token) {
 
         if (clientService.findByToken(token) != null) {
@@ -97,7 +97,7 @@ public class FestiveRoomBookingController {
     }
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<FestiveRoomBooking> getListFestiveRoomBookings(@RequestParam("token") String token) {
 
         if (clientService.adminAccess(token)) {
@@ -108,7 +108,7 @@ public class FestiveRoomBookingController {
     }
 
     @RequestMapping(path = "/getByIdClient", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<FestiveRoomBooking> getListFestiveRoomBookingByIdClient(@RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
 
