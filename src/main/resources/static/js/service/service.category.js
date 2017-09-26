@@ -66,13 +66,17 @@
             url: "/roomCategory",
             func: function (listCategories) {
                 if (listCategories !== null && listCategories !== undefined)
-                    data.listCategories = listCategories;
+                    data.listRoomCategories = listCategories;
                 else
                     return null;
+
+                window.roomCategories = listCategories;
             },
             error: function (statusCode) {
             }
         };
+
+        utils.ajaxRequest(object);
     };
 
     /**

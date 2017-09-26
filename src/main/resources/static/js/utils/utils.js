@@ -34,7 +34,7 @@
             else
                 requestBody = "";
         }();
-        console.log(requestUrl);
+
         var xhr = new XMLHttpRequest();
         xhr.open(objectService.method, requestUrl, false);
         xhr.setRequestHeader('Content-type', 'application/json');
@@ -97,17 +97,17 @@
 
         _timeoutsID = [];
     };
-    
+
     Core.utils.imageOpacityAnimation = function (background, idContainer) {
         var divHeader = document.getElementById(idContainer);
 
-        var timeOut = function(i){
+        var timeOut = function (i) {
             utils.removeTimeouts();
 
-            var tmID = setTimeout(function(){
-                if(i < 10){
+            var tmID = setTimeout(function () {
+                if (i < 10) {
                     i += 1;
-                    divHeader.style.opacity = (1 -(0.1 * i));
+                    divHeader.style.opacity = (1 - (0.1 * i));
                     timeOut(i);
                 } else {
                     divHeader.style.backgroundImage = "url(" + background + ")";

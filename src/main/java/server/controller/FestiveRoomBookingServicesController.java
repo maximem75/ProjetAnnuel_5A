@@ -1,7 +1,6 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.model.FestiveRoomBookingServices;
 import server.repository.FestiveRoomBookingServicesRepository;
@@ -11,11 +10,13 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.FOUND;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by maxime on 09/09/2017.
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/festiveRoomBookingServices")
 public class FestiveRoomBookingServicesController {

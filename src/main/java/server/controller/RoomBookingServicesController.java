@@ -1,14 +1,10 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import server.model.Client;
-import server.model.FestiveRoom;
 import server.model.RoomBookingServices;
 import server.repository.RoomBookingServicesRepository;
 import server.service.ClientService;
-import server.service.RoomBookingServicesService;
 
 import java.util.List;
 
@@ -18,6 +14,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 /**
  * Created by maxime on 09/09/2017.
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/roomBookingServices")
 public class RoomBookingServicesController {

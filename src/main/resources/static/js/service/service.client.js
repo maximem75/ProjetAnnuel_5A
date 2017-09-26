@@ -124,7 +124,7 @@
             error : function(statusCode){
                 Core.class.client.removeSessionStorage();
                 window.client = null;
-                controller.includeContainer.switchView("user");
+                controller.includeContainer.switchView("connexion");
                 controller.menu.addContextualMenuButtons();
             }
         };

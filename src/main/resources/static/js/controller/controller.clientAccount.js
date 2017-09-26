@@ -14,7 +14,7 @@
     /**
      * Init the account controller
      */
-    Core.controller.initView = function () {
+    Core.controller.clientAccount.initView = function () {
         controller.clientAccount.account();
         controller.clientAccount.updateAccount();
     };
@@ -39,7 +39,7 @@
             sexe = document.getElementById("user_sexe");
         }();
         var setContent = function () {
-            name.textContent = utils.capitalizeFirstLetter(client.name);
+            name.textContent = utils.capitalizeFirstLetter(window.client.lastName);
             firstName.textContent = utils.capitalizeFirstLetter(client.firstName);
             birthday.textContent = utils.formatDate(client.birthday, "view_account");
             email.textContent = client.email;

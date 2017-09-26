@@ -16,7 +16,7 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.room.search = function (json) {
-        var paramRequest = "date_start=" + json.dateStart + "&date_end=" + json.dateEnd;
+        var paramRequest = "dateStart=" + json.dateStart + "&dateEnd=" + json.dateEnd;
 
         var object = {
             name   : "searchRoom",
@@ -24,7 +24,7 @@
             url    : "/room/getListRoomFree",
             func : function (listRoom) {
                 if(listRoom !== null && listRoom !== undefined)
-                    Core.views.room.roomSearch(listRoom);
+                    Core.controller.room.roomSearch(listRoom);
                 else
                     return null;
             },

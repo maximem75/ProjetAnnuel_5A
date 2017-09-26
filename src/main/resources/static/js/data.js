@@ -81,8 +81,8 @@
                 listImage : "img/contact1.jpg"
             }
         },
-        basicUrl   : "https://residencedeshautsdemenaye.fr/api",
-        //basicUrl   : "http://localhost:8080/api",
+        //basicUrl   : "https://residencedeshautsdemenaye.fr/api",
+        basicUrl   : "http://localhost:8080/api",
         getMenu : function () {
             return document.getElementById("ul_menu");
         },
@@ -95,6 +95,7 @@
             "2" : ["Suite junior/img/IMG_5507.jpg", "img/IMG_5548.jpg", "img/IMG_5549.jpg"],
             "3" : ["img/suiteExecutive/IMG_5551.jpg", "img/suiteExecutive/IMG_5552.jpg", "img/suiteExecutive/IMG_5553.jpg", "img/suiteExecutive/IMG_5554.jpg", "img/suiteExecutive/IMG_5555.jpg"]
         },
+        listRoomCategories : [],
         currentPath : null,
         captchaResult : null,
         mainImageID : "main_header",

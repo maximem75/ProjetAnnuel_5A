@@ -16,7 +16,7 @@ import java.util.Random;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/client")
 public class ClientController {
@@ -31,7 +31,7 @@ public class ClientController {
     private SecurityClientService securityClientService;
 
     @RequestMapping(path = "/login", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public Client login(@RequestParam("email") String email, @RequestParam("password") String password) {
         String pswd = securityClientService.hashPassword(password);
         Client client = clientService.login(email, pswd);
@@ -47,13 +47,17 @@ public class ClientController {
 
     @RequestMapping(path = "/logout", method = GET)
     @ResponseStatus(ACCEPTED)
-    public void logout(@RequestParam("token") String token){
+    public boolean logout(@RequestParam("token") String token){
         Client client = clientService.findByToken(token);
         if(client != null) {
             client.setToken(null);
             client.setTokenDate(null);
             clientService.updateClient(client);
+
+            return true;
         }
+
+        return false;
     }
 
 

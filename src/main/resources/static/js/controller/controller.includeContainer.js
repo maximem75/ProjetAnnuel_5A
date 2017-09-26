@@ -19,7 +19,6 @@
         var pageObject = data.viewList[key.toString()];
 
         if (pageObject !== null) {
-            Core.class.client.reloadClient();
             utils.empty(data.getIncludeContainer());
             utils.include(pageObject.viewPath, pageObject.name);
             utils.imageOpacityAnimation(pageObject.listImage, data.mainImageID);

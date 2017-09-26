@@ -65,7 +65,7 @@
                 var result = utils.getDays(new Date(formatDateStart), new Date(formatDateEnd));
 
                 if (result.day > 0) {
-                    Core.class.room.search(jsonRoom);
+                    Core.service.room.search(jsonRoom);
                 }
             }, false);
         }();

@@ -14,7 +14,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/article")
 public class ArticleController {

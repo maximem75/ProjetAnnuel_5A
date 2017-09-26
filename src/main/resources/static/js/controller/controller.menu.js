@@ -20,7 +20,7 @@
                 var pageName = e.target.id.substring(4);
                 controller.includeContainer.switchView(pageName);
 
-                if(window.client !== null && window.client !== undefined)
+                if(window.client !== null && window.client !== undefined && e.target.id !== "btn_logout")
                     window.client.reloadTokenDate();
             }
         }, false);

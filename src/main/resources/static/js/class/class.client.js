@@ -72,7 +72,7 @@
     Core.class.client.reloadClient = function () {
         var token = window.sessionStorage.getItem("token");
         var paramRequest = "token=" + token;
-
+        
         if(token !== null && token !== undefined){
             utils.ajaxRequest(Core.service.client.getClientByToken(), paramRequest, null, true);
         } else {
@@ -95,7 +95,7 @@
      */
     Core.class.client.prototype.logout = function () {
         var paramRequest = "token=" + client.token;
-        utils.ajaxRequest(Core.service.client.logout(), paramRequest);
+        utils.ajaxRequest(Core.service.client.logout(), paramRequest, null);
     };
 
     /**
