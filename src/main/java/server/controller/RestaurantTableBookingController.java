@@ -19,7 +19,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 /**
  * Created by maxime on 09/09/2017.
  */
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/restaurantTableBooking")
 public class RestaurantTableBookingController {
@@ -81,7 +81,7 @@ public class RestaurantTableBookingController {
     }
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<RestaurantTableBooking> listRestaurantTableBooking(@RequestParam("token") String token) {
 
         if (clientService.adminAccess(token)) {
@@ -92,7 +92,7 @@ public class RestaurantTableBookingController {
     }
 
     @RequestMapping(path = "/getByIdClient", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<RestaurantTableBooking> getListRestaurantTableByIdClient(@RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
 

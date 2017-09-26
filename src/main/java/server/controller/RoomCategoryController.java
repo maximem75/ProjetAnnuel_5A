@@ -11,7 +11,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/roomCategory")
 public class RoomCategoryController {
@@ -23,7 +23,7 @@ public class RoomCategoryController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<RoomCategory> getListRoomCategories() {
         return roomCategoryRepository.findAll();
     }

@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 /**
  * Created by maxime on 20/09/2017.
  */
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/pictureRoomCategory")
 public class PictureRoomCategoryController {
@@ -59,7 +59,7 @@ public class PictureRoomCategoryController {
     }
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<PictureRoomCategory> getListPictureRoomCategory() {
         return pictureRoomCategoryRepository.findAll();
     }

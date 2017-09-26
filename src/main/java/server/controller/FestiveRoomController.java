@@ -13,7 +13,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/festiveRoom")
 public class FestiveRoomController {
@@ -28,7 +28,7 @@ public class FestiveRoomController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<FestiveRoom> getListFestiveRooms(@RequestParam("token") String token){
         if(clientService.findByToken(token) != null){
             return festiveRoomRepository.findAll();

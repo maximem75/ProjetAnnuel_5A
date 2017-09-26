@@ -12,11 +12,11 @@ import server.utils.Mail.MailManager;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.FOUND;
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/newsletter")
 public class NewsLetterController {
@@ -31,7 +31,7 @@ public class NewsLetterController {
     private ClientRepository clientRepository;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<NewsLetter> listNewsLetter(@RequestParam("token") String token){
 
         if(clientService.adminAccess(token)){

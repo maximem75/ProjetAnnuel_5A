@@ -2,19 +2,17 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.model.RestaurantTable;
 import server.repository.RestaurantTableRepository;
 import server.service.ClientService;
-import server.service.RestaurantTableService;
 
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/restaurantTable")
 public class RestaurantTableController {
@@ -26,7 +24,7 @@ public class RestaurantTableController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<RestaurantTable> getAllTablesList(@Param("token") String token) {
         if (clientService.adminAccess(token)) {
             return restaurantTableRepository.findAll();

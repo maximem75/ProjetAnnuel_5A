@@ -31,7 +31,7 @@ public class ClientController {
     private SecurityClientService securityClientService;
 
     @RequestMapping(path = "/login", method = GET)
-    @ResponseStatus(ACCEPTED)
+    @ResponseStatus(OK)
     public Client login(@RequestParam("email") String email, @RequestParam("password") String password) {
         String pswd = securityClientService.hashPassword(password);
         Client client = clientService.login(email, pswd);

@@ -13,7 +13,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/room")
 public class RoomController {
@@ -28,13 +28,13 @@ public class RoomController {
     private RoomRepository roomRepository;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<Room> getListRooms() {
         return roomRepository.findAll();
     }
 
     @RequestMapping(path = "/getListRoomFree", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<Room> getListRoomFree(@RequestParam("dateStart") Date dateStart, @RequestParam("dateEnd") Date dateEnd) {
         return roomService.getListRoomFree(dateStart, dateEnd);
     }

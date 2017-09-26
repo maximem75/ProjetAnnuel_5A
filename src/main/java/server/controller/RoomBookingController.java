@@ -17,7 +17,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/roomBooking")
 public class RoomBookingController {
@@ -101,7 +101,7 @@ public class RoomBookingController {
     }
 
     @RequestMapping(path = "/getPrice", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public float getTotalPriceBook(@RequestParam("refBookRoom") String refBookRoom, @RequestParam("token") String token) {
         if (clientService.findByToken(token) != null || clientService.adminAccess(token)) {
             return roomBookingService.calculatePrice(refBookRoom);
@@ -121,7 +121,7 @@ public class RoomBookingController {
     }
 
     @RequestMapping(path = "/getListByIdClient", method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<RoomBooking> getListRoomBookingByIdClient(@RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
         if (client != null) {

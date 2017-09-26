@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 /**
  * Created by maxime on 20/09/2017.
  */
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/pictureGalery")
 public class PictureGaleryController {
@@ -31,7 +31,7 @@ public class PictureGaleryController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<PictureGalery> getListPictureGalery() {
         return pictureGaleryRepository.findAll();
     }

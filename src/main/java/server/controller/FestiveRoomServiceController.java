@@ -14,7 +14,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 /**
  * Created by maxime on 09/09/2017.
  */
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/festiveRoomService")
 public class FestiveRoomServiceController {
@@ -26,7 +26,7 @@ public class FestiveRoomServiceController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<FestiveRoomService> getListFestiveRoomServices(@RequestParam("token") String token){
         if(clientService.findByToken(token) != null){
             return festiveRoomServiceRepository.findAll();

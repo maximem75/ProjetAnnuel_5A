@@ -15,7 +15,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 /**
  * Created by maxime on 09/09/2017.
  */
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/invalidBookingDateFestiveRoom")
 public class InvalidBookingDateFestiveRoomController {
@@ -27,7 +27,7 @@ public class InvalidBookingDateFestiveRoomController {
     private ClientService clientService;
 
     @RequestMapping(method = GET)
-    @ResponseStatus(FOUND)
+    @ResponseStatus(OK)
     public List<InvalidBookingDateFestiveRoom> getListInvalidBookingDateFestiveRoomByMinDate(@RequestParam("token") String token){
         if(clientService.adminAccess(token)){
             return invalidBookingDateFestiveRoomRepository.getListInvalidBookingDateFestiveRoomByMinDate(new Date());
