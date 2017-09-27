@@ -26,6 +26,7 @@
                 Core.controller.room.roomBooking(listRoomBooking);
             },
             error : function(statusCode){
+                console.log(statusCode);
                 Core.controller.room.error();
             }
         };
@@ -141,8 +142,8 @@
             method : "PUT",
             url    : "/roomBooking/cancelBook",
             func : function () {
-                Core.controller.includeContainer.switchView("chambre");
                 console.log("Sended");
+                Core.controller.includeContainer.switchView("chambre");
             },
             error : function(statusCode){
             }
