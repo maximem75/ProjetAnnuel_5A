@@ -147,7 +147,7 @@
             }
         };
 
-        utils.ajaxRequest(object, paramRequest);
+        utils.ajaxRequest(object, paramRequest, null, false, true);
     };
 
 })();

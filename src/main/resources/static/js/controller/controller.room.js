@@ -408,8 +408,7 @@
     Core.controller.room.roomBooking = function (listRoomBooking) {
         var labelDateStart, labelDateEnd, labelBook, image,
             container, button_container, btn_return;
-        console.log("---------------");
-        //console.log(listRoomBooking);
+
         var getCategoryName = function(id){
             var list = data.listRoomCategories;
             for(var i = 0 ; i < list.length ; i++){
@@ -423,7 +422,7 @@
 
             for(var i = 0 ; i < lrb.length ; i++){
                 var idCategory = lrb[i].idRoomCategory;
-                console.log(idCategory);
+
                 if(jsonQuantity[idCategory] !== null && jsonQuantity[idCategory] !== undefined){
                     jsonQuantity[idCategory].quantity += 1;
                 } else {
@@ -461,7 +460,6 @@
             labelDateEnd.textContent = dateEnd.getDate() + " "  + monthNames[dateEnd.getMonth()] + " " + dateEnd.getFullYear();
 
             for (var l = 0 ; l < keys.length ; l++) {
-                console.log(listCateg[keys[l]]);
                 var span = document.createElement("span");
                 span.classList.add("text_span");
                 span.textContent = "X" + listCateg[keys[l]].quantity + " " + utils.capitalizeFirstLetter(listCateg[keys[l]].name);
@@ -471,7 +469,10 @@
 
 
             utils.addListener(btn_return, "click", function (e) {
-                Core.service.book.room.cancelBookRoom();
+                console.log(listRoomBooking[0].refRoomBook);
+                console.log(listRoomBooking[0]);
+                console.log(listRoomBooking);
+                Core.service.book.room.cancelBookRoom(listRoomBooking[0].refRoomBook);
             }, false);
         }();
 

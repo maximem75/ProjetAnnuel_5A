@@ -17,7 +17,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
-//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/roomBooking")
 public class RoomBookingController {
@@ -127,7 +127,10 @@ public class RoomBookingController {
         Client client = clientService.findByToken(token);
 
         if (((client != null) && Objects.equals(list.get(0).getIdClient(), client.getId())) || clientService.adminAccess(token)) {
-            roomBookingRepository.cancelBook(refBookRoom);
+             for(RoomBooking r : list){
+                r.setStatus("canceled");
+                roomBookingRepository.save(r);
+            }
         }
     }
 
