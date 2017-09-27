@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 05 Septembre 2017 à 17:41
+-- Généré le :  Mer 27 Septembre 2017 à 14:08
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -118,13 +118,9 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`id_client`, `accreditation`, `address`, `birthday`, `city`, `code`, `country`, `email`, `firstname`, `lastname`, `password`, `phone`, `postal_code`, `sexe`, `status_actif`, `token`, `token_date`) VALUES
-(1, 'user', 'test', '2017-07-04 00:00:00', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'active', '', NULL),
-(2, 'user', 'test', '2017-07-04 00:00:00', 'test', 'test', 'test', 'testnn', 'test', 'test', 'test', 'test', 'test', 'test', 'active', '', NULL),
-(3, 'user', 'test', '2017-07-04 00:00:00', 'test', 'test', 'test', 'testnnn', 'test', 'test', 'test', 'test', 'test', 'test', 'active', '', NULL),
-(4, 'user', 'test', '2017-07-04 00:00:00', 'test', 'test', 'test', 'testnnnn', 'test', 'test', 'test', 'test', 'test', 'test', 'active', '', NULL),
-(5, 'user', '70 rue toto', '1993-09-15 02:00:00', 'Paris', 'OK', 'france', 'mollard.maxime@hotmail.fr', 'maxime', 'mollard', 'c4be2e05-762d-495c-9894-4c0c4248a367', '0105050505', '75015', 'H', 'active', 'c4be2e05-762d-495c-9894-4c0c4248a367', '2017-08-17 18:11:26'),
-(6, 'user', '70 rue toto', '1991-09-15 02:00:00', 'Paris', '7495', 'france', 'mollard.nicolas@hotmail.fr', 'nicolas', 'mollard', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', '0105050505', '75015', 'H', 'inactive', NULL, NULL),
-(7, 'user', '70 rue toto', '1991-09-15 02:00:00', 'Paris', '4991', 'france', 'mollard.marion@hotmail.fr', 'marion', 'mollard', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', '0105050505', '75015', 'H', 'inactive', NULL, NULL);
+(11, 'user', 'test', '2017-07-04 02:00:00', 'paris', 'OK', 'france', 'mollard.maxime75@gmail.com', 'max', 'mollard', 'b011e4a9f423034832a7431e7afcdc57f294feaf01273f4cdd547d1e6c06b827', 'test', '75015', 'test', 'active', 'c4be2e05-762d-495c-9894-4c0c4248a367', '2017-09-26 18:21:02'),
+(12, 'user', '70 rue cambronne', '2017-01-01 01:00:00', 'paris', 'OK', 'France', 'mollard.maxime@hotmail.fr', 'mollard', 'maxime', 'b011e4a9f423034832a7431e7afcdc57f294feaf01273f4cdd547d1e6c06b827', '644280794', '75015', '0', 'active', NULL, NULL),
+(13, 'user', '70 rue cambronne', '2017-01-01 01:00:00', 'Paris', 'OK', 'Gabon', 'mollard.maxime75@hotmail.fr', 'mollard', 'maxime', 'b011e4a9f423034832a7431e7afcdc57f294feaf01273f4cdd547d1e6c06b827', '0644280794', '75015', '0', 'active', '571fba39-e936-4fda-ae9b-cdf59639376c', '2017-09-27 15:33:10');
 
 -- --------------------------------------------------------
 
@@ -137,6 +133,16 @@ CREATE TABLE `festive_room` (
   `price` float(100,4) NOT NULL,
   `picture_path` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `festive_room`
+--
+
+INSERT INTO `festive_room` (`id_festive_room`, `price`, `picture_path`) VALUES
+(1, 1000000.0000, 'test'),
+(2, 1000000.0000, 'test'),
+(3, 1000000.0000, 'test'),
+(4, 1000000.0000, '');
 
 -- --------------------------------------------------------
 
@@ -180,19 +186,16 @@ CREATE TABLE `festive_room_service` (
   `quantity` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `festive_room_service`
+--
+
+INSERT INTO `festive_room_service` (`id_festive_room_service`, `name`, `price`, `quantity`) VALUES
+(1, 'Table', 20000.0000, 10),
+(2, 'Table', 20000.0000, 10),
+(3, 'chaise', 20000.0000, 300);
+
 -- --------------------------------------------------------
-
---
--- Structure de la table `invalid_booking_date_room`
---
-
-CREATE TABLE `invalid_booking_date_room` (
-  `id_invalid_booking_date_room` int(100) NOT NULL,
-  `date_start` datetime NOT NULL,
-  `date_end` datetime NOT NULL,
-  `status` varchar(100) NOT NULL,
-  `id_room` int(100) NOT NULL  
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Structure de la table `invalid_booking_date_festive_room`
@@ -209,6 +212,20 @@ CREATE TABLE `invalid_booking_date_festive_room` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `invalid_booking_date_room`
+--
+
+CREATE TABLE `invalid_booking_date_room` (
+  `id_invalid_booking_date_room` int(100) NOT NULL,
+  `date_start` datetime NOT NULL,
+  `date_end` datetime NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `id_room` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `news_letter`
 --
 
@@ -220,9 +237,8 @@ CREATE TABLE `news_letter` (
 
 -- --------------------------------------------------------
 
-
 --
--- Structure de la table `news_letter`
+-- Structure de la table `picture_galery`
 --
 
 CREATE TABLE `picture_galery` (
@@ -230,10 +246,50 @@ CREATE TABLE `picture_galery` (
   `path` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `picture_galery`
+--
+
+INSERT INTO `picture_galery` (`id_picture_galery`, `path`) VALUES
+(1, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
+(2, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
+(3, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
+(4, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
+(5, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
+(6, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
+(7, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(8, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(9, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(10, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(11, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(12, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(13, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(14, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(15, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(16, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(17, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(18, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(19, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(20, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(21, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(22, 'C:\\Users\\maxime\\Desktop\\test.txt'),
+(23, 'C:\\Users\\maxime\\Desktop\\test.txt'),
+(24, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(25, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(26, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
+(27, 'C:\\Users\\maxime\\Desktop\\screen_projetannuel.PNG'),
+(28, 'C:\\Users\\maxime\\Desktop\\screen_projetannuel.PNG'),
+(29, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galery\\screen_projetannuel.PNG'),
+(30, '\\src\\main\\resources\\static\\img\\Galery\\wingm.PNG'),
+(31, 'img/Galery'),
+(32, 'img/Galery'),
+(33, 'img/Galerywingm.PNG'),
+(34, 'img/Galerywingm.PNG');
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `news_letter`
+-- Structure de la table `picture_room_category`
 --
 
 CREATE TABLE `picture_room_category` (
@@ -241,6 +297,16 @@ CREATE TABLE `picture_room_category` (
   `id_room_category` int(100) NOT NULL,
   `path` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `picture_room_category`
+--
+
+INSERT INTO `picture_room_category` (`id_picture_room_category`, `id_room_category`, `path`) VALUES
+(4, 1, 'img/PictureRoomCategory/1/room.png'),
+(6, 2, 'img/PictureRoomCategory/2/room.png'),
+(9, 3, 'img/PictureRoomCategory/3/room.png'),
+(10, 4, 'img/PictureRoomCategory/4/room.png');
 
 -- --------------------------------------------------------
 
@@ -262,7 +328,8 @@ INSERT INTO `restaurant_table` (`id_restaurant_table`, `number`, `number_chairs`
 (1, '1', 4),
 (2, '2', 4),
 (3, '10', 4),
-(5, '11', 4);
+(5, '11', 4),
+(6, '9', 3);
 
 -- --------------------------------------------------------
 
@@ -354,43 +421,25 @@ CREATE TABLE `room_booking` (
 --
 
 INSERT INTO `room_booking` (`id_room_booking`, `date_start`, `date_end`, `date_book`, `id_client`, `id_room`, `id_room_category`, `reason`, `status`, `ref_room_book`) VALUES
-(770, '2017-11-16 01:00:00', '2017-11-18 01:00:00', '2017-08-17 18:07:17', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_0'),
-(771, '2017-11-16 01:00:00', '2017-11-18 01:00:00', '2017-08-17 18:07:17', 5, 171, 3, 'vacances', 'inactive', 'room_booking_5_1'),
-(772, '2017-11-16 01:00:00', '2017-11-18 01:00:00', '2017-08-17 18:07:18', 5, 169, 3, 'vacances', 'inactive', 'room_booking_5_2'),
-(773, '2017-11-16 01:00:00', '2017-11-18 01:00:00', '2017-08-17 18:07:18', 5, 170, 3, 'vacances', 'inactive', 'room_booking_5_3'),
-(774, '2017-11-19 01:00:00', '2017-11-20 01:00:00', '2017-08-17 18:07:35', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_4'),
-(775, '2017-11-19 01:00:00', '2017-11-20 01:00:00', '2017-08-17 18:07:36', 5, 171, 3, 'vacances', 'inactive', 'room_booking_5_5'),
-(776, '2017-11-19 01:00:00', '2017-11-20 01:00:00', '2017-08-17 18:07:37', 5, 169, 3, 'vacances', 'inactive', 'room_booking_5_6'),
-(777, '2017-11-19 01:00:00', '2017-11-20 01:00:00', '2017-08-17 18:07:37', 5, 170, 3, 'vacances', 'inactive', 'room_booking_5_7'),
-(778, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:48', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_8'),
-(779, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:49', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_9'),
-(780, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:49', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_10'),
-(781, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:49', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_11'),
-(782, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:49', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_12'),
-(783, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:50', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_13'),
-(784, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:50', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_14'),
-(785, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:51', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_15'),
-(786, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:51', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_16'),
-(787, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:51', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_17'),
-(788, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:51', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_18'),
-(789, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:51', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_19'),
-(790, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:51', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_20'),
-(791, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:52', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_21'),
-(792, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:52', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_22'),
-(793, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:52', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_23'),
-(794, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:52', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_24'),
-(795, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:53', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_25'),
-(796, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:53', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_26'),
-(797, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:53', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_27'),
-(798, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:54', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_28'),
-(799, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:54', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_29'),
-(800, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:55', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_30'),
-(801, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:55', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_31'),
-(802, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:55', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_32'),
-(803, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:07:55', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_33'),
-(804, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:10:08', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_34'),
-(805, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:11:00', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_35'),
-(806, '2017-11-20 01:00:00', '2017-11-22 01:00:00', '2017-08-17 18:11:26', 5, 172, 3, 'vacances', 'inactive', 'room_booking_5_36');
+(1013, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:18:12', 13, 144, 1, '0', 'inactive', 'room_booking_13_0'),
+(1014, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:18:12', 13, 173, 4, '0', 'inactive', 'room_booking_13_0'),
+(1015, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:18:52', 13, 145, 1, '0', 'inactive', 'room_booking_13_1'),
+(1016, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:18:52', 13, 174, 4, '0', 'inactive', 'room_booking_13_1'),
+(1017, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:19:43', 13, 146, 1, '0', 'inactive', 'room_booking_13_2'),
+(1018, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:19:43', 13, 161, 2, '0', 'inactive', 'room_booking_13_2'),
+(1019, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:20:53', 13, 147, 1, '0', 'inactive', 'room_booking_13_3'),
+(1020, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:20:53', 13, 175, 4, '0', 'inactive', 'room_booking_13_3'),
+(1021, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:22:22', 13, 148, 1, '0', 'inactive', 'room_booking_13_4'),
+(1022, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:22:22', 13, 176, 4, '0', 'inactive', 'room_booking_13_4'),
+(1023, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:24:04', 13, 149, 1, '0', 'inactive', 'room_booking_13_5'),
+(1024, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:24:04', 13, 169, 3, '0', 'inactive', 'room_booking_13_5'),
+(1025, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:26:20', 13, 150, 1, '0', 'inactive', 'room_booking_13_6'),
+(1026, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:26:20', 13, 151, 1, '0', 'inactive', 'room_booking_13_6'),
+(1027, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:26:20', 13, 170, 3, '0', 'inactive', 'room_booking_13_6'),
+(1028, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:31:02', 13, 153, 1, '0', 'inactive', 'room_booking_13_7'),
+(1029, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:31:24', 13, 154, 1, '0', 'inactive', 'room_booking_13_8'),
+(1030, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:32:27', 13, 155, 1, '0', 'inactive', 'room_booking_13_9'),
+(1031, '2017-09-29 02:00:00', '2017-09-30 02:00:00', '2017-09-27 15:33:10', 13, 156, 1, '0', 'inactive', 'room_booking_13_10');
 
 -- --------------------------------------------------------
 
@@ -404,15 +453,7 @@ CREATE TABLE `room_booking_services` (
   `id_room_service` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Structure de la table `room_service`
---
-
-CREATE TABLE `room_service` (
-  `id_room_service` int(100) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `price` float(100,4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `room_category`
@@ -429,12 +470,31 @@ CREATE TABLE `room_category` (
 --
 
 INSERT INTO `room_category` (`id_room_category`, `name`, `price`) VALUES
-(1, 'Chambre Simple', 60000),
-(2, 'Chambre Double', 120000),
-(3, 'Suite Junior', 150000),
-(4, 'Suite executive', 200000);
+(1, 'Chambre Simple', 60000.0000),
+(2, 'Chambre Double', 120000.0000),
+(3, 'Suite Junior', 150000.0000),
+(4, 'Suite executive', 200000.0000);
 
 -- --------------------------------------------------------
+
+--
+-- Structure de la table `room_service`
+--
+
+CREATE TABLE `room_service` (
+  `id_room_service` int(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `price` float(100,4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `room_service`
+--
+
+INSERT INTO `room_service` (`id_room_service`, `name`, `price`) VALUES
+(1, 'Petit déjeuné', 5000.0000),
+(2, 'Petit déjeuné', 5000.0000),
+(3, 'Petit déjeuné', 5000.0000);
 
 --
 -- Index pour les tables exportées
@@ -488,18 +548,18 @@ ALTER TABLE `festive_room_service`
   ADD PRIMARY KEY (`id_festive_room_service`);
 
 --
--- Index pour la table `invalid_booking_date_room`
---
-ALTER TABLE `invalid_booking_date_room`
-  ADD PRIMARY KEY (`id_invalid_booking_date_room`),
-  ADD KEY `FK_InvalidBookingDateRoomRoom` (`id_room`);
-
---
 -- Index pour la table `invalid_booking_date_festive_room`
 --
 ALTER TABLE `invalid_booking_date_festive_room`
   ADD PRIMARY KEY (`id_invalid_booking_date_festive_room`),
   ADD KEY `FK_InvalidBookingDateFestiveRoomFestiveRoom` (`id_festive_room`);
+
+--
+-- Index pour la table `invalid_booking_date_room`
+--
+ALTER TABLE `invalid_booking_date_room`
+  ADD PRIMARY KEY (`id_invalid_booking_date_room`),
+  ADD KEY `FK_InvalidBookingDateRoomRoom` (`id_room`);
 
 --
 -- Index pour la table `news_letter`
@@ -555,17 +615,17 @@ ALTER TABLE `room_booking_services`
   ADD KEY `FK_RoomBookingServicesRoomBooking` (`id_room_booking`),
   ADD KEY `FK_RoomBookingServicesService` (`id_room_service`);
 
-  --
--- Index pour la table `room_booking_services`
---
-ALTER TABLE `room_service`
-  ADD PRIMARY KEY (`id_room_service`);
-
 --
 -- Index pour la table `room_category`
 --
 ALTER TABLE `room_category`
   ADD PRIMARY KEY (`id_room_category`);
+
+--
+-- Index pour la table `room_service`
+--
+ALTER TABLE `room_service`
+  ADD PRIMARY KEY (`id_room_service`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
@@ -585,12 +645,12 @@ ALTER TABLE `building`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `id_client` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_client` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT pour la table `festive_room`
 --
 ALTER TABLE `festive_room`
-  MODIFY `id_festive_room` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_festive_room` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `festive_room_booking`
 --
@@ -605,17 +665,17 @@ ALTER TABLE `festive_room_booking_services`
 -- AUTO_INCREMENT pour la table `festive_room_service`
 --
 ALTER TABLE `festive_room_service`
-  MODIFY `id_festive_room_service` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_festive_room_service` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT pour la table `invalid_booking_date`
---
-ALTER TABLE `invalid_booking_date_room`
-  MODIFY `id_invalid_booking_date_room` int(100) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `invalid_booking_date`
+-- AUTO_INCREMENT pour la table `invalid_booking_date_festive_room`
 --
 ALTER TABLE `invalid_booking_date_festive_room`
   MODIFY `id_invalid_booking_date_festive_room` int(100) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `invalid_booking_date_room`
+--
+ALTER TABLE `invalid_booking_date_room`
+  MODIFY `id_invalid_booking_date_room` int(100) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `news_letter`
 --
@@ -625,17 +685,17 @@ ALTER TABLE `news_letter`
 -- AUTO_INCREMENT pour la table `picture_galery`
 --
 ALTER TABLE `picture_galery`
-  MODIFY `id_picture_galery` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_picture_galery` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT pour la table `picture_room_category`
 --
 ALTER TABLE `picture_room_category`
-  MODIFY `id_picture_room_category` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_picture_room_category` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `restaurant_table`
 --
 ALTER TABLE `restaurant_table`
-  MODIFY `id_restaurant_table` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_restaurant_table` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `restaurant_table_booking`
 --
@@ -650,32 +710,32 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT pour la table `room_booking`
 --
 ALTER TABLE `room_booking`
-  MODIFY `id_room_booking` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=807;
+  MODIFY `id_room_booking` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1032;
 --
 -- AUTO_INCREMENT pour la table `room_booking_services`
 --
 ALTER TABLE `room_booking_services`
-  MODIFY `id_room_booking_services` int(100) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `room_service`
---
-ALTER TABLE `room_service`
-  MODIFY `id_room_service` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_room_booking_services` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `room_category`
 --
 ALTER TABLE `room_category`
   MODIFY `id_room_category` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-  
+--
+-- AUTO_INCREMENT pour la table `room_service`
+--
+ALTER TABLE `room_service`
+  MODIFY `id_room_service` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Contraintes pour les tables exportées
 --
 
 --
--- Contraintes pour la table `restaurant_table_booking`
+-- Contraintes pour la table `festive_room_booking`
 --
-ALTER TABLE `restaurant_table_booking`
-  ADD CONSTRAINT `FK_RestaurantTableBookingClient` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `festive_room_booking`
+  ADD CONSTRAINT `FK_FestiveRoomBookingIdClient` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_FestiveRoomBookingIdFestiveRoom` FOREIGN KEY (`id_festive_room`) REFERENCES `festive_room` (`id_festive_room`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `festive_room_booking_services`
@@ -685,11 +745,28 @@ ALTER TABLE `festive_room_booking_services`
   ADD CONSTRAINT `FK_FrbsService` FOREIGN KEY (`id_festive_room_service`) REFERENCES `festive_room_service` (`id_festive_room_service`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `festive_room_booking`
+-- Contraintes pour la table `invalid_booking_date_festive_room`
 --
-ALTER TABLE `festive_room_booking`
-  ADD CONSTRAINT `FK_FestiveRoomBookingIdFestiveRoom` FOREIGN KEY (`id_festive_room`) REFERENCES `festive_room` (`id_festive_room`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_FestiveRoomBookingIdClient` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `invalid_booking_date_festive_room`
+  ADD CONSTRAINT `FK_InvalidBookingDateFestiveRoomFestiveRoom` FOREIGN KEY (`id_festive_room`) REFERENCES `festive_room` (`id_festive_room`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `invalid_booking_date_room`
+--
+ALTER TABLE `invalid_booking_date_room`
+  ADD CONSTRAINT `FK_InvalidBookingDateRoomRoom` FOREIGN KEY (`id_room`) REFERENCES `room` (`id_room`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `picture_room_category`
+--
+ALTER TABLE `picture_room_category`
+  ADD CONSTRAINT `FK_PRCidRoomCategory` FOREIGN KEY (`id_room_category`) REFERENCES `room_category` (`id_room_category`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `restaurant_table_booking`
+--
+ALTER TABLE `restaurant_table_booking`
+  ADD CONSTRAINT `FK_RestaurantTableBookingClient` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `room`
@@ -704,24 +781,6 @@ ALTER TABLE `room`
 ALTER TABLE `room_booking_services`
   ADD CONSTRAINT `FK_RoomBookingServicesRoomBooking` FOREIGN KEY (`id_room_booking`) REFERENCES `room_booking` (`id_room_booking`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_RoomBookingServicesService` FOREIGN KEY (`id_room_service`) REFERENCES `room_service` (`id_room_service`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `invalid_booking_date_room`
---
-ALTER TABLE `invalid_booking_date_room`
-  ADD CONSTRAINT `FK_InvalidBookingDateRoomRoom` FOREIGN KEY (`id_room`) REFERENCES `room` (`id_room`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `invalid_booking_date_festive_room`
---
-ALTER TABLE `invalid_booking_date_festive_room`
-  ADD CONSTRAINT `FK_InvalidBookingDateFestiveRoomFestiveRoom` FOREIGN KEY (`id_festive_room`) REFERENCES `festive_room` (`id_festive_room`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `picture_room_category`
---
-ALTER TABLE `picture_room_category`
-  ADD CONSTRAINT `FK_PRCidRoomCategory` FOREIGN KEY (`id_room_category`) REFERENCES `room_category` (`id_room_category`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
