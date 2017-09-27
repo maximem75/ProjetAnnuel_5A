@@ -39,7 +39,7 @@
                     payment: {
                         transactions: [
                             {
-                                amount: { total: '1', currency: 'USD' }
+                                amount: { total: '1', currency: 'EUR' }
                             }
                         ]
                     }
