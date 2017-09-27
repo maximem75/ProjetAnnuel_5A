@@ -135,7 +135,7 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.book.room.cancelBookRoom = function (refBookRoom) {
-        var paramRequest = "refBookRoom=" + refBookRoom  + "&token=" + client.token;
+        var paramRequest = "refBookRoom=" + refBookRoom;
 
         var object = {
             name   : "cancelBookRoom",
@@ -151,5 +151,5 @@
 
         utils.ajaxRequest(object, paramRequest, null, false, true);
     };
-
+    
 })();

@@ -17,31 +17,45 @@
      * @param price
      */
     Core.payment.paypal.generateButton = function (price) {
-        var container = document.getElementById("paypal_div");
-        var currentDiv = document.getElementById("paypal_container");
+        paypal.Button.render({
 
-        if (currentDiv !== null && currentDiv !== undefined)
-            currentDiv.parentElement.removeChild(currentDiv);
+            env: 'production', // sandbox | production
 
-        var script = document.createElement("script");
-        script.async = "async";
-        script.src = "https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=residencedeshautsdemenaye-facilitator@outlook.com";
-        script.setAttribute("data-button", "buynow");
-        script.setAttribute("data-name", "test");
-        script.setAttribute("data-quantity", "1");
-        script.setAttribute("data-amount", price);
-        script.setAttribute("data-currency", "EUR");
-        script.setAttribute("data-shipping", "0");
-        script.setAttribute("data-tax", "0");
-        script.setAttribute("data-env", "sandbox");
-        script.setAttribute("data-callback", "http://localhost:63342/ProjetAnnuel2017/static/index.html?token=" + client.token);
+            // PayPal Client IDs - replace with your own
+            // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+            client: {
+                sandbox:    'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+                production: 'AYqQThXpf9pC7O8opPeNE3JznLlAyg7YAbFUlmZI6GeuEAvOcSUw_U6hcL6qxl9Zvx7iRiGxrXfHAaH2'
+            },
 
-        var div = document.createElement("div");
-        div.classList.add("paypal_container");
-        div.id = "paypal_container";
+            // Show the buyer a 'Pay Now' button in the checkout flow
+            commit: true,
 
-        div.appendChild(script);
-        container.appendChild(div);
+            // payment() is called when the button is clicked
+            payment: function(data, actions) {
+
+                // Make a call to the REST api to create the payment
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: { total: '1', currency: 'USD' }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            // onAuthorize() is called when the buyer approves the payment
+            onAuthorize: function(data, actions) {
+
+                // Make a call to the REST api to execute the payment
+                return actions.payment.execute().then(function() {
+                    window.alert('Payment Complete!');
+                });
+            }
+
+        }, '#paypal-button-container');
     };
 
 })();

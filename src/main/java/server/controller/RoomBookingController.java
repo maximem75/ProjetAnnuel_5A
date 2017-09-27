@@ -120,14 +120,13 @@ public class RoomBookingController {
         }
     }
 
-    @RequestMapping(path = "/cancelBook", method = PUT)
+    @RequestMapping(path = "/cancelBook", method = POST)
     @ResponseStatus(ACCEPTED)
-    public void cancelRoomBooking(@RequestParam("refBookRoom") String refBookRoom, @RequestParam("token") String token) {
+    public void cancelRoomBooking(@RequestParam("refBookRoom") String refBookRoom) {
         List<RoomBooking> list = roomBookingRepository.getListRoomBookingByRefBookRoom(refBookRoom);
-        Client client = clientService.findByToken(token);
 
-        if (((client != null) && Objects.equals(list.get(0).getIdClient(), client.getId())) || clientService.adminAccess(token)) {
-             for(RoomBooking r : list){
+        for (RoomBooking r : list) {
+            if (Objects.equals(r.getStatus(), "inactive")) {
                 r.setStatus("canceled");
                 roomBookingRepository.save(r);
             }
