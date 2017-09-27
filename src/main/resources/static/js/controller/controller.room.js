@@ -469,9 +469,6 @@
 
 
             utils.addListener(btn_return, "click", function (e) {
-                console.log(listRoomBooking[0].refRoomBook);
-                console.log(listRoomBooking[0]);
-                console.log(listRoomBooking);
                 Core.service.book.room.cancelBookRoom(listRoomBooking[0].refRoomBook);
             }, false);
         }();

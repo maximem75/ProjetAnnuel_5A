@@ -142,6 +142,7 @@
             url    : "/roomBooking/cancelBook",
             func : function () {
                 Core.controller.includeContainer.switchView("chambre");
+                console.log("Sended");
             },
             error : function(statusCode){
             }
