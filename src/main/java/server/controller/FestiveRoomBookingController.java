@@ -22,7 +22,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  * Created by molla on 27/08/2017.
  */
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/festiveRoomBooking")
 public class FestiveRoomBookingController {

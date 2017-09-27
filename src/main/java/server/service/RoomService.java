@@ -2,10 +2,10 @@ package server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import server.Exception.DateBookInvalidException;
 import server.model.Building;
 import server.model.Room;
-import server.repository.*;
+import server.repository.BuildingRepository;
+import server.repository.RoomRepository;
 
 import java.util.*;
 

@@ -326,6 +326,7 @@ ul {
 	margin-top: 20px;
 	padding-left: 20px;
 	width: 40%;
+	min-width: 300px;
 }
 
 .room_type_image{

@@ -19,9 +19,14 @@
         var container;
         var startDateID = "#reservation_start_date";
         var endDateID = "#reservation_end_date";
+        var minStart = new Date();
+        var minEnd = new Date();
 
-        utils.reservation.datePicker(startDateID, new Date(), null);
-        utils.reservation.datePicker(endDateID, new Date(), null);
+        minStart.setDate(minStart.getDate() + 2);
+        minEnd.setDate(minEnd.getDate() + 3);
+
+        utils.reservation.datePicker(startDateID, minStart, null);
+        utils.reservation.datePicker(endDateID, minEnd, null);
 
         var initVariables = function () {
             startDatepicker = document.getElementById("reservation_start_date");
@@ -30,10 +35,11 @@
             container = document.getElementById("include_room");
         }();
         var manageEvents = function () {
+
             $(startDateID).datepicker("option", "onSelect", function () {
                 var minDate = $(startDateID).datepicker("getDate");
-                var minDateEnd = $(startDateID).datepicker("getDate", "+1d");
-                minDateEnd.setDate(minDateEnd.getDate()+1);
+                var minDateEnd = $(startDateID).datepicker("getDate");
+                minDateEnd.setDate(minDateEnd.getDate() + 1);
 
                 $(endDateID).datepicker("option", "minDate", minDateEnd);
                 utils.empty(container);
@@ -52,13 +58,13 @@
 
                 var formValid = utils.form.formValidator(jsonValidator, startDatepicker.style);
 
-                var jsonRoom = {
-                    dateStart: startDatepicker.value,
-                    dateEnd: endDatepicker.value
-                };
-
                 var startString = startDatepicker.value.split("/");
                 var endString = endDatepicker.value.split("/");
+
+                var jsonRoom = {
+                    dateStart: startString[1] + "/" + startString[2] + "/" + startString[0],
+                    dateEnd: endString[1] + "/" + endString[2] + "/" + endString[0]
+                };
 
                 var formatDateStart = startString[2] + "-" + startString[1] + "-" + startString[0];
                 var formatDateEnd = endString[2] + "-" + endString[1] + "-" + endString[0];
@@ -122,7 +128,7 @@
             list_reservation.appendChild(div);
 
         };
-        var viewRoom = function (id, number, json) {
+        var viewRoom = function (id, number, json, path) {
             var divRoom, imageRoom, contentRoom, container_title,
                 titleRoom, disponible_container, disponible,
                 disponible_result, costbynight_container, costbynight,
@@ -139,7 +145,7 @@
 
                 imageRoom = document.createElement("img");
                 imageRoom.classList.add("room_type_image");
-                imageRoom.src = "img/Chambre Simple/img/IMG_5533.jpg";
+                imageRoom.src = path;
 
                 contentRoom = document.createElement("div");
                 contentRoom.classList.add("room_content");
@@ -177,7 +183,7 @@
 
                 costbynight_result_franc = document.createElement("span");
                 costbynight_result_franc.classList.add("text_span");
-                costbynight_result_franc.textContent = json.costByNight + " francs CFA";
+                costbynight_result_franc.textContent = json.price + " francs CFA";
 
                 cost_container = document.createElement("div");
                 cost_container.classList.add("reserv_container");
@@ -190,7 +196,7 @@
 
                 cost_result_franc = document.createElement("span");
                 cost_result_franc.classList.add("text_span");
-                cost_result_franc.textContent = json.costByNight * getDays().day + " francs CFA";
+                cost_result_franc.textContent = json.price * getDays().day + " francs CFA";
 
                 description_container = document.createElement("div");
                 description_container.classList.add("reserv_container");
@@ -228,22 +234,49 @@
                 quantity_result.classList.add("quantity_input");
                 quantity_result.classList.add("text_span");
                 quantity_result.type = "number";
-                quantity_result.value = "1";
-                quantity_result.min = "1";
+                quantity_result.value = "0";
+                quantity_result.min = "0";
                 quantity_result.max = number;
                 utils.addListener(quantity_result, "change", function (e) {
-                    cost_result_franc.textContent = (json.costByNight * getDays().day) * e.target.value + " francs CFA";
+                    cost_result_franc.textContent = (json.price * getDays().day) * e.target.value + " francs CFA";
                 }, false);
 
                 utils.addListener(quantity_result, "keydown", function (e) {
                     utils.pauseEvent(e);
                 }, false);
 
-                btn_add = document.createElement("a");
-                btn_add.id = "btn_type_" + json.id;
-                btn_add.classList.add("btn_reservation");
-                btn_add.name = json.id;
-                btn_add.textContent = "AJOUTER";
+                if(number > 0){
+                    btn_add = document.createElement("a");
+                    btn_add.id = "btn_type_" + json.id;
+                    btn_add.classList.add("btn_reservation");
+                    btn_add.name = json.id;
+                    btn_add.textContent = "AJOUTER";
+
+                    utils.addListener(btn_add, "click", function (e) {
+                        var quantity = e.target.parentElement.getElementsByClassName("quantity_input")[0].value;
+
+                        if(quantity > 0){
+                            var name = e.target.getAttribute("name");
+
+                            jsonQuantity[e.target.name] = {
+                                idCategory: e.target.name,
+                                quantity: quantity
+                            };
+
+                            viewList("list_" + e.target.id, json.name, "X" + quantity);
+                        }
+
+                    }, false);
+                } else {
+                    btn_add = document.createElement("a");
+                    btn_add.id = "btn_type_" + json.id;
+                    btn_add.classList.add("btn_reservation");
+                    btn_add.style.backgroundColor = "black";
+                    btn_add.name = json.id;
+                    btn_add.textContent = "INDISPONIBLE"
+                }
+
+
             }();
             var appendElements = function () {
                 divRoom.appendChild(imageRoom);
@@ -289,7 +322,7 @@
             reason = document.getElementById("reservation_reason");
             list_reservation = document.getElementById("list_reservation");
             listReservationContainer = document.getElementById("include_reservation_list");
-            listReservationContainer.style.display = "block";
+            listReservationContainer.style.display = "flex";
 
             startDatepicker = document.getElementById("reservation_start_date");
             endDatepicker = document.getElementById("reservation_end_date");
@@ -313,37 +346,26 @@
         var initView = function () {
             var listType = new Object(null);
 
-            for(var c in data.listRoomCategories){
+            for (var c in data.listRoomCategories) {
                 listType[data.listRoomCategories[c].id] = 0;
-                for(var r in listRoom){
-                    if(listRoom[r].roomCategory.id === data.listRoomCategories[c].id){
+                for (var r in listRoom) {
+                    if (listRoom[r].roomCategory.id === data.listRoomCategories[c].id) {
                         listType[data.listRoomCategories[c].id] += 1;
                     }
                 }
-
-                var viewRoomBtn = viewRoom("room_" + c, listType[data.listRoomCategories[c].id], data.listRoomCategories[c]);
-
-            }
-
-            for (type in listType) {
-                if (type_input.value === "all" || type_input.value === type) {
-                    var btn = document.getElementById("btn_type_" + type);
-                    utils.addListener(btn, "click", function (e) {
-                        var quantity = e.target.parentElement.getElementsByClassName("quantity_input")[0];
-                        var name = e.target.getAttribute("name");
-
-                        jsonQuantity[e.target.name] = {
-                            quantity: quantity.value
-                        };
-                        viewList("list_" + e.target.id, data.listCategories[name].name, "X" + quantity.value);
-                    }, false);
-                }
+                var path = function () {
+                    for (var p in data.listPictureRoomCategory) {
+                        if (data.listRoomCategories[c].id === data.listPictureRoomCategory[p].idRoomCategory)
+                            return data.listPictureRoomCategory[p].path;
+                    }
+                };
+                var viewRoomBtn = viewRoom("room_" + c, listType[data.listRoomCategories[c].id], data.listRoomCategories[c], path());
             }
 
             utils.addListener(btn_book, "click", function (e) {
                 error_container.textContent = "";
 
-                if(Object.keys(jsonQuantity).length === 0 && jsonQuantity.constructor === Object){
+                if (Object.keys(jsonQuantity).length === 0 && jsonQuantity.constructor === Object) {
                     error_container.textContent = "Vous devez choisir au moins une chambre pour accéder au paiement";
                     return;
                 }
@@ -353,22 +375,26 @@
                     return;
                 }
 
-                var body = {};
+                var body = [];
                 searchContainer.style.display = "none";
                 bookingContainer.style.display = "block";
+
                 for (var r in jsonQuantity) {
-                    body["reservation_" + r] = {
-                        "date_start": formatDateStart,
-                        "date_end": formatDateEnd,
-                        "type": r,
-                        "quantity": jsonQuantity[r].quantity,
-                        "reason": reason.value
-                    };
+
+                    var quantity = parseInt(jsonQuantity[r].quantity);
+                    for (var i = 0; i < quantity; i++) {
+
+                        body.push({
+                            "dateStart": formatDateStart,
+                            "dateEnd": formatDateEnd,
+                            "idRoomCategory": jsonQuantity[r].idCategory,
+                            "reason": reason.value
+                            });
+
+                    }
                 }
 
-                Core.class.book.room.bookRoom(body);
-                controller.room.roomBooking(startDatepicker.value, endDatepicker.value, body);
-
+                Core.service.book.room.bookRoom(JSON.stringify(body));
             }, false);
         }();
     };
@@ -379,10 +405,37 @@
      * @param dateEnd
      * @param list
      */
-    Core.controller.room.roomBooking = function (dateStart, dateEnd, list) {
+    Core.controller.room.roomBooking = function (listRoomBooking) {
         var labelDateStart, labelDateEnd, labelBook, image,
             container, button_container, btn_return;
+        console.log("---------------");
+        //console.log(listRoomBooking);
+        var getCategoryName = function(id){
+            var list = data.listRoomCategories;
+            for(var i = 0 ; i < list.length ; i++){
+                if(list[i].id === id)
+                    return list[i].name;
 
+            }
+        };
+        var getCategoryQuantity = function (lrb) {
+            var jsonQuantity = {};
+
+            for(var i = 0 ; i < lrb.length ; i++){
+                var idCategory = lrb[i].idRoomCategory;
+                console.log(idCategory);
+                if(jsonQuantity[idCategory] !== null && jsonQuantity[idCategory] !== undefined){
+                    jsonQuantity[idCategory].quantity += 1;
+                } else {
+                    jsonQuantity[idCategory] = new Object();
+                    jsonQuantity[idCategory].id = idCategory;
+                    jsonQuantity[idCategory].quantity = 1;
+                    jsonQuantity[idCategory].name = getCategoryName(idCategory);
+                }
+            }
+
+            return jsonQuantity;
+        };
         var initVariables = function () {
             container = document.getElementById("include_reservation");
             labelDateStart = document.getElementById("label_start_date");
@@ -392,21 +445,59 @@
             btn_return = document.getElementById("btn_return");
         }();
         var initView = function () {
-            labelDateStart.textContent = dateStart;
-            labelDateEnd.textContent = dateEnd;
-            for (var l in list) {
+            var monthNames = [
+                "Janvier", "Février", "Mars",
+                "Avril", "Mai", "Juin", "Juillet",
+                "Août", "Septembre", "Octobre",
+                "Novembre", "Decembre"
+            ];
+            var listCateg = getCategoryQuantity(listRoomBooking);
+            var keys = Object.keys(listCateg);
+
+            var dateStart = new Date(listRoomBooking[0].dateStart);
+            var dateEnd = new Date(listRoomBooking[0].dateEnd);
+
+            labelDateStart.textContent = dateStart.getDate() + " "  + monthNames[dateStart.getMonth()] + " " + dateStart.getFullYear();
+            labelDateEnd.textContent = dateEnd.getDate() + " "  + monthNames[dateEnd.getMonth()] + " " + dateEnd.getFullYear();
+
+            for (var l = 0 ; l < keys.length ; l++) {
+                console.log(listCateg[keys[l]]);
                 var span = document.createElement("span");
                 span.classList.add("text_span");
-                span.textContent = "X" + list[l].quantity + " " + utils.capitalizeFirstLetter(data.listCategories[list[l].type].name);
+                span.textContent = "X" + listCateg[keys[l]].quantity + " " + utils.capitalizeFirstLetter(listCateg[keys[l]].name);
 
                 labelBook.appendChild(span);
             }
 
 
             utils.addListener(btn_return, "click", function (e) {
-                Core.class.book.room.cancelBookRoom();
+                Core.service.book.room.cancelBookRoom();
             }, false);
         }();
 
     };
+    
+    Core.controller.room.updatePrice = function(price){
+        document.querySelector("#label_price").textContent = price;
+    };
+
+    Core.controller.room.error = function(){
+        var pageObject = data.viewList.chambre;
+
+        var viewSuccess  = function () {
+            utils.empty(data.getIncludeContainer());
+            data.getIncludeContainer().innerHTML = ""+
+                "<div style='font-family: Roboto; display: inline-block; width: 100%; color: red; text-align: center; padding-bottom: 40px;'>"+
+                "</br><h2>Une erreur est survenue</h2></div>";
+        }();
+        var redirection = function () {
+            var timeOut = function(){
+                var tmID = setTimeout(function(){
+                    Core.utils.empty(data.getIncludeContainer());
+                    utils.include(pageObject.viewPath, pageObject.name);
+                }, 3500);
+            }();
+        }();
+    };
+
 })();

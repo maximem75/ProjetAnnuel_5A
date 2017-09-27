@@ -16,8 +16,8 @@ import java.util.Properties;
 public class MailManager {
 
     private Session session;
-    private String USERNAME = "alvin.ondzounga@gmail.com";
-    private String PASSWORD = "vdmvdmvdm";
+    private String USERNAME = "residencedeshautsdemenaye@gmail.com";
+    private String PASSWORD = "Azerty75";
 
     public MailManager(){
         Properties props = new Properties();

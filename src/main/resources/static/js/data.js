@@ -18,67 +18,67 @@
             accueil    : {
                 name      : "accueil",
                 viewPath  : "view.accueil.html",
-                listImage : "img/home-bg.jpg"
+                listImage : "img/menu/index-bg.jpg"
             },
             connexion : {
                 name       : "connexion",
                 viewPath   : "view.signin.html",
-                listImage : "img/home-bg.jpg"
+                listImage : "img/menu/login-bg.jpg"
             },
             chambre : {
                 name      : "chambre",
                 viewPath  : "view.chambre.html",
-                listImage : "img/room1.jpg"
+                listImage : "img/menu/room-bg.jpg"
             },
             restaurant : {
                 name      : "restaurant",
                 viewPath  : "view.restaurant.html",
-                listImage : "img/restau1.jpg"
+                listImage : "img/menu/restaurant-bg.jpg"
             },
             contact : {
                 name      : "contact",
                 viewPath  : "view.contact.html",
-                listImage : "img/contact1.jpg"
+                listImage : "img/menu/contact-bg.jpg"
             },
             compte : {
                 name      : "compte",
                 viewPath  : "view.compte.html",
-                listImage : "img/contact1.jpg"
+                listImage : "img/menu/"
             },
             about      : {
                 name      : "about",
                 viewPath  : "view.about.html",
-                listImage : "img/about-bg.jpg"
+                listImage : "img/menu/about-bg.jpg"
             },
             logout     : {
                 name      : "logout",
                 viewPath  : "view.accueil.html",
-                listImage : "img/home-bg.jpg"
+                listImage : "img/menu/login-bg.jpg"
             },
             confirmation : {
                 name      : "confirmation",
                 viewPath  : "view.confirmation.html",
-                listImage : "img/contact1.jpg"
+                listImage : "img/menu/login-bg.jpg"
             },
             festiveRoom : {
                 name      : "festiveRoom",
                 viewPath  : "view.festiveRoom.html",
-                listImage : "img/contact1.jpg"
+                listImage : "img/menu/index-bg.jpg"
             },
             clientListBook : {
                 name      : "clientListBook",
                 viewPath  : "view.clientListBook.html",
-                listImage : "img/contact1.jpg"
+                listImage : "img/menu/contact1.jpg"
             },
             admin : {
                 name      : "admin",
                 viewPath  : "view.admin.html",
-                listImage : "img/contact1.jpg"
+                listImage : "img/menu/.jpg"
             },
             listArticle : {
                 name      : "listArticle",
                 viewPath  : "view.article.html",
-                listImage : "img/contact1.jpg"
+                listImage : "img/menu/.jpg"
             }
         },
         basicUrl   : "https://residencedeshautsdemenaye.fr/api",

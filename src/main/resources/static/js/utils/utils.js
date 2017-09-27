@@ -20,7 +20,7 @@
      * @param paramBody
      * @param option
      */
-    Core.utils.ajaxRequest = function (objectService, paramRequest, paramBody, option) {
+    Core.utils.ajaxRequest = function (objectService, paramRequest, paramBody, option, doNotParse) {
         var requestUrl = "", requestBody = "";
 
         var initVariables = function () {
@@ -44,8 +44,14 @@
                 if (option === true && (this.responseText == undefined || this.responseText == "")) {
                     objectService.error(xhr.status);
                 } else {
-                    var response = JSON.parse(this.responseText);
-                    objectService.func(response);
+                    if(doNotParse == true){
+                        objectService.func(this.responseText);
+                    } else {
+                        var response = JSON.parse(this.responseText);
+                        objectService.func(response);
+                    }
+
+
                 }
             } else {
                 objectService.error(xhr.status);

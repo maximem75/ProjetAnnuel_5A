@@ -24,4 +24,7 @@ public interface RoomBookingRepository extends JpaRepository<RoomBooking, Long> 
     @Query("select rb from RoomBooking rb where idClient = :IdClient")
     List<RoomBooking> getListRoomBookingByIdClient(@Param("IdClient") Long IdClient);
 
+    @Query("update RoomBooking set status = 'canceled' where refBookRoom = :RefBookRoom")
+    void cancelBook(@Param("RefBookRoom") String RefBookRoom);
+
 }

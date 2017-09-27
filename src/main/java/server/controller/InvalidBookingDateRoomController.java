@@ -15,7 +15,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 /**
  * Created by maxime on 09/09/2017.
  */
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/invalidBookingDateRoom")
 public class InvalidBookingDateRoomController {

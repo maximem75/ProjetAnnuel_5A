@@ -53,7 +53,7 @@ public class SecurityClientService {
             char c = chars[random.nextInt(chars.length)];
             sb.append(c);
         }
-        System.out.println(sb.toString());
+
         return sb.toString();
     }
 

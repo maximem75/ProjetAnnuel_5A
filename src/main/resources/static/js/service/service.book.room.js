@@ -20,15 +20,17 @@
             name   : "bookRoom",
             method : "POST",
             url    : "/roomBooking",
-            func : function (refBookRoom) {
-               
+            func : function (listRoomBooking) {
+                var refBookRoom = listRoomBooking[0].refRoomBook;
+                Core.service.book.room.getPrice(refBookRoom);
+                Core.controller.room.roomBooking(listRoomBooking);
             },
             error : function(statusCode){
-
+                Core.controller.room.error();
             }
         };
 
-        return utils.ajaxRequest(object, paramRequest, listRoomBooking);
+        utils.ajaxRequest(object, paramRequest, listRoomBooking);
     };
 
     Core.service.book.room.validate = function (refBookRoom) {
@@ -37,7 +39,7 @@
         var object = {
             name   : "validate",
             method : "PUT",
-            url    : "/validate",
+            url    : "/roomBooking/validate",
             func : function () {
 
             },
@@ -45,8 +47,25 @@
 
             }
         };
+        utils.ajaxRequest(object, paramRequest);
+    };
 
-       return utils.ajaxRequest(object, paramRequest);
+    Core.service.book.room.getPrice = function (refBookRoom) {
+        var paramRequest = "refBookRoom=" + refBookRoom  + "&token=" + client.token;
+
+        var object = {
+            name   : "getPrice",
+            method : "GET",
+            url    : "/roomBooking/getPrice",
+            func : function (price) {
+                Core.controller.room.updatePrice(price);
+            },
+            error : function(statusCode){
+
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
     /**
@@ -110,5 +129,25 @@
         };
     };
 
+    /**
+     * Cancel the temporaly book
+     * @returns {{name: string, method: string, url: string, func: func, error: error}}
+     */
+    Core.service.book.room.cancelBookRoom = function (refBookRoom) {
+        var paramRequest = "refBookRoom=" + refBookRoom  + "&token=" + client.token;
+
+        var object = {
+            name   : "cancelBookRoom",
+            method : "PUT",
+            url    : "/cancelBook",
+            func : function () {
+                Core.controller.includeContainer.switchView("chambre");
+            },
+            error : function(statusCode){
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
+    };
 
 })();

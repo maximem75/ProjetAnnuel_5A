@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 /**
  * Created by maxime on 20/09/2017.
  */
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/pictureRoomCategory")
 public class PictureRoomCategoryController {
@@ -34,12 +34,12 @@ public class PictureRoomCategoryController {
     @ResponseStatus(CREATED)
     public void addPictureRoomCategory(@RequestBody PictureRoomCategory pictureRoomCategory, @RequestParam("file") MultipartFile file, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            String pathServer = PRE_PATH + "/" + pictureRoomCategory.getId() + "/" + file.getOriginalFilename();
+            String pathServer = PRE_PATH + "/" + pictureRoomCategory.getIdRoomCategory() + "/" + file.getOriginalFilename();
 
             FileManager fm = new FileManager();
             fm.saveImage(file, pathServer);
 
-            pictureRoomCategory.setPath(PRE_PATH_FRONT + "/" + pictureRoomCategory.getId() + "/" + file.getOriginalFilename());
+            pictureRoomCategory.setPath(PRE_PATH_FRONT + "/" + pictureRoomCategory.getIdRoomCategory() + "/" + file.getOriginalFilename());
             pictureRoomCategoryRepository.save(pictureRoomCategory);
         }
     }

@@ -17,7 +17,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/roomBooking")
 public class RoomBookingController {
@@ -41,7 +41,7 @@ public class RoomBookingController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public String addRoomBooking(@RequestBody List<RoomBooking> listRoomBooking, @RequestParam("token") String token) {
+    public List<RoomBooking> addRoomBooking(@RequestBody List<RoomBooking> listRoomBooking, @RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
         boolean dateValide = DateComparer.dateRoomBookValidator(listRoomBooking.get(0).getDateStart(), listRoomBooking.get(0).getDateEnd());
 
@@ -75,7 +75,7 @@ public class RoomBookingController {
                         }
                     }
                 }
-                return refBookRoom;
+                return roomBookingRepository.getListRoomBookingByRefBookRoom(refBookRoom);
             } else {
                 throw new RoomBookingNotCompletedException();
             }
@@ -117,6 +117,17 @@ public class RoomBookingController {
 
         if (((client != null) && Objects.equals(roomBooking.getIdClient(), client.getId())) || clientService.adminAccess(token)) {
             roomBookingRepository.save(roomBooking);
+        }
+    }
+
+    @RequestMapping(path = "/cancelBook", method = PUT)
+    @ResponseStatus(ACCEPTED)
+    public void cancelRoomBooking(@RequestParam("refBookRoom") String refBookRoom, @RequestParam("token") String token) {
+        List<RoomBooking> list = roomBookingRepository.getListRoomBookingByRefBookRoom(refBookRoom);
+        Client client = clientService.findByToken(token);
+
+        if (((client != null) && Objects.equals(list.get(0).getIdClient(), client.getId())) || clientService.adminAccess(token)) {
+            roomBookingRepository.cancelBook(refBookRoom);
         }
     }
 
