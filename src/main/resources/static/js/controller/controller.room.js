@@ -22,8 +22,8 @@
         var minStart = new Date();
         var minEnd = new Date();
 
-        minStart.setDate(minStart.getDate() + 2);
-        minEnd.setDate(minEnd.getDate() + 3);
+        minStart.setDate(minStart.getDate() + 3);
+        minEnd.setDate(minEnd.getDate() + 4);
 
         utils.reservation.datePicker(startDateID, minStart, null);
         utils.reservation.datePicker(endDateID, minEnd, null);
