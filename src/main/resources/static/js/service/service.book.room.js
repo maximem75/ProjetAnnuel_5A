@@ -139,7 +139,7 @@
         var object = {
             name   : "cancelBookRoom",
             method : "PUT",
-            url    : "/cancelBook",
+            url    : "/roomBooking/cancelBook",
             func : function () {
                 Core.controller.includeContainer.switchView("chambre");
             },
