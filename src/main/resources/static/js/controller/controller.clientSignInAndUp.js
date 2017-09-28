@@ -219,9 +219,15 @@
                 document.getElementById("error_container").textContent = "";
                 forgerpasswordContainer.style.display = "none";
                 loginContainer.style.display = "inline-block";
+                
             }, false);
         }();
         var requestEvents = function () {
+            var send = document.getElementById("btn_sendforgetpassword");
+            var email = document.getElementById("forgetpassword_email");
+            utils.addListener(send, "click", function () {
+                Core.service.client.passwordRecovery(email);
+            }, false)
         }();
     };
 

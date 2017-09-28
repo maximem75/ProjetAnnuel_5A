@@ -25,6 +25,9 @@ public class RoomBookingController {
     private ClientService clientService;
 
     @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
     private RoomBookingService roomBookingService;
 
     @Autowired
@@ -86,28 +89,27 @@ public class RoomBookingController {
     @RequestMapping(path = "/validate", method = PUT)
     @ResponseStatus(ACCEPTED)
     public void updateListRoomBookingStatus(@RequestParam("refBookRoom") String refBookRoom, @RequestParam("token") String token) {
-        Client client = clientService.findByToken(token);
+        //Find client like if token is expired
+        Client client = clientRepository.findByToken(token);
+        List<RoomBooking> listRoomBooking = roomBookingService.getListRoomBookingByRefBookRoom(refBookRoom);
 
         if (client != null) {
-            List<RoomBooking> listRoomBooking = roomBookingService.getListRoomBookingByRefBookRoom(refBookRoom);
-
-            for (RoomBooking rb : listRoomBooking) {
-                if (Objects.equals(rb.getIdClient(), client.getId())) {
-                    rb.setStatus("active");
-                    roomBookingRepository.save(rb);
+            if(Objects.equals(client.getId(), listRoomBooking.get(0).getIdClient())){
+                for (RoomBooking rb : listRoomBooking) {
+                    if (Objects.equals(rb.getIdClient(), client.getId())) {
+                        rb.setStatus("active");
+                        roomBookingRepository.save(rb);
+                    }
                 }
             }
+
         }
     }
 
     @RequestMapping(path = "/getPrice", method = GET)
     @ResponseStatus(OK)
-    public float getTotalPriceBook(@RequestParam("refBookRoom") String refBookRoom, @RequestParam("token") String token) {
-        if (clientService.findByToken(token) != null || clientService.adminAccess(token)) {
-            return roomBookingService.calculatePrice(refBookRoom);
-        }
-
-        return 0f;
+    public float getTotalPriceBook(@RequestParam("refBookRoom") String refBookRoom) {
+        return roomBookingService.calculatePrice(refBookRoom);
     }
 
     @RequestMapping(path = "/update", method = PUT)

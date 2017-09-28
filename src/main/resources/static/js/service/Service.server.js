@@ -13,21 +13,21 @@
      * Generate the paypal button with the book price
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.server.getDateTime = function () {
-
+    Core.service.server.getKey = function (price) {
+        var paramRequest = "token=" + client.token;
         var object = {
-            name   : "bookRoom",
+            name   : "getKey",
             method : "GET",
             url    : "/server",
-            func : function (date) {
-
+            func : function (key) {
+                Core.payment.paypal.generateButton(price, key)
             },
             error : function(statusCode){
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, listRoomBooking);
+        utils.ajaxRequest(object, paramRequest, null, false, true);
     };
 
 })();

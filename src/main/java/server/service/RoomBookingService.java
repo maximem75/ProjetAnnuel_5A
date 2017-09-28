@@ -9,6 +9,7 @@ import server.repository.RoomBookingRepository;
 import server.repository.RoomBookingServicesRepository;
 import server.repository.RoomRepository;
 import server.repository.RoomServiceRepository;
+import server.utils.Converter.CurrencyConvert;
 import server.utils.DateComparer;
 
 import java.util.ArrayList;
@@ -69,6 +70,8 @@ public class RoomBookingService {
                 price += (roomService.getPrice() * days);
             }
         }
+
+        price = CurrencyConvert.getConvertedPrice(price);
 
         return price;
     }

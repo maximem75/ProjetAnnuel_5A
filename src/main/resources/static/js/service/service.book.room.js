@@ -52,7 +52,7 @@
     };
 
     Core.service.book.room.getPrice = function (refBookRoom) {
-        var paramRequest = "refBookRoom=" + refBookRoom  + "&token=" + client.token;
+        var paramRequest = "refBookRoom=" + refBookRoom;
 
         var object = {
             name   : "getPrice",
@@ -60,6 +60,7 @@
             url    : "/roomBooking/getPrice",
             func : function (price) {
                 Core.controller.room.updatePrice(price);
+                Core.service.server.getKey(price)
             },
             error : function(statusCode){
 

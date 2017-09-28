@@ -471,8 +471,7 @@
             utils.addListener(btn_return, "click", function (e) {
                 Core.service.book.room.cancelBookRoom(listRoomBooking[0].refRoomBook);
             }, false);
-
-            Core.payment.paypal.generateButton(1500);
+            
         }();
 
     };

@@ -7,6 +7,7 @@ import server.model.Client;
 import server.repository.ClientRepository;
 import server.service.ClientService;
 import server.service.SecurityClientService;
+import server.utils.Converter.CurrencyConvert;
 import server.utils.Mail.MailManager;
 
 import java.util.Date;
@@ -177,9 +178,8 @@ public class ClientController {
 
     @RequestMapping(path = "/sendMail", method = GET)
     @ResponseStatus(OK)
-    public boolean sendMAil(){
-        MailManager mailManager = new MailManager();
-        mailManager.sendEmailToClient("mollard.maxime75@gmail.com");
+    public boolean sendMAil(@RequestParam("price") int price){
+        CurrencyConvert.getConvertedPrice(price);
         return true;
     }
 }

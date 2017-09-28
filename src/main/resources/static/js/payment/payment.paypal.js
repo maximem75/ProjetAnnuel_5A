@@ -16,7 +16,7 @@
      * Send the client token into tue callback URL
      * @param price
      */
-    Core.payment.paypal.generateButton = function (price) {
+    Core.payment.paypal.generateButton = function (price, key) {
         paypal.Button.render({
 
             env: 'production', // sandbox | production
@@ -24,8 +24,8 @@
             // PayPal Client IDs - replace with your own
             // Create a PayPal app: https://developer.paypal.com/developer/applications/create
             client: {
-                sandbox:    'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
-                production: 'AYqQThXpf9pC7O8opPeNE3JznLlAyg7YAbFUlmZI6GeuEAvOcSUw_U6hcL6qxl9Zvx7iRiGxrXfHAaH2'
+                sandbox:    '',
+                production: key
             },
 
             // Show the buyer a 'Pay Now' button in the checkout flow

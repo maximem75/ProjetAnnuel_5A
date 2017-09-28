@@ -179,18 +179,36 @@
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.client.passwordRecovery = function () {
-        return {
+    Core.service.client.passwordRecovery = function (email) {
+        var paramRequest = "email=" + email;
+        var object = {
             name : "passwordRecovery",
             method : "GET",
             url : "/client/passwordRecovery",
             func : function () {
+                var pageObject = data.viewList.connexion;
 
+                var viewSuccess  = function () {
+                    utils.empty(data.getIncludeContainer());
+                    data.getIncludeContainer().innerHTML = ""+
+                        "<div style='display: inline-block; width: 100%; color: #3c763d; text-align: center; padding-bottom: 40px;'>"+
+                        "</br><h2>Votre nouveau mot de passe vous a été envoyé par email.</h2></div>";
+                }();
+                var redirection = function () {
+                    var timeOut = function(){
+                        var tmID = setTimeout(function(){
+                            Core.utils.empty(data.getIncludeContainer());
+                            utils.include(pageObject.viewPath, pageObject.name);
+                        }, 3500);
+                    }();
+                }();
             },
             error : function(statusCode){
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 
     /**
