@@ -17,10 +17,9 @@
      * @param price
      */
     Core.payment.paypal.generateButton = function (p, key) {
-        var price = Math.round(p * 100) / 100;
+        var price = Math.round(p);
         var currency = data.countryInfo.to;
-        console.log(price);
-        //amount: { total: price, currency: currency }
+
         paypal.Button.render({
 
             env: 'production', // sandbox | production
@@ -43,7 +42,7 @@
                     payment: {
                         transactions: [
                             {
-                                amount: { total: price, currency: 'XAF' }
+                                amount: { total: price, currency: currency }
                             }
                         ]
                     }
