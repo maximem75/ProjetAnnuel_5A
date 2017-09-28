@@ -114,7 +114,7 @@ public class ClientController {
     }
 
 
-    @RequestMapping(value = "/recovery", method = GET)
+    @RequestMapping(value = "/passwordRecovery", method = GET)
     @ResponseStatus(OK)
     public void recoveryPasswordClient(@RequestParam("email") String email){
         Client client = clientRepository.findClientByEmailEquals(email);
