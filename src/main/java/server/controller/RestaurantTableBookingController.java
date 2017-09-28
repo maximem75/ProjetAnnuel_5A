@@ -3,6 +3,7 @@ package server.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import server.Exception.ClientAlreadyBookTableException;
+import server.Exception.DateExpiredException;
 import server.Exception.RestaurantTableNotFreeException;
 import server.model.Client;
 import server.model.RestaurantTableBooking;
@@ -36,39 +37,44 @@ public class RestaurantTableBookingController {
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
     public void addRestaurantTableBooking(@RequestBody RestaurantTableBooking restaurantTableBooking, @RequestParam("token") String token) {
-
         restaurantTableBooking.setBookingDate(new Date());
+        System.out.println(restaurantTableBooking.getBookingDate());
+        int type = restaurantTableBookingService.validateRestaurantTableBooking(restaurantTableBooking);
 
-        if (clientService.findByToken(token) != null && restaurantTableBookingService.validateRestaurantTableBooking(restaurantTableBooking) != -1) {
+        if (clientService.findByToken(token) != null) {
 
-            if (restaurantTableBookingService.validateRestaurantTableBooking(restaurantTableBooking) == 0) {
+            if(type == -1)
+                throw new DateExpiredException();
 
-                if (!restaurantTableBookingService.clientAlreadyBook(12, 0, 13, 15, restaurantTableBooking.getIdClient())) {
+            if (type == 0) {
+                if (!restaurantTableBookingService.clientAlreadyBook(12, 0, 14, 0, restaurantTableBooking.getIdClient())) {
 
-                    if (restaurantTableBooking.getNumber() <= restaurantTableBookingService.getNumberPlaceFree(12, 0, 13, 15))
+                    if (restaurantTableBooking.getNumber() <= restaurantTableBookingService.getNumberPlaceFree(12, 0, 14, 0)){
+                        restaurantTableBooking.setStatus("active");
                         restaurantTableBookingRepository.save(restaurantTableBooking);
-                    else
+                    } else {
                         throw new RestaurantTableNotFreeException();
-
+                    }
                 } else {
                     throw new ClientAlreadyBookTableException();
                 }
 
             }
 
-            if (restaurantTableBookingService.validateRestaurantTableBooking(restaurantTableBooking) == 1) {
-                if (!restaurantTableBookingService.clientAlreadyBook(19, 30, 21, 45, restaurantTableBooking.getIdClient())) {
-
-                    if (restaurantTableBooking.getNumber() <= restaurantTableBookingService.getNumberPlaceFree(19, 30, 21, 45))
+            if (type == 1) {
+                if (!restaurantTableBookingService.clientAlreadyBook(19, 30, 22, 30, restaurantTableBooking.getIdClient())) {
+                    if (restaurantTableBooking.getNumber() <= restaurantTableBookingService.getNumberPlaceFree(19, 30, 22, 30)){
+                        restaurantTableBooking.setStatus("active");
                         restaurantTableBookingRepository.save(restaurantTableBooking);
-                    else
+                    } else {
                         throw new RestaurantTableNotFreeException();
+                    }
 
                 } else {
                     throw new ClientAlreadyBookTableException();
                 }
-
             }
+
         }
     }
 

@@ -26,7 +26,8 @@ public class RestaurantTableBookingService {
     public int validateRestaurantTableBooking(RestaurantTableBooking restaurantTableBooking){
         Long bookingTime = restaurantTableBooking.getDate().getTime();
         Long dateBookingTime = restaurantTableBooking.getBookingDate().getTime();
-
+        Date d = new Date(bookingTime);
+        System.out.println(d);
         Calendar minDay = Calendar.getInstance();
         minDay.set(Calendar.HOUR_OF_DAY,0);
         minDay.set(Calendar.MINUTE,0);
@@ -46,8 +47,8 @@ public class RestaurantTableBookingService {
         maxAM.set(Calendar.MILLISECOND,0);
 
         Calendar minPM = Calendar.getInstance();
-        minPM.set(Calendar.HOUR_OF_DAY,19);
-        minPM.set(Calendar.MINUTE,30);
+        minPM.set(Calendar.HOUR_OF_DAY,18);
+        minPM.set(Calendar.MINUTE,0);
         minPM.set(Calendar.SECOND,0);
         minPM.set(Calendar.MILLISECOND,0);
 
@@ -63,7 +64,7 @@ public class RestaurantTableBookingService {
         Date minDatePM = minPM.getTime();
         Date maxDatePM = maxPM.getTime();
 
-        if(!(dateBookingTime >= minDateDay.getTime())) {
+        if(dateBookingTime <= minDateDay.getTime()) {
             return -1;
         }
 
@@ -78,6 +79,9 @@ public class RestaurantTableBookingService {
                 return 1;
             }
         }
+        System.out.println(bookingTime >= minDatePM.getTime());
+        System.out.println(bookingTime <= maxDatePM.getTime());
+        System.out.println(minDateAM.getTime() >= dateBookingTime);
 
         return -1;
     }

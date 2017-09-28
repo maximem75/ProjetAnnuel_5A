@@ -15,22 +15,30 @@
      */
     Core.service.book.restaurant.bookRestaurant = function (restaurantBook) {
         var paramRequest = "token=" + client.token;
-
+        console.log(new Date);
         var object =  {
             name: "bookRestaurant",
             method: "POST",
             url: "/restaurantTableBooking",
             func: function () {
                 document.getElementById("error_container").textContent = "";
-                document.getElementById("valide_container").textContent = "Réservation effectuée"
+                document.getElementById("valide_container").textContent = "Réservation effectuée";
             },
             error: function (statusCode) {
                 document.getElementById("valide_container").textContent = "";
-                document.getElementById("error_container").textContent = "La réservation n'a pas été effectuée."
+                document.getElementById("error_container").textContent = "";
+                if(statusCode == 406){
+                    document.getElementById("error_container").textContent = "Il n'a pas assez de places disponibles.";
+                } else if(statusCode == 404){
+                    document.getElementById("error_container").textContent = "Vous avez déjà effectué une réservation.";
+                } else {
+                    document.getElementById("error_container").textContent = "La date limite de réservation pour cette plage horaire est dépassée.";
+                }
+
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, restaurantBook);
+        utils.ajaxRequest(object, paramRequest, restaurantBook, false, true);
     };
 
     Core.service.book.restaurant.update = function (restaurantBook) {
