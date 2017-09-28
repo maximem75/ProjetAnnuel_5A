@@ -13,7 +13,7 @@ import java.net.URL;
 public class CurrencyConvert {
 
     public static float getConvertedPrice(float price, String ipClient) {
-        JSONObject jsonObject = new JSONObject(CurrencyConvert.countryCurrencyInfo(ipClient, "EUR"));
+        JSONObject jsonObject = new JSONObject(CurrencyConvert.countryCurrencyInfo(ipClient, "EUR").toString());
         double rate = (double) jsonObject.get("rate");
         float r = (float) rate;
         float cfaPrice = price * r;
