@@ -50,16 +50,7 @@
 
         service.category.getListCategories();
         service.pictureRoomCategory.getList();
-        Core.service.payment.getCountryInfo();
-        $.getJSON("https://jsonip.com/", function (data) {
-            console.log(data);
-            $.getJSON("https://v3.exchangerate-api.com/local/af6f4d68a25c748a047a1628/XAF/" + data.ip, function (data) {
-                console.log(data);
-            });
-
-        });
-
-
+        Core.utils.initClientIp();
     };
 
 }).call(this); //Get current Context (window) into script

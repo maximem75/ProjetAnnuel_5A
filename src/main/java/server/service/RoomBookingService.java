@@ -54,7 +54,7 @@ public class RoomBookingService {
         return number;
     }
 
-    public float calculatePrice(String refBookRoom){
+    public float calculatePrice(String refBookRoom, String ipClient){
         float price = 0f;
         int days = 0;
         List<RoomBooking> listRoomBooking = getListRoomBookingByRefBookRoom(refBookRoom);
@@ -71,7 +71,7 @@ public class RoomBookingService {
             }
         }
 
-        price = CurrencyConvert.getConvertedPrice(price);
+        price = CurrencyConvert.getConvertedPrice(price, ipClient);
 
         return price;
     }

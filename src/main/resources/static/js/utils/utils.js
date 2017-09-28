@@ -360,6 +360,13 @@
         return diff;
     };
 
+    Core.utils.initClientIp = function () {
+        $.getJSON("https://jsonip.com/", function (d) {
+            data.clientIp = d.ip;
+            Core.service.payment.initCountryInfo(data.clientIp);
+        });
+    };
+
     /**
      * capitalizeFirstLetter
      * @param string

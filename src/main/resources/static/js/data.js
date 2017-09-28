@@ -100,6 +100,7 @@
         captchaResult : null,
         mainImageID : "main_header",
         httpCodeValide : [200, 201, 202, 302],
-        rbr : null
+        rbr : null,
+        clientIp: null
     };
 })();

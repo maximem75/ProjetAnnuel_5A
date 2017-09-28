@@ -22,7 +22,7 @@
             url    : "/roomBooking",
             func : function (listRoomBooking) {
                 data.rbr = listRoomBooking[0].refRoomBook;
-
+    
                 Core.service.book.room.getPrice(data.rbr);
                 Core.controller.room.roomBooking(listRoomBooking);
             },
@@ -82,7 +82,8 @@
     };
 
     Core.service.book.room.getPrice = function (refBookRoom) {
-        var paramRequest = "refBookRoom=" + refBookRoom;
+       
+        var paramRequest = "refBookRoom=" + refBookRoom + "&ipClient=" + data.clientIp;
 
         var object = {
             name   : "getPrice",

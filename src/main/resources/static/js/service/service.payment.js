@@ -11,14 +11,14 @@
 
     Core.service.payment = Core.service.payment || {};
 
-    Core.service.payment.getCountryInfo = function () {
+    Core.service.payment.initCountryInfo = function (ipClient) {
+        var paramRequest = "ipClient=" + ipClient;
         var object = {
             name: "getCountryInfo",
             method: "GET",
             url: "/payment",
             func: function (json) {
                 data.countryInfo = json;
-                console.log(json);
                 Core.utils.reservation.getCurrencySymbol();
             },
             error: function (statusCode) {
@@ -26,7 +26,7 @@
             }
         };
 
-        utils.ajaxRequest(object);
+        utils.ajaxRequest(object, paramRequest);
     };
 
     Core.service.payment.getLocalPrice = function (price) {
