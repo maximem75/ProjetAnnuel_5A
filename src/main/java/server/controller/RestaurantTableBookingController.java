@@ -27,9 +27,9 @@ public class RestaurantTableBookingController {
 
     @Autowired
     private RestaurantTableBookingRepository restaurantTableBookingRepository;
+
     @Autowired
     private RestaurantTableBookingService restaurantTableBookingService;
-
 
     @Autowired
     private ClientService clientService;

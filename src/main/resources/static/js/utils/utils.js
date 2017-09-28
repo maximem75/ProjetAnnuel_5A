@@ -367,6 +367,14 @@
         });
     };
 
+    Core.utils.getTimezone = function () {
+        var date = new Date();
+        var dateString = date.toString();
+        var tmp = dateString.substring(dateString.indexOf("+"), (dateString.indexOf("+") + 5));
+
+        return tmp;
+    };
+
     /**
      * capitalizeFirstLetter
      * @param string

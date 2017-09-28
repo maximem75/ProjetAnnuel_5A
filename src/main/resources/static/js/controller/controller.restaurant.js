@@ -25,22 +25,24 @@
             var date = new Date();
             var res;
             var month = date.getMonth() + 1;
+            var offset = Core.utils.getTimezone();
 
+            console.log(offset);
             switch (typeElement.options[typeElement.selectedIndex].value){
                 case "m_0":
-                     res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T12:00:00";
+                     res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T12:00:00" + offset;
                     break;
                 case "m_1":
-                    res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T13:00:00";
+                    res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T13:00:00" + offset;
                     break;
                 case "m_3":
-                    res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T19:30:00";
+                    res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T19:30:00" + offset;
                     break;
                 case "m_4":
-                    res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T20:30:00";
+                    res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T20:30:00" + offset;
                     break;
                 case "m_5":
-                    res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T21:30:00";
+                    res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T21:30:00" + offset;
                     break;
             }
             var json = {

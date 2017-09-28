@@ -27,7 +27,7 @@ public class RestaurantTableBookingService {
         Long bookingTime = restaurantTableBooking.getDate().getTime();
         Long dateBookingTime = restaurantTableBooking.getBookingDate().getTime();
         Date d = new Date(bookingTime);
-        System.out.println(d);
+
         Calendar minDay = Calendar.getInstance();
         minDay.set(Calendar.HOUR_OF_DAY,0);
         minDay.set(Calendar.MINUTE,0);
@@ -79,9 +79,6 @@ public class RestaurantTableBookingService {
                 return 1;
             }
         }
-        System.out.println(bookingTime >= minDatePM.getTime());
-        System.out.println(bookingTime <= maxDatePM.getTime());
-        System.out.println(minDateAM.getTime() >= dateBookingTime);
 
         return -1;
     }

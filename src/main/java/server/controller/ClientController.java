@@ -178,7 +178,6 @@ public class ClientController {
     @RequestMapping(path = "/sendMail", method = GET)
     @ResponseStatus(OK)
     public Long test(){
-
         return new Date().getTime();
     }
 }

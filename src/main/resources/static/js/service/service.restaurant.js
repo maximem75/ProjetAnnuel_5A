@@ -17,7 +17,7 @@
      */
     Core.service.restaurant.create = function (restaurantTable) {
         var paramRequest = "token=" + client.token;
-
+    
         var object = {
             name   : "create",
             method : "POST",
