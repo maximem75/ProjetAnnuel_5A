@@ -192,7 +192,7 @@
                     utils.empty(data.getIncludeContainer());
                     data.getIncludeContainer().innerHTML = ""+
                         "<div style='display: inline-block; width: 100%; color: #3c763d; text-align: center; padding-bottom: 40px;'>"+
-                        "</br><h2>Votre nouveau mot de passe vous a été envoyé par email.</h2></div>";
+                        "</br>Votre nouveau mot de passe vous a été envoyé par email.</div>";
                 }();
                 var redirection = function () {
                     var timeOut = function(){
