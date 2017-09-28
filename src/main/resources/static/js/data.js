@@ -99,6 +99,7 @@
         currentPath : null,
         captchaResult : null,
         mainImageID : "main_header",
-        httpCodeValide : [200, 201, 202, 302]
+        httpCodeValide : [200, 201, 202, 302],
+        rbr : null
     };
 })();

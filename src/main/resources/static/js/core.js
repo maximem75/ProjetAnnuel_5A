@@ -50,6 +50,8 @@
 
         service.category.getListCategories();
         service.pictureRoomCategory.getList();
+        Core.service.payment.getCountryInfo();
+        
     };
 
 }).call(this); //Get current Context (window) into script

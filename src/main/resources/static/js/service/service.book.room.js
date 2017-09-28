@@ -21,12 +21,12 @@
             method : "POST",
             url    : "/roomBooking",
             func : function (listRoomBooking) {
-                var refBookRoom = listRoomBooking[0].refRoomBook;
-                Core.service.book.room.getPrice(refBookRoom);
+                data.rbr = listRoomBooking[0].refRoomBook;
+
+                Core.service.book.room.getPrice(data.rbr);
                 Core.controller.room.roomBooking(listRoomBooking);
             },
             error : function(statusCode){
-                console.log(statusCode);
                 Core.controller.room.error();
             }
         };
@@ -35,20 +35,50 @@
     };
 
     Core.service.book.room.validate = function (refBookRoom) {
-        var paramRequest = "refBookRoom=" + refBookRoom  + "&token=" + client.token;
+
+        var paramRequest = "refBookRoom=" + data.rbr  + "&token=" + client.token;
 
         var object = {
             name   : "validate",
             method : "PUT",
             url    : "/roomBooking/validate",
             func : function () {
-
+                var pageObject = data.viewList.clientListBook;
+                data.rbr = null;
+                var viewSuccess  = function () {
+                    utils.empty(data.getIncludeContainer());
+                    data.getIncludeContainer().innerHTML = ""+
+                        "<div style='display: inline-block; width: 100%; color: #3c763d; text-align: center; padding-bottom: 40px;'>"+
+                        "</br>Votre réservation a bien été effectuée.</div>";
+                }();
+                var redirection = function () {
+                    var timeOut = function(){
+                        var tmID = setTimeout(function(){
+                            Core.utils.empty(data.getIncludeContainer());
+                            utils.include(pageObject.viewPath, pageObject.name);
+                        }, 6000);
+                    }();
+                }();
             },
             error : function(statusCode){
-
+                var pageObject = data.viewList.chambre;
+                var viewSuccess  = function () {
+                    utils.empty(data.getIncludeContainer());
+                    data.getIncludeContainer().innerHTML = ""+
+                        "<div style='display: inline-block; width: 100%; color: red; text-align: center; padding-bottom: 40px;'>"+
+                        "</br>Votre réservation n'a pas été effectuée.</div>";
+                }();
+                var redirection = function () {
+                    var timeOut = function(){
+                        var tmID = setTimeout(function(){
+                            Core.utils.empty(data.getIncludeContainer());
+                            utils.include(pageObject.viewPath, pageObject.name);
+                        }, 6000);
+                    }();
+                }();
             }
         };
-        utils.ajaxRequest(object, paramRequest);
+        utils.ajaxRequest(object, paramRequest, null, false, true);
     };
 
     Core.service.book.room.getPrice = function (refBookRoom) {

@@ -16,7 +16,10 @@
      * Send the client token into tue callback URL
      * @param price
      */
-    Core.payment.paypal.generateButton = function (price, key) {
+    Core.payment.paypal.generateButton = function (p, key) {
+        var price = Math.round(p * 100) / 100;
+        var currency = data.countryInfo.to;
+
         paypal.Button.render({
 
             env: 'production', // sandbox | production
@@ -24,7 +27,7 @@
             // PayPal Client IDs - replace with your own
             // Create a PayPal app: https://developer.paypal.com/developer/applications/create
             client: {
-                sandbox:    '',
+                sandbox:    'AYPjiLZs4iC3pBCtMZy3m6fziaY4oSrCktjjSXiykXB6Ay5W5_g5uPTd41q0kdBqvsS-r_rgsNui2eBl',
                 production: key
             },
 
@@ -39,7 +42,8 @@
                     payment: {
                         transactions: [
                             {
-                                amount: { total: '1', currency: 'EUR' }
+                                //amount: { total: price, currency: currency }
+                                amount: { total: "0.10", currency: currency }
                             }
                         ]
                     }
@@ -51,7 +55,7 @@
 
                 // Make a call to the REST api to execute the payment
                 return actions.payment.execute().then(function() {
-                    window.alert('Payment Complete!');
+                    service.book.room.validate();
                 });
             }
 

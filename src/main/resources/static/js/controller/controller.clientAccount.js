@@ -49,7 +49,7 @@
             address.textContent = client.address;
             postalCode.textContent = client.postalCode;
 
-            if (client.sexe == 0)
+            if (window.client.sexe == 0)
                 sexe.textContent = "Homme";
             else if (client.sexe == 1)
                 sexe.textContent = "Femme";

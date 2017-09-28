@@ -27,7 +27,11 @@
 
         utils.reservation.datePicker(startDateID, minStart, null);
         utils.reservation.datePicker(endDateID, minEnd, null);
-
+        
+        if(data.rbr != null){
+            Core.service.book.room.cancelBookRoom(data.rbr);
+            data.rbr = null;
+        }
         var initVariables = function () {
             startDatepicker = document.getElementById("reservation_start_date");
             endDatepicker = document.getElementById("reservation_end_date");
@@ -139,6 +143,8 @@
                 quantity, quantity_container, quantity_result;
 
             var initVariables = function () {
+                var price = service.payment.getLocalPrice(json.price);
+
                 divRoom = document.createElement("div");
                 divRoom.id = id;
                 divRoom.classList.add("room_type_div");
@@ -183,7 +189,7 @@
 
                 costbynight_result_franc = document.createElement("span");
                 costbynight_result_franc.classList.add("text_span");
-                costbynight_result_franc.textContent = json.price + " francs CFA";
+                costbynight_result_franc.textContent = price + " " + data.symbol;
 
                 cost_container = document.createElement("div");
                 cost_container.classList.add("reserv_container");
@@ -196,7 +202,7 @@
 
                 cost_result_franc = document.createElement("span");
                 cost_result_franc.classList.add("text_span");
-                cost_result_franc.textContent = json.price * getDays().day + " francs CFA";
+                cost_result_franc.textContent = "0 " + data.symbol;
 
                 description_container = document.createElement("div");
                 description_container.classList.add("reserv_container");
@@ -238,7 +244,9 @@
                 quantity_result.min = "0";
                 quantity_result.max = number;
                 utils.addListener(quantity_result, "change", function (e) {
-                    cost_result_franc.textContent = (json.price * getDays().day) * e.target.value + " francs CFA";
+                    var c = price * getDays().day * e.target.value;
+                    var cost = Math.round(c * 100)/100;
+                    cost_result_franc.textContent = cost + " " + data.symbol;
                 }, false);
 
                 utils.addListener(quantity_result, "keydown", function (e) {
@@ -469,7 +477,8 @@
 
 
             utils.addListener(btn_return, "click", function (e) {
-                Core.service.book.room.cancelBookRoom(listRoomBooking[0].refRoomBook);
+                Core.service.book.room.cancelBookRoom(data.rbr);
+                data.rbr = null;
             }, false);
             
         }();
@@ -477,7 +486,7 @@
     };
     
     Core.controller.room.updatePrice = function(price){
-        document.querySelector("#label_price").textContent = price;
+        document.querySelector("#label_price").textContent = (Math.round(price*100)/100) + " " + data.symbol;
     };
 
     Core.controller.room.error = function(){

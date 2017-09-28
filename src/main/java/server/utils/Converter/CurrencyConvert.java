@@ -13,54 +13,15 @@ import java.net.URL;
 public class CurrencyConvert {
 
     public static float getConvertedPrice(float price) {
-        String ip = getIp();
-        HttpURLConnection yc = null;
+        JSONObject jsonObject = new JSONObject(CurrencyConvert.countryCurrencyInfo().toString());
+        double rate = (double) jsonObject.get("rate");
+        float r = (float) rate;
+        float cfaPrice = price * r;
 
-        try {
-            //Create connection
-            URL oracle = new URL("https://v3.exchangerate-api.com/local/af6f4d68a25c748a047a1628/XAF/" + ip);
-            yc = (HttpURLConnection) oracle.openConnection();
-
-            yc.setRequestProperty("Content-Type",
-                    "application/x-www-form-urlencoded");
-
-            yc.setUseCaches(false);
-            yc.setDoOutput(true);
-
-            //Send request
-            DataOutputStream wr = new DataOutputStream (
-                    yc.getOutputStream());
-            wr.close();
-
-            //Get Response
-            InputStream is = yc.getInputStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
-            String line;
-            while ((line = rd.readLine()) != null) {
-                response.append(line);
-                response.append('\r');
-            }
-            rd.close();
-
-            JSONObject jsonObject = new JSONObject(response.toString());
-
-            double rate = (double) jsonObject.get("rate");
-            float r = (float) rate;
-            float cfaPrice = price * r;
-
-            return cfaPrice;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        } finally {
-            if (yc != null) {
-                yc.disconnect();
-            }
-        }
+        return cfaPrice;
     }
 
-    public static String getIp(){
+    public static String getIp() {
         String ip = "";
         URL url = null;
         try {
@@ -81,6 +42,48 @@ public class CurrencyConvert {
         }
 
         return ip;
+    }
+
+    public static String countryCurrencyInfo() {
+        String ip = getIp();
+        HttpURLConnection yc = null;
+
+        try {
+            //Create connection
+            URL oracle = new URL("https://v3.exchangerate-api.com/local/af6f4d68a25c748a047a1628/XAF/" + ip);
+            yc = (HttpURLConnection) oracle.openConnection();
+
+            yc.setRequestProperty("Content-Type",
+                    "application/x-www-form-urlencoded");
+
+            yc.setUseCaches(false);
+            yc.setDoOutput(true);
+
+            //Send request
+            DataOutputStream wr = new DataOutputStream(
+                    yc.getOutputStream());
+            wr.close();
+
+            //Get Response
+            InputStream is = yc.getInputStream();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+            StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+            String line;
+            while ((line = rd.readLine()) != null) {
+                response.append(line);
+                response.append('\r');
+            }
+            rd.close();
+
+            return response.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (yc != null) {
+                yc.disconnect();
+            }
+        }
     }
 
 }
