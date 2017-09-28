@@ -19,7 +19,7 @@
     Core.payment.paypal.generateButton = function (p, key) {
         var price = Math.round(p * 100) / 100;
         var currency = data.countryInfo.to;
-
+        console.log(price);
         paypal.Button.render({
 
             env: 'production', // sandbox | production
