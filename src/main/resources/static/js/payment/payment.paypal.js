@@ -42,8 +42,7 @@
                     payment: {
                         transactions: [
                             {
-                                amount: { total: price, currency: 'XAF' }
-                                //amount: { total: price, currency: currency }
+                                amount: { total: price, currency: 'EUR' }
                             }
                         ]
                     }

@@ -49,7 +49,7 @@ public class CurrencyConvert {
 
         try {
             //Create connection
-            URL oracle = new URL("https://v3.exchangerate-api.com/local/af6f4d68a25c748a047a1628/XAF/" + ipClient);
+            URL oracle = new URL("https://v3.exchangerate-api.com/local/af6f4d68a25c748a047a1628/EUR/" + ipClient);
             yc = (HttpURLConnection) oracle.openConnection();
 
             yc.setRequestProperty("Content-Type",
