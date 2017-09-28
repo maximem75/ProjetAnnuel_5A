@@ -122,7 +122,7 @@ public class RoomBookingController {
         }
     }
 
-    @RequestMapping(path = "/cancelBook", method = POST)
+    @RequestMapping(path = "/cancelBook", method = PUT)
     @ResponseStatus(ACCEPTED)
     public void cancelRoomBooking(@RequestParam("refBookRoom") String refBookRoom) {
         List<RoomBooking> list = roomBookingRepository.getListRoomBookingByRefBookRoom(refBookRoom);
