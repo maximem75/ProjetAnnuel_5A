@@ -24,6 +24,7 @@
                 data.rbr = listRoomBooking[0].refRoomBook;
     
                 Core.service.book.room.getPrice(data.rbr);
+                Core.service.book.room.getLocalCost(data.rbr);
                 Core.controller.room.roomBooking(listRoomBooking);
             },
             error : function(statusCode){
@@ -90,7 +91,6 @@
             method : "GET",
             url    : "/roomBooking/getPrice",
             func : function (price) {
-                Core.controller.room.updatePrice(price);
                 Core.service.server.getKey(price)
             },
             error : function(statusCode){
@@ -99,6 +99,23 @@
         };
 
         utils.ajaxRequest(object, paramRequest);
+    };
+
+    Core.service.book.room.getLocalCost = function(refBookRoom){
+        var requestParam = "refBookRoom=" + refBookRoom;
+        var object = {
+            name   : "getLocalCost",
+            method : "GET",
+            url    : "/roomBooking/getLocalPrice",
+            func : function (price) {
+                Core.controller.room.updatePrice(price);
+            },
+            error : function(statusCode){
+
+            }
+        };
+
+        utils.ajaxRequest(object, requestParam);
     };
 
     /**

@@ -47,6 +47,7 @@
 
                 $(endDateID).datepicker("option", "minDate", minDateEnd);
                 utils.empty(container);
+                document.getElementById("include_reservation_list").style.display = "none";
             });
 
             $(endDateID).datepicker("option", "onSelect", function () {
@@ -486,9 +487,9 @@
     };
     
     Core.controller.room.updatePrice = function(price){
-        console.log(utils.countryInfo);
-        console.log(utils.countryInfo.rate);
-        var localPrice = price * utils.countryInfo.rate;
+        console.log(price);
+        console.log(data.countryInfo);
+        var localPrice = price * data.countryInfo.rate;
         document.querySelector("#label_price").textContent = (Math.round(localPrice * 100)/100) + " " + data.symbol;
     };
 

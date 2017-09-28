@@ -109,7 +109,13 @@ public class RoomBookingController {
     @RequestMapping(path = "/getPrice", method = GET)
     @ResponseStatus(OK)
     public float getTotalPriceBook(@RequestParam("refBookRoom") String refBookRoom, @RequestParam("ipClient") String ipClient) {
-        return roomBookingService.calculatePrice(refBookRoom, ipClient);
+        return roomBookingService.calculateConvertedPrice(refBookRoom);
+    }
+
+    @RequestMapping(path = "/getLocalPrice", method = GET)
+    @ResponseStatus(OK)
+    public float getLocalTotalPriceBook(@RequestParam("refBookRoom") String refBookRoom) {
+        return roomBookingService.calculatePrice(refBookRoom);
     }
 
     @RequestMapping(path = "/update", method = PUT)
