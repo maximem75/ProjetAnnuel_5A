@@ -177,8 +177,8 @@ public class ClientController {
 
     @RequestMapping(path = "/sendMail", method = GET)
     @ResponseStatus(OK)
-    public boolean sendMAil(@RequestParam("price") int price){
-        //CurrencyConvert.getConvertedPrice(price);
-        return true;
+    public Date test(){
+
+        return new Date();
     }
 }
