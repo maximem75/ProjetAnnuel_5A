@@ -487,8 +487,6 @@
     };
     
     Core.controller.room.updatePrice = function(price){
-        console.log(price);
-        console.log(data.countryInfo);
         var localPrice = price * data.countryInfo.rate;
         document.querySelector("#label_price").textContent = (Math.round(localPrice * 100)/100) + " " + data.symbol;
     };

@@ -38,7 +38,6 @@ public class RestaurantTableBookingController {
     @ResponseStatus(CREATED)
     public void addRestaurantTableBooking(@RequestBody RestaurantTableBooking restaurantTableBooking, @RequestParam("token") String token) {
         restaurantTableBooking.setBookingDate(new Date());
-        System.out.println(restaurantTableBooking.getBookingDate());
         int type = restaurantTableBookingService.validateRestaurantTableBooking(restaurantTableBooking);
 
         if (clientService.findByToken(token) != null) {

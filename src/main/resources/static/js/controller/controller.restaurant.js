@@ -6,7 +6,7 @@
 ;(function () {
     "use strict";
 
-    if(typeof Core === "undefined")
+    if (typeof Core === "undefined")
         throw "Core is not declared";
 
     Core.controller.restaurant = Core.controller.restaurant || {};
@@ -20,17 +20,16 @@
         typeElement = document.getElementById("select_time");
         numberElement = document.getElementById("text_number");
         btn_booking = document.getElementById("btn_search_table");
-        
+
         utils.addListener(btn_booking, "click", function () {
             var date = new Date();
             var res;
             var month = date.getMonth() + 1;
             var offset = Core.utils.getTimezone();
 
-            console.log(offset);
-            switch (typeElement.options[typeElement.selectedIndex].value){
+            switch (typeElement.options[typeElement.selectedIndex].value) {
                 case "m_0":
-                     res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T12:00:00" + offset;
+                    res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T12:00:00" + offset;
                     break;
                 case "m_1":
                     res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T13:00:00" + offset;
@@ -46,9 +45,9 @@
                     break;
             }
             var json = {
-                date : res,
+                date: res,
                 number: numberElement.value,
-                idClient : window.client.id
+                idClient: window.client.id
             };
             Core.service.book.restaurant.bookRestaurant(JSON.stringify(json));
         }, false);

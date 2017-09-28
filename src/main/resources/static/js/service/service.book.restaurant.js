@@ -15,7 +15,6 @@
      */
     Core.service.book.restaurant.bookRestaurant = function (restaurantBook) {
         var paramRequest = "token=" + client.token;
-        console.log(new Date);
         var object =  {
             name: "bookRestaurant",
             method: "POST",

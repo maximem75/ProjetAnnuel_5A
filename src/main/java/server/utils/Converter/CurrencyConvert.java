@@ -23,7 +23,6 @@ public class CurrencyConvert {
         float rate = Float.parseFloat(tmp.substring(0, tmp.toString().indexOf(",") - 1));
         float result = price / rate;
 
-        System.out.println(result);
         return result;
     }
 
