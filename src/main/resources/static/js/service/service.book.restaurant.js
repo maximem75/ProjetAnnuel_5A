@@ -27,11 +27,11 @@
                 document.getElementById("valide_container").textContent = "";
                 document.getElementById("error_container").textContent = "";
                 if(statusCode == 406){
-                    document.getElementById("error_container").textContent = "Il n'a pas assez de places disponibles.";
+                    document.getElementById("error_container").textContent = "Nombre de places disponibles insuffisant.";
                 } else if(statusCode == 404){
                     document.getElementById("error_container").textContent = "Vous avez déjà effectué une réservation.";
                 } else {
-                    document.getElementById("error_container").textContent = "La date limite de réservation pour cette plage horaire est dépassée.";
+                    document.getElementById("error_container").textContent = "La date limite de réservation pour cette plage horaire est dépassée pour aujourd'hui.";
                 }
 
             }
