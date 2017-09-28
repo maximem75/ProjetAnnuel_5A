@@ -173,7 +173,6 @@
             method : "PUT",
             url    : "/roomBooking/cancelBook",
             func : function () {
-                console.log("Sended");
                 Core.controller.includeContainer.switchView("chambre");
             },
             error : function(statusCode){
