@@ -226,7 +226,7 @@
             var send = document.getElementById("btn_sendforgetpassword");
             var email = document.getElementById("forgetpassword_email");
             utils.addListener(send, "click", function () {
-                Core.service.client.passwordRecovery(email);
+                Core.service.client.passwordRecovery(email.value);
             }, false)
         }();
     };
