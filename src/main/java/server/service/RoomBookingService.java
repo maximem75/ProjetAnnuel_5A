@@ -71,7 +71,7 @@ public class RoomBookingService {
             }
         }
 
-        price = CurrencyConvert.getConvertedPrice(price, ipClient);
+        price = CurrencyConvert.getConvertedPrice(price);
 
         return price;
     }

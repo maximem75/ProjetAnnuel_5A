@@ -2,9 +2,11 @@ package server.utils.Converter;
 
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -12,51 +14,25 @@ import java.net.URL;
  */
 public class CurrencyConvert {
 
-    public static float getConvertedPrice(float price, String ipClient) {
-        JSONObject jsonObject = new JSONObject(CurrencyConvert.countryCurrencyInfo(ipClient, "EUR"));
+    public static float getConvertedPrice(float price) {
+        JSONObject jsonObject = new JSONObject(CurrencyConvert.countryCurrencyInfo("", "EUR", "bulk"));
+        Object rates = jsonObject.get("rates");
+        String tmp = rates.toString().substring(rates.toString().indexOf("XAF"));
+        tmp = tmp.substring(tmp.toString().indexOf(":")+1);
 
-        if(jsonObject.get("rate").getClass() == Integer.class){
-            int rate = (int) jsonObject.get("rate");
-            return price * rate;
-        } else if(jsonObject.get("rate").getClass() == Double.class){
-            double rate = (double) jsonObject.get("rate");
-            float r = (float) rate;
-            return price * r;
-        } else {
-            float rate = (float) jsonObject.get("rate");
-            return price * rate;
-        }
+        float rate = Float.parseFloat(tmp.substring(0, tmp.toString().indexOf(",") - 1));
+        float result = price / rate;
+
+        System.out.println(result);
+        return result;
     }
 
-    public static String getIp() {
-        String ip = "";
-        URL url = null;
-        try {
-            url = new URL("http://checkip.amazonaws.com/");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new InputStreamReader(url.openStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            ip = br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return ip;
-    }
-
-    public static String countryCurrencyInfo(String ipClient, String countryCode) {
+    public static String countryCurrencyInfo(String ipClient, String countryCode, String localisate) {
         HttpURLConnection yc = null;
 
         try {
             //Create connection
-            URL oracle = new URL("https://v3.exchangerate-api.com/local/af6f4d68a25c748a047a1628/"+ countryCode +"/" + ipClient);
+            URL oracle = new URL("https://v3.exchangerate-api.com/"+ localisate +"/af6f4d68a25c748a047a1628/"+ countryCode +"/" + ipClient);
             yc = (HttpURLConnection) oracle.openConnection();
 
             yc.setRequestProperty("Content-Type",
