@@ -18,6 +18,6 @@ public class PaymentController {
 
     @RequestMapping(method = GET)
     public String getCurrencyInfo(@RequestParam("ipClient") String ipClient){
-        return CurrencyConvert.countryCurrencyInfo(ipClient);
+        return CurrencyConvert.countryCurrencyInfo(ipClient, "XAF");
     }
 }
