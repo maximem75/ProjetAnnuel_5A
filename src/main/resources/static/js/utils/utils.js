@@ -361,7 +361,7 @@
     };
 
     Core.utils.initClientIp = function () {
-        $.getJSON("https://jsonip.com/", function (d) {
+        $.getJSON("https://ipinfo.io/json", function (d) {
             data.clientIp = d.ip;
             Core.service.payment.initCountryInfo(data.clientIp);
         });
