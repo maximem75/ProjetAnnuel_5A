@@ -232,7 +232,7 @@
         var include_container = document.getElementById("include_book");
         var  btn_return = document.getElementById("btn_return");
         utils.addListener(btn_return, "click", function (e) {
-            utils.switchView(utils.viewList.festiveRoom.name);
+            Core.controller.includeContainer.switchView(data.viewList.festiveRoom.name);
             Core.service.book.festiveRoom.cancel(id);
         }, false);
     };

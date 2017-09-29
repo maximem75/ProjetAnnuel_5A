@@ -22,6 +22,7 @@
             url: "/festiveRoomBooking",
             func: function (festiveRoomBook) {
                 data.frbID = festiveRoomBook.id;
+                Core.service.server.getKey();
                 Core.controller.festiveRoom.bookServices(festiveRoomBook.id);
                 Core.service.book.festiveRoom.getPrice(festiveRoomBook.id);
                 Core.service.book.festiveRoom.getConvertedPrice(festiveRoomBook.id);
