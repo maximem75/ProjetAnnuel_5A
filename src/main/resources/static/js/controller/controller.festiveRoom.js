@@ -154,43 +154,6 @@
             include_items.appendChild(div_reservation);
         };
 
-      /*  var viewList = function (id, element, value, name) {
-            var div;
-            if (document.getElementById(id) === null || document.getElementById(id) === undefined) {
-                div = document.createElement("div");
-                div.id = id;
-                div.style.display = "block";
-            } else {
-                div = document.getElementById(id);
-                utils.empty(div);
-            }
-
-            div.style.marginTop = "5px";
-
-            var span_container = document.createElement("span");
-            span_container.classList.add("md_text_span");
-            span_container.style.marginLeft = "5px";
-            span_container.textContent = name + "  x" + value;
-
-            var button_delete = document.createElement("span");
-            button_delete.classList.add("glyphicon");
-            button_delete.classList.add("glyphicon-remove");
-            button_delete.style.cursor = "pointer";
-            button_delete.setAttribute("key", id.split("_")[1]);
-
-            utils.addListener(button_delete, "click", function (e) {
-                jsonItems[e.target.getAttribute("key")].quantity = 0;
-                e.target.parentElement.parentElement.removeChild(e.target.parentElement);
-                element.value = "0";
-            }, false);
-
-            div.appendChild(button_delete);
-            div.appendChild(span_container);
-            list_booked_items.appendChild(div);
-
-            return div;
-        };*/
-
         var initView = function () {
             for(var i = 0 ; i < listServices.length ; i++){
                 createItem("item_" + listServices[i].id, listServices[i]);
@@ -265,6 +228,8 @@
     };
 
     Core.controller.festiveRoom.initCancelButton = function (id) {
+        var search_container = document.getElementById("search_container");
+        var include_container = document.getElementById("include_book");
         var  btn_return = document.getElementById("btn_return");
         utils.addListener(btn_return, "click", function (e) {
             include_container.style.display = "none";
