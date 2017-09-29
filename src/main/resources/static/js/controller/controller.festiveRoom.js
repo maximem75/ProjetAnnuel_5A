@@ -25,7 +25,7 @@
             list_booked_items, jsonItems,
             error_container, valide_container;
         var label_start_date, label_end_date,
-            label_price, list_items, btn_return;
+            label_price, list_items;
 
         var minStart = new Date();
         minStart.setMonth(minStart.getMonth() + 3);
@@ -62,7 +62,7 @@
             label_end_date = document.getElementById("label_end_date");
             label_price = document.getElementById("label_price");
             list_items = document.getElementById("list_items");
-            btn_return = document.getElementById("btn_return");
+
         }();
         var initEvents = function () {
             $(startDateID).datepicker("option", "onSelect", function () {
@@ -115,11 +115,7 @@
                     error_container.textContent = "Veuillez choisir les dates de début et de fin de l'évènement.";
                 }
             }, false);
-            
-            utils.addListener(btn_return, "click", function (e) {
-                include_container.style.display = "none";
-                search_container.style.display = "inline-block";
-            }, false);
+
         }();
     };
 
@@ -158,7 +154,7 @@
             include_items.appendChild(div_reservation);
         };
 
-        var viewList = function (id, element, value, name) {
+      /*  var viewList = function (id, element, value, name) {
             var div;
             if (document.getElementById(id) === null || document.getElementById(id) === undefined) {
                 div = document.createElement("div");
@@ -193,7 +189,7 @@
             list_booked_items.appendChild(div);
 
             return div;
-        };
+        };*/
 
         var initView = function () {
             for(var i = 0 ; i < listServices.length ; i++){
@@ -266,6 +262,15 @@
         var res = price + " " + data.symbol;
 
         document.getElementById("label_price").textContent = res;
+    };
+
+    Core.controller.festiveRoom.initCancelButton = function (id) {
+        var  btn_return = document.getElementById("btn_return");
+        utils.addListener(btn_return, "click", function (e) {
+            include_container.style.display = "none";
+            search_container.style.display = "inline-block";
+            Core.service.book.festiveRoom.cancel(id);
+        }, false);
     };
 
 })();

@@ -23,6 +23,7 @@
             func: function (festiveRoomBook) {
                 Core.controller.festiveRoom.bookServices(festiveRoomBook.id);
                 Core.service.book.festiveRoom.getPrice(festiveRoomBook.id);
+                Core.controller.festiveRoom.initCancelButton(festiveRoomBook.id);
                 Core.controller.festiveRoom.initResume();
             },
             error: function (statusCode) {
@@ -68,6 +69,24 @@
         };
 
         utils.ajaxRequest(object, paraRequest);
+    };
+
+    Core.service.book.festiveRoom.cancel = function (id) {
+        var paraRequest = "id=" + id + "&token=" + client.token;
+
+        var object =  {
+            name: "cancel",
+            method: "PUT",
+            url: "/festiveRoomBooking/cancel",
+            func: function () {
+
+            },
+            error: function (statusCode) {
+
+            }
+        };
+
+        utils.ajaxRequest(object, paraRequest, null, false , true);
     };
 
     /**

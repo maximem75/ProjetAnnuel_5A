@@ -18,6 +18,7 @@ import java.util.Objects;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
  * Created by molla on 27/08/2017.
@@ -122,6 +123,19 @@ public class FestiveRoomBookingController {
         }
 
         return null;
+    }
+
+    @RequestMapping(path="cancel", method = PUT)
+    @ResponseStatus(OK)
+    public void cancelFestiveRoomBookings(@RequestParam("id") Long id, @RequestParam("token") String token) {
+        Client client = clientService.findByToken(token);
+        FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.findOne(id);
+
+        if (clientService.findByToken(token) != null && festiveRoomBooking != null && (Objects.equals(client.getId(), festiveRoomBooking.getIdClient()) || clientService.adminAccess(token))) {
+            festiveRoomBooking.setStatus("canceled");
+            festiveRoomBookingRepository.save(festiveRoomBooking);
+        }
+
     }
 
     @RequestMapping(path = "/getByIdClient", method = GET)
