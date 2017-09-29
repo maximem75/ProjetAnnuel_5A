@@ -16,7 +16,7 @@
      * Send the client token into tue callback URL
      * @param price
      */
-    Core.payment.paypal.generateButton = function (p, key) {
+    Core.payment.paypal.generateButton = function (p, callbak) {
         var price = Math.round(p);
         var currency = data.countryInfo.to;
 
@@ -28,7 +28,7 @@
             // Create a PayPal app: https://developer.paypal.com/developer/applications/create
             client: {
                 sandbox:    'AYPjiLZs4iC3pBCtMZy3m6fziaY4oSrCktjjSXiykXB6Ay5W5_g5uPTd41q0kdBqvsS-r_rgsNui2eBl',
-                production: key
+                production: data.key
             },
 
             // Show the buyer a 'Pay Now' button in the checkout flow
@@ -54,11 +54,12 @@
 
                 // Make a call to the REST api to execute the payment
                 return actions.payment.execute().then(function() {
-                    service.book.room.validate();
+                    callbak();                    
                 });
             }
 
         }, '#paypal-button-container');
+        data.key = null;
     };
 
 })();

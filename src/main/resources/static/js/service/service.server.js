@@ -13,16 +13,15 @@
      * Generate the paypal button with the book price
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.server.getKey = function (p) {
+    Core.service.server.getKey = function () {
         var paramRequest = "token=" + client.token;
-        var price = p;
 
         var object = {
             name   : "getKey",
             method : "GET",
             url    : "/server",
             func : function (key) {
-                Core.payment.paypal.generateButton(price, key)
+                data.key = key;
             },
             error : function(statusCode){
 

@@ -61,25 +61,22 @@ public class FestiveRoomBookingController {
         return null;
     }
 
-    @RequestMapping(path = "/validate", method = POST)
+    @RequestMapping(path = "/validate", method = PUT)
     @ResponseStatus(ACCEPTED)
-    public FestiveRoomBooking validateFestiveRoomBooking(@RequestParam ("id") Long id, @RequestParam("token") String token) {
+    public void validateFestiveRoomBooking(@RequestParam ("id") Long id, @RequestParam("token") String token) {
         Client client = clientService.findByToken(token);
 
         if (clientService.findByToken(token) != null) {
-
             FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
 
             if(festiveRoomBooking != null && Objects.equals(festiveRoomBooking.getIdClient(), client.getId())){
                 festiveRoomBooking.setStatus("active");
-                return festiveRoomBookingRepository.save(festiveRoomBooking);
+                festiveRoomBookingRepository.save(festiveRoomBooking);
             } else {
                 throw new GetFestiveRoomBookingByIdException();
             }
 
         }
-
-        return null;
     }
 
     @RequestMapping(path = "/getPrice", method = GET)

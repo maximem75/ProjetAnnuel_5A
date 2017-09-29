@@ -14,15 +14,17 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.book.festiveRoom.bookFestiveRoom = function (festiveRoom) {
-        var paraRequest = "token=" + client.token;
+        var paramRequest = "token=" + client.token;
 
         var object =  {
             name: "bookFestiveRoom",
             method: "POST",
             url: "/festiveRoomBooking",
             func: function (festiveRoomBook) {
+                data.frbID = festiveRoomBook.id;
                 Core.controller.festiveRoom.bookServices(festiveRoomBook.id);
                 Core.service.book.festiveRoom.getPrice(festiveRoomBook.id);
+                Core.service.book.festiveRoom.getConvertedPrice(festiveRoomBook.id);
                 Core.controller.festiveRoom.initCancelButton(festiveRoomBook.id);
                 Core.controller.festiveRoom.initResume();
             },
@@ -32,7 +34,24 @@
             }
         };
 
-        utils.ajaxRequest(object, paraRequest, festiveRoom);
+        utils.ajaxRequest(object, paramRequest, festiveRoom);
+    };
+
+    Core.service.book.festiveRoom.validate = function () {
+        var paramRequest = "id=" + data.frbID + "&token=" + client.token;
+        var object =  {
+            name: "bookFestiveRoom",
+            method: "PUT",
+            url: "/festiveRoomBooking/validate",
+            func: function () {
+                Core.controller.festiveRoom.success();
+            },
+            error: function (statusCode) {
+                Core.controller.festiveRoom.error();
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest, null, false, true);
     };
 
     Core.service.book.festiveRoom.getPrice = function (id) {
@@ -61,7 +80,7 @@
             method: "GET",
             url: "/festiveRoomBooking/getConvertedPrice",
             func: function (price) {
-                //Core.payment.paypal.generateButton(price);
+                Core.payment.paypal.generateButton(price, Core.service.book.festiveRoom.validate);
             },
             error: function (statusCode) {
 
@@ -72,6 +91,7 @@
     };
 
     Core.service.book.festiveRoom.cancel = function (id) {
+        data.frbID = null;
         var paraRequest = "id=" + id + "&token=" + client.token;
 
         var object =  {

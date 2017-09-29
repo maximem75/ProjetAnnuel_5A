@@ -52,6 +52,7 @@
 
             $(endDateID).datepicker("option", "onSelect", function () {
                 utils.empty(container);
+                document.getElementById("include_reservation_list").style.display = "none";
             });
 
             utils.addListener(btnSearch, "click", function () {
@@ -246,7 +247,7 @@
                 quantity_result.max = number;
                 utils.addListener(quantity_result, "change", function (e) {
                     var c = price * getDays().day * e.target.value;
-                    var cost = Math.round(c * 100)/100;
+                    var cost = Math.round(c);
                     cost_result_franc.textContent = cost + " " + data.symbol;
                 }, false);
 
@@ -487,26 +488,23 @@
     
     Core.controller.room.updatePrice = function(price){
         var localPrice = price * data.countryInfo.rate;
-        document.querySelector("#label_price").textContent = (Math.round(localPrice * 100)/100) + " " + data.symbol;
+        document.querySelector("#label_price").textContent = Math.round(localPrice) + " " + data.symbol;
     };
 
     Core.controller.room.error = function(){
         var pageObject = data.viewList.chambre;
+        var message = "Une erreur est survenue";
+        var color = "red";
 
-        var viewSuccess  = function () {
-            utils.empty(data.getIncludeContainer());
-            data.getIncludeContainer().innerHTML = ""+
-                "<div style='font-family: Roboto; display: inline-block; width: 100%; color: red; text-align: center; padding-bottom: 40px;'>"+
-                "</br><h2>Une erreur est survenue</h2></div>";
-        }();
-        var redirection = function () {
-            var timeOut = function(){
-                var tmID = setTimeout(function(){
-                    Core.utils.empty(data.getIncludeContainer());
-                    utils.include(pageObject.viewPath, pageObject.name);
-                }, 3500);
-            }();
-        }();
+        utils.redirectTimerMessage(message, color, pageObject);
+    };
+
+    Core.controller.room.success = function(){
+        var pageObject = data.viewList.clientListBook;
+        var message = "Votre réservation a bien été effectuée.";
+        var color = "green";
+
+        utils.redirectTimerMessage(message, color, pageObject);
     };
 
 })();

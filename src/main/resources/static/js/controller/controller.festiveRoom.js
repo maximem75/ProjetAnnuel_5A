@@ -134,7 +134,7 @@
                 var title_span = document.createElement("span");
                 title_span.classList.add("title_span_black");
                 title_span.style.textAlign = "left";
-                title_span.textContent = utils.capitalizeFirstLetter(object.name) + " " + (Math.round(object.price * data.countryInfo.rate * 100)/100) + " " + data.symbol;
+                title_span.textContent = utils.capitalizeFirstLetter(object.name) + " " + (Math.round(object.price * data.countryInfo.rate)) + " " + data.symbol;
 
                 var input = document.createElement("input");
                 input.classList.add("beauty_input");
@@ -162,7 +162,7 @@
     };
 
     Core.controller.festiveRoom.initCostFestiveRoom = function(festiveRoom){
-        var p = Math.round((festiveRoom[0].price * data.countryInfo.rate)*100)/100;
+        var p = Math.round((festiveRoom[0].price * data.countryInfo.rate));
         document.getElementById("reservation_price").textContent = p + " " + data.symbol;
     };
 
@@ -205,7 +205,7 @@
                     div.style.display = "block";
 
                     var span = document.createElement("span");
-                    span.textContent = item.quantity + " " + data.listFesiveRoomService[i].name + " : " + (Math.round((data.listFesiveRoomService[i].price * data.countryInfo.rate * item.quantity)*100)/100) + " " + data.symbol;
+                    span.textContent = item.quantity + " " + data.listFesiveRoomService[i].name + " : " + (Math.round((data.listFesiveRoomService[i].price * data.countryInfo.rate * item.quantity))) + " " + data.symbol;
 
                     div.appendChild(span);
                     container.appendChild(div);
@@ -221,7 +221,7 @@
     };
 
     Core.controller.festiveRoom.initCostResume = function (cost) {
-        var price = Math.round((cost * data.countryInfo.rate)*100)/100;
+        var price = Math.round(cost * data.countryInfo.rate);
         var res = price + " " + data.symbol;
 
         document.getElementById("label_price").textContent = res;
@@ -232,10 +232,25 @@
         var include_container = document.getElementById("include_book");
         var  btn_return = document.getElementById("btn_return");
         utils.addListener(btn_return, "click", function (e) {
-            include_container.style.display = "none";
-            search_container.style.display = "inline-block";
+            utils.switchView(utils.viewList.festiveRoom.name);
             Core.service.book.festiveRoom.cancel(id);
         }, false);
+    };
+
+    Core.controller.festiveRoom.success = function () {
+        var message = "Votre résevation a bien été effectuée";
+        var color = "green";
+        var pageObject = data.viewList.clientListBook;
+
+        utils.redirectTimerMessage(message, color, pageObject);
+    };
+
+    Core.controller.festiveRoom.error = function () {
+        var message = "Votre résevation n'a pas été effectuée";
+        var color = "red";
+        var pageObject = data.viewList.festiveRoom;
+
+        utils.redirectTimerMessage(message, color, pageObject);
     };
 
 })();

@@ -384,6 +384,23 @@
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
+    Core.utils.redirectTimerMessage = function (message, color, pageObject) {
+        var view  = function () {
+            utils.empty(data.getIncludeContainer());
+            data.getIncludeContainer().innerHTML = ""+
+                "<div style='display: inline-block; width: 100%;font-family: Roboto sans; color: "+ color +"; text-align: center; padding-bottom: 40px;'>"+
+                "</br>" + message + "</div>";
+        }();
+        var redirection = function () {
+            var timeOut = function(){
+                var tmID = setTimeout(function(){
+                    Core.utils.empty(data.getIncludeContainer());
+                    utils.include(pageObject.viewPath, pageObject.name);
+                }, 6000);
+            }();
+        }();
+    };
+
     /**
      * Add a listener into an array
      * @param node

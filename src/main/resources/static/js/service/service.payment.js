@@ -32,7 +32,7 @@
     Core.service.payment.getLocalPrice = function (price) {
         var localPrice = price * data.countryInfo.rate;
 
-        return Math.round(localPrice * 100)/100;
+        return Math.round(localPrice);
     };
 
 

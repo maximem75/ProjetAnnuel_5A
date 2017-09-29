@@ -22,10 +22,10 @@
             url    : "/roomBooking",
             func : function (listRoomBooking) {
                 data.rbr = listRoomBooking[0].refRoomBook;
-    
+                Core.controller.room.roomBooking(listRoomBooking);
+                Core.service.server.getKey();
                 Core.service.book.room.getPrice(data.rbr);
                 Core.service.book.room.getLocalCost(data.rbr);
-                Core.controller.room.roomBooking(listRoomBooking);
             },
             error : function(statusCode){
                 Core.controller.room.error();
@@ -43,40 +43,12 @@
             name   : "validate",
             method : "PUT",
             url    : "/roomBooking/validate",
-            func : function () {
-                var pageObject = data.viewList.clientListBook;
+            func : function () {                
                 data.rbr = null;
-                var viewSuccess  = function () {
-                    utils.empty(data.getIncludeContainer());
-                    data.getIncludeContainer().innerHTML = ""+
-                        "<div style='display: inline-block; width: 100%; color: #3c763d; text-align: center; padding-bottom: 40px;'>"+
-                        "</br>Votre réservation a bien été effectuée.</div>";
-                }();
-                var redirection = function () {
-                    var timeOut = function(){
-                        var tmID = setTimeout(function(){
-                            Core.utils.empty(data.getIncludeContainer());
-                            utils.include(pageObject.viewPath, pageObject.name);
-                        }, 6000);
-                    }();
-                }();
+                Core.controller.room.success();
             },
             error : function(statusCode){
-                var pageObject = data.viewList.chambre;
-                var viewSuccess  = function () {
-                    utils.empty(data.getIncludeContainer());
-                    data.getIncludeContainer().innerHTML = ""+
-                        "<div style='display: inline-block; width: 100%; color: red; text-align: center; padding-bottom: 40px;'>"+
-                        "</br>Votre réservation n'a pas été effectuée.</div>";
-                }();
-                var redirection = function () {
-                    var timeOut = function(){
-                        var tmID = setTimeout(function(){
-                            Core.utils.empty(data.getIncludeContainer());
-                            utils.include(pageObject.viewPath, pageObject.name);
-                        }, 6000);
-                    }();
-                }();
+                Core.controller.room.error();
             }
         };
         utils.ajaxRequest(object, paramRequest, null, false, true);
@@ -91,7 +63,7 @@
             method : "GET",
             url    : "/roomBooking/getPrice",
             func : function (price) {
-                Core.service.server.getKey(price)
+                Core.payment.paypal.generateButton(price, service.book.room.validate);
             },
             error : function(statusCode){
 
