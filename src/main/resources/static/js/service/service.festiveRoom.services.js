@@ -19,7 +19,7 @@
         return {
             name: "create",
             method: "POST",
-            url: "/services",
+            url: "/festiveRoomService",
             func: function (json) {
 
             },
@@ -36,7 +36,7 @@
         return {
             name: "update",
             method: "PUT",
-            url: "/services",
+            url: "/festiveRoomService",
             func: function (json) {
 
             },
@@ -53,7 +53,7 @@
         return {
             name: "delete",
             method: "DELETE",
-            url: "/services",
+            url: "/festiveRoomService",
             func: function (json) {
 
             },

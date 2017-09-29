@@ -40,7 +40,7 @@
         var object =  {
             name: "getPrice",
             method: "GET",
-            url: "/getPrice",
+            url: "/festiveRoomBooking/getPrice",
             func: function (price) {
                 Core.controller.festiveRoom.initCostResume(price);
             },
@@ -58,7 +58,7 @@
         var object =  {
             name: "getConvertedPrice",
             method: "GET",
-            url: "/getConvertedPrice",
+            url: "/festiveRoomBooking/getConvertedPrice",
             func: function (price) {
                 //Core.payment.paypal.generateButton(price);
             },
@@ -67,7 +67,7 @@
             }
         };
 
-        utils.ajaxRequest(object, paraRequest,);
+        utils.ajaxRequest(object, paraRequest);
     };
 
     /**
