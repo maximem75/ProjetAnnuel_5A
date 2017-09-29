@@ -67,15 +67,20 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.festiveRoom.services.getList = function () {
-        return {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name: "getList",
             method: "GET",
-            url: "/services",
+            url: "/festiveRoomService",
             func: function (json) {
-                Core.views.festiveRoom.initView(json);
+                data.listFesiveRoomService = json;
+                Core.controller.festiveRoom.initServiceList(json);
             },
             error: function (statusCode) {
             }
-        }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
     };
 })();

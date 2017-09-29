@@ -9,6 +9,7 @@ import server.repository.FestiveRoomBookingRepository;
 import server.repository.FestiveRoomBookingServicesRepository;
 import server.repository.FestiveRoomRepository;
 import server.repository.FestiveRoomServiceRepository;
+import server.utils.Converter.CurrencyConvert;
 import server.utils.DateComparer;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class FestiveRoomBookingService {
     @Autowired
     private FestiveRoomBookingServicesRepository festiveRoomBookingServicesRepository;
 
-    public float calculatePrice(Long id){
+    public float calculateLocalPrice(Long id){
         FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
         List<FestiveRoomBookingServices> festiveRoomBookingServicesList = festiveRoomBookingServicesRepository.getFestiveRoomBookingServicesByIdFestiveRoomBooking(id);
 
@@ -44,6 +45,13 @@ public class FestiveRoomBookingService {
             price += (frb.getPrice() * frbs.getQuantity() * days);
         }
 
+        return price;
+    }
+
+    public float calculateConvertedPrice(Long id){
+        float price = 0f;
+        price = calculateLocalPrice(id);
+        price = CurrencyConvert.getConvertedPrice(price);
         return price;
     }
 

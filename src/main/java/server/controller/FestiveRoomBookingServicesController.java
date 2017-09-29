@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import server.model.FestiveRoomBookingServices;
 import server.repository.FestiveRoomBookingServicesRepository;
+import server.repository.FestiveRoomServiceRepository;
 import server.service.ClientService;
 
 import java.util.List;
@@ -22,6 +23,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class FestiveRoomBookingServicesController {
 
     @Autowired
+    private FestiveRoomServiceRepository festiveRoomServiceRepository;
+    @Autowired
     private FestiveRoomBookingServicesRepository festiveRoomBookingServicesRepository;
 
     @Autowired
@@ -30,7 +33,7 @@ public class FestiveRoomBookingServicesController {
     @RequestMapping(method = GET)
     @ResponseStatus(OK)
     public List<FestiveRoomBookingServices> listFestiveRoomBookingServices(@RequestParam("token") String token) {
-        if (clientService.adminAccess(token)) {
+        if (clientService.findByToken(token) != null) {
             return festiveRoomBookingServicesRepository.findAll();
         }
 
@@ -50,11 +53,14 @@ public class FestiveRoomBookingServicesController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public void addFestiveRoomBookingServices(@RequestBody List<FestiveRoomBookingServices> listFestiveRoomBookingServices, @RequestParam("token") String token) {
+    public List<FestiveRoomBookingServices> addFestiveRoomBookingServices(@RequestBody List<FestiveRoomBookingServices> listFestiveRoomBookingServices, @RequestParam("token") String token) {
         if (clientService.findByToken(token) != null) {
             for(FestiveRoomBookingServices f : listFestiveRoomBookingServices){
                 festiveRoomBookingServicesRepository.save(f);
             }
         }
+
+        return listFestiveRoomBookingServices;
     }
+
 }

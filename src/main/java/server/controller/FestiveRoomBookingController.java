@@ -13,6 +13,7 @@ import server.service.FestiveRoomService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -42,7 +43,6 @@ public class FestiveRoomBookingController {
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
     public FestiveRoomBooking addFestiveRoomBooking(@RequestBody FestiveRoomBooking festiveRoomBooking, @RequestParam("token") String token) {
-
         if (clientService.findByToken(token) != null) {
 
             if(festiveRoomService.festiveRoomFree(festiveRoomBooking.getDateStart(), festiveRoomBooking.getDateEnd(), festiveRoomBooking.getIdFestiveRoom())){
@@ -63,12 +63,13 @@ public class FestiveRoomBookingController {
     @RequestMapping(path = "/validate", method = POST)
     @ResponseStatus(ACCEPTED)
     public FestiveRoomBooking validateFestiveRoomBooking(@RequestParam ("id") Long id, @RequestParam("token") String token) {
+        Client client = clientService.findByToken(token);
 
         if (clientService.findByToken(token) != null) {
 
             FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
 
-            if(festiveRoomBooking != null){
+            if(festiveRoomBooking != null && Objects.equals(festiveRoomBooking.getIdClient(), client.getId())){
                 festiveRoomBooking.setStatus("active");
                 return festiveRoomBookingRepository.save(festiveRoomBooking);
             } else {
@@ -88,7 +89,23 @@ public class FestiveRoomBookingController {
             FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
 
             if(festiveRoomBooking != null)
-                return festiveRoomBookingService.calculatePrice(id);
+                return festiveRoomBookingService.calculateLocalPrice(id);
+            else
+                throw new GetFestiveRoomBookingByIdException();
+        }
+
+        return 0f;
+    }
+
+    @RequestMapping(path = "/getConvertedPrice", method = GET)
+    @ResponseStatus(OK)
+    public float getFestiveRoomBookingConvertedPrice(@RequestParam("id") Long id, @RequestParam("token") String token) {
+
+        if (clientService.findByToken(token) != null) {
+            FestiveRoomBooking festiveRoomBooking = festiveRoomBookingRepository.getOne(id);
+
+            if(festiveRoomBooking != null)
+                return festiveRoomBookingService.calculateConvertedPrice(id);
             else
                 throw new GetFestiveRoomBookingByIdException();
         }

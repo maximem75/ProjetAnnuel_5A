@@ -72,8 +72,8 @@
             name   : "get",
             method : "GET",
             url    : "/festiveRoom",
-            func : function () {
-
+            func : function (festiveRoom) {
+                Core.controller.festiveRoom.initCostFestiveRoom(festiveRoom);
             },
             error : function(){
 

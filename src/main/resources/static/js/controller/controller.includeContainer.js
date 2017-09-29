@@ -51,7 +51,9 @@
                 controller.restaurant.initView();
                 break;
             case "festiveRoom":
-                Core.class.festiveRoom.initView();
+                Core.service.festiveRoom.get();
+                Core.service.festiveRoom.services.getList();
+                Core.controller.festiveRoom.initView();
                 break;
             case "clientListBook":
                 controller.clientListBook.initView();

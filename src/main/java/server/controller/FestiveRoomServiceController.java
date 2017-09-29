@@ -35,6 +35,16 @@ public class FestiveRoomServiceController {
         return null;
     }
 
+    @RequestMapping(path = "/getByIdBook", method = GET)
+    @ResponseStatus(OK)
+    public List<FestiveRoomService> getListFestiveRoomServicesByIdBook(@RequestParam("token") String token, @RequestParam("id") Long id){
+        if(clientService.findByToken(token) != null){
+            return festiveRoomServiceRepository.getListFestiveRoomServiceByIdFestiveRoomBooking(id);
+        }
+
+        return null;
+    }
+
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
     public void addFestiveRoomService(@RequestBody FestiveRoomService festiveRoomService, @RequestParam("token") String token){

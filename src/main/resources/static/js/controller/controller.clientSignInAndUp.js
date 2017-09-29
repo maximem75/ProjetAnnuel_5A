@@ -27,7 +27,6 @@
         var loginBtn;
         var showSingupBtn, showforgetpasswordBtn;
         var loginContainer, signupContainer, forgerpasswordContainer;
-        var captchaElement;
 
         var iniVariables = function () {
             loginBtn = document.getElementById("btn_login");
@@ -39,14 +38,12 @@
             signupContainer = document.getElementById("signupBox");
             forgerpasswordContainer = document.getElementById("forgetpasswordBox");
 
-            captchaElement = document.getElementById("captchaID");
         }();
         var showViewEvents = function () {
             utils.addListener(showSingupBtn, "click", function () {
                 document.getElementById("error_container").textContent = "";
                 loginContainer.style.display = "none";
                 signupContainer.style.display = "inline-block";
-                utils.captcha(captchaElement);
             }, false);
 
             utils.addListener(showforgetpasswordBtn, "click", function () {
@@ -72,7 +69,6 @@
         var signupBtn;
         var showLoginBtn;
         var loginContainer, signupContainer;
-        var captchaElement;
         var style = null;
 
         var iniVariables = function () {
@@ -82,7 +78,6 @@
             loginContainer = document.getElementById("loginbox");
             signupContainer = document.getElementById("signupBox");
 
-            captchaElement = document.getElementById("captchaID");
         }();
         var initYear = function () {
             var monthElement = document.getElementById("signup_date_year");
@@ -111,7 +106,6 @@
                     password_1, password_2, day, month, year, birthday, phone,
                     country, city, address, postalcode;
 
-                var captchaInput = document.getElementById("captcha_value");
                 var formValid, sexeValid;
 
                 var initVariables = function () {
@@ -170,11 +164,6 @@
                 if (formValid === false || sexeValid === false)
                     document.getElementById("error_container").textContent = "Veuillez remplir tous les champs";
 
-                if (captchaInput.value != data.captchaResult) {
-                    document.getElementById("captcha_error").textContent = "Mauvaise réponse";
-                    return;
-                }
-
                 if (formValid === true && sexeValid === true) {
                     birthday = year.value + "-" + month.getElementsByTagName("option")[month.selectedIndex].getAttribute("name") + "-" + day.value;
 
@@ -194,8 +183,6 @@
 
 
                     Core.class.client.signup(client);
-                } else {
-                    utils.captcha(captchaElement);
                 }
             }, false);
         }();

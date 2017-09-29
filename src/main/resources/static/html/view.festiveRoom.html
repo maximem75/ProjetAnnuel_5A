@@ -1,7 +1,15 @@
 <div id="valide_container" class="valide_container"></div>
 <div id="error_container" class="error_container"></div>
-<div id="search_container" class="reservation_container panel panel-info" style="vertical-align: top; min-width: 620px;">
+<div id="search_container" class="reservation_container panel panel-info"
+     style="vertical-align: top; min-width: 620px;">
     <h3 style="text-align: center;color: #006483;" class="panel-heading">Réserver la salle des fêtes</h3>
+    <div class="div_reservation">
+        <div class="content_left">
+            <span class="title_span">Coût par jour </span>
+            </br>
+            <span class="" id="reservation_price"></span>
+        </div>
+    </div>
     <div style="display:inline-block; width: 100%;color: #1A1A1A; margin-top: 30px">
         <div class="div_reservation">
             <div class="content_left">
@@ -18,31 +26,20 @@
                 <input class="datepicker beauty_input" type="text" id="reservation_end_date"/>
             </div>
         </div>
+
     </div>
 
-    <div id="include_reservation" style="display:inline-block; width: 90%;">
-        <div style="display: inline-block; text-align: center; width: 80%; margin: auto; margin-top:30px;border:1px solid #EDEDED; border-radius: 4px;">
-            <div style="border:1px solid #006483;background-color:#006483;width:100%;display: inline-block;  padding-top: 20px;padding-bottom: 20px;">
-                <span class="title_span"
-                      style="font: 18px Roboto, Helvetica, Arial, sans-serif;font-weight:600; color:white;">Louer des Services</span>
-            </div>
-
-            <div id="include_items"
-                 style="border:1px solid #006483;background-color:white;display: inline-block; padding-top: 20px;padding-bottom: 20px; width: 100%;"></div>
+    <div>
+        <div style="margin-top: 50px;">
+                <span style="font: 18px Roboto, Helvetica, Arial, sans-serif;font-weight:600; color:#01923f;">Louer des Services</span>
         </div>
-        <div style="display: inline-block; position: relative; width: 50%;">
-            <div style="display: inline-block;width: 45%;">
-                <div class="content_left" style="display: inline-block; position: absolute; top:10px;left: 0;">
-                    <span class="title_span">Liste des services</span>
-                    <div id="list_booked_items" style="display: block; text-align: left;" id="list_reservation">
-                    </div>
-                </div>
-            </div>
 
-            <div class="div_reservation" style="position: absolute; top:10px;">
-                <div class="content_left" style="">
-                    <a class="btn_form" id="btn_book">RESERVER</a>
-                </div>
+        <div id="include_items"></div>
+    </div>
+    <div style="display: inline-block; position: relative; width: 50%;">
+        <div class="div_reservation" style="position: absolute; top:10px;">
+            <div class="content_left" style="">
+                <a class="btn_form" id="btn_book">RESERVER</a>
             </div>
         </div>
     </div>

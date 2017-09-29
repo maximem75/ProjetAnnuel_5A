@@ -399,7 +399,6 @@
                             "idRoomCategory": jsonQuantity[r].idCategory,
                             "reason": reason.value
                             });
-
                     }
                 }
 
