@@ -74,10 +74,18 @@
 
         Core.controller.clientListBook.createHeadTemplate(headers, container);
 
+        var minute = function (min) {
+            if(min < 10)
+                return "0" + min;
+            else
+                return min;
+        };
+
         for (var i = 0; i < listRestaurant.length; i++) {
             var current = listRestaurant[i];
             var date = new Date(current.date);
-            var dateString = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+
+            var dateString = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + minute(date.getMinutes());
 
             var body = [dateString, current.number, current.status];
             Core.controller.clientListBook.createBodyTemplate(body, container);
