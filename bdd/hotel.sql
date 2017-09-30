@@ -67,6 +67,15 @@ CREATE TABLE `article` (
   `picture_path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `article`
+--
+
+INSERT INTO `article` (`id_article`, `title`, `content`, `date`, `picture_path`) VALUES
+(1, 'La langue Latine', 'Orientis vero limes in longum protentus et rectum ab Euphratis fluminis ripis ad usque supercilia porrigitur Nili, laeva Saracenis conterminans gentibus, dextra pelagi fragoribus patens, quam plagam Nicator Seleucus occupatam auxit magnum in modum, cum post Alexandri Macedonis obitum successorio iure teneret regna Persidis, efficaciae inpetrabilis rex, ut indicat cognomentum.Soleo saepe ante oculos ponere, idque libenter crebris usurpare sermonibus, omnis nostrorum imperatorum, omnis exterarum gentium potentissimorumque populorum, omnis clarissimorum regum res gestas, cum tuis nec contentionum magnitudine nec numero proeliorum nec varietate regionum nec celeritate conficiendi nec dissimilitudine bellorum posse conferri; nec vero disiunctissimas terras citius passibus cuiusquam potuisse peragrari, quam tuis non dicam cursibus, sed victoriis lustratae sunt.Isdem diebus Apollinaris Domitiani gener, paulo ante agens palatii Caesaris curam, ad Mesopotamiam missus a socero per militares numeros immodice scrutabatur, an quaedam altiora meditantis iam Galli secreta susceperint scripta, qui conpertis Antiochiae gestis per minorem Armeniam lapsus Constantinopolim petit exindeque per protectores retractus artissime tenebatur.', '2017-09-30 00:00:00', 'img/Article/article_1.jpg'),
+(2, 'La langue Latine', 'Orientis vero limes in longum protentus et rectum ab Euphratis fluminis ripis ad usque supercilia porrigitur Nili, laeva Saracenis conterminans gentibus, dextra pelagi fragoribus patens, quam plagam Nicator Seleucus occupatam auxit magnum in modum, cum post Alexandri Macedonis obitum successorio iure teneret regna Persidis, efficaciae inpetrabilis rex, ut indicat cognomentum.Soleo saepe ante oculos ponere, idque libenter crebris usurpare sermonibus, omnis nostrorum imperatorum, omnis exterarum gentium potentissimorumque populorum, omnis clarissimorum regum res gestas, cum tuis nec contentionum magnitudine nec numero proeliorum nec varietate regionum nec celeritate conficiendi nec dissimilitudine bellorum posse conferri; nec vero disiunctissimas terras citius passibus cuiusquam potuisse peragrari, quam tuis non dicam cursibus, sed victoriis lustratae sunt.Isdem diebus Apollinaris Domitiani gener, paulo ante agens palatii Caesaris curam, ad Mesopotamiam missus a socero per militares numeros immodice scrutabatur, an quaedam altiora meditantis iam Galli secreta susceperint scripta, qui conpertis Antiochiae gestis per minorem Armeniam lapsus Constantinopolim petit exindeque per protectores retractus artissime tenebatur.', '2017-09-30 00:00:00', 'img/Article/article_1.jpg'),
+(3, 'La langue Latine', 'Orientis vero limes in longum protentus et rectum ab Euphratis fluminis ripis ad usque supercilia porrigitur Nili, laeva Saracenis conterminans gentibus, dextra pelagi fragoribus patens, quam plagam Nicator Seleucus occupatam auxit magnum in modum, cum post Alexandri Macedonis obitum successorio iure teneret regna Persidis, efficaciae inpetrabilis rex, ut indicat cognomentum.Soleo saepe ante oculos ponere, idque libenter crebris usurpare sermonibus, omnis nostrorum imperatorum, omnis exterarum gentium potentissimorumque populorum, omnis clarissimorum regum res gestas, cum tuis nec contentionum magnitudine nec numero proeliorum nec varietate regionum nec celeritate conficiendi nec dissimilitudine bellorum posse conferri; nec vero disiunctissimas terras citius passibus cuiusquam potuisse peragrari, quam tuis non dicam cursibus, sed victoriis lustratae sunt.Isdem diebus Apollinaris Domitiani gener, paulo ante agens palatii Caesaris curam, ad Mesopotamiam missus a socero per militares numeros immodice scrutabatur, an quaedam altiora meditantis iam Galli secreta susceperint scripta, qui conpertis Antiochiae gestis per minorem Armeniam lapsus Constantinopolim petit exindeque per protectores retractus artissime tenebatur.', '2017-09-30 00:00:00', 'img/Article/article_1.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -245,6 +254,52 @@ CREATE TABLE `picture_galery` (
   `id_picture_galery` int(100) NOT NULL,
   `path` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `picture_galery`
+--
+
+INSERT INTO `picture_galery` (`id_picture_galery`, `path`) VALUES
+(35, 'galery_1.png'),
+(36, 'galery_2.png'),
+(37, 'galery_3.png'),
+(38, 'galery_4.png'),
+(39, 'galery_5.png'),
+(40, 'galery_6.png'),
+(41, 'galery_7.png'),
+(42, 'galery_8.png'),
+(43, 'galery_9.png'),
+(44, 'galery_10.png'),
+(45, 'galery_11.png'),
+(46, 'galery_12.png'),
+(47, 'galery_13.png'),
+(48, 'galery_14.png'),
+(49, 'galery_15.png'),
+(50, 'galery_16.png'),
+(51, 'galery_17.png'),
+(52, 'galery_18.png'),
+(53, 'galery_19.png'),
+(54, 'galery_20.png'),
+(55, 'galery_1.png'),
+(56, 'galery_2.png'),
+(57, 'galery_3.png'),
+(58, 'galery_4.png'),
+(59, 'galery_5.png'),
+(60, 'galery_6.png'),
+(61, 'galery_7.png'),
+(62, 'galery_8.png'),
+(63, 'galery_9.png'),
+(64, 'galery_10.png'),
+(65, 'galery_11.png'),
+(66, 'galery_12.png'),
+(67, 'galery_13.png'),
+(68, 'galery_14.png'),
+(69, 'galery_15.png'),
+(70, 'galery_16.png'),
+(71, 'galery_17.png'),
+(72, 'galery_18.png'),
+(73, 'galery_19.png'),
+(74, 'galery_20.png');
 
 --
 -- Contenu de la table `picture_galery`
