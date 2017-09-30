@@ -416,13 +416,14 @@ ul {
 }
 
 
-.list_book_container{
-	font-family: Roboto, Helvetica, Arial, sans-serif;
+.book_container{
+	font-family: Roboto, sans-serif;
 	color: dimgrey;
 	margin: auto;
-	width: 1400px;
+	width: 100%;
 	min-height: 250px;
-	background-color: #FBFBFB;
+	height: 500px;
+	background-color: lightgrey;
 	padding: 0px 0px 0px 0px;
 }
 
@@ -440,7 +441,6 @@ ul {
 	width: 100%;
 	padding: 0;
 	margin: 0;
-	border-top: 1px solid #9B9B9B;
 }
 
 .template_container_div > ul > li > ul{
@@ -564,4 +564,28 @@ ul {
 	outline: none;
 	box-shadow: none;
 	background: #efefef;
+}
+
+.book_table{
+	display: table;
+}
+
+.book_row{
+	display: table-row;
+}
+
+.book_cell_title{
+	display: table-cell;
+}
+
+.book_cell{
+	display: table-cell;
+}
+
+.book_span_title{
+	padding: 10px 5px;
+}
+
+.book_span{
+	padding: 10px 5px;
 }

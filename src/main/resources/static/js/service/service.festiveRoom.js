@@ -73,7 +73,7 @@
             method : "GET",
             url    : "/festiveRoom",
             func : function (festiveRoom) {
-                Core.controller.festiveRoom.initCostFestiveRoom(festiveRoom);
+                data.costFestiveRoom = festiveRoom[0].price;
             },
             error : function(){
 

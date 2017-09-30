@@ -65,6 +65,9 @@
 
         }();
         var initEvents = function () {
+            var p = Math.round((data.costFestiveRoom * data.countryInfo.rate));
+            document.getElementById("reservation_price").textContent = p + " " + data.symbol;
+
             $(startDateID).datepicker("option", "onSelect", function () {
                 var minDate = $(startDateID).datepicker("getDate");
                 minDate.setDate(minDate.getDate() + 1);
@@ -160,12 +163,7 @@
             }
         }();
     };
-
-    Core.controller.festiveRoom.initCostFestiveRoom = function(festiveRoom){
-        var p = Math.round((festiveRoom[0].price * data.countryInfo.rate));
-        document.getElementById("reservation_price").textContent = p + " " + data.symbol;
-    };
-
+    
     Core.controller.festiveRoom.bookServices = function(id){
         var listItems = document.getElementsByClassName("item");
 

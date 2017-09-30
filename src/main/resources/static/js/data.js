@@ -82,7 +82,7 @@
             }
         },
         basicUrl   : "https://residencedeshautsdemenaye.fr/api",
-        //basicUrl   : "http://localhost:8080/api",
+       // basicUrl   : "http://localhost:8080/api",
         getMenu : function () {
             return document.getElementById("ul_menu");
         },
@@ -90,6 +90,8 @@
             return document.getElementById("include_content");
         },
         listRoomCategories : [],
+        listRoom: [],
+        costFestiveRoom : 0,
         currentPath : null,
         captchaResult : null,
         mainImageID : "main_header",

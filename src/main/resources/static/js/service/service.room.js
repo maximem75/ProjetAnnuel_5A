@@ -99,6 +99,21 @@
         utils.ajaxRequest(object, paramRequest);
     };
 
+    Core.service.room.initListRoom = function () {
+        var object = {
+            name   : "initListRoom",
+            method : "GET",
+            url    : "/room",
+            func : function (list) {
+                data.listRoom = list;
+            },
+            error : function(statusCode){
+            }
+        };
+
+        utils.ajaxRequest(object);
+    };
+
     /**
      * Generate the template list room into the admin pnale
      * @returns {{name: string, method: string, url: string, func: func, error: error}}

@@ -91,6 +91,43 @@
             element.removeChild(element.firstChild);
         }
     };
+    
+    Core.utils.getCategoryById = function (id) {
+        for(var i = 0 ; i < data.listRoomCategories.length ;i++){
+            if(data.listRoomCategories[i].id == id)
+                return data.listRoomCategories[i];
+        }
+    };
+
+    Core.utils.getRoomById = function (id) {
+        for(var i = 0 ; i < data.listRoom.length ; i++){
+            if(data.listRoom[i].id == id)
+                return data.listRoom[i];
+        }
+    };
+
+    Core.utils.beautifyDate = function (date) {
+        var d = new Date(date);
+
+        var day = function () {
+            if(d.getDate() < 10){
+                return "0" + d.getDate();
+            } else {
+                return d.getDate();
+            }
+        };
+
+        var month = function () {
+            var m = d.getMonth() + 1;
+            if(m < 10){
+                return "0" +m;
+            } else {
+                return m;
+            }
+        };
+
+        return day() + "/" + month() + "/" + d.getFullYear();
+    };
 
     /**
      * Remove all timeOuts
@@ -158,42 +195,6 @@
         };
 
         timeOut(0);
-    };
-
-    /**
-     * Generate a captcha into an element
-     * @param element
-     */
-    Core.utils.captcha = function (element) {
-        var catchpaElement, value1, value2, operator, result;
-        var type = Math.floor((Math.random() * 3) + 1);
-        value1 = Math.floor((Math.random() * 10) + 1);
-        value2 = Math.floor((Math.random() * 10) + 1);
-
-        switch (type) {
-            case 1:
-                operator = "+";
-                data.captchaResult = value1 + value2;
-                break;
-            case 2:
-                operator = "-";
-                data.captchaResult = value1 - value2;
-                break;
-            case 3:
-                operator = "*";
-                data.captchaResult = value1 * value2;
-                break;
-        }
-
-        catchpaElement = '<span>' + value1 + '</span><span> ' + operator + ' </span><span>' + value2 + '</span> = <input id="captcha_value" type="text" style ="width: 100px; text-align: center;">'
-            + '<div id="captcha_reload" href="#" style="margin-left: 10px; display: inline-block; cursor: pointer;"><i class="glyphicon glyphicon-repeat"></i></div>'
-            + '<span id="captcha_error" style="margin-left: 10px;color: red; font: 16px Lora,Times New Roman,serif;"></span>';
-        element.innerHTML = catchpaElement;
-
-        utils.removeListener(document.getElementById("captcha_reload"), "click");
-        utils.addListener(document.getElementById("captcha_reload"), "click", function () {
-            utils.captcha(element);
-        }, false);
     };
 
     /**

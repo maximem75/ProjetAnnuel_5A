@@ -132,7 +132,6 @@ public class FestiveRoomBookingController {
             festiveRoomBooking.setStatus("canceled");
             festiveRoomBookingRepository.save(festiveRoomBooking);
         }
-
     }
 
     @RequestMapping(path = "/getByIdClient", method = GET)

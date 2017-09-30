@@ -49,7 +49,9 @@
         utils.include(data.viewList.accueil.viewPath, data.viewList.accueil.name);
 
         service.category.getListCategories();
+        service.room.initListRoom();
         service.pictureRoomCategory.getList();
+        Core.service.festiveRoom.get();
         Core.utils.initClientIp();
     };
 
