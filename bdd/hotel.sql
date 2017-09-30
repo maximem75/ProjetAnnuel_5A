@@ -300,46 +300,6 @@ INSERT INTO `picture_galery` (`id_picture_galery`, `path`) VALUES
 (72, 'img/Galery/galery_18.png'),
 (73, 'img/Galery/galery_19.png');
 
---
--- Contenu de la table `picture_galery`
---
-
-INSERT INTO `picture_galery` (`id_picture_galery`, `path`) VALUES
-(1, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
-(2, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
-(3, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
-(4, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
-(5, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
-(6, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galerygamegm.PNG'),
-(7, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(8, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(9, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(10, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(11, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(12, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(13, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(14, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(15, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(16, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(17, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(18, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(19, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(20, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(21, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(22, 'C:\\Users\\maxime\\Desktop\\test.txt'),
-(23, 'C:\\Users\\maxime\\Desktop\\test.txt'),
-(24, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(25, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(26, 'C:\\Users\\maxime\\Desktop\\gamegm.PNG'),
-(27, 'C:\\Users\\maxime\\Desktop\\screen_projetannuel.PNG'),
-(28, 'C:\\Users\\maxime\\Desktop\\screen_projetannuel.PNG'),
-(29, 'C:\\Users\\maxime\\Desktop\\ProjetAnnuel_5A\\src\\main\\resources\\static\\img\\Galery\\screen_projetannuel.PNG'),
-(30, '\\src\\main\\resources\\static\\img\\Galery\\wingm.PNG'),
-(31, 'img/Galery'),
-(32, 'img/Galery'),
-(33, 'img/Galerywingm.PNG'),
-(34, 'img/Galerywingm.PNG');
-
 -- --------------------------------------------------------
 
 --
