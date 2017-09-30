@@ -70,7 +70,7 @@
         container.style.display = "none";
         container.innerHTML = "";
 
-        var headers = ["Date", "Places", "Statut"];
+        var headers = ["Date", "Places"];
 
         Core.controller.clientListBook.createHeadTemplate(headers, container);
 
@@ -87,7 +87,7 @@
 
             var dateString = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + minute(date.getMinutes());
 
-            var body = [dateString, current.number, current.status];
+            var body = [dateString, current.number];
             Core.controller.clientListBook.createBodyTemplate(body, container);
         }
     };
