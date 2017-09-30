@@ -97,19 +97,15 @@
 
         for (var j = 0; j < arrayBook.length; j++) {
             utils.addListener(arrayBook[j], "mouseenter", function (e) {
-                var button = document.createElement("button");
-                button.id = "btn_remove_restaurantBook";
-                button.refID = e.target.id.split("_")[1];
-                button.type = "button";
-                button.className = "btn btn-light";
-
                 var span = document.createElement("span");
                 span.className = "glyphicon glyphicon-remove";
+                span.refID = e.target.id.split("_")[1];
+                span.id = "btn_remove_restaurantBook";
+                
+                e.target.appendChild(span);
 
-                button.appendChild(span);
-                e.target.appendChild(button);
-
-                utils.addListener(button, "click", function (e) {
+                utils.addListener(span, "click", function (e) {
+                    console.log(e.target.refID);
                     Core.service.book.restaurant.cancel(e.target.refID);
                 });
             }, false);

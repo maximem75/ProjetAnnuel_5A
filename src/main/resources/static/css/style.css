@@ -584,9 +584,15 @@ ul {
 }
 
 .book_span_title{
-	padding: 10px 5px;
+	padding: 15px 25px;
 }
 
 .book_span{
-	padding: 10px 5px;
+	padding: 15px 25px;
+}
+
+.small_btn{
+	height: 20px;
+	width: 20px;
+	line-height: 20px;
 }
