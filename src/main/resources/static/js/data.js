@@ -68,7 +68,7 @@
             clientListBook : {
                 name      : "clientListBook",
                 viewPath  : "view.clientListBook.html",
-                listImage : "img/menu/contact1.jpg"
+                listImage : "img/menu/.jpg"
             },
             admin : {
                 name      : "admin",
