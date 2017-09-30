@@ -63,7 +63,7 @@
             festiveRoom : {
                 name      : "festiveRoom",
                 viewPath  : "view.festiveRoom.html",
-                listImage : "img/menu/index-bg.jpg"
+                listImage : "img/menu/festiveRoom-bg.jpg"
             },
             clientListBook : {
                 name      : "clientListBook",
