@@ -435,6 +435,7 @@
      * @param event
      */
     Core.utils.removeListener = function (node, event) {
+        console.log("remoe");
         if (node in _eventHandlers) {
             var handlers = _eventHandlers[node];
             if (event in handlers) {

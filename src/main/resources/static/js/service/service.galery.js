@@ -84,7 +84,7 @@
         var object = {
             name: "getList",
             method: "GET",
-            url: "/pictureGalery/all",
+            url: "/pictureGalery",
             func: function (list) {
                 Core.controller.galery.displayGalery(list);
             },
