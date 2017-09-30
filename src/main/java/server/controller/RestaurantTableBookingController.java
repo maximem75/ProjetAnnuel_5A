@@ -64,8 +64,8 @@ public class RestaurantTableBookingController {
             }
 
             if (type == 1) {
-                if (!restaurantTableBookingService.clientAlreadyBook(19, 30, 22, 30, restaurantTableBooking.getIdClient())) {
-                    if (restaurantTableBooking.getNumber() <= restaurantTableBookingService.getNumberPlaceFree(19, 30, 22, 30)){
+                if (!restaurantTableBookingService.clientAlreadyBook(21, 0, 22, 30, restaurantTableBooking.getIdClient())) {
+                    if (restaurantTableBooking.getNumber() <= restaurantTableBookingService.getNumberPlaceFree(21, 0, 22, 30)){
                         restaurantTableBooking.setStatus("active");
                         restaurantTableBookingRepository.save(restaurantTableBooking);
                     } else {

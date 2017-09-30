@@ -83,11 +83,33 @@
                 return min;
         };
 
+        var hour = function (hour) {
+            if (min < 10)
+                return "0" + hour;
+            else
+                return hour;
+        };
+
+        var day = function (day) {
+            if (min < 10)
+                return "0" + day;
+            else
+                return day;
+        };
+
+        var month = function (month) {
+            month += 1;
+            if (month < 10)
+                return "0" + month;
+            else
+                return month;
+        };
+
         for (var i = 0; i < listRestaurant.length; i++) {
             var current = listRestaurant[i];
             var date = new Date(current.date);
 
-            var dateString = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + minute(date.getMinutes());
+            var dateString = day(date.getDate()) + "/" + month(date.getMonth()) + "/" + date.getFullYear() + " " + hour(date.getHours()) + ":" + minute(date.getMinutes());
 
             var body = [dateString, current.number];
             Core.controller.clientListBook.createBodyTemplate(body, container, classObject, "R_" + listRestaurant[i].id);
