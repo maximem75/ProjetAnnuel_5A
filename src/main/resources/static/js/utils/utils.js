@@ -335,6 +335,15 @@
         }
         return false;
     };
+    
+    Core.utils.displayError = function (message) {
+        var error = document.getElementById("error_container");
+        error.textContent = message;
+
+        var tmID = setTimeout(function () {
+            error.textContent = "";
+        }, 4000);
+    };
 
     /**
      * Return the days between two dates

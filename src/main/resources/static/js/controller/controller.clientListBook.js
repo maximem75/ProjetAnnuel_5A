@@ -84,14 +84,14 @@
         };
 
         var hour = function (hour) {
-            if (min < 10)
+            if (hour < 10)
                 return "0" + hour;
             else
                 return hour;
         };
 
         var day = function (day) {
-            if (min < 10)
+            if (day < 10)
                 return "0" + day;
             else
                 return day;
@@ -127,7 +127,6 @@
                 e.target.appendChild(span);
 
                 utils.addListener(span, "click", function (e) {
-                    console.log(e.target.refID);
                     Core.service.book.restaurant.cancel(e.target.refID);
                 });
             }, false);
@@ -160,7 +159,6 @@
 
             Core.controller.clientListBook.createBodyTemplate(body, container, classObject);
         }
-
     };
 
     Core.controller.clientListBook.switchView = function (view) {
@@ -205,15 +203,6 @@
         template += "</div>";
 
         container.innerHTML += template;
-    };
-
-    Core.controller.clientListBook.error = function (message) {
-        var error = document.getElementById("error_container");
-        error.textContent = message;
-
-        var tmID = setTimeout(function () {
-            error.textContent = "";
-        }, 5000);
     };
 
 })();

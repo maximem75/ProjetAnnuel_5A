@@ -27,13 +27,12 @@
                 document.getElementById("valide_container").textContent = "";
                 document.getElementById("error_container").textContent = "";
                 if(statusCode == 406){
-                    document.getElementById("error_container").textContent = "Nombre de places disponibles insuffisant.";
+                    utils.displayError("Nombre de places disponibles insuffisant");
                 } else if(statusCode == 404){
-                    document.getElementById("error_container").textContent = "Vous avez déjà effectué une réservation.";
+                    utils.displayError("Vous avez déjà effectué une réservation");
                 } else {
-                    document.getElementById("error_container").textContent = "La date limite de réservation pour cette plage horaire est dépassée pour aujourd'hui.";
+                    utils.displayError("La date limite de réservation pour cette plage horaire est dépassée pour aujourd'hui");
                 }
-
             }
         };
 
@@ -87,7 +86,7 @@
                   Core.service.book.restaurant.getByIdClient();
             },
             error: function (statusCode) {
-                Core.controller.clientListBook.error("La réservation ne peut plus être annulée")
+                utils.displayError("La réservation ne peut plus être annulée");
             }
         };
 

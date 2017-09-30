@@ -47,7 +47,7 @@ public class RestaurantTableBookingService {
         maxAM.set(Calendar.MILLISECOND,0);
 
         Calendar minPM = Calendar.getInstance();
-        minPM.set(Calendar.HOUR_OF_DAY,21);
+        minPM.set(Calendar.HOUR_OF_DAY,19);
         minPM.set(Calendar.MINUTE,0);
         minPM.set(Calendar.SECOND,0);
         minPM.set(Calendar.MILLISECOND,0);
@@ -75,11 +75,12 @@ public class RestaurantTableBookingService {
         }
 
         if((bookingTime >= minDatePM.getTime()) && (bookingTime <= maxDatePM.getTime())){
+            System.out.println("in 1");
             if(minDatePM.getTime() >= dateBookingTime){
                 return 1;
             }
         }
-
+        System.out.println("-1");
         return -1;
     }
 
@@ -139,6 +140,7 @@ public class RestaurantTableBookingService {
     }
 
     public boolean cancelAvailable(Date date){
+        System.out.println("ins");
         Date currentTime = new Date();
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 14);
@@ -155,7 +157,7 @@ public class RestaurantTableBookingService {
             return currentTime.getTime() < d.getTime();
         } else {
 
-            cal.set(Calendar.HOUR_OF_DAY, 21);
+            cal.set(Calendar.HOUR_OF_DAY, 19);
             cal.set(Calendar.MINUTE, 0);
             cal.set(Calendar.SECOND, 0);
 

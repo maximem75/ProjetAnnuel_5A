@@ -34,7 +34,7 @@
         window.controller = Core.controller || {};
         window.payment    = Core.payment    || {};
 
-
+        Core.utils.initClientIp();
         data.currentPath = data.viewList.accueil.viewPath;
 
         if(window.sessionStorage.getItem("token")     != null
@@ -52,7 +52,7 @@
         service.room.initListRoom();
         service.pictureRoomCategory.getList();
         Core.service.festiveRoom.get();
-        Core.utils.initClientIp();
+
     };
 
 }).call(this); //Get current Context (window) into script

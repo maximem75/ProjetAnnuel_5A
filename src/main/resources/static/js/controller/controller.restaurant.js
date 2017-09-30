@@ -21,6 +21,8 @@
         numberElement = document.getElementById("text_number");
         btn_booking = document.getElementById("btn_search_table");
 
+        numberElement.value = 1;
+
         utils.addListener(btn_booking, "click", function () {
             var date = new Date();
             var res;
@@ -49,7 +51,13 @@
                 number: numberElement.value,
                 idClient: window.client.id
             };
-            Core.service.book.restaurant.bookRestaurant(JSON.stringify(json));
+
+            if(numberElement.value > 0){
+                Core.service.book.restaurant.bookRestaurant(JSON.stringify(json));
+            } else {
+                document.getElementById("error_container").textContent = "Veuillez saisir le nombre de places"
+            }
+
         }, false);
     };
 
