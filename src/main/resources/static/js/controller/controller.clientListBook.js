@@ -47,7 +47,7 @@
         container.style.display = "block";
         container.innerHTML = "";
 
-        var headers = ["Ref", "Date d'arrivée", "Date de départ", "Chambre", "Catégorie", "Prix"];
+        var headers = ["Ref", "Arrivée", "Départ", "Chambre", "Catégorie", "Prix"];
 
         Core.controller.clientListBook.createHeadTemplate(headers, container);
 
@@ -123,7 +123,7 @@
         container.style.display = "none";
         container.innerHTML = "";
 
-        var headers = ["Ref", "Arrivée", "Départ", "Prix"];
+        var headers = ["Ref", "Début", "Fin", "Prix"];
 
         Core.controller.clientListBook.createHeadTemplate(headers, container);
 

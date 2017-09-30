@@ -84,9 +84,7 @@
             method: "PUT",
             url: "/restaurantTableBooking/cancel",
             func: function (id) {
-               /*var element = document.getElementById("R_"+id);
-                element.parentElement.removeChild(element);*/
-                Core.service.book.restaurant.getByIdClient();
+                  Core.service.book.restaurant.getByIdClient();
             },
             error: function (statusCode) {
                 Core.controller.clientListBook.error("La réservation ne peut plus être annulée")
