@@ -38,7 +38,7 @@
             method: "PUT",
             url: "/festiveRoomService",
             func: function (json) {
-
+            
             },
             error: function (statusCode) {
             }

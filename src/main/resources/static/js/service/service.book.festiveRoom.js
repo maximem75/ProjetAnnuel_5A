@@ -115,32 +115,21 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.book.festiveRoom.getListBookById = function () {
-        return {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
             name: "getListBookById",
             method: "GET",
-            url: "/festiveRoomBooking",
-            func: function (json) {
-                var headers = {
-                    id: {
-                        content: "Numéro"
-                    },
-                    date_start : {
-                        content: "Arrivée"
-                    },
-                    date_end: {
-                        content: "Départ"
-                    },
-                    price: {
-                        content: "Prix"
-                    }
-                };
-
-                utils.template.createLiTemplate(headers, json, document.getElementById("book_festiveRoom_content"), "read");
+            url: "/festiveRoomBooking/getByIdClient",
+            func: function (list) {
+                Core.controller.clientListBook.initListFestiveRoom(list);
             },
             error: function (statusCode) {
 
             }
         };
+
+        utils.ajaxRequest(object, paramRequest);
     };
    
 })();

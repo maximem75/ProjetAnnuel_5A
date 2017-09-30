@@ -65,8 +65,8 @@
             name: "getByIdClient",
             method: "GET",
             url: "/restaurantTableBooking/getByIdClient",
-            func: function () {
-
+            func: function (list) {
+                Core.controller.clientListBook.initListRestaurant(list);
             },
             error: function (statusCode) {
 

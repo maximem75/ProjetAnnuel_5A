@@ -90,6 +90,23 @@
         utils.ajaxRequest(object, requestParam);
     };
 
+    Core.service.book.room.getlistRoomById = function(){
+        var requestParam = "token=" + client.token;
+        var object = {
+            name   : "getlistRoomById",
+            method : "GET",
+            url    : "/roomBooking/getlistRoomById",
+            func : function (list) {
+                Core.controller.clientListBook.initListRoom(list);
+            },
+            error : function(statusCode){
+
+            }
+        };
+
+        utils.ajaxRequest(object, requestParam);
+    };
+
     /**
      * Return the current list book for admin (status: 0) and client (status: 1)
      * @returns {{name: string, method: string, url: string, func: func, error: error}}

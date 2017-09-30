@@ -16,15 +16,21 @@
      * Display all list book for a client
      */
     Core.controller.clientListBook.initView = function () {
-        Core.class.book.room.initListBookRoomCurrent();
-        Core.class.book.room.initListBookRoomHold();
-        Core.class.book.restaurant.initListBookRestaurant();
-        Core.class.book.festiveRoom.initListBookFestiveRoom();
+        Core.service.book.room.getlistRoomById();
+        Core.service.book.restaurant.getByIdClient();
+        Core.service.book.festiveRoom.getListBookById();
+        
+    };
 
-        var list_menu = document.getElementsByClassName("li_menu");
+    Core.controller.clientListBook.initListRoom = function (listRoom) {
+        console.log(listRoom);
+    };
 
-        for (var i = 0; i < list_menu.length; i++) {
-            utils.template.manageListDisplay(list_menu[i].id);
-        }
+    Core.controller.clientListBook.initListRestaurant = function (listRestaurant) {
+        console.log(listRestaurant)
+    };
+
+    Core.controller.clientListBook.initListFestiveRoom = function (listFestiveRoom) {
+        console.log(listFestiveRoom);
     };
 })();

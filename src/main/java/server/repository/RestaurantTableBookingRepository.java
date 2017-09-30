@@ -23,4 +23,7 @@ public interface RestaurantTableBookingRepository extends JpaRepository<Restaura
 
     @Query("select rtb from RestaurantTableBooking rtb where idClient = :IdClient and date >= current_date and status = 'active'")
     List<RestaurantTableBooking> getListAvailableBookByIdClient(@Param("IdClient") Long IdClient);
+
+    @Query("select rtb from  RestaurantTableBooking rtb where date >= :Date and status = 'active'")
+    List<RestaurantTableBooking> getBookByDate(@Param("Date")Date Date);
 }

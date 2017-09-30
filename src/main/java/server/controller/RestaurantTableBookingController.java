@@ -11,6 +11,7 @@ import server.repository.RestaurantTableBookingRepository;
 import server.service.ClientService;
 import server.service.RestaurantTableBookingService;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -103,6 +104,23 @@ public class RestaurantTableBookingController {
 
         if (client != null) {
             return restaurantTableBookingRepository.getListAvailableBookByIdClient(client.getId());
+        }
+
+        return null;
+    }
+
+    @RequestMapping(path = "/getListByCurrentDate", method = GET)
+    @ResponseStatus(OK)
+    public List<RestaurantTableBooking>  getListRestaurantBookingTableByDate(@RequestParam("token") String token){
+        if (clientService.adminAccess(token)){
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+
+            Date date = cal.getTime();
+
+            return restaurantTableBookingRepository.getBookByDate(date);
         }
 
         return null;

@@ -450,32 +450,16 @@ ul {
 	margin: 0;
 }
 
-.template_li_title{
+.li_menu{
+	display: inline-block;
+	width: auto;
+	height: auto;
+	border: 1px solid black;
 	cursor: pointer;
-	position: relative;
-	display: block;
-	width: 100%;
-	border: 1px solid #9B9B9B;
-	border-top: 0px;
-	color: #197F31;
-	font-weight: 600;
-	font-size: 18px;
-
-	height: 50px;
-	line-height: 50px;
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f1f1f1+50,e1e1e1+51,f6f6f6+100;White+Gloss+%231 */
-	background: #ffffff; /* Old browsers */
-	background: -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top, #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
 }
 
-.template_li_content {
-	display: none;
-	border: 1px solid #9B9B9B;
-	border-top: 0px;
-	min-height: 100px;
+.span_menu{
+	padding: 10px 5px;
 }
 
 .div_table {
