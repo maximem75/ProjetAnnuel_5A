@@ -101,7 +101,7 @@
                 span.className = "glyphicon glyphicon-remove";
                 span.refID = e.target.id.split("_")[1];
                 span.id = "btn_remove_restaurantBook";
-                
+
                 e.target.appendChild(span);
 
                 utils.addListener(span, "click", function (e) {
@@ -123,7 +123,7 @@
         container.style.display = "none";
         container.innerHTML = "";
 
-        var headers = ["Ref", "Date d'arrivée", "Date de départ", "Prix"];
+        var headers = ["Ref", "Arrivée", "Départ", "Prix"];
 
         Core.controller.clientListBook.createHeadTemplate(headers, container);
 
