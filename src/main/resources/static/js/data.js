@@ -79,10 +79,15 @@
                 name      : "listArticle",
                 viewPath  : "view.article.html",
                 listImage : "img/menu/article-bg.jpg"
+            },
+            galery: {
+                name      : "galery",
+                viewPath  : "view.galery.html",
+                listImage : "img/menu/galery-bg.jpg"
             }
         },
-        basicUrl   : "https://residencedeshautsdemenaye.fr/api",
-        //basicUrl   : "http://localhost:8080/api",
+        //basicUrl   : "https://residencedeshautsdemenaye.fr/api",
+        basicUrl   : "http://localhost:8080/api",
         getMenu : function () {
             return document.getElementById("ul_menu");
         },

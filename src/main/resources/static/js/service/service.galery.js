@@ -1,27 +1,26 @@
 /**
- * Created by maxime.
- *
- * version 1.0.0
+ * Created by maxime on 30/09/2017.
  */
+
 ;(function (undefined) {
     "use strict";
 
     if (typeof Core === "undefined")
         throw "Core is not declared";
 
-    Core.service.article = Core.service.article || {};
+    Core.service.galery = Core.service.galery || {};
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.article.create = function (json) {
+    Core.service.galery.create = function (json) {
         var paramRequest = "token=" + client.token;
 
         var object = {
             name: "create",
             method: "POST",
-            url: "/article",
+            url: "/pictureGalery",
             func: function () {
 
             },
@@ -37,13 +36,13 @@
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.article.udapte = function (json) {
+    Core.service.galery.udapte = function (json) {
         var paramRequest = "token=" + client.token;
 
         var object = {
             name: "udapte",
             method: "PUT",
-            url: "/article",
+            url: "/pictureGalery",
             func: function () {
 
             },
@@ -59,13 +58,13 @@
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.article.delete = function () {
+    Core.service.galery.delete = function () {
         var paramRequest = "token=" + client.token + "&id=" + id;
 
         var object = {
             name: "delete",
             method: "DELETE",
-            url: "/article",
+            url: "/pictureGalery",
             func: function () {
 
             },
@@ -81,13 +80,13 @@
      * The callback func create the article list into the view article
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.article.getList = function () {
+    Core.service.galery.getList = function () {
         var object = {
             name: "getList",
             method: "GET",
-            url: "/article/all",
+            url: "/pictureGalery/all",
             func: function (list) {
-                Core.controller.article.displayArticles(list);
+                Core.controller.galery.displayGalery(list);
             },
             error: function () {
 
@@ -97,21 +96,4 @@
         utils.ajaxRequest(object);
     };
 
-    Core.service.article.getById = function (id) {
-        var paramRequest = "idArticle=" + id;
-
-        var object = {
-            name: "getById",
-            method: "GET",
-            url: "/article",
-            func: function (article) {
-
-            },
-            error: function () {
-
-            }
-        };
-
-        utils.ajaxRequest(object, paramRequest);
-    };
 })();

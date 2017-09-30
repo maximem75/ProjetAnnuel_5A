@@ -67,6 +67,9 @@
             case "contact":
                 controller.contact.initView();
                 break;
+            case "galery":
+                controller.galery.initView();
+                break;
         }
     };
     

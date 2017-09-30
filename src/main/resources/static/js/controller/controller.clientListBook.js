@@ -59,7 +59,7 @@
             var dateStringStart = utils.beautifyDate(dateStart);
             var dateStringEnd = utils.beautifyDate(dateEnd);
             var room = Core.utils.getRoomById(current.idRoom);
-            var price = Math.round(data.countryInfo.rate * category.price * utils.getDays(dateStart.getTime(), dateEnd.getTime()).day);
+            var price = Math.round(data.countryInfo.rate * category.price * utils.getDays(dateStart.getTime(), dateEnd.getTime()).day) + " " + data.symbol;
             var body = [current.id, dateStringStart, dateStringEnd, room.number, category.name, price];
 
             Core.controller.clientListBook.createBodyTemplate(body, container, classObject);
