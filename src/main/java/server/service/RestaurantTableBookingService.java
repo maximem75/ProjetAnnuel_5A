@@ -47,7 +47,7 @@ public class RestaurantTableBookingService {
         maxAM.set(Calendar.MILLISECOND,0);
 
         Calendar minPM = Calendar.getInstance();
-        minPM.set(Calendar.HOUR_OF_DAY,19);
+        minPM.set(Calendar.HOUR_OF_DAY,21);
         minPM.set(Calendar.MINUTE,0);
         minPM.set(Calendar.SECOND,0);
         minPM.set(Calendar.MILLISECOND,0);
