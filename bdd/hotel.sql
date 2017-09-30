@@ -298,8 +298,7 @@ INSERT INTO `picture_galery` (`id_picture_galery`, `path`) VALUES
 (70, 'img/Galery/galery_16.png'),
 (71, 'img/Galery/galery_17.png'),
 (72, 'img/Galery/galery_18.png'),
-(73, 'img/Galery/galery_19.png'),
-(74, 'img/Galery/galery_20.png');
+(73, 'img/Galery/galery_19.png');
 
 --
 -- Contenu de la table `picture_galery`
