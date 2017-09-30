@@ -17,4 +17,8 @@
     Core.controller.article.initView = function () {
         Core.service.article.getList();
     };
+
+    Core.controller.article.displayArticles = function (list) {
+          var template = "<div>";
+    };
 })();

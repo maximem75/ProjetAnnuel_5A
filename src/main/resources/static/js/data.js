@@ -43,7 +43,7 @@
             compte : {
                 name      : "compte",
                 viewPath  : "view.compte.html",
-                listImage : "img/menu/"
+                listImage : "img/menu/account-bg.jpg"
             },
             about      : {
                 name      : "about",
@@ -68,17 +68,17 @@
             clientListBook : {
                 name      : "clientListBook",
                 viewPath  : "view.clientListBook.html",
-                listImage : "img/menu/.jpg"
+                listImage : "img/menu/listbook-bg.jpg"
             },
             admin : {
                 name      : "admin",
                 viewPath  : "view.admin.html",
-                listImage : "img/menu/.jpg"
+                listImage : "img/menu/listbook-bg.jpg"
             },
             listArticle : {
                 name      : "listArticle",
                 viewPath  : "view.article.html",
-                listImage : "img/menu/.jpg"
+                listImage : "img/menu/article-bg.jpg"
             }
         },
         basicUrl   : "https://residencedeshautsdemenaye.fr/api",
