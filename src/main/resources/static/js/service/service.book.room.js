@@ -95,7 +95,7 @@
         var object = {
             name   : "getlistRoomById",
             method : "GET",
-            url    : "/roomBooking/getlistRoomById",
+            url    : "/roomBooking/getListByIdClient",
             func : function (list) {
                 Core.controller.clientListBook.initListRoom(list);
             },

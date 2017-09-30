@@ -21,7 +21,7 @@ public interface RoomBookingRepository extends JpaRepository<RoomBooking, Long> 
     @Query("select rb from RoomBooking rb where refRoomBook = :RefRoomBook")
     List<RoomBooking> getListRoomBookingByRefBookRoom(@Param("RefRoomBook") String RefRoomBook);
 
-    @Query("select rb from RoomBooking rb where idClient = :IdClient")
+    @Query("select rb from RoomBooking rb where idClient = :IdClient and status = 'active'")
     List<RoomBooking> getListRoomBookingByIdClient(@Param("IdClient") Long IdClient);
 
 }
