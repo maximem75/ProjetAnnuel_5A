@@ -47,7 +47,7 @@ public class RestaurantTableBookingService {
         maxAM.set(Calendar.MILLISECOND,0);
 
         Calendar minPM = Calendar.getInstance();
-        minPM.set(Calendar.HOUR_OF_DAY,18);
+        minPM.set(Calendar.HOUR_OF_DAY,19);
         minPM.set(Calendar.MINUTE,0);
         minPM.set(Calendar.SECOND,0);
         minPM.set(Calendar.MILLISECOND,0);
@@ -135,6 +135,33 @@ public class RestaurantTableBookingService {
         List<RestaurantTableBooking> list = restaurantTableBookingRepository.getBookByIdClient(minDateAM, maxDateAM, idClient);
 
         return list.size() > 0;
+
+    }
+
+    public boolean cancelAvailable(Date date){
+        Date currentTime = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 14);
+        cal.set(Calendar.MINUTE, 0);
+
+        Date d = cal.getTime();
+        if(d.getTime() > date.getTime()){
+            cal.set(Calendar.HOUR_OF_DAY, 11);
+            cal.set(Calendar.MINUTE, 30);
+            cal.set(Calendar.SECOND, 0);
+
+            d = cal.getTime();
+
+            return currentTime.getTime() < d.getTime();
+        } else {
+
+            cal.set(Calendar.HOUR_OF_DAY, 19);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+
+            d = cal.getTime();
+            return currentTime.getTime() < d.getTime();
+        }
 
     }
 }

@@ -42,6 +42,7 @@
     };
 
     Core.controller.clientListBook.initListRoom = function (listRoom) {
+        var classObject = "book_room_object";
         var container = document.getElementById("room_container");
         container.style.display = "block";
         container.innerHTML = "";
@@ -61,11 +62,12 @@
             var price = Math.round(data.countryInfo.rate * category.price * utils.getDays(dateStart.getTime(), dateEnd.getTime()).day);
             var body = [current.id, dateStringStart, dateStringEnd, room.number, category.name, price];
 
-            Core.controller.clientListBook.createBodyTemplate(body, container);
+            Core.controller.clientListBook.createBodyTemplate(body, container, classObject);
         }
     };
 
     Core.controller.clientListBook.initListRestaurant = function (listRestaurant) {
+        var classObject = "book_restaurant_object";
         var container = document.getElementById("room_restaurant");
         container.style.display = "none";
         container.innerHTML = "";
@@ -75,7 +77,7 @@
         Core.controller.clientListBook.createHeadTemplate(headers, container);
 
         var minute = function (min) {
-            if(min < 10)
+            if (min < 10)
                 return "0" + min;
             else
                 return min;
@@ -88,11 +90,39 @@
             var dateString = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + minute(date.getMinutes());
 
             var body = [dateString, current.number];
-            Core.controller.clientListBook.createBodyTemplate(body, container);
+            Core.controller.clientListBook.createBodyTemplate(body, container, classObject, "R_" + listRestaurant[i].id);
+        }
+
+        var arrayBook = document.getElementsByClassName("book_restaurant_object");
+
+        for (var j = 0; j < arrayBook.length; j++) {
+            utils.addListener(arrayBook[j], "mouseenter", function (e) {
+                var button = document.createElement("button");
+                button.id = "btn_remove_restaurantBook";
+                button.refID = e.target.id.split("_")[1];
+                button.type = "button";
+                button.className = "btn btn-light";
+
+                var span = document.createElement("span");
+                span.className = "glyphicon glyphicon-remove";
+
+                button.appendChild(span);
+                e.target.appendChild(button);
+
+                utils.addListener(button, "click", function (e) {
+                    Core.service.book.restaurant.cancel(e.target.refID);
+                });
+            }, false);
+
+            utils.addListener(arrayBook[j], "mouseleave", function () {
+                var btn = document.getElementById("btn_remove_restaurantBook");
+                btn.parentElement.removeChild(btn);
+            }, false);
         }
     };
 
     Core.controller.clientListBook.initListFestiveRoom = function (listFestiveRoom) {
+        var classObject = "book_festiveRoom_object";
         var container = document.getElementById("room_festiveRoom");
         container.style.display = "none";
         container.innerHTML = "";
@@ -110,7 +140,7 @@
             var price = Math.round(data.countryInfo.rate * data.costFestiveRoom * utils.getDays(dateStart.getTime(), dateEnd.getTime()).day) + " " + data.symbol;
             var body = [current.id, dateStringStart, dateStringEnd, price];
 
-            Core.controller.clientListBook.createBodyTemplate(body, container);
+            Core.controller.clientListBook.createBodyTemplate(body, container, classObject);
         }
 
     };
@@ -135,8 +165,8 @@
         container.innerHTML += template;
     };
 
-    Core.controller.clientListBook.createBodyTemplate = function (list, container) {
-        var template = "<div class='book_row'>";
+    Core.controller.clientListBook.createBodyTemplate = function (list, container, classObject, id) {
+        var template = "<div class='book_row " + classObject + "' id='" + id + "'>";
 
         for (var i = 0; i < list.length; i++) {
             template += "<div class='book_cell'><span class='book_span'>" + list[i] + "</span></div>";
@@ -145,6 +175,27 @@
         template += "</div>";
 
         container.innerHTML += template;
+    };
+
+    Core.controller.clientListBook.cancelBookRestaurant = function () {
+        var template = "<div class='book_row " + classObject + "'>";
+
+        for (var i = 0; i < list.length; i++) {
+            template += "<div class='book_cell'><span class='book_span'>" + list[i] + "</span></div>";
+        }
+
+        template += "</div>";
+
+        container.innerHTML += template;
+    };
+
+    Core.controller.clientListBook.error = function (message) {
+        var error = document.getElementById("error_container");
+        error.textContent = message;
+
+        var tmID = setTimeout(function () {
+            error.textContent = "";
+        }, 5000);
     };
 
 })();

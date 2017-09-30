@@ -2,6 +2,7 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import server.Exception.CancelRestaurantBookException;
 import server.Exception.ClientAlreadyBookTableException;
 import server.Exception.DateExpiredException;
 import server.Exception.RestaurantTableNotFreeException;
@@ -14,6 +15,7 @@ import server.service.RestaurantTableBookingService;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -85,6 +87,25 @@ public class RestaurantTableBookingController {
             restaurantTableBookingRepository.save(restaurantTableBooking);
         }
     }
+    @RequestMapping(path = "/cancel", method = PUT)
+    @ResponseStatus(ACCEPTED)
+    public Long cancelRestaurantTableBooking(@RequestParam("token") String token, @RequestParam("id") Long id) {
+        Client client = clientService.findByToken(token);
+        RestaurantTableBooking restaurantTableBooking = restaurantTableBookingRepository.findOne(id);
+
+        if (clientService.findByToken(token) != null && restaurantTableBooking != null && Objects.equals(client.getId(), restaurantTableBooking.getIdClient())) {
+            if(restaurantTableBookingService.cancelAvailable(restaurantTableBooking.getDate())){
+                restaurantTableBooking.setStatus("canceled");
+                restaurantTableBookingRepository.save(restaurantTableBooking);
+                return restaurantTableBooking.getId();
+            } else {
+                throw new CancelRestaurantBookException();
+            }
+        }
+
+        return null;
+    }
+
 
     @RequestMapping(method = GET)
     @ResponseStatus(OK)

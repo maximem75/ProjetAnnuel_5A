@@ -76,6 +76,26 @@
         utils.ajaxRequest(object, paramRequest);
     };
 
+    Core.service.book.restaurant.cancel = function (id) {
+        var paramRequest = "token=" + client.token + "&id=" + id;
+
+        var object =  {
+            name: "cancel",
+            method: "PUT",
+            url: "/restaurantTableBooking/cancel",
+            func: function (id) {
+               /*var element = document.getElementById("R_"+id);
+                element.parentElement.removeChild(element);*/
+                Core.service.book.restaurant.getByIdClient();
+            },
+            error: function (statusCode) {
+                Core.controller.clientListBook.error("La réservation ne peut plus être annulée")
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
+    };
+
     /**
      * Generate the restaurant list book by id client
      * @returns {{name: string, method: string, url: string, func: func, error: error}}

@@ -421,9 +421,8 @@ ul {
 	color: dimgrey;
 	margin: auto;
 	width: 100%;
-	min-height: 250px;
-	height: 500px;
-	background-color: lightgrey;
+	min-height: 50px;
+	height: auto;
 	padding: 0px 0px 0px 0px;
 }
 
@@ -568,10 +567,12 @@ ul {
 
 .book_table{
 	display: table;
+	width: 100%;
 }
 
 .book_row{
 	display: table-row;
+	width: 100%;
 }
 
 .book_cell_title{
