@@ -369,6 +369,13 @@
 
         return diff;
     };
+    
+    Core.utils.manageBook = function () {
+        if(data.rbr != null) {
+            Core.service.book.room.cancelBookRoom(data.rbr);
+            data.rbr = null;
+        }
+    };
 
     Core.utils.initClientIp = function () {
         $.getJSON("https://ipinfo.io/json", function (d) {

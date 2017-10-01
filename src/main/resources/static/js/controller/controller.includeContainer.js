@@ -16,9 +16,10 @@
      * @param key
      */
     Core.controller.includeContainer.switchView = function (key) {
-        var pageObject = data.viewList[key.toString()];
-
+        var pageObject = data.viewList[key.toString()];        
+        
         if (pageObject !== null) {
+            Core.utils.manageBook();
             utils.empty(data.getIncludeContainer());
             utils.include(pageObject.viewPath, pageObject.name);
             utils.imageOpacityAnimation(pageObject.listImage, data.mainImageID);

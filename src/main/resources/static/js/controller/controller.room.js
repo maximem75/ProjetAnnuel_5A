@@ -28,10 +28,6 @@
         utils.reservation.datePicker(startDateID, minStart, null);
         utils.reservation.datePicker(endDateID, minEnd, null);
         
-        if(data.rbr != null){
-            Core.service.book.room.cancelBookRoom(data.rbr);
-            data.rbr = null;
-        }
         var initVariables = function () {
             startDatepicker = document.getElementById("reservation_start_date");
             endDatepicker = document.getElementById("reservation_end_date");
@@ -416,7 +412,7 @@
      */
     Core.controller.room.roomBooking = function (listRoomBooking) {
         var labelDateStart, labelDateEnd, labelBook, image,
-            container, button_container, btn_return;
+            container, btn_return;
 
         var getCategoryName = function(id){
             var list = data.listRoomCategories;
@@ -461,6 +457,7 @@
             ];
             var listCateg = getCategoryQuantity(listRoomBooking);
             var keys = Object.keys(listCateg);
+            console.log(listRoomBooking);
 
             var dateStart = new Date(listRoomBooking[0].dateStart);
             var dateEnd = new Date(listRoomBooking[0].dateEnd);
