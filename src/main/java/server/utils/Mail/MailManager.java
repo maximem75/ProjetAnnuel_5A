@@ -55,7 +55,7 @@ public class MailManager {
     public void sendEmailToClient(String mailSubject ,String clientEmail, String mailContent){
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("alvin.ondzounga@gmail.com"));
+            message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(clientEmail));
             message.setSubject(mailSubject);
