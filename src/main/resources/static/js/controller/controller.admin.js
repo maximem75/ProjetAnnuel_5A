@@ -60,6 +60,7 @@
         var headers = [
             ""
         ];
+        
 
         Core.utils.admin.createHeadTemplate(header, container);
 
