@@ -236,7 +236,7 @@
     };
 
     Core.controller.festiveRoom.success = function () {
-        var message = "Votre résevation a bien été effectuée";
+        var message = "Votre réservation a bien été effectuée";
         var color = "green";
         var pageObject = data.viewList.clientListBook;
 
