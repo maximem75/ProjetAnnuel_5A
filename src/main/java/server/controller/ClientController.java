@@ -61,11 +61,11 @@ public class ClientController {
     }
 
 
-    @RequestMapping(method = GET, value="/GetListClient")
+    @RequestMapping(path = "/getListClient", method = GET)
     @ResponseStatus(OK)
     public List<Client> getListIsAdmin(@RequestParam("token") String tokenClient) {
         if(clientService.adminAccess(tokenClient)){
-            return clientRepository.findAll();
+            return clientRepository.getListUserActif();
         }
 
         return null;
