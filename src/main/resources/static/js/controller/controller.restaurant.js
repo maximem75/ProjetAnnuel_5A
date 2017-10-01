@@ -46,6 +46,7 @@
                     res = date.getFullYear() + "-" + month + "-" + date.getDate() + "T21:30:00" + offset;
                     break;
             }
+
             var json = {
                 date: res,
                 number: numberElement.value,

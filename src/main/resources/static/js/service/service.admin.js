@@ -17,9 +17,9 @@
         var object =  {
             name: "getListClient",
             method: "GET",
-            url: "/",
-            func: function () {
-
+            url: "/client/getListClient",
+            func: function (list) {
+                Core.controller.admin.displayListClient(list);
             },
             error: function (statusCode) {
             }
@@ -32,11 +32,11 @@
         var paramRequest = "token=" + client.token;
 
         var object =  {
-            name: "",
+            name: "getListRoomBook",
             method: "GET",
-            url: "/",
-            func: function () {
-
+            url: "/roomBooking/getListActivated",
+            func: function (list) {
+                Core.controller.admin.displayListBookRoom(list);
             },
             error: function (statusCode) {
             }
@@ -49,11 +49,11 @@
         var paramRequest = "token=" + client.token;
 
         var object =  {
-            name: "",
+            name: "getListRestaurantBook",
             method: "GET",
-            url: "/",
-            func: function () {
-
+            url: "/restaurantTableBooking/getListByCurrentDate",
+            func: function (list) {
+                Core.controller.admin.displayListBookRestaurant(list);
             },
             error: function (statusCode) {
             }
@@ -66,11 +66,11 @@
         var paramRequest = "token=" + client.token;
 
         var object =  {
-            name: "",
+            name: "getListFestiveRoomBook",
             method: "GET",
-            url: "/",
-            func: function () {
-
+            url: "/festiveRoomBooking/getListValidated",
+            func: function (list) {
+                Core.controller.admin.displayListBookFestiveRoom(list);
             },
             error: function (statusCode) {
             }
@@ -83,11 +83,11 @@
         var paramRequest = "token=" + client.token;
 
         var object =  {
-            name: "",
+            name: "getListRoom",
             method: "GET",
-            url: "/",
-            func: function () {
-
+            url: "/room",
+            func: function (list) {
+                Core.controller.admin.displayListRoom(list);
             },
             error: function (statusCode) {
             }
@@ -100,11 +100,11 @@
         var paramRequest = "token=" + client.token;
 
         var object =  {
-            name: "",
+            name: "getListRestaurantTable",
             method: "GET",
-            url: "/",
-            func: function () {
-
+            url: "/restaurantTable",
+            func: function (list) {
+                Core.controller.admin.displayListRestaurantTable(list);
             },
             error: function (statusCode) {
             }
@@ -117,11 +117,11 @@
         var paramRequest = "token=" + client.token;
 
         var object =  {
-            name: "",
+            name: "getListFestiveRoom",
             method: "GET",
-            url: "/",
-            func: function () {
-
+            url: "/festiveRoom",
+            func: function (list) {
+                Core.controller.admin.displayListFestiveRoom(list);
             },
             error: function (statusCode) {
             }
@@ -134,11 +134,11 @@
         var paramRequest = "token=" + client.token;
 
         var object =  {
-            name: "",
+            name: "getListBuildings",
             method: "GET",
-            url: "/",
-            func: function () {
-
+            url: "/building",
+            func: function (list) {
+                Core.controller.admin.displayListBuildings(list);
             },
             error: function (statusCode) {
             }
@@ -151,11 +151,11 @@
         var paramRequest = "token=" + client.token;
 
         var object =  {
-            name: "",
+            name: "getListArticles",
             method: "GET",
-            url: "/",
-            func: function () {
-
+            url: "/article/all",
+            func: function (list) {
+                Core.controller.admin.displayListArticles(list);
             },
             error: function (statusCode) {
             }
@@ -168,11 +168,11 @@
         var paramRequest = "token=" + client.token;
 
         var object =  {
-            name: "",
+            name: "getListGalery",
             method: "GET",
-            url: "/",
-            func: function () {
-
+            url: "/pictureGalery",
+            func: function (list) {
+                Core.controller.admin.displayListGalery(list);
             },
             error: function (statusCode) {
             }
@@ -181,14 +181,48 @@
         utils.ajaxRequest(object, paramRequest);
     };
 
-    Core.service.admin.sendNewsLetter = function () {
+    Core.service.admin.sendNewsLetter = function (newsLetter, subject) {
+        var paramRequest = "subject=" + subject + "&token=" + client.token;
+
+        var object =  {
+            name: "sendNewsLetter",
+            method: "POST",
+            url: "/newsletter",
+            func: function () {
+
+            },
+            error: function (statusCode) {
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest, newsLetter, false, true);
+    };
+
+    Core.service.admin.getListServiceFestiveRoom = function () {
         var paramRequest = "token=" + client.token;
 
         var object =  {
-            name: "",
+            name: "getListServiceFestiveRoom",
             method: "GET",
-            url: "/",
-            func: function () {
+            url: "/festiveRoomService",
+            func: function (list) {
+
+            },
+            error: function (statusCode) {
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest, newsLetter, false, true);
+    };
+
+    Core.service.admin.getListServiceFestiveRoomBookById = function (idFestiveRoomBook) {
+        var paramRequest = "id=" + idFestiveRoomBook + "&token=" + client.token;
+
+        var object =  {
+            name: "getListServiceFestiveRoomBook",
+            method: "GET",
+            url: "/festiveRoomBookingServices/getById",
+            func: function (list) {
 
             },
             error: function (statusCode) {
@@ -198,5 +232,54 @@
         utils.ajaxRequest(object, paramRequest);
     };
 
+    Core.service.admin.getListServiceFestiveRoomBookById = function (idFestiveRoomBook) {
+        var paramRequest = "id=" + idFestiveRoomBook + "&token=" + client.token;
 
+        var object =  {
+            name: "getListServiceFestiveRoomBook",
+            method: "GET",
+            url: "/festiveRoomBookingServices/getById",
+            func: function (list) {
+
+            },
+            error: function (statusCode) {
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
+    };
+
+    Core.service.admin.getListInvalideDateFestiveRoom = function () {
+        var paramRequest = "token=" + client.token;
+
+        var object =  {
+            name: "getListInvalideDateFestiveRoom",
+            method: "GET",
+            url: "/invalidBookingDateFestiveRoom",
+            func: function (list) {
+
+            },
+            error: function (statusCode) {
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
+    };
+
+    Core.service.admin.getListInvalideDateRoom = function () {
+        var paramRequest = "token=" + client.token;
+
+        var object =  {
+            name: "getListInvalideDateRoom",
+            method: "GET",
+            url: "/invalidBookingDateRoom",
+            func: function (list) {
+
+            },
+            error: function (statusCode) {
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
+    };
 })();

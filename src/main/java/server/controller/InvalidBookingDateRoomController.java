@@ -40,6 +40,7 @@ public class InvalidBookingDateRoomController {
     @ResponseStatus(CREATED)
     public void addInvalidBookingDateFestiveRoom(@RequestBody InvalidBookingDateRoom invalidBookingDateRoom, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
+            invalidBookingDateRoom.setStatus("active");
             invalidBookingDateRoomRepository.save(invalidBookingDateRoom);
         }
     }

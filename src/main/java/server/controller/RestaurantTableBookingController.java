@@ -110,7 +110,6 @@ public class RestaurantTableBookingController {
     @RequestMapping(method = GET)
     @ResponseStatus(OK)
     public List<RestaurantTableBooking> listRestaurantTableBooking(@RequestParam("token") String token) {
-
         if (clientService.adminAccess(token)) {
             return restaurantTableBookingRepository.findAll();
         }

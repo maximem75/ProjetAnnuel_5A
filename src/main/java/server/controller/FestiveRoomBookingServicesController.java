@@ -43,7 +43,6 @@ public class FestiveRoomBookingServicesController {
     @RequestMapping(path = "/getById", method = GET)
     @ResponseStatus(OK)
     public List<FestiveRoomBookingServices> getFestiveRoomBookingServicesByIdFestiveRoomBooking(@RequestParam("id") Long id, @RequestParam("token") String token) {
-
         if (clientService.findByToken(token) != null) {
             return festiveRoomBookingServicesRepository.getFestiveRoomBookingServicesByIdFestiveRoomBooking(id);
         }

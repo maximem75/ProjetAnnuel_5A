@@ -122,6 +122,16 @@ public class FestiveRoomBookingController {
         return null;
     }
 
+    @RequestMapping(path= "/getListValidated",method = GET)
+    @ResponseStatus(OK)
+    public List<FestiveRoomBooking> getListVlidatedFestiveRoomBookings(@RequestParam("token") String token) {
+        if (clientService.adminAccess(token)) {
+            return festiveRoomBookingRepository.findAll();
+        }
+
+        return null;
+    }
+
     @RequestMapping(path="cancel", method = PUT)
     @ResponseStatus(OK)
     public void cancelFestiveRoomBookings(@RequestParam("id") Long id, @RequestParam("token") String token) {

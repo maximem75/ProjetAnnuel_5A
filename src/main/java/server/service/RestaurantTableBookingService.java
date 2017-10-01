@@ -75,7 +75,6 @@ public class RestaurantTableBookingService {
         }
 
         if((bookingTime >= minDatePM.getTime()) && (bookingTime <= maxDatePM.getTime())){
-            System.out.println("in 1");
             if(minDatePM.getTime() >= dateBookingTime){
                 return 1;
             }
