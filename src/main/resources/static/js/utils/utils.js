@@ -376,6 +376,7 @@
             data.rbr = null;
         }
     };
+    
 
     Core.utils.initClientIp = function () {
         $.getJSON("https://ipinfo.io/json", function (d) {
