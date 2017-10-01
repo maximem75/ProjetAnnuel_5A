@@ -9,6 +9,8 @@ import server.repository.*;
 import server.service.*;
 import server.service.RoomService;
 import server.utils.DateComparer;
+import server.utils.Mail.MailManager;
+import server.utils.Template.TemplateGenerator;
 
 import java.util.*;
 
@@ -21,6 +23,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @RestController
 @RequestMapping("/api/roomBooking")
 public class RoomBookingController {
+    @Autowired
+    private TemplateService templateService;
+
     @Autowired
     private ClientService clientService;
 
@@ -102,7 +107,7 @@ public class RoomBookingController {
                     }
                 }
             }
-
+            templateService.GenerateTemplate(refBookRoom);
         }
     }
 

@@ -75,7 +75,7 @@ public class MailManager {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(client.getEmail()));
             message.setSubject("Code de confirmation");
-            String email = "Bonjour " + client.getFirstName() + " " + client.getLastName() + ", voici votre de confirmation de compte " + code;
+            String email = "Bonjour " + client.getFirstName() + " " + client.getLastName() + ", \n voici votre code de confirmation de compte " + code;
             message.setContent(email,"text/html");
             Transport.send(message);
         } catch (MessagingException e) {
@@ -90,7 +90,7 @@ public class MailManager {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(client.getEmail()));
             message.setSubject("Récupération de mot de passe");
-            String email = "Bonjour " + client.getFirstName() + " " + client.getLastName() + ", voici votre nouveau mot de passe " + password;
+            String email = "Bonjour " + client.getFirstName() + " " + client.getLastName() + ", \n voici votre nouveau mot de passe " + password;
             message.setContent(email,"text/html");
             Transport.send(message);
         } catch (MessagingException e) {
