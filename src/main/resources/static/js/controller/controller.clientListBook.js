@@ -150,7 +150,7 @@
             var dateStringEnd = utils.beautifyDate(dateEnd);
             console.log(data.countryInfo.rate);
             console.log(data.costFestiveRoom);
-            console.log(utils.getDays(dateStart.getTime(), dateEnd.getTime()).day));
+            console.log(utils.getDays(dateStart.getTime(), dateEnd.getTime()).day);
             var price = Math.round(data.countryInfo.rate * data.costFestiveRoom * utils.getDays(dateStart.getTime(), dateEnd.getTime()).day) + " " + data.symbol;
             var body = [current.id, dateStringStart, dateStringEnd, price];
 
