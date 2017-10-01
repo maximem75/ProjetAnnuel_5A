@@ -3,29 +3,28 @@ package server.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import server.Exception.RoomBookingNotCompletedException;
+import server.model.Building;
+import server.model.Client;
+import server.model.Room;
 import server.model.RoomBooking;
-import server.model.*;
-import server.repository.*;
-import server.service.*;
+import server.repository.BuildingRepository;
+import server.repository.ClientRepository;
+import server.repository.RoomBookingRepository;
+import server.service.ClientService;
+import server.service.RoomBookingService;
+import server.service.RoomCategoryService;
 import server.service.RoomService;
 import server.utils.DateComparer;
-import server.utils.Mail.MailManager;
-import server.utils.Template.TemplateGenerator;
 
 import java.util.*;
 
 import static org.springframework.http.HttpStatus.*;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/roomBooking")
 public class RoomBookingController {
-    @Autowired
-    private TemplateService templateService;
-
     @Autowired
     private ClientService clientService;
 
@@ -107,7 +106,6 @@ public class RoomBookingController {
                     }
                 }
             }
-            templateService.GenerateTemplate(refBookRoom);
         }
     }
 
