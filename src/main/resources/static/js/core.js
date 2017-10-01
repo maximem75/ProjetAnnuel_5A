@@ -48,10 +48,11 @@
         utils.setDatepickerLanguage();
         utils.include(data.viewList.accueil.viewPath, data.viewList.accueil.name);
 
+        service.festiveRoom.get();
         service.category.getListCategories();
         service.room.initListRoom();
         service.pictureRoomCategory.getList();
-        Core.service.festiveRoom.get();
+
 
     };
 

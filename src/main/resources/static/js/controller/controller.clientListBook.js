@@ -129,29 +129,7 @@
                 Core.service.book.restaurant.cancel(e.target.refID);
             });
         }
-
-        /*
-
-         for (var j = 0; j < arrayBook.length; j++) {
-         utils.addListener(arrayBook[j], "mouseenter", function (e) {
-         var span = document.createElement("span");
-         span.className = "glyphicon glyphicon-remove";
-         span.refID = e.target.id.split("_")[1];
-         span.id = "btn_remove_restaurantBook";
-
-         e.target.appendChild(span);
-
-         utils.addListener(span, "click", function (e) {
-         Core.service.book.restaurant.cancel(e.target.refID);
-         });
-         }, false);
-
-         utils.addListener(arrayBook[j], "mouseleave", function () {
-         var btn = document.getElementById("btn_remove_restaurantBook");
-         btn.parentElement.removeChild(btn);
-         }, false);
-         }
-         */
+        
     };
 
     Core.controller.clientListBook.initListFestiveRoom = function (listFestiveRoom) {
