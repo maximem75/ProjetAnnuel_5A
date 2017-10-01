@@ -51,6 +51,23 @@ public class MailManager {
         }
     }
 
+
+    public void sendEmailToClient(String mailSubject ,String clientEmail, String mailContent){
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("alvin.ondzounga@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(clientEmail));
+            message.setSubject(mailSubject);
+            System.out.println(mailContent);
+            String email = mailContent;
+            message.setContent(email,"text/html");
+            Transport.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void sendCodeConfirmation(Client client, String code){
         try {
             Message message = new MimeMessage(session);
