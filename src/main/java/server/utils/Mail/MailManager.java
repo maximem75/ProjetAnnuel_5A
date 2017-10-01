@@ -86,7 +86,7 @@ public class MailManager {
     public void sendNewPassword(Client client, String password){
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("alvin.ondzounga@gmail.com"));
+            message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(client.getEmail()));
             message.setSubject("Récupération de mot de passe");
@@ -101,7 +101,7 @@ public class MailManager {
     public void sendNewsLetter(Client client, NewsLetter newsLetter, String subject){
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("alvin.ondzounga@gmail.com"));
+            message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(client.getEmail()));
             message.setSubject(subject);
