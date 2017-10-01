@@ -22,6 +22,7 @@
             url    : "/client/login",
             func : function (client) {
                 Core.controller.clientSignInAndUp.loginSuccess(client);
+                Core.service.festiveRoom.get();
             },
             error : function(statusCode){
                 Core.controller.clientSignInAndUp.loginFailed(statusCode);
