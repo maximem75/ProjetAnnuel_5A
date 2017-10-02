@@ -38,6 +38,7 @@
             method: "GET",
             url: "/roomBooking/getListActivated",
             func: function (list) {
+                data.adminPanel.listRoomBook = list;
                 Core.controller.admin.displayListBookRoom(list);
             },
             error: function (statusCode) {
@@ -74,6 +75,7 @@
             method: "GET",
             url: "/festiveRoomBooking/getListValidated",
             func: function (list) {
+                data.adminPanel.listFestiveRoomBook = list;
                 Core.controller.admin.displayListBookFestiveRoom(list);
             },
             error: function (statusCode) {
@@ -91,6 +93,7 @@
             method: "GET",
             url: "/room",
             func: function (list) {
+                data.adminPanel.listRoom = list;
                 Core.controller.admin.displayListRoom(list);
             },
             error: function (statusCode) {
@@ -108,6 +111,7 @@
             method: "GET",
             url: "/restaurantTable",
             func: function (list) {
+                data.adminPanel.listRestaurant = list;
                 Core.controller.admin.displayListRestaurantTable(list);
             },
             error: function (statusCode) {
@@ -125,6 +129,7 @@
             method: "GET",
             url: "/festiveRoom",
             func: function (list) {
+                data.adminPanel.listFestiveRoom = list;
                 Core.controller.admin.displayListFestiveRoom(list);
             },
             error: function (statusCode) {
@@ -142,6 +147,7 @@
             method: "GET",
             url: "/building",
             func: function (list) {
+                data.adminPanel.listBuilding = list;
                 Core.controller.admin.displayListBuildings(list);
             },
             error: function (statusCode) {
@@ -159,6 +165,7 @@
             method: "GET",
             url: "/article/all",
             func: function (list) {
+                data.adminPanel.listArticle = list;
                 Core.controller.admin.displayListArticles(list);
             },
             error: function (statusCode) {
@@ -176,6 +183,7 @@
             method: "GET",
             url: "/pictureGalery",
             func: function (list) {
+                data.adminPanel.listGalery = list;
                 Core.controller.admin.displayListGalery(list);
             },
             error: function (statusCode) {

@@ -19,15 +19,17 @@
         service.admin.getListRoomBook();
         service.admin.getListRestaurantBook();
         service.admin.getListFestiveRoomBook();
-        /*service.admin.getListRoom();
-         service.admin.getListRestaurantTable();
-         service.admin.getListFestiveRoom();
-         service.admin.getListBuildings();
-         service.admin.getListArticles();
-         service.admin.getListGalery();*/
+        service.admin.getListRoom();
+        service.admin.getListRestaurantTable();
+        service.admin.getListFestiveRoom();
+        service.admin.getListBuildings();
+        service.admin.getListArticles();
+        service.admin.getListGalery();
 
         Core.controller.admin.displayBookManager();
-        
+        Core.controller.admin.displayStructureManager();
+        Core.controller.admin.displayContentManager();
+
     };
 
     /***********************************************************
@@ -50,7 +52,7 @@
         Core.utils.admin.createHeadTemplate(headers, header_container);
 
         var body = [];
-        if(jsonClientSorted.length > 0){
+        if (jsonClientSorted.length > 0) {
             for (var i = 0; i < jsonClientSorted.length; i++) {
                 var client = list[i];
                 var id = "";
@@ -81,16 +83,20 @@
      **********************************************************/
     Core.controller.admin.displayListBookRoom = function (list) {
         //console.log(list);
-
         var container = document.getElementById("book_room_container");
         var classObject = "";
+        var header_container = document.getElementById("header_list_room_book");
+        var body_container = document.getElementById("body_list_room_book");
+
+        header_container.innerHTML = "";
+        body_container.innerHTML = "";
 
         var headers = [
             "Ref", ""
         ];
 
 
-        Core.utils.admin.createHeadTemplate(headers, container);
+        Core.utils.admin.createHeadTemplate(headers, header_container);
 
         var body = [];
 
@@ -98,7 +104,7 @@
             var id = "";
             body[i] = [];
 
-            Core.utils.admin.createBodyTemplate(body[i], container, classObject, id);
+            Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
     };
 
@@ -107,7 +113,6 @@
      **********************************************************/
 
     Core.controller.admin.displayListBookRestaurant = function (list) {
-       // console.log(list);
         Core.utils.sortByDate(list, "date");
         var container = document.getElementById("book_restaurant_container");
         var header_container = document.getElementById("header_list_restaurant_book");
@@ -132,9 +137,9 @@
             var fullName = client.lastName.charAt(0).toUpperCase() + client.lastName.slice(1) + " " + client.firstName.charAt(0).toUpperCase() + client.lastName.slice(1);
             var date = utils.formatDateTime(b.date);
 
-            body[i] = [fullName , date, b.number];
+            body[i] = [fullName, date, b.number];
 
-             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
+            Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
     };
 
@@ -160,12 +165,17 @@
         //console.log(list);
         var container = document.getElementById("book_festiveRoom_container");
         var classObject = "";
+        var header_container = document.getElementById("header_list_festiveRoom_book");
+        var body_container = document.getElementById("body_list_festiveRoom_book");
+
+        header_container.innerHTML = "";
+        body_container.innerHTML = "";
 
         var headers = [
             ""
         ];
 
-        Core.utils.admin.createHeadTemplate(headers, container);
+        Core.utils.admin.createHeadTemplate(headers, header_container);
 
         var body = [];
 
@@ -173,7 +183,7 @@
             var id = "";
             body[i] = [];
 
-            Core.utils.admin.createBodyTemplate(body[i], container, classObject, id);
+            Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
     };
 
@@ -184,12 +194,18 @@
         //console.log(list);
         var container = document.getElementById("room_container");
         var classObject = "";
+        var header_container = document.getElementById("header_list_room");
+        var body_container = document.getElementById("body_list_room");
+
+        header_container.innerHTML = "";
+        body_container.innerHTML = "";
+
 
         var headers = [
             ""
         ];
 
-        Core.utils.admin.createHeadTemplate(headers, container);
+        Core.utils.admin.createHeadTemplate(headers, header_container);
 
         var body = [];
 
@@ -197,7 +213,7 @@
             var id = "";
             body[i] = [];
 
-            Core.utils.admin.createBodyTemplate(body[i], container, classObject, id);
+            Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
     };
 
@@ -208,12 +224,17 @@
         console.log(list);
         var container = document.getElementById("restaurant_container");
         var classObject = "";
+        var header_container = document.getElementById("header_list_restaurant");
+        var body_container = document.getElementById("body_list_restaurant");
+
+        header_container.innerHTML = "";
+        body_container.innerHTML = "";
 
         var headers = [
             ""
         ];
 
-        Core.utils.admin.createHeadTemplate(headers, container);
+        Core.utils.admin.createHeadTemplate(headers, header_container);
 
         var body = [];
 
@@ -221,7 +242,7 @@
             var id = "";
             body[i] = [];
 
-            Core.utils.admin.createBodyTemplate(body[i], container, classObject, id);
+            Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
     };
 
@@ -232,12 +253,17 @@
         //console.log(list);
         var container = document.getElementById("festiveRoom_container");
         var classObject = "";
+        var header_container = document.getElementById("header_list_festiveRoom");
+        var body_container = document.getElementById("body_list_festiveRoom");
+
+        header_container.innerHTML = "";
+        body_container.innerHTML = "";
 
         var headers = [
             ""
         ];
 
-        Core.utils.admin.createHeadTemplate(header, container);
+        Core.utils.admin.createHeadTemplate(headers, header_container);
 
         var body = [];
 
@@ -245,7 +271,7 @@
             var id = "";
             body[i] = [];
 
-            Core.utils.admin.createBodyTemplate(body[i], container, classObject, id);
+            Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
     };
 
@@ -257,12 +283,17 @@
         //console.log(list);
         var container = document.getElementById("building_container");
         var classObject = "";
+        var header_container = document.getElementById("header_list_building");
+        var body_container = document.getElementById("body_list_building");
+
+        header_container.innerHTML = "";
+        body_container.innerHTML = "";
 
         var headers = [
             ""
         ];
 
-        Core.utils.admin.createHeadTemplate(header, container);
+        Core.utils.admin.createHeadTemplate(headers, header_container);
 
         var body = [];
 
@@ -270,7 +301,7 @@
             var id = "";
             body[i] = [];
 
-            Core.utils.admin.createBodyTemplate(body[i], container, classObject, id);
+            Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
     };
 
@@ -282,12 +313,17 @@
         //console.log(list);
         var container = document.getElementById("article_container");
         var classObject = "";
+        var header_container = document.getElementById("header_list_article");
+        var body_container = document.getElementById("body_list_article");
+
+        header_container.innerHTML = "";
+        body_container.innerHTML = "";
 
         var headers = [
             ""
         ];
 
-        Core.utils.admin.createHeadTemplate(header, container);
+        Core.utils.admin.createHeadTemplate(headers, container);
 
         var body = [];
 
@@ -306,12 +342,17 @@
         //console.log(list);
         var container = document.getElementById("galery_container");
         var classObject = "";
+        var header_container = document.getElementById("header_list_galery");
+        var body_container = document.getElementById("body_list_galery");
+
+        header_container.innerHTML = "";
+        body_container.innerHTML = "";
 
         var headers = [
             ""
         ];
 
-        Core.utils.admin.createHeadTemplate(header, container);
+        Core.utils.admin.createHeadTemplate(headers, container);
 
         var body = [];
 
@@ -323,14 +364,42 @@
         }
     };
 
+    /***********************************************************
+     *                      NewsLetter                         *
+     **********************************************************/
+    Core.controller.admin.displaySendNewsLetter = function (list) {
+        //console.log(list);
+        var container = document.getElementById("newsLetter_container");
+        var classObject = "";
+        var header_container = document.getElementById("header_list_newsLetter");
+        var body_container = document.getElementById("body_list_newsLetter");
+
+        header_container.innerHTML = "";
+        body_container.innerHTML = "";
+
+        var headers = [
+            ""
+        ];
+
+        Core.utils.admin.createHeadTemplate(headers, container);
+
+        var body = [];
+
+        for (var i = 0; i < list.length; i++) {
+            var id = "";
+            body[i] = [];
+
+            Core.utils.admin.createBodyTemplate(body[i], container, classObject, id);
+        }
+
+        //Core.service.admin.sendNewsLetter(newsLetter, subject);
+    };
+
+
 
     /***********************************************************
      *                      CONTAINERS                         *
      **********************************************************/
-
-    Core.controller.admin.displaySendNewsLetter = function () {
-        //Core.service.admin.sendNewsLetter(newsLetter, subject);
-    };
 
     Core.controller.admin.displayBookManager = function (id) {
         var client_btn = document.getElementById("btn_client");
@@ -368,12 +437,72 @@
 
     };
 
-    Core.controller.admin.displayStructureManager = function () {
+    Core.controller.admin.displayStructureManager = function () {var client_btn = document.getElementById("btn_client");
+        var building_btn = document.getElementById("btn_building_menu");
+        var room_btn = document.getElementById("btn_room_menu");
+        var restaurant_btn = document.getElementById("btn_restaurant_menu");
+        var festiveRoom_btn = document.getElementById("btn_festiveRoom_menu");
+
+        var building_container = document.getElementById("building_container");
+        var room_container = document.getElementById("room_container");
+        var restaurant_container = document.getElementById("restaurant_container");
+        var festiveRoom_container = document.getElementById("festiveRoom_container");
+
+
+        controller.admin.unDisplayStructureManager();
+
+        building_container.style.display = "block";
+
+        utils.addListener(building_btn, "click", function () {
+            controller.admin.unDisplayStructureManager();
+            building_container.style.display = "block";
+        }, false);
+
+        utils.addListener(room_btn, "click", function () {
+            controller.admin.unDisplayStructureManager();
+            room_container.style.display = "block";
+        }, false);
+
+        utils.addListener(restaurant_btn, "click", function () {
+            controller.admin.unDisplayStructureManager();
+            restaurant_container.style.display = "block";
+        }, false);
+
+        utils.addListener(festiveRoom_btn, "click", function () {
+            controller.admin.unDisplayStructureManager();
+            festiveRoom_container.style.display = "block";
+        }, false);
 
     };
 
     Core.controller.admin.displayContentManager = function () {
+        var article_btn = document.getElementById("btn_article_menu");
+        var galery_btn = document.getElementById("btn_galery_menu");
+        var newsLetter_btn = document.getElementById("btn_newsLetter_menu");
 
+        var article_container = document.getElementById("article_container");
+        var galery_container = document.getElementById("galery_container");
+        var newsLetter_container = document.getElementById("newsLetter_container");
+
+
+        controller.admin.unDisplayContentManager();
+
+        article_container.style.display = "block";
+
+        utils.addListener(article_btn, "click", function () {
+            controller.admin.unDisplayContentManager();
+            article_container.style.display = "block";
+        }, false);
+
+        utils.addListener(galery_btn, "click", function () {
+            controller.admin.unDisplayContentManager();
+            galery_container.style.display = "block";
+        }, false);
+
+        utils.addListener(newsLetter_btn, "click", function () {
+            controller.admin.unDisplayContentManager();
+            newsLetter_container.style.display = "block";
+        }, false);
     };
 
     Core.controller.admin.unDisplayBookManager = function () {
@@ -390,10 +519,25 @@
     };
 
     Core.controller.admin.unDisplayStructureManager = function () {
+        var building_container = document.getElementById("building_container");
+        var room_container = document.getElementById("room_container");
+        var restaurant_container = document.getElementById("restaurant_container");
+        var festiveRoom_container = document.getElementById("festiveRoom_container");
+
+        building_container.style.display = "none";
+        room_container.style.display = "none";
+        restaurant_container.style.display = "none";
+        festiveRoom_container.style.display = "none";
 
     };
 
     Core.controller.admin.unDisplayContentManager = function () {
+        var article_container = document.getElementById("article_container");
+        var galery_container = document.getElementById("galery_container");
+        var newsLetter_container = document.getElementById("newsLetter_container");
 
+        article_container.style.display = "none";
+        galery_container.style.display = "none";
+        newsLetter_container.style.display = "none";
     };
 })();
