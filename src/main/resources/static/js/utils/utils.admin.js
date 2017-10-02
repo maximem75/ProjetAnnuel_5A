@@ -40,6 +40,20 @@
         }
     };
 
+    Core.utils.admin.getCategoryById = function (id) {
+        for (var i = 0; i < data.listRoomCategories.length; i++) {
+            if (data.listRoomCategories[i].id == id)
+                return data.listRoomCategories[i];
+        }
+    };
+
+    Core.utils.admin.getBuildingById = function (id) {
+        for (var i = 0; i < data.adminPanel.listBuilding.length; i++) {
+            if (data.adminPanel.listBuilding[i].id == id)
+                return data.adminPanel.listBuilding[i];
+        }
+    };
+
     Core.utils.admin.search = function (search, keys, currentList) {
         var srch = search.toLowerCase();
         var list = [];

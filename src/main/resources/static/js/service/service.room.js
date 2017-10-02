@@ -48,13 +48,13 @@
             method : "POST",
             url    : "/room",
             func : function () {
-
+                Core.service.admin.getListRoom();
             },
             error : function(statusCode){
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, room);
+        utils.ajaxRequest(object, paramRequest, room, false, true);
     };
 
     /**
@@ -69,20 +69,20 @@
             method : "PUT",
             url    : "/room",
             func : function () {
-
+                Core.service.admin.getListRoom();
             },
             error : function(statusCode){
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, room);
+        utils.ajaxRequest(object, paramRequest, room, false, true);
     };
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.room.delete = function () {
+    Core.service.room.delete = function (id) {
         var paramRequest = "id=" + id + "&token=" + client.token;
 
         var object = {
@@ -90,13 +90,13 @@
             method : "DELETE",
             url    : "/room",
             func : function () {
-
+                Core.service.admin.getListRoom();
             },
             error : function(statusCode){
             }
         };
 
-        utils.ajaxRequest(object, paramRequest);
+        utils.ajaxRequest(object, paramRequest, null, false, true);
     };
 
     Core.service.room.initListRoom = function () {

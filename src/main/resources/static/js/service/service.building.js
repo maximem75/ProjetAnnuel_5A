@@ -83,7 +83,6 @@
             method : "GET",
             url    : "/building",
             func : function (list) {
-
             },
             error : function(){
 

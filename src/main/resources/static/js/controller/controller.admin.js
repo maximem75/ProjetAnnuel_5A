@@ -19,10 +19,10 @@
         service.admin.getListRoomBook();
         service.admin.getListRestaurantBook();
         service.admin.getListFestiveRoomBook();
+        service.admin.getListBuildings();
         service.admin.getListRoom();
         service.admin.getListRestaurantTable();
         service.admin.getListFestiveRoom();
-        service.admin.getListBuildings();
         service.admin.getListArticles();
         service.admin.getListGalery();
 
@@ -191,8 +191,8 @@
      *                           Room                          *
      **********************************************************/
     Core.controller.admin.displayListRoom = function (list) {
-        //console.log(list);
-        var container = document.getElementById("room_container");
+        Core.controller.admin.manageRoomEvents();
+        var container = document.getElementById("building_container");
         var classObject = "";
         var header_container = document.getElementById("header_list_room");
         var body_container = document.getElementById("body_list_room");
@@ -200,9 +200,8 @@
         header_container.innerHTML = "";
         body_container.innerHTML = "";
 
-
         var headers = [
-            ""
+           "ID", "Numéro", "Catégorie", "Batiment"
         ];
 
         Core.utils.admin.createHeadTemplate(headers, header_container);
@@ -211,10 +210,116 @@
 
         for (var i = 0; i < list.length; i++) {
             var id = "";
-            body[i] = [];
+            var room = list[i];
 
+            body[i] = [room.id, room.number, room.roomCategory.name, room.building.name];
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
+    };
+
+    Core.controller.admin.manageRoomEvents = function () {
+        data.adminPanel.listRoom = utils.numberSort(data.adminPanel.listRoom, "number");
+        var btn_add = document.getElementById("btn_addRoom");
+        var btn_update = document.getElementById("btn_updateRoom");
+        var btn_remove = document.getElementById("btn_removeRoom");
+
+        var inpt_addNumber = document.getElementById("inpt_addNumberRoom");
+        var slct_addCategory = document.getElementById("slct_addCategoryRoom");
+        var slct_addBuilding = document.getElementById("slct_addBuildingRoom");
+
+        var slct_updtRoomId = document.getElementById("slct_updtRoomId");
+        var slct_updtCategory = document.getElementById("slct_updtRoomCategory");
+        var slct_updtBuilding = document.getElementById("slct_updtRoomBuilding");
+        var inpt_updtRoomNumber = document.getElementById("inpt_updtNumberRoom");
+
+        var slct_rmvRoom = document.getElementById("slct_removeRoom");
+
+        var initSelect = function () {
+            slct_addCategory.innerHTML = "<option disabled selected>Catégorie</option>";
+            slct_addBuilding.innerHTML = "<option disabled selected>Batiment</option>";
+
+            slct_updtRoomId.innerHTML = "<option disabled selected>ID</option>";
+            slct_updtCategory.innerHTML = "<option disabled selected>Catégorie</option>";
+            slct_updtBuilding.innerHTML = "<option disabled selected>Batiment</option>";
+
+            slct_rmvRoom.innerHTML = "<option disabled selected>ID</option>";
+
+            inpt_addNumber.value = "";
+            inpt_updtRoomNumber.value = "";
+
+            for (var i = 0; i < data.adminPanel.listRoom.length; i++) {
+                var room = data.adminPanel.listRoom[i];
+                slct_updtRoomId.innerHTML += "<option name='" + room.id + "'>" + room.id + "</option>";
+                slct_rmvRoom.innerHTML += "<option name='" + room.id + "'>" + room.id + "</option>";
+            }
+
+            for (var i = 0; i < data.listRoomCategories.length; i++) {
+                var category = data.listRoomCategories[i];
+
+                slct_addCategory.innerHTML += "<option name='" + category.id + "'>" + category.name + "</option>";
+                slct_updtCategory.innerHTML += "<option name='" + category.id + "'>" + category.name + "</option>";
+
+            }
+
+            for (var i = 0; i < data.adminPanel.listBuilding.length; i++) {
+                var building = data.adminPanel.listBuilding[i];
+                slct_addBuilding.innerHTML += "<option name='" + building.id + "'>" + building.name + "</option>";
+                slct_updtBuilding.innerHTML += "<option name='" + building.id + "'>" + building.name + "</option>";
+            }
+        }();
+
+        utils.removeListener(btn_add, "click");
+        utils.addListener(btn_add, "click", function () {
+            if (inpt_addNumber.value != "") {
+                var selectedCategorie = slct_addCategory.options[slct_addCategory.selectedIndex];
+                var selectedBuilding = slct_addBuilding.options[slct_addBuilding.selectedIndex];
+
+                var json = {
+                    number: inpt_addNumber.value,
+                    roomCategory: {
+                        id: selectedCategorie.getAttribute("name")
+                    },
+                    building: {
+                        id: selectedBuilding.getAttribute("name")
+                    }
+                };
+                console.log(json);
+                Core.service.room.create(JSON.stringify(json));
+            }
+        }, false);
+
+        utils.removeListener(btn_update, "click");
+        utils.addListener(btn_update, "click", function () {
+            var selectedCategorie = slct_updtCategory.options[slct_updtCategory.selectedIndex];
+            var selectedBuilding = slct_updtBuilding.options[slct_updtBuilding.selectedIndex];
+            var selectedRoomId = slct_updtRoomId.options[slct_updtRoomId.selectedIndex];
+            var id = selectedRoomId.getAttribute("name");
+
+            if (id != null && id != undefined) {
+                var json = {
+                    id: id,
+                    number: inpt_updtRoomNumber.value,
+                    roomCategory: {
+                        id: selectedCategorie.getAttribute("name")
+                    },
+                    building: {
+                        id: selectedBuilding.getAttribute("name")
+                    }
+                };
+
+                Core.service.room.update(JSON.stringify(json));
+            }
+        }, false);
+
+        utils.removeListener(btn_remove, "click");
+        utils.addListener(btn_remove, "click", function () {
+            var selectedRoomId = slct_rmvRoom.options[slct_rmvRoom.selectedIndex];
+            var id = selectedRoomId.getAttribute("name");
+
+            if (id != null && id != undefined) {
+                Core.service.room.delete(id);
+            }
+        }, false);
     };
 
     /***********************************************************
@@ -271,8 +376,8 @@
             for (var i = 0; i < data.adminPanel.listRestaurant.length; i++) {
                 var restaurant = data.adminPanel.listRestaurant[i];
 
-                slct_updt.innerHTML += "<option chairs='"+ restaurant.numberChairs +"' name='" + restaurant.id + "'>" + restaurant.number + "</option>";
-                slct_rmv.innerHTML += "<option chairs='"+ restaurant.numberChairs +"' name='" + restaurant.id + "'>" + restaurant.number + "</option>";
+                slct_updt.innerHTML += "<option chairs='" + restaurant.numberChairs + "' name='" + restaurant.id + "'>" + restaurant.number + "</option>";
+                slct_rmv.innerHTML += "<option chairs='" + restaurant.numberChairs + "' name='" + restaurant.id + "'>" + restaurant.number + "</option>";
             }
         }();
 
