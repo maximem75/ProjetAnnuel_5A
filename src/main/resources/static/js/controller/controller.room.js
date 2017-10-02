@@ -457,8 +457,6 @@
             ];
             var listCateg = getCategoryQuantity(listRoomBooking);
             var keys = Object.keys(listCateg);
-            console.log(listRoomBooking);
-
             var dateStart = new Date(listRoomBooking[0].dateStart);
             var dateEnd = new Date(listRoomBooking[0].dateEnd);
 

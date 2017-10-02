@@ -13,7 +13,8 @@
                 <li class="li_menu_admin" id="btn_book_room_menu"><span class="span_menu_admin">Chambre</span></li>
                 <li class="li_menu_admin" id="btn_book_restaurant_menu"><span class="span_menu_admin">Restaurant</span>
                 </li>
-                <li class="li_menu_admin" id="btn_book_festiveRoom_menu"><span class="span_menu_admin">Salle des fêtes</span></li>
+                <li class="li_menu_admin" id="btn_book_festiveRoom_menu"><span
+                        class="span_menu_admin">Salle des fêtes</span></li>
             </ul>
             <div id="list_book_container" class="list_container_class">
                 <div id="client_container" class="panel_admin_container">
@@ -27,7 +28,8 @@
                         <div class="btn_book_admin">
                             <a id="btn_list_client_search" class="span_book">TRIER</a>
                         </div>
-                        <input id="inpt_list_client_search" type="text" class="beauty_input input_admin long_input_admin">
+                        <input id="inpt_list_client_search" type="text"
+                               class="beauty_input input_admin long_input_admin">
                     </div>
 
                 </div>
@@ -48,7 +50,8 @@
                         <div class="btn_book_admin">
                             <a id="btn_list_restaurant_book_search" class="span_book">TRIER</a>
                         </div>
-                        <input id="inpt_list_restaurant_book_search" type="text" class="beauty_input input_admin long_input_admin">
+                        <input id="inpt_list_restaurant_book_search" type="text"
+                               class="beauty_input input_admin long_input_admin">
                     </div>
                 </div>
                 <div id="book_festiveRoom_container" class="panel_admin_container">
@@ -75,11 +78,54 @@
 
             <div id="list_structure_container" class="list_container_class">
                 <div id="building_container" class="panel_admin_container">
-                    <div id="header_list_building" class="admin_rows">
-                    </div>
-                    <div id="body_list_building" class="admin_rows body_admin">
+                    <div class="medium_container">
+                        <div class="medium_content" style="height: 350px;">
+                            <div class="tools_admin">
+                                <input id="inpt_addBuilding" type="text" placeholder="Nom du Batiment"
+                                       class="beauty_input input_admin medium_content">
+                            </div>
 
+                            <div class="tools_admin">
+                                <div id="btn_addBuilding" class="btn_book_admin medium_content">
+                                    <a class="span_book no-select">AJOUTER</a>
+                                </div>
+                            </div>
+
+                            <div class="tools_admin" style="margin-top: 20px">
+
+                                <select id="slct_UudateBuilding" type="text" class="beauty_input input_admin medium_content">
+                                    <option></option>
+                                </select>
+                                <input id="inpt_updateBuilding" type="text" placeholder="Nouveau nom"
+                                       class="beauty_input input_admin medium_content">
+                            </div>
+                            <div class="tools_admin">
+                                <div id="btn_updateBuilding" class="btn_update_admin" style="flex: 1;">
+                                    <a class="span_book no-select">MODIFIER</a>
+                                </div>
+                            </div>
+
+                            <div class="tools_admin" style="margin-top: 20px">
+                                <select id="slct_removeBuilding" class="beauty_input input_admin medium_content">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="tools_admin">
+                                <div id="btn_removeBuilding" class="btn_delete_admin medium_content">
+                                    <a  class="span_book no-select">SUPPRIMER</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="medium_content">
+                            <div id="header_list_building" class="admin_rows">
+                            </div>
+                            <div id="body_list_building" class="admin_rows body_admin">
+
+                            </div>
+                        </div>
                     </div>
+
                 </div>
                 <div id="room_container" class="panel_admin_container">
                     <div id="header_list_room" class="admin_rows">

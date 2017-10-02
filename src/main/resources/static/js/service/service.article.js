@@ -23,14 +23,14 @@
             method: "POST",
             url: "/article",
             func: function () {
-
+               
             },
             error: function () {
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, json);
+        utils.ajaxRequest(object, paramRequest, json , null, true);
     };
 
     /**

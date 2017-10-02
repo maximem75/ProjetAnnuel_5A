@@ -354,6 +354,10 @@ ul {
 	flex: 1;
 }
 
+.medium_input_admin{
+	width: 200px;
+}
+
 .input_admin:focus{
 	border: 1px solid #9c9c9c!important;
 	height: 36px;
@@ -691,6 +695,14 @@ ul {
 	width: 100%;
 }
 
+.medium_container{
+	display: flex;
+}
+
+.medium_content{
+	flex:1;
+}
+
 .book_row{
 	display: flex;
 	width: 100%;
@@ -857,6 +869,38 @@ span#btn_remove_restaurantBook {
 
 .btn_book_admin:hover{
 	background-color: #01923f;
+	transition: 0.2s;
+	opacity: 0.9;
+}
+
+.btn_delete_admin{
+	padding: 10px 15px;
+	background-color: #d11000;
+	margin-bottom: 2px;
+	margin-top: 2px;
+	color: white;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.btn_delete_admin:hover{
+	background-color: #d16158;
+	transition: 0.2s;
+	opacity: 0.9;
+}
+
+.btn_update_admin{
+	padding: 10px 15px;
+	background-color: #ffaf3a;
+	margin-bottom: 2px;
+	margin-top: 2px;
+	color: white;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.btn_update_admin:hover{
+	background-color: #ffc183;
 	transition: 0.2s;
 	opacity: 0.9;
 }

@@ -13,7 +13,7 @@
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.building.create = function () {
+    Core.service.building.create = function (building) {
         var paramRequest = "token=" + client.token;
 
         var object = {
@@ -21,21 +21,21 @@
             method : "POST",
             url    : "/building",
             func : function () {
-
+                service.admin.getListBuildings();
             },
             error : function(){
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest);
+        utils.ajaxRequest(object, paramRequest, building, false , true);
     };
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.building.update = function () {
+    Core.service.building.update = function (building) {
         var paramRequest = "token=" + client.token;
 
         var object = {
@@ -43,36 +43,36 @@
             method : "PUT",
             url    : "/building",
             func : function () {
-
+                service.admin.getListBuildings();
             },
             error : function(){
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest);
+        utils.ajaxRequest(object, paramRequest, building, false, true);
     };
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.building.delete = function () {
-        var paramRequest = "token=" + client.token;
+    Core.service.building.delete = function (id) {
+        var paramRequest = "id=" + id + "&token=" + client.token;
 
         var object = {
             name   : "delete",
             method : "DELETE",
             url    : "/building",
             func : function () {
-
+                service.admin.getListBuildings();
             },
             error : function(){
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest);
+        utils.ajaxRequest(object, paramRequest, null, false, true);
     };
 
     Core.service.building.get = function () {

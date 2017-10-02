@@ -221,7 +221,7 @@
      *                         Restaurant                      *
      **********************************************************/
     Core.controller.admin.displayListRestaurantTable = function (list) {
-        console.log(list);
+        //console.log(list);
         var container = document.getElementById("restaurant_container");
         var classObject = "";
         var header_container = document.getElementById("header_list_restaurant");
@@ -280,7 +280,8 @@
      *                       Buildings                         *
      **********************************************************/
     Core.controller.admin.displayListBuildings = function (list) {
-        //console.log(list);
+        console.log(list);
+        Core.controller.admin.manageBuildingEvents();
         var container = document.getElementById("building_container");
         var classObject = "";
         var header_container = document.getElementById("header_list_building");
@@ -290,7 +291,7 @@
         body_container.innerHTML = "";
 
         var headers = [
-            ""
+            "Nom", "ID"
         ];
 
         Core.utils.admin.createHeadTemplate(headers, header_container);
@@ -299,10 +300,72 @@
 
         for (var i = 0; i < list.length; i++) {
             var id = "";
-            body[i] = [];
+            body[i] = [list[i].name, list[i].id];
 
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
+    };
+
+    Core.controller.admin.manageBuildingEvents = function () {
+        var btn_add = document.getElementById("btn_addBuilding");
+        var btn_update = document.getElementById("btn_updateBuilding");
+        var btn_remove = document.getElementById("btn_removeBuilding");
+
+        var inpt_add = document.getElementById("inpt_addBuilding");
+
+        var slct_updt = document.getElementById("slct_UudateBuilding");
+        var inpt_updt = document.getElementById("inpt_updateBuilding");
+
+        var slct_rmv = document.getElementById("slct_removeBuilding");
+
+        var initSelect = function () {
+            slct_updt.innerHTML = "<option></option>";
+            slct_rmv.innerHTML = "<option></option>";
+
+            inpt_add.value = "";
+            inpt_updt.value = "";
+
+            for(var i = 0 ; i < data.adminPanel.listBuilding.length ; i++){
+                var building = data.adminPanel.listBuilding[i];
+
+                slct_updt.innerHTML += "<option name='"+ building.id +"'>"+ building.name +"</option>";
+                slct_rmv.innerHTML += "<option name='"+ building.id +"'>"+ building.name +"</option>";
+            }
+        }();
+
+        utils.removeListener(btn_add, "click");
+        utils.addListener(btn_add, "click", function () {
+            if(inpt_add.value != ""){
+                var json = {
+                    name: inpt_add.value
+                };
+
+                Core.service.building.create(JSON.stringify(json));
+            }
+        }, false);
+
+        utils.removeListener(btn_update, "click");
+        utils.addListener(btn_update, "click", function () {
+            var selected = slct_updt.options[slct_updt.selectedIndex];
+            var id = selected.getAttribute("name");
+            if(id != null && id != undefined){
+                var json = {
+                    id: id,
+                    name: inpt_updt.value
+                };
+                console.log(json);
+                Core.service.building.update(JSON.stringify(json));
+            }
+        }, false);
+
+        utils.removeListener(btn_remove, "click");
+        utils.addListener(btn_remove, "click", function () {
+            var selected = slct_rmv.options[slct_rmv.selectedIndex];
+            var id = selected.getAttribute("name");
+            if(id != null && id != undefined){
+                Core.service.building.delete(id);
+            }
+        }, false);
     };
 
 
