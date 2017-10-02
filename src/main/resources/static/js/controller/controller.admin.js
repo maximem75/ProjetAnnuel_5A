@@ -196,26 +196,35 @@
         var classObject = "";
         var header_container = document.getElementById("header_list_room");
         var header_category_container = document.getElementById("header_list_category");
+        var header_invalidRoom_container = document.getElementById("header_list_invalid");
 
         var body_container = document.getElementById("body_list_room");
         var body_category_container = document.getElementById("body_list_category");
+        var body_invalidRoom_container = document.getElementById("body_list_invalid");
 
         header_container.innerHTML = "";
         body_container.innerHTML = "";
+        header_invalidRoom_container.innerHTML = "";
 
         header_category_container.innerHTML = "";
         body_category_container.innerHTML = "";
+        body_invalidRoom_container.innerHTML = "";
 
         var headers = [
-           "ID", "Numéro", "Catégorie", "Batiment"
+            "ID", "Numéro", "Catégorie", "Batiment"
         ];
 
         var category_headers = [
             "ID", "Nom", "Prix"
         ];
 
+        var invalidRoom_headers = [
+            "ID", "Debut", "Fin", "Chambre ID"
+        ];
+
         Core.utils.admin.createHeadTemplate(headers, header_container);
         Core.utils.admin.createHeadTemplate(category_headers, header_category_container);
+        Core.utils.admin.createHeadTemplate(invalidRoom_headers, header_invalidRoom_container);
 
         var body = [];
 
@@ -229,19 +238,31 @@
 
         var category_body = [];
 
-        for(var i = 0 ; i < data.listRoomCategories.length ; i++){
+        for (var i = 0; i < data.listRoomCategories.length; i++) {
             var id = "";
             var category = data.listRoomCategories[i];
 
-            body[i] = [category.id, category.name, category.price];
-            Core.utils.admin.createBodyTemplate(body[i], body_category_container, classObject, id);
+            category_body[i] = [category.id, category.name, category.price];
+            Core.utils.admin.createBodyTemplate(category_body[i], body_category_container, classObject, id);
+        }
+
+        var invalid_body = [];
+
+        for (var i = 0; i < data.adminPanel.listDateInvalideRoom.length; i++) {
+            var id = "";
+            var invalid = data.adminPanel.listDateInvalideRoom[i];
+
+            invalid_body[i] = [invalid.id, utils.formatDateAdmin(invalid.dateStart), utils.formatDateAdmin(invalid.dateEnd), invalid.idRoom];
+            Core.utils.admin.createBodyTemplate(invalid_body[i], body_invalidRoom_container, classObject, id);
         }
     };
 
     Core.controller.admin.manageRoomEvents = function () {
         data.adminPanel.listRoom = utils.numberSort(data.adminPanel.listRoom, "number");
+        data.adminPanel.listDateInvalideRoom = utils.numberSort(data.adminPanel.listDateInvalideRoom, "dateStart");
 
         /***************** ROOM ************************/
+
         var btn_add = document.getElementById("btn_addRoom");
         var btn_update = document.getElementById("btn_updateRoom");
         var btn_remove = document.getElementById("btn_removeRoom");
@@ -306,7 +327,6 @@
                         id: selectedBuilding.getAttribute("name")
                     }
                 };
-                console.log(json);
                 Core.service.room.create(JSON.stringify(json));
             }
         }, false);
@@ -356,9 +376,9 @@
         var slct_updtCategoryId = document.getElementById("slct_updtCategoryId");
         var inpt_updtCategoryName = document.getElementById("inpt_updtCategoryName");
         var inpt_updtCategoryPrice = document.getElementById("inpt_updtCategoryPrice");
-        
+
         var slct_removeCategoryById = document.getElementById("slct_removeCategory");
-        
+
         var initCategory = function () {
             slct_updtCategoryId.innerHTML = "<option disabled selected>ID</option>";
             slct_removeCategoryById.innerHTML = "<option disabled selected>Catégorie</option>";
@@ -422,6 +442,84 @@
 
 
         /***************** Invalide Date  ************************/
+
+        var btn_addInvalideRoom = document.getElementById("btn_addInvalideRoom");
+        var btn_removeInvalideRoom = document.getElementById("btn_removeInvalideRoom");
+
+        var slct_addInvalidaRoomID = document.getElementById("slct_addInvalidaRoomID");
+
+        var startDatePicker = document.getElementById("date_invalidStart");
+        var endDatePicker = document.getElementById("date_invalidEnd");
+
+        startDatePicker.value = "";
+        endDatePicker.value = "";
+
+        var startDateID = "#date_invalidStart";
+        var endDateID = "#date_invalidEnd";
+
+        var minStart = new Date();
+        var minEnd = new Date();
+
+        minStart.setDate(minStart.getDate());
+        minEnd.setDate(minEnd.getDate() + 1);
+
+        var slct_removeInvalideRoomID = document.getElementById("slct_removeInvalideRoomID");
+
+        var initInvalideRoom = function () {
+            utils.reservation.datePicker(startDateID, minStart, null);
+            utils.reservation.datePicker(endDateID, minEnd, null);
+
+            $(startDateID).datepicker("option", "onSelect", function () {
+                var minDate = $(startDateID).datepicker("getDate");
+                var minDateEnd = $(startDateID).datepicker("getDate");
+                minDateEnd.setDate(minDateEnd.getDate() + 1);
+
+                $(endDateID).datepicker("option", "minDate", minDateEnd);
+            });
+
+            slct_addInvalidaRoomID.innerHTML = "<option disabled selected>Chambre ID</option>";
+            slct_removeInvalideRoomID.innerHTML = "<option disabled selected>ID</option>";
+
+            for (var i = 0; i < data.adminPanel.listDateInvalideRoom.length; i++) {
+                var invalid = data.adminPanel.listDateInvalideRoom[i];
+                slct_removeInvalideRoomID.innerHTML += "<option name='" + invalid.id + "'>" + invalid.id + "</option>";
+            }
+
+            for (var i = 0; i < data.listRoom.length; i++) {
+                var room = data.listRoom[i];
+                slct_addInvalidaRoomID.innerHTML += "<option name='" + room.id + "'>" + room.id + "</option>";
+            }
+        }();
+        utils.removeListener(btn_addInvalideRoom, "click");
+        utils.addListener(btn_addInvalideRoom, "click", function () {
+            var idRoom = slct_addInvalidaRoomID.options[slct_addInvalidaRoomID.selectedIndex].getAttribute("name");
+
+            if (startDatePicker.value != "" && endDatePicker.value != "" && idRoom != "" && idRoom != "Chambre ID") {
+                var dateStart = $("#date_invalidStart").val().split("/");
+                var dateEnd = $("#date_invalidEnd").val().split("/");
+
+                var formatStart = dateStart[2] + "-" + dateStart[1] + "-" + dateStart[0];
+                var formatEnd = dateEnd[2] + "-" + dateEnd[1] + "-" + dateEnd[0];
+
+                var json = {
+                    dateStart: formatStart,
+                    dateEnd: formatEnd,
+                    idRoom: idRoom
+                };
+                Core.service.invalidDateRoom.create(JSON.stringify(json));
+
+            }
+
+        }, false);
+
+        utils.removeListener(btn_removeInvalideRoom, "click");
+        utils.addListener(btn_removeInvalideRoom, "click", function () {
+            var selectedInvalideId = slct_removeInvalideRoomID.options[slct_removeInvalideRoomID.selectedIndex];
+
+            if(selectedInvalideId.value != "" && selectedInvalideId.value != "ID"){
+                Core.service.invalidDateRoom.delete(selectedInvalideId.value);
+            }
+        }, false);
     };
 
     /***********************************************************

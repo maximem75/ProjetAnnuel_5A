@@ -94,6 +94,7 @@
             url: "/room",
             func: function (list) {
                 data.adminPanel.listRoom = list;
+                Core.service.invalidDateRoom.getListinvalidDateRoom();
                 Core.service.category.getListCategories();
                 Core.controller.admin.displayListRoom(list);
             },

@@ -40,8 +40,10 @@ public class InvalidBookingDateRoomController {
     @ResponseStatus(CREATED)
     public void addInvalidBookingDateFestiveRoom(@RequestBody InvalidBookingDateRoom invalidBookingDateRoom, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
-            invalidBookingDateRoom.setStatus("active");
-            invalidBookingDateRoomRepository.save(invalidBookingDateRoom);
+            if(invalidBookingDateRoomRepository.alreadyInvalidAtSameDate(invalidBookingDateRoom.getIdRoom(), invalidBookingDateRoom.getDateStart(), invalidBookingDateRoom.getDateEnd()).size() == 0){
+                invalidBookingDateRoom.setStatus("active");
+                invalidBookingDateRoomRepository.save(invalidBookingDateRoom);
+            }
         }
     }
 
@@ -55,9 +57,11 @@ public class InvalidBookingDateRoomController {
 
     @RequestMapping(method = DELETE)
     @ResponseStatus(OK)
-    public void deleteInvalidBookingDateFestiveRoom(@RequestBody InvalidBookingDateRoom invalidBookingDateRoom, @RequestParam("token") String token){
+    public void deleteInvalidBookingDateFestiveRoom(@RequestParam("id") Long id, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
-            invalidBookingDateRoomRepository.delete(invalidBookingDateRoom);
+            InvalidBookingDateRoom invalidBookingDateRoom = invalidBookingDateRoomRepository.getOne(id);
+            if(invalidBookingDateRoom != null)
+                invalidBookingDateRoomRepository.delete(invalidBookingDateRoom);
         }
     }
 }

@@ -269,6 +269,28 @@
         return year + "-" + month + "-" + day;
     };
 
+    Core.utils.formatDateAdmin = function (time) {
+        var year, month, day;
+        var dateObject = new Date(time);
+
+        var initVariables = function () {
+            year = dateObject.getFullYear();
+
+            if (dateObject.getMonth() < 9)
+                month = "0" + (parseInt(dateObject.getMonth()) + 1);
+            else
+                month = (parseInt(dateObject.getMonth()) + 1);
+
+            if (dateObject.getDate() < 10)
+                day = "0" + dateObject.getDate();
+            else
+                day = dateObject.getDate();
+
+        }();
+
+        return day + "/" + month + " " + year;
+    };
+
     Core.utils.formatDateTime = function (time) {
         var year, month, day, hour, minute;
         var dateObject = new Date(time);

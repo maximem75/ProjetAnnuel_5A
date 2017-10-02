@@ -195,7 +195,7 @@
                         </div>
                     </div>
 
-                    <div class="medium_container" style="margin-top: 10px">
+                    <div class="medium_container" style="margin-top: 10px; height: 350px;">
                         <div class="medium_content" style="height: 350px;">
                             <div class="sub_menu_tool">Catégories</div>
                             <div class="tools_admin">
@@ -246,6 +246,47 @@
                             <div id="header_list_category" class="admin_rows">
                             </div>
                             <div id="body_list_category" class="admin_rows body_admin">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="medium_container" style="margin-top: 45px;">
+                        <div class="medium_content" style="height: 350px;">
+                            <div class="sub_menu_tool">Chambre indisponible</div>
+                            <div class="tools_admin">
+                                <select id="slct_addInvalidaRoomID" type="text" class="beauty_input input_admin medium_content">
+                                    <option></option>
+                                </select>
+                                <input id="date_invalidStart" type="text" placeholder="Début"
+                                       class="beauty_input input_admin medium_content">
+
+                                <input id="date_invalidEnd" type="text" min="0" placeholder="Fin"
+                                       class="beauty_input input_admin medium_content">
+                            </div>
+
+                            <div class="tools_admin">
+                                <div id="btn_addInvalideRoom" class="btn_book_admin medium_content">
+                                    <a class="span_book no-select">AJOUTER</a>
+                                </div>
+                            </div>
+
+                            <div class="tools_admin" style="margin-top: 10px">
+                                <select id="slct_removeInvalideRoomID" class="beauty_input input_admin medium_content">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="tools_admin">
+                                <div id="btn_removeInvalideRoom" class="btn_delete_admin medium_content">
+                                    <a  class="span_book no-select">SUPPRIMER</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="medium_content">
+                            <div id="header_list_invalid" class="admin_rows">
+                            </div>
+                            <div id="body_list_invalid" class="admin_rows body_admin">
 
                             </div>
                         </div>
