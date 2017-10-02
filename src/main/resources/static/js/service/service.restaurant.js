@@ -23,14 +23,14 @@
             method : "POST",
             url    : "/restaurantTable",
             func : function () {
-
+                service.admin.getListRestaurantTable();
             },
             error : function(){
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, restaurantTable);
+        utils.ajaxRequest(object, paramRequest, restaurantTable, false, true);
     };
 
     /**
@@ -45,14 +45,14 @@
             method : "PUT",
             url    : "/restaurantTable",
             func : function () {
-
+                service.admin.getListRestaurantTable();
             },
             error : function(){
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, restaurantTable);
+        utils.ajaxRequest(object, paramRequest, restaurantTable, false, true);
     };
 
     /**
@@ -67,14 +67,14 @@
             method : "DELETE",
             url    : "/restaurantTable",
             func : function () {
-
+                service.admin.getListRestaurantTable();
             },
             error : function(){
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest);
+        utils.ajaxRequest(object, paramRequest, null, false, true);
     };
 
     /**

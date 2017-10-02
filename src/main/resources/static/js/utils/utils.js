@@ -451,6 +451,17 @@
         }();
     };
 
+    Core.utils.numberSort = function (array, key) {
+        if(array.length > 0){
+            return array.sort(function(a, b) {
+                var x = a[key]; var y = b[key];
+                return x - y;
+            });
+        }
+
+        return [];
+    };
+
     Core.utils.alphabeticSort = function (array, key) {
         if(array.length > 0){
             return array.sort(function(a, b) {

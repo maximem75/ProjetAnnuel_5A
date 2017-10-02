@@ -221,17 +221,17 @@
      *                         Restaurant                      *
      **********************************************************/
     Core.controller.admin.displayListRestaurantTable = function (list) {
-        //console.log(list);
-        var container = document.getElementById("restaurant_container");
+        Core.controller.admin.manageRestaurantEvents();
+        var container = document.getElementById("building_container");
         var classObject = "";
-        var header_container = document.getElementById("header_list_restaurant");
-        var body_container = document.getElementById("body_list_restaurant");
+        var header_container = document.getElementById("header_list_Restaurant");
+        var body_container = document.getElementById("body_list_Restaurant");
 
         header_container.innerHTML = "";
         body_container.innerHTML = "";
 
         var headers = [
-            ""
+            "Numéro", "Places"
         ];
 
         Core.utils.admin.createHeadTemplate(headers, header_container);
@@ -240,10 +240,77 @@
 
         for (var i = 0; i < list.length; i++) {
             var id = "";
-            body[i] = [];
+            body[i] = [list[i].number, list[i].numberChairs];
 
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
+    };
+
+    Core.controller.admin.manageRestaurantEvents = function () {
+        data.adminPanel.listRestaurant = utils.numberSort(data.adminPanel.listRestaurant, "number");
+        var btn_add = document.getElementById("btn_addRestaurant");
+        var btn_update = document.getElementById("btn_updateRestaurant");
+        var btn_remove = document.getElementById("btn_removeRestaurant");
+
+        var inpt_addNbr = document.getElementById("inpt_addNumberRestaurant");
+        var inpt_add = document.getElementById("inpt_addRestaurant");
+
+        var slct_updt = document.getElementById("slct_updateRestaurant");
+        var inpt_updt = document.getElementById("inpt_updateRestaurant");
+
+        var slct_rmv = document.getElementById("slct_removeRestaurant");
+
+        var initSelect = function () {
+            slct_updt.innerHTML = "<option></option>";
+            slct_rmv.innerHTML = "<option></option>";
+
+            inpt_addNbr.value = "";
+            inpt_add.value = "";
+            inpt_updt.value = "";
+
+            for (var i = 0; i < data.adminPanel.listRestaurant.length; i++) {
+                var restaurant = data.adminPanel.listRestaurant[i];
+
+                slct_updt.innerHTML += "<option chairs='"+ restaurant.numberChairs +"' name='" + restaurant.id + "'>" + restaurant.number + "</option>";
+                slct_rmv.innerHTML += "<option chairs='"+ restaurant.numberChairs +"' name='" + restaurant.id + "'>" + restaurant.number + "</option>";
+            }
+        }();
+
+        utils.removeListener(btn_add, "click");
+        utils.addListener(btn_add, "click", function () {
+            if (inpt_add.value != "") {
+                var json = {
+                    number: inpt_addNbr.value,
+                    numberChairs: inpt_add.value
+                };
+
+                Core.service.restaurant.create(JSON.stringify(json));
+            }
+        }, false);
+
+        utils.removeListener(btn_update, "click");
+        utils.addListener(btn_update, "click", function () {
+            var selected = slct_updt.options[slct_updt.selectedIndex];
+            var id = selected.getAttribute("name");
+            if (id != null && id != undefined) {
+                var json = {
+                    id: id,
+                    number: selected.value,
+                    numberChairs: inpt_updt.value
+                };
+                Core.service.restaurant.udapte(JSON.stringify(json));
+
+            }
+        }, false);
+
+        utils.removeListener(btn_remove, "click");
+        utils.addListener(btn_remove, "click", function () {
+            var selected = slct_rmv.options[slct_rmv.selectedIndex];
+            var id = selected.getAttribute("name");
+            if (id != null && id != undefined) {
+                Core.service.restaurant.delete(id);
+            }
+        }, false);
     };
 
     /***********************************************************
@@ -280,7 +347,6 @@
      *                       Buildings                         *
      **********************************************************/
     Core.controller.admin.displayListBuildings = function (list) {
-        console.log(list);
         Core.controller.admin.manageBuildingEvents();
         var container = document.getElementById("building_container");
         var classObject = "";
@@ -325,17 +391,17 @@
             inpt_add.value = "";
             inpt_updt.value = "";
 
-            for(var i = 0 ; i < data.adminPanel.listBuilding.length ; i++){
+            for (var i = 0; i < data.adminPanel.listBuilding.length; i++) {
                 var building = data.adminPanel.listBuilding[i];
 
-                slct_updt.innerHTML += "<option name='"+ building.id +"'>"+ building.name +"</option>";
-                slct_rmv.innerHTML += "<option name='"+ building.id +"'>"+ building.name +"</option>";
+                slct_updt.innerHTML += "<option name='" + building.id + "'>" + building.name + "</option>";
+                slct_rmv.innerHTML += "<option name='" + building.id + "'>" + building.name + "</option>";
             }
         }();
 
         utils.removeListener(btn_add, "click");
         utils.addListener(btn_add, "click", function () {
-            if(inpt_add.value != ""){
+            if (inpt_add.value != "") {
                 var json = {
                     name: inpt_add.value
                 };
@@ -348,12 +414,11 @@
         utils.addListener(btn_update, "click", function () {
             var selected = slct_updt.options[slct_updt.selectedIndex];
             var id = selected.getAttribute("name");
-            if(id != null && id != undefined){
+            if (id != null && id != undefined) {
                 var json = {
                     id: id,
                     name: inpt_updt.value
                 };
-                console.log(json);
                 Core.service.building.update(JSON.stringify(json));
             }
         }, false);
@@ -362,7 +427,7 @@
         utils.addListener(btn_remove, "click", function () {
             var selected = slct_rmv.options[slct_rmv.selectedIndex];
             var id = selected.getAttribute("name");
-            if(id != null && id != undefined){
+            if (id != null && id != undefined) {
                 Core.service.building.delete(id);
             }
         }, false);
@@ -459,7 +524,6 @@
     };
 
 
-
     /***********************************************************
      *                      CONTAINERS                         *
      **********************************************************/
@@ -500,7 +564,8 @@
 
     };
 
-    Core.controller.admin.displayStructureManager = function () {var client_btn = document.getElementById("btn_client");
+    Core.controller.admin.displayStructureManager = function () {
+        var client_btn = document.getElementById("btn_client");
         var building_btn = document.getElementById("btn_building_menu");
         var room_btn = document.getElementById("btn_room_menu");
         var restaurant_btn = document.getElementById("btn_restaurant_menu");
