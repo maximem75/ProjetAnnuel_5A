@@ -10,10 +10,10 @@
     Core.utils.admin = Core.utils.admin || {};
 
     Core.utils.admin.createHeadTemplate = function (headers, container) {
-        var template = "<div class='book_row'>";
+        var template = "<div class='book_row_admin'>";
 
-        for (var i = 0; i < list.length; i++) {
-            template += "<div class='book_cell_title'><span class='book_span_title'>" + list[i] + "</span></div>";
+        for (var i = 0; i < headers.length; i++) {
+            template += "<div class='book_cell_title'><span class='book_span_title'>" + headers[i] + "</span></div>";
         }
 
         template += "</div>";
@@ -22,14 +22,57 @@
     };
 
     Core.utils.admin.createBodyTemplate = function (body, container, classObject, id) {
-        var template = "<div class='book_row " + classObject + "' id='" + id + "'>";
+        var template = "<div class='book_row_admin_body " + classObject + "' id='" + id + "'>";
 
-        for (var i = 0; i < list.length; i++) {
-            template += "<div class='book_cell'><span class='book_span'>" + list[i] + "</span></div>";
+        for (var i = 0; i < body.length; i++) {
+            template += "<div class='book_cell'><span class='book_span'>" + body[i] + "</span></div>";
         }
 
         template += "</div>";
 
         container.innerHTML += template;
+    };
+
+    Core.utils.admin.getClientById = function (id) {
+        for (var i = 0; i < data.adminPanel.listClient.length; i++) {
+            if (data.adminPanel.listClient[i].id == id)
+                return data.adminPanel.listClient[i];
+        }
+    };
+
+    Core.utils.admin.search = function (search, keys, currentList) {
+        var srch = search.toLowerCase();
+        var list = [];
+
+        for (var i = 0; i < currentList.length; i++) {
+            var tmp = currentList[i];
+            for (var k in tmp) {
+                if (keys.includes(k)) {
+                    var val = tmp[k].toLowerCase();
+                    if (val.indexOf(srch) != -1) {
+                        list.push(tmp);
+                        break;
+                    }
+                }
+            }
+        }
+        return list;
+    };
+
+    Core.utils.admin.searchRestaurant = function (search, keys, currentList) {
+        var srch = search.toLowerCase();
+        var list = [];
+
+        for (var i = 0; i < currentList.length; i++) {
+            var book = currentList[i];
+            var client = utils.admin.getClientById(book.idClient);
+            var firstname = client.firstName.toLowerCase();
+            var lastname = client.lastName.toLowerCase();
+
+            if (firstname.indexOf(srch) != -1 || lastname.indexOf(srch) != -1) {
+                list.push(book);
+            }
+        }
+        return list;
     };
 })();

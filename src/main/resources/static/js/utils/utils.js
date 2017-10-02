@@ -269,6 +269,38 @@
         return year + "-" + month + "-" + day;
     };
 
+    Core.utils.formatDateTime = function (time) {
+        var year, month, day, hour, minute;
+        var dateObject = new Date(time);
+
+        var initVariables = function () {
+            year = dateObject.getFullYear();
+
+            if (dateObject.getMonth() < 9)
+                month = "0" + (parseInt(dateObject.getMonth()) + 1);
+            else
+                month = (parseInt(dateObject.getMonth()) + 1);
+
+            if (dateObject.getDate() < 10)
+                day = "0" + dateObject.getDate();
+            else
+                day = dateObject.getDate();
+
+            if(dateObject.getHours() < 10)
+                hour = "0" + dateObject.getHours();
+            else
+                hour = dateObject.getHours();
+
+            if(dateObject.getMinutes() < 10)
+                minute = "0" + dateObject.getMinutes();
+            else
+                minute = dateObject.getMinutes();
+        }();
+
+        return day + "/" + month + " " + hour + ":" + minute;
+    };
+
+
     /**
      * Set the datePicker in french language
      */
@@ -417,6 +449,26 @@
                 }, 6000);
             }();
         }();
+    };
+
+    Core.utils.alphabeticSort = function (array, key) {
+        if(array.length > 0){
+            return array.sort(function(a, b) {
+                var x = a[key]; var y = b[key];
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            });
+        }
+
+        return [];
+    };
+
+    Core.utils.sortByDate = function (arrayDate, key) {
+        if(arrayDate.length > 0) {
+            return arrayDate.sort(function(a,b){
+                var x = a[key]; var y = b[key];
+                return new Date(x) - new Date(y);
+            });
+        };
     };
 
     /**

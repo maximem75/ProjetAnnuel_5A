@@ -126,7 +126,7 @@ public class FestiveRoomBookingController {
     @ResponseStatus(OK)
     public List<FestiveRoomBooking> getListVlidatedFestiveRoomBookings(@RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            return festiveRoomBookingRepository.findAll();
+            return festiveRoomBookingRepository.getListActivated();
         }
 
         return null;

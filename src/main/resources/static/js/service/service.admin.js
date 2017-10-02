@@ -19,7 +19,9 @@
             method: "GET",
             url: "/client/getListClient",
             func: function (list) {
+                data.adminPanel.listClient = list;
                 Core.controller.admin.displayListClient(list);
+                Core.controller.admin.initToolsClient();
             },
             error: function (statusCode) {
             }
@@ -53,7 +55,9 @@
             method: "GET",
             url: "/restaurantTableBooking/getListByCurrentDate",
             func: function (list) {
+                data.adminPanel.listRestaurantBook = list;
                 Core.controller.admin.displayListBookRestaurant(list);
+                Core.controller.admin.initToolsRestaurant();
             },
             error: function (statusCode) {
             }

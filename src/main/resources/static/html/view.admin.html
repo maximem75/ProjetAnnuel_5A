@@ -1,53 +1,142 @@
 <div id="valide_container" class="valide_container"></div>
 <div id="error_container" class="error_container"></div>
-<div class="panel panel-info" style="">
-    <h3 style="text-align: center;" class="panel-heading">Gestion de l'hôtel</h3>
-    <div class="template_container_div">
+<div class="panel panel-admin-main" style="">
+    <div class="template_container_div_admin">
 
-        <div class="panel panel-info">
-            <h3>Réservations</h3>
-            <ul class="title_pan">
-                <li class="li_menu" id="btn_client"><span class="span_menu">Client</span></li>
-                <li class="li_menu" id="btn_book_room_menu"><span class="span_menu">Chambre</span></li>
-                <li class="li_menu" id="btn_book_restaurant_menu"><span class="span_menu">Restaurant</span></li>
-                <li class="li_menu" id="btn_book_festiveRoom_menu"><span class="span_menu">Salle des fêtes</span></li>
+        <div class="panel panel-admin">
+            <div class="title_container_admin">
+                <h2>Réservations</h2>
+            </div>
+
+            <ul class="title_pan t_span_admin">
+                <li class="li_menu_admin" id="btn_client"><span class="span_menu_admin">Client</span></li>
+                <li class="li_menu_admin" id="btn_book_room_menu"><span class="span_menu_admin">Chambre</span></li>
+                <li class="li_menu_admin" id="btn_book_restaurant_menu"><span class="span_menu_admin">Restaurant</span>
+                </li>
+                <li class="li_menu_admin" id="btn_book_festiveRoom_menu"><span
+                        class="span_menu_admin">Salle des fêtes</span></li>
             </ul>
-            <div id="list_book_container">
-                <div id="client_container" class="panel_admin_container"></div>
-                <div id="book_room_container" class="panel_admin_container"></div>
-                <div id="book_restaurant_container" class="panel_admin_container"></div>
-                <div id="book_festiveRoom_container" class="panel_admin_container"></div>
+            <div id="list_book_container" class="list_container_class">
+                <div id="client_container" class="panel_admin_container">
+
+                    <div id="header_list_client" class="admin_rows">
+                    </div>
+                    <div id="body_list_client" class="admin_rows body_admin">
+
+                    </div>
+                    <div id="list_client_tools" class="tools_admin">
+                        <div class="btn_book_admin">
+                            <a id="btn_list_client_search" class="span_book">TRIER</a>
+                        </div>
+                        <input id="inpt_list_client_search" type="text" class="beauty_input input_admin long_input_admin">
+                    </div>
+
+                </div>
+                <div id="book_room_container" class="panel_admin_container">
+                    <div id="header_list_room_book" class="admin_rows">
+                    </div>
+                    <div id="body_list_room_book" class="admin_rows body_admin">
+
+                    </div>
+                </div>
+                <div id="book_restaurant_container" class="panel_admin_container">
+                    <div id="header_list_restaurant_book" class="admin_rows">
+                    </div>
+                    <div id="body_list_restaurant_book" class="admin_rows body_admin">
+                    </div>
+
+                    <div id="list_restaurant_book_tools" class="tools_admin">
+                        <div class="btn_book_admin">
+                            <a id="btn_list_restaurant_book_search" class="span_book">TRIER</a>
+                        </div>
+                        <input id="inpt_list_restaurant_book_search" type="text" class="beauty_input input_admin long_input_admin">
+                    </div>
+                </div>
+                <div id="book_festiveRoom_container" class="panel_admin_container">
+                    <div id="header_list_festiveRoom_book" class="admin_rows">
+                    </div>
+                    <div id="body_list_festiveRoom_book" class="admin_rows body_admin">
+
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="panel panel-info" style="margin-top: 50px;">
-            <h3>Structure</h3>
-            <ul class="title_pan">
-                <li class="li_menu" id="btn_room_menu"><span class="span_menu">Chambre</span></li>
-                <li class="li_menu" id="btn_restaurant_menu"><span class="span_menu">Restaurant</span></li>
-                <li class="li_menu" id="btn_festiveRoom_menu"><span class="span_menu">Salle des fêtes</span></li>
-                <li class="li_menu" id="btn_building_menu"><span class="span_menu">Batiment</span></li>
+        <div class="panel panel-admin" style="margin-top: 50px;">
+            <div class="title_container_admin">
+                <h3>Structure</h3>
+            </div>
+            <ul class="title_pan t_span_admin">
+                <li class="li_menu_admin" id="btn_building_menu"><span class="span_menu_admin">Batiment</span></li>
+                <li class="li_menu_admin" id="btn_room_menu"><span class="span_menu_admin">Chambre</span></li>
+                <li class="li_menu_admin" id="btn_restaurant_menu"><span class="span_menu_admin">Restaurant</span></li>
+                <li class="li_menu_admin" id="btn_festiveRoom_menu"><span class="span_menu_admin">Salle des fêtes</span>
+                </li>
             </ul>
 
-            <div id="list_structure_container">
-                <div id="room_container" class="panel_admin_container"></div>
-                <div id="restaurant_container" class="panel_admin_container"></div>
-                <div id="festiveRoom_container" class="panel_admin_container"></div>
-                <div id="building_container" class="panel_admin_container"></div>
+            <div id="list_structure_container" class="list_container_class">
+                <div id="building_container" class="panel_admin_container">
+                    <div id="header_list_building" class="admin_rows">
+                    </div>
+                    <div id="body_list_building" class="admin_rows body_admin">
+
+                    </div>
+                </div>
+                <div id="room_container" class="panel_admin_container">
+                    <div id="header_list_room" class="admin_rows">
+                    </div>
+                    <div id="body_list_room" class="admin_rows body_admin">
+
+                    </div>
+                </div>
+                <div id="restaurant_container" class="panel_admin_container">
+                    <div id="header_list_restaurant" class="admin_rows">
+                    </div>
+                    <div id="body_list_restaurant" class="admin_rows body_admin">
+
+                    </div>
+                </div>
+                <div id="festiveRoom_container" class="panel_admin_container">
+                    <div id="header_list_festiveRoom" class="admin_rows">
+                    </div>
+                    <div id="body_list_festiveRoom" class="admin_rows body_admin">
+
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="panel panel-info" style="margin-top: 50px;">
-            <h3>Contenu</h3>
-            <ul class="title_pan">
-                <li class="li_menu" id="btn_article_menu"><span class="span_menu">Article</span></li>
-                <li class="li_menu" id="btn_galery_menu"><span class="span_menu">Galery</span></li>
-                <li class="li_menu" id="btn_newsLetter_menu"><span class="span_menu">News Letter</span></li>
+        <div class="panel panel-admin" style="margin-top: 50px;">
+            <div class="title_container_admin">
+                <h3>Contenu</h3>
+            </div>
+            <ul class="title_pan t_span_admin">
+                <li class="li_menu_admin" id="btn_article_menu"><span class="span_menu_admin">Article</span></li>
+                <li class="li_menu_admin" id="btn_galery_menu"><span class="span_menu_admin">Galery</span></li>
+                <li class="li_menu_admin" id="btn_newsLetter_menu"><span class="span_menu_admin">News Letter</span></li>
             </ul>
 
-            <div id="list_content_container">
-                <div id="article_container" class="panel_admin_container"></div>
-                <div id="galery_container" class="panel_admin_container"></div>
-                <div id="newsLetter_container" class="panel_admin_container"></div>
+            <div id="list_content_container" class="list_container_class">
+                <div id="article_container" class="panel_admin_container">
+                    <div id="header_list_article" class="admin_rows">
+                    </div>
+                    <div id="body_list_article" class="admin_rows body_admin">
+
+                    </div>
+                </div>
+                <div id="galery_container" class="panel_admin_container">
+                    <div id="header_list_galery" class="admin_rows">
+                    </div>
+                    <div id="body_list_galery" class="admin_rows body_admin">
+
+                    </div>
+                </div>
+                <div id="newsLetter_container" class="panel_admin_container">
+                    <div id="header_list_newsLetter" class="admin_rows">
+                    </div>
+                    <div id="body_list_newsLetter" class="admin_rows body_admin">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@ import java.net.URL;
  * Created by maxime on 27/09/2017.
  */
 public class CurrencyConvert {
-
+    //key -> 782190b443d12320a3c4ae56
     public static float getConvertedPrice(float price) {
         JSONObject jsonObject = new JSONObject(CurrencyConvert.countryCurrencyInfo("", "EUR", "bulk"));
         Object rates = jsonObject.get("rates");
@@ -31,7 +31,7 @@ public class CurrencyConvert {
 
         try {
             //Create connection
-            URL oracle = new URL("https://v3.exchangerate-api.com/"+ localisate +"/af6f4d68a25c748a047a1628/"+ countryCode +"/" + ipClient);
+            URL oracle = new URL("https://v3.exchangerate-api.com/"+ localisate +"/582f6d0d0c1bc389b280e016/"+ countryCode +"/" + ipClient);
             yc = (HttpURLConnection) oracle.openConnection();
 
             yc.setRequestProperty("Content-Type",

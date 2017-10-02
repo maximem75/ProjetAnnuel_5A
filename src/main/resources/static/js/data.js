@@ -94,6 +94,7 @@
         getIncludeContainer : function () {
             return document.getElementById("include_content");
         },
+        adminPanel: {},
         listRoomCategories : [],
         listRoom: [],
         costFestiveRoom : 0,

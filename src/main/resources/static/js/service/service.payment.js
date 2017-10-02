@@ -18,7 +18,7 @@
             method: "GET",
             url: "/payment",
             func: function (json) {
-                data.countryInfo = json;
+                data.countryInfo = json;                       
                 Core.utils.reservation.getCurrencySymbol();
             },
             error: function (statusCode) {
