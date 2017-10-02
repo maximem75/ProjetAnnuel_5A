@@ -15,44 +15,66 @@
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.category.create = function () {
-        var paramRequest = "token" + client.token;
+    Core.service.category.create = function (category) {
+        var paramRequest = "token=" + client.token;
 
         var object =  {
             name: "create",
             method: "POST",
             url: "/roomCategory",
             func: function () {
-                
+                Core.service.admin.getListRoom();
             },
             error: function () {
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, null);
+        utils.ajaxRequest(object, paramRequest, category, false, true);
     };
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.category.delete = function () {
-        var paramRequest = "token" + client.token + "&id=" + id;
+    Core.service.category.update = function (category) {
+        var paramRequest = "token=" + client.token;
 
-        var object = {
-            name: "delete",
-            method: "DELETE",
+        var object =  {
+            name: "update",
+            method: "PUT",
             url: "/roomCategory",
             func: function () {
-
+                Core.service.admin.getListRoom();
             },
             error: function () {
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, null);
+        utils.ajaxRequest(object, paramRequest, category, false, true);
+    };
+
+    /**
+     *
+     * @returns {{name: string, method: string, url: string, func: func, error: error}}
+     */
+    Core.service.category.delete = function (id) {
+        var paramRequest = "token=" + client.token + "&id=" + id;
+
+        var object = {
+            name: "delete",
+            method: "DELETE",
+            url: "/roomCategory",
+            func: function () {
+                Core.service.admin.getListRoom();
+            },
+            error: function () {
+
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest, null, false, true);
     };
 
     /**
@@ -77,48 +99,6 @@
         };
 
         utils.ajaxRequest(object);
-    };
-
-    /**
-     * Generate the template containing categories list
-     * @returns {{name: string, method: string, url: string, func: func, error: error}}
-     */
-    Core.service.category.initViewListCategories = function () {
-        var object = {
-            name: "initViewListCategories",
-            method: "GET",
-            url: "/roomCategory",
-            func: function (json) {
-                var headers = {
-                    id: {
-                        content: "ID"
-                    },
-                    name: {
-                        content: "Nom"
-                    },
-                    costByNight: {
-                        content: "Coût par nuit"
-                    },
-                    button: {
-                        delete: {
-                            btnClass: "btn btn-danger",
-                            icone: "glyphicon glyphicon-remove",
-                            preId: "categorie_delete",
-                            func: function (element) {
-                                utils.addListener(element, 'click', function (e) {
-                                    utils.template.eventButtonRemove(e, Core.service.category.delete());
-                                }, false);
-                            }
-                        }
-                    }
-                };
-
-                utils.template.createLiTemplate(headers, null, document.getElementById("list_category_content"), "create", Core.service.category.create());
-                utils.template.createLiTemplate(headers, json, document.getElementById("list_category_content"), "read");
-            },
-            error: function (statusCode) {
-            }
-        };
     };
 
 })();

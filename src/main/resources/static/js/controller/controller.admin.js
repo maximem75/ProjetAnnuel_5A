@@ -195,16 +195,27 @@
         var container = document.getElementById("building_container");
         var classObject = "";
         var header_container = document.getElementById("header_list_room");
+        var header_category_container = document.getElementById("header_list_category");
+
         var body_container = document.getElementById("body_list_room");
+        var body_category_container = document.getElementById("body_list_category");
 
         header_container.innerHTML = "";
         body_container.innerHTML = "";
+
+        header_category_container.innerHTML = "";
+        body_category_container.innerHTML = "";
 
         var headers = [
            "ID", "Numéro", "Catégorie", "Batiment"
         ];
 
+        var category_headers = [
+            "ID", "Nom", "Prix"
+        ];
+
         Core.utils.admin.createHeadTemplate(headers, header_container);
+        Core.utils.admin.createHeadTemplate(category_headers, header_category_container);
 
         var body = [];
 
@@ -215,10 +226,22 @@
             body[i] = [room.id, room.number, room.roomCategory.name, room.building.name];
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
+
+        var category_body = [];
+
+        for(var i = 0 ; i < data.listRoomCategories.length ; i++){
+            var id = "";
+            var category = data.listRoomCategories[i];
+
+            body[i] = [category.id, category.name, category.price];
+            Core.utils.admin.createBodyTemplate(body[i], body_category_container, classObject, id);
+        }
     };
 
     Core.controller.admin.manageRoomEvents = function () {
         data.adminPanel.listRoom = utils.numberSort(data.adminPanel.listRoom, "number");
+
+        /***************** ROOM ************************/
         var btn_add = document.getElementById("btn_addRoom");
         var btn_update = document.getElementById("btn_updateRoom");
         var btn_remove = document.getElementById("btn_removeRoom");
@@ -320,6 +343,85 @@
                 Core.service.room.delete(id);
             }
         }, false);
+
+        /***************** Category ************************/
+
+        var btn_addCateg = document.getElementById("btn_addCategory");
+        var btn_updateCateg = document.getElementById("btn_updateCategory");
+        var btn_removeCateg = document.getElementById("btn_removeCategory");
+
+        var inpt_addCategoryName = document.getElementById("inpt_addCategoryName");
+        var inpt_addCategoryPrice = document.getElementById("inpt_addCategoryPrice");
+
+        var slct_updtCategoryId = document.getElementById("slct_updtCategoryId");
+        var inpt_updtCategoryName = document.getElementById("inpt_updtCategoryName");
+        var inpt_updtCategoryPrice = document.getElementById("inpt_updtCategoryPrice");
+        
+        var slct_removeCategoryById = document.getElementById("slct_removeCategory");
+        
+        var initCategory = function () {
+            slct_updtCategoryId.innerHTML = "<option disabled selected>ID</option>";
+            slct_removeCategoryById.innerHTML = "<option disabled selected>Catégorie</option>";
+
+            inpt_addCategoryName.value = "";
+            inpt_addCategoryPrice.value = "";
+
+            inpt_updtCategoryName.value = "";
+            inpt_updtCategoryPrice.value = "";
+
+            for (var i = 0; i < data.listRoomCategories.length; i++) {
+                var category = data.listRoomCategories[i];
+                slct_updtCategoryId.innerHTML += "<option name='" + category.name + "'>" + category.id + "</option>";
+                slct_removeCategoryById.innerHTML += "<option name='" + category.id + "'>" + category.name + "</option>";
+
+            }
+        }();
+
+        utils.removeListener(slct_updtCategoryId, "change");
+        utils.addListener(slct_updtCategoryId, "change", function () {
+            inpt_updtCategoryName.value = slct_updtCategoryId.options[slct_updtCategoryId.selectedIndex].getAttribute("name");
+        }, false);
+
+        utils.removeListener(btn_addCateg, "click");
+        utils.addListener(btn_addCateg, "click", function () {
+            if (inpt_addCategoryName.value != "" && inpt_addCategoryPrice.value != "") {
+
+                var json = {
+                    name: inpt_addCategoryName.value,
+                    price: inpt_addCategoryPrice.value
+                };
+                Core.service.category.create(JSON.stringify(json));
+            }
+        }, false);
+
+        utils.removeListener(btn_updateCateg, "click");
+        utils.addListener(btn_updateCateg, "click", function () {
+            var selectedCategoryId = slct_updtCategoryId.options[slct_updtCategoryId.selectedIndex];
+            var id = selectedCategoryId.value;
+
+            if (id != null && id != undefined) {
+                var json = {
+                    id: id,
+                    name: inpt_updtCategoryName.value,
+                    price: inpt_updtCategoryPrice.value
+                };
+
+                Core.service.category.update(JSON.stringify(json));
+            }
+        }, false);
+
+        utils.removeListener(btn_removeCateg, "click");
+        utils.addListener(btn_removeCateg, "click", function () {
+            var selectedCategoryId = slct_removeCategoryById.options[slct_removeCategoryById.selectedIndex];
+            var id = selectedCategoryId.getAttribute("name");
+
+            if (id != null && id != undefined) {
+                Core.service.category.delete(id);
+            }
+        }, false);
+
+
+        /***************** Invalide Date  ************************/
     };
 
     /***********************************************************
@@ -383,7 +485,8 @@
 
         utils.removeListener(btn_add, "click");
         utils.addListener(btn_add, "click", function () {
-            if (inpt_add.value != "") {
+            if (inpt_add.value != "" && inpt_addNbr.value != "") {
+
                 var json = {
                     number: inpt_addNbr.value,
                     numberChairs: inpt_add.value
