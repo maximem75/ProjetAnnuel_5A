@@ -41,7 +41,7 @@ public class PictureRoomCategoryController {
             FileManager fm = new FileManager();
             fm.saveImage(file, pathServer);
 
-            pictureRoomCategory.setPath(PRE_PATH_FRONT  + "/" + file.getOriginalFilename());
+            pictureRoomCategory.setPath(PRE_PATH_FRONT + file.getOriginalFilename());
             pictureRoomCategoryRepository.save(pictureRoomCategory);
         }
     }

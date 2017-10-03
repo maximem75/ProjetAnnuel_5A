@@ -37,7 +37,6 @@
         var oReq = new XMLHttpRequest();
         oReq.open("post", paramRequest, true);
         oReq.onload = function(oEvent) {
-            console.log(oReq.status);
             if (oReq.status == 201) {
                 Core.service.pictureRoomCategory.getList();
             } else {

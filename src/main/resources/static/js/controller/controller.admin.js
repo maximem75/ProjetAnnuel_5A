@@ -738,7 +738,6 @@
 
     Core.controller.admin.manageFestiveRoomEvents = function (list) {
         data.adminPanel.listDateInvalideFestiveRoom = list;
-        console.log(data.adminPanel.listDateInvalideFestiveRoom);
         data.adminPanel.listDateInvalideFestiveRoom = utils.sortByDate(data.adminPanel.listDateInvalideFestiveRoom, "dateStart");
         data.listFesiveRoomService = utils.alphabeticSortAsc(data.listFesiveRoomService, "name");
 
@@ -877,7 +876,6 @@
             });
 
             slct_removeInvalideFestiveRoomID.innerHTML = "<option disabled selected>ID</option>";
-            console.log(data.adminPanel.listDateInvalideFestiveRoom);
             var tmp = data.adminPanel.listDateInvalideFestiveRoom;
             tmp = utils.numberSort(tmp, "id");
             for (var i = 0; i < data.adminPanel.listDateInvalideFestiveRoom.length; i++) {
