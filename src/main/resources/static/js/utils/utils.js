@@ -44,7 +44,7 @@
                 if (option === true && (this.responseText == undefined || this.responseText == "")) {
                     objectService.error(xhr.status);
                 } else {
-                    if(doNotParse == true){
+                    if (doNotParse == true) {
                         objectService.func(this.responseText);
                     } else {
                         var response = JSON.parse(this.responseText);
@@ -61,8 +61,8 @@
         xhr.onerror = function (res) {
             objectService.error(xhr.status);
         };
-        
-        if(formData != null)
+
+        if (formData != null)
             xhr.send(requestBody, formData);
         else
             xhr.send(requestBody);
@@ -94,17 +94,17 @@
             element.removeChild(element.firstChild);
         }
     };
-    
+
     Core.utils.getCategoryById = function (id) {
-        for(var i = 0 ; i < data.listRoomCategories.length ;i++){
-            if(data.listRoomCategories[i].id == id)
+        for (var i = 0; i < data.listRoomCategories.length; i++) {
+            if (data.listRoomCategories[i].id == id)
                 return data.listRoomCategories[i];
         }
     };
 
     Core.utils.getRoomById = function (id) {
-        for(var i = 0 ; i < data.listRoom.length ; i++){
-            if(data.listRoom[i].id == id)
+        for (var i = 0; i < data.listRoom.length; i++) {
+            if (data.listRoom[i].id == id)
                 return data.listRoom[i];
         }
     };
@@ -113,7 +113,7 @@
         var d = new Date(date);
 
         var day = function () {
-            if(d.getDate() < 10){
+            if (d.getDate() < 10) {
                 return "0" + d.getDate();
             } else {
                 return d.getDate();
@@ -122,8 +122,8 @@
 
         var month = function () {
             var m = d.getMonth() + 1;
-            if(m < 10){
-                return "0" +m;
+            if (m < 10) {
+                return "0" + m;
             } else {
                 return m;
             }
@@ -311,12 +311,12 @@
             else
                 day = dateObject.getDate();
 
-            if(dateObject.getHours() < 10)
+            if (dateObject.getHours() < 10)
                 hour = "0" + dateObject.getHours();
             else
                 hour = dateObject.getHours();
 
-            if(dateObject.getMinutes() < 10)
+            if (dateObject.getMinutes() < 10)
                 minute = "0" + dateObject.getMinutes();
             else
                 minute = dateObject.getMinutes();
@@ -392,7 +392,7 @@
         }
         return false;
     };
-    
+
     Core.utils.displayError = function (message) {
         var error = document.getElementById("error_container");
         error.textContent = message;
@@ -426,14 +426,14 @@
 
         return diff;
     };
-    
+
     Core.utils.manageBook = function () {
-        if(data.rbr != null) {
+        if (data.rbr != null) {
             Core.service.book.room.cancelBookRoom(data.rbr);
             data.rbr = null;
         }
     };
-    
+
 
     Core.utils.initClientIp = function () {
         $.getJSON("https://ipinfo.io/json", function (d) {
@@ -460,15 +460,15 @@
     };
 
     Core.utils.redirectTimerMessage = function (message, color, pageObject) {
-        var view  = function () {
+        var view = function () {
             utils.empty(data.getIncludeContainer());
-            data.getIncludeContainer().innerHTML = ""+
-                "<div style='display: inline-block; width: 100%;font-family: Roboto sans; color: "+ color +"; text-align: center; padding-bottom: 40px;'>"+
+            data.getIncludeContainer().innerHTML = "" +
+                "<div style='display: inline-block; width: 100%;font-family: Roboto sans; color: " + color + "; text-align: center; padding-bottom: 40px;'>" +
                 "</br>" + message + "</div>";
         }();
         var redirection = function () {
-            var timeOut = function(){
-                var tmID = setTimeout(function(){
+            var timeOut = function () {
+                var tmID = setTimeout(function () {
                     Core.utils.empty(data.getIncludeContainer());
                     utils.include(pageObject.viewPath, pageObject.name);
                 }, 6000);
@@ -477,20 +477,19 @@
     };
 
     Core.utils.numberSort = function (array, key) {
-        if(array.length > 0){
-            return array.sort(function(a, b) {
-                var x = a[key]; var y = b[key];
-                return x - y;
-            });
-        }
 
-        return [];
+        return array.sort(function (a, b) {
+            var x = a[key];
+            var y = b[key];
+            return x - y;
+        });
     };
 
     Core.utils.alphabeticSortDesc = function (array, key) {
-        if(array.length > 0){
-            return array.sort(function(a, b) {
-                var x = a[key].toLowerCase(); var y = b[key].toLowerCase();
+        if (array.length > 0) {
+            return array.sort(function (a, b) {
+                var x = a[key].toLowerCase();
+                var y = b[key].toLowerCase();
                 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
             });
         }
@@ -499,9 +498,10 @@
     };
 
     Core.utils.alphabeticSortAsc = function (array, key) {
-        if(array.length > 0){
-            return array.sort(function(a, b) {
-                var x = a[key].toLowerCase(); var y = b[key].toLowerCase();
+        if (array.length > 0) {
+            return array.sort(function (a, b) {
+                var x = a[key].toLowerCase();
+                var y = b[key].toLowerCase();
                 return ((x > y) ? -1 : ((x < y) ? 1 : 0));
             });
         }
@@ -511,12 +511,14 @@
 
 
     Core.utils.sortByDate = function (arrayDate, key) {
-        if(arrayDate.length > 0) {
-            return arrayDate.sort(function(a,b){
-                var x = a[key]; var y = b[key];
+        if (arrayDate.length > 0) {
+            return arrayDate.sort(function (a, b) {
+                var x = a[key];
+                var y = b[key];
                 return new Date(x) - new Date(y);
             });
-        };
+        }
+        ;
     };
 
     /**
