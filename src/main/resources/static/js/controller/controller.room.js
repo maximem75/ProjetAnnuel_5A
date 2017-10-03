@@ -15,6 +15,8 @@
      * Init the room view and events
      */
     Core.controller.room.initView = function () {
+        service.pictureRoomCategory.getList();
+
         var startDatepicker, endDatepicker, btnSearch;
         var container;
         var startDateID = "#reservation_start_date";
@@ -457,6 +459,8 @@
             ];
             var listCateg = getCategoryQuantity(listRoomBooking);
             var keys = Object.keys(listCateg);
+            console.log(listRoomBooking);
+
             var dateStart = new Date(listRoomBooking[0].dateStart);
             var dateEnd = new Date(listRoomBooking[0].dateEnd);
 

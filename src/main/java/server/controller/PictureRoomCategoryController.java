@@ -46,17 +46,15 @@ public class PictureRoomCategoryController {
         }
     }
 
-    @RequestMapping(method = PUT)
+    @RequestMapping(path = "/update",method = POST)
     @ResponseStatus(ACCEPTED)
     public void updatePictureRoomCategory(@RequestParam("file") MultipartFile file, @RequestParam("token") String token, @RequestParam("id") Long id) {
-        System.out.println("in");
         if (clientService.adminAccess(token)) {
-            PictureRoomCategory pictureRoomCategory = pictureRoomCategoryRepository.getOne(id);
+            PictureRoomCategory pictureRoomCategory = pictureRoomCategoryRepository.getPictureByIdCategory(id);
             String pathServer = PRE_PATH + file.getOriginalFilename();
 
             FileManager fm = new FileManager();
             fm.saveImage(file, pathServer);
-
             pictureRoomCategory.setPath(PRE_PATH_FRONT + file.getOriginalFilename());
             pictureRoomCategoryRepository.save(pictureRoomCategory);
         }

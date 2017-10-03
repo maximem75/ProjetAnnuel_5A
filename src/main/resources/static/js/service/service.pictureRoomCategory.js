@@ -48,19 +48,16 @@
     };
 
     Core.service.pictureRoomCategory.update = function (id) {
-        var paramRequest = data.basicUrl + "/pictureRoomCategory?token=" + client.token + "&id=" + id;
-        console.log(paramRequest);
+        var paramRequest = data.basicUrl + "/pictureRoomCategory/update?token=" + client.token + "&id=" + id;
         var form = document.getElementById("formtUpdateDataArticle");
         form.action = paramRequest;
         var formData = new FormData(form);
 
         var oReq = new XMLHttpRequest();
-        oReq.open("put", paramRequest, true);
+        oReq.open("post", paramRequest, true);
         oReq.onload = function(oEvent) {
-            if (oReq.status == 201) {
+            if (oReq.status == 202) {
                 Core.service.pictureRoomCategory.getList();
-            } else {
-                alert("error")
             }
         };
 
