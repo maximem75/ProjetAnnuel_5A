@@ -477,11 +477,13 @@
     };
 
     Core.utils.numberSort = function (array, key) {
-        return array.sort(function (a, b) {
-            var x = a[key];
-            var y = b[key];
-            return x - y;
-        });
+        if(array.length > 0 && array != undefined){
+            return array.sort(function (a, b) {
+                var x = a[key];
+                var y = b[key];
+                return x - y;
+            });
+        }
     };
 
     Core.utils.alphabeticSortDesc = function (array, key) {
