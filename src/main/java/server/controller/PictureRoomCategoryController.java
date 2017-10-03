@@ -36,12 +36,12 @@ public class PictureRoomCategoryController {
         if (clientService.adminAccess(token)) {
             PictureRoomCategory pictureRoomCategory = new PictureRoomCategory();
             pictureRoomCategory.setIdRoomCategory(id);
-            String pathServer = PRE_PATH + "/" + pictureRoomCategory.getIdRoomCategory() + "/" + file.getOriginalFilename();
+            String pathServer = PRE_PATH + "/" + file.getOriginalFilename();
 
             FileManager fm = new FileManager();
             fm.saveImage(file, pathServer);
 
-            pictureRoomCategory.setPath(PRE_PATH_FRONT + "/" + pictureRoomCategory.getIdRoomCategory() + "/" + file.getOriginalFilename());
+            pictureRoomCategory.setPath(PRE_PATH_FRONT  + "/" + file.getOriginalFilename());
             pictureRoomCategoryRepository.save(pictureRoomCategory);
         }
     }
