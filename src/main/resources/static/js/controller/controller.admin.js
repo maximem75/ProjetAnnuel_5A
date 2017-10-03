@@ -17,7 +17,7 @@
     Core.controller.admin.initView = function () {
         service.admin.getListClient();
         service.admin.getListRoomBook();
-        //service.admin.getListRoomBookHold();
+        service.admin.getListRoomBookHold();
         service.admin.getListRestaurantBook();
         service.admin.getListFestiveRoomBook();
         service.admin.getListBuildings();
@@ -68,7 +68,7 @@
         var inputSearch = document.getElementById("inpt_list_client_search");
 
         utils.addListener(btnSearch, "click", function () {
-            if(inputSearch.value != "")
+            if (inputSearch.value != "")
                 controller.admin.searchClient(inputSearch.value);
             else
                 Core.controller.admin.displayListClient(data.adminPanel.listClient);
@@ -79,10 +79,10 @@
         var list = [];
         var type = isNaN(search);
 
-        if(type == true){
+        if (type == true) {
             var validKeys = ["lastName", "firstName", "email"];
             list = utils.admin.search(search, validKeys, data.adminPanel.listClient);
-        } else if(type == false){
+        } else if (type == false) {
             var validKeys = ["id"];
             list = utils.admin.searchByIdClient(search, validKeys, data.adminPanel.listClient);
         }
@@ -95,11 +95,15 @@
      *                        RoomBook                         *
      **********************************************************/
     Core.controller.admin.displayListBookRoom = function (list) {
+        utils.sortByDate(list, "dateStart");
         var container = document.getElementById("book_room_container");
         var classObject = "";
         var header_container = document.getElementById("header_list_room_book");
         var body_container = document.getElementById("body_list_room_book");
 
+        var btn_search = document.getElementById("btn_list_room_book_search");
+        var ipt_search = document.getElementById("inpt_list_room_book_search");
+
         header_container.innerHTML = "";
         body_container.innerHTML = "";
 
@@ -113,21 +117,45 @@
         var body = [];
 
         var l = list;
-        for (var i = 0 ; i < l.length ; i++) {
+        for (var i = 0; i < l.length; i++) {
             var id = "";
             var client = utils.admin.getClientById(l[i].idClient);
             body[i] = [l[i].id, l[i].refRoomBook, l[i].idRoom, client.id, utils.formatDateAdmin(l[i].dateStart), utils.formatDateAdmin(l[i].dateEnd)];
 
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
+
+        utils.removeListener(btn_search, "click");
+        utils.addListener(btn_search, "click", function () {
+            if (ipt_search.value != "") {
+
+                var type = isNaN(ipt_search.value);
+
+                if (type == true) {
+                    var keys = ["refRoomBook"];
+                } else {
+                    var keys = ["id", "idClient", "idRoom"];
+                }
+
+                Core.controller.admin.displayListBookRoom(utils.admin.search(ipt_search.value, keys, data.adminPanel.listRoomBook));
+            } else {
+                Core.controller.admin.displayListBookRoom(data.adminPanel.listRoomBook);
+            }
+
+        }, false);
+
     };
 
     Core.controller.admin.displayListBookRoomHold = function (list) {
+        utils.sortByDate(list, "dateEnd");
         var container = document.getElementById("book_room_container");
         var classObject = "";
         var header_container = document.getElementById("header_list_room_book_hold");
         var body_container = document.getElementById("body_list_room_book_hold");
 
+        var btn_search = document.getElementById("btn_list_room_book_hold_search");
+        var ipt_search = document.getElementById("inpt_list_room_book_hold_search");
+        
         header_container.innerHTML = "";
         body_container.innerHTML = "";
 
@@ -135,19 +163,37 @@
             "ID", "REF_BOOK", "Chambre ID", "Client ID", "Début", "Fin"
         ];
 
-
         Core.utils.admin.createHeadTemplate(headers, header_container);
 
         var body = [];
-
         var l = list;
-        for (var i = 0 ; i < l.length ; i++) {
+        for (var i = 0; i < l.length; i++) {
             var id = "";
             var client = utils.admin.getClientById(l[i].idClient);
             body[i] = [l[i].id, l[i].refRoomBook, l[i].idRoom, client.id, utils.formatDateAdmin(l[i].dateStart), utils.formatDateAdmin(l[i].dateEnd)];
 
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
+
+        utils.removeListener(btn_search, "click");
+        utils.addListener(btn_search, "click", function () {
+
+            if (ipt_search.value != "") {
+
+                var type = isNaN(ipt_search.value);
+
+                if (type == true) {
+                    var keys = ["refRoomBook"];
+                } else {
+                    var keys = ["id", "idClient", "idRoom"];
+                }
+
+                Core.controller.admin.displayListBookRoomHold(utils.admin.search(ipt_search.value, keys, data.adminPanel.listRoomBookHold));
+            } else {
+                Core.controller.admin.displayListBookRoomHold(data.adminPanel.listRoomBookHold);
+            }
+
+        }, false);
     };
 
     /***********************************************************
@@ -362,17 +408,18 @@
         utils.addListener(slct_updtRoomId, "change", function () {
             var room = utils.admin.getRoomById(slct_updtRoomId.options[slct_updtRoomId.selectedIndex].getAttribute("name"));
             console.log(room);
-            if(room != null){
-                for(var i = 0 ; i < slct_updtCategory.options.length ; i++){
+            if (room != null) {
+                for (var i = 0; i < slct_updtCategory.options.length; i++) {
                     var tmp = slct_updtCategory.options[i];
-                    if(tmp.getAttribute("name") == room.roomCategory.id){;
+                    if (tmp.getAttribute("name") == room.roomCategory.id) {
+                        ;
                         slct_updtCategory.options[i].selected = "selected";
                     }
                 }
 
-                for(var i = 0 ; i < slct_updtBuilding.options.length ; i++){
+                for (var i = 0; i < slct_updtBuilding.options.length; i++) {
                     var tmp = slct_updtBuilding.options[i];
-                    if(tmp.getAttribute("name") == room.building.id)
+                    if (tmp.getAttribute("name") == room.building.id)
                         slct_updtBuilding.options[i].selected = "selected";
                 }
 

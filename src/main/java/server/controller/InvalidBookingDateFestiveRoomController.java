@@ -39,11 +39,8 @@ public class InvalidBookingDateFestiveRoomController {
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
     public void addInvalidBookingDateFestiveRoom(@RequestBody InvalidBookingDateFestiveRoom invalidBookingDateFestiveRoom, @RequestParam("token") String token){
-        System.out.println("1");
         if(clientService.adminAccess(token)){
-            System.out.println("2");
             if(invalidBookingDateFestiveRoomRepository.alreadyInvalidAtSameDate(invalidBookingDateFestiveRoom.getDateStart(), invalidBookingDateFestiveRoom.getDateEnd()).size() == 0){
-                System.out.println("3");
                 invalidBookingDateFestiveRoom.setStatus("active");
                 invalidBookingDateFestiveRoomRepository.save(invalidBookingDateFestiveRoom);
             }

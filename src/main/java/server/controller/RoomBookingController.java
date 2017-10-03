@@ -169,6 +169,7 @@ public class RoomBookingController {
     @ResponseStatus(OK)
     public List<RoomBooking> getListActivateddHold(@RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
+            List<RoomBooking> roomBookingList = roomBookingRepository.getListActivatedHold();
             return roomBookingRepository.getListActivatedHold();
         }
 

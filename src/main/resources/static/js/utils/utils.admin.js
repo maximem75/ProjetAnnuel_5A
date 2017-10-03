@@ -73,18 +73,37 @@
 
     Core.utils.admin.search = function (search, keys, currentList) {
         var list = [];
+        var type;
+        if (isNaN(search)) {
+            type = "string";
+            var srch = search.toLowerCase();
+        } else {
+            type = "number";
+            var srch = search;
+        }
 
-        var srch = search.toLowerCase();
 
         for (var i = 0; i < currentList.length; i++) {
             var tmp = currentList[i];
             for (var k in tmp) {
                 if (keys.includes(k)) {
-                    var val = tmp[k].toLowerCase();
-                    if (val.indexOf(srch) != -1) {
-                        list.push(tmp);
-                        break;
+                    if (type == "string")
+                        var val = tmp[k].toLowerCase();
+                    else
+                        var val = tmp[k];
+
+                    if(type == "string"){
+                        if (val.indexOf(srch) != -1) {
+                            list.push(tmp);
+                            break;
+                        }
+                    } else {
+                        if (val == srch) {
+                            list.push(tmp);
+                            break;
+                        }
                     }
+
                 }
             }
         }
