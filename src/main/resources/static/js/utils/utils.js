@@ -20,7 +20,7 @@
      * @param paramBody
      * @param option
      */
-    Core.utils.ajaxRequest = function (objectService, paramRequest, paramBody, option, doNotParse) {
+    Core.utils.ajaxRequest = function (objectService, paramRequest, paramBody, option, doNotParse, formData) {
         var requestUrl = "", requestBody = "";
 
         var initVariables = function () {
@@ -61,8 +61,11 @@
         xhr.onerror = function (res) {
             objectService.error(xhr.status);
         };
-
-        xhr.send(requestBody);
+        
+        if(formData != null)
+            xhr.send(requestBody, formData);
+        else
+            xhr.send(requestBody);
     };
 
     /**

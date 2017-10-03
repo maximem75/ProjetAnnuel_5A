@@ -34,11 +34,23 @@
 
                 </div>
                 <div id="book_room_container" class="panel_admin_container">
-                    <div id="header_list_room_book" class="admin_rows">
-                    </div>
-                    <div id="body_list_room_book" class="admin_rows body_admin">
+                    <div id="roo__container" class="panel_admin_container">
+
+                        <div id="header_list_room_book" class="admin_rows">
+                        </div>
+                        <div id="body_list_room_book" class="admin_rows body_admin">
+
+                        </div>
+                        <div class="tools_admin">
+                            <div class="btn_book_admin">
+                                <a id="btn_list_room_book_search" class="span_book">TRIER</a>
+                            </div>
+                            <input id="inpt_list_room_book_search" type="text"
+                                   class="beauty_input input_admin long_input_admin">
+                        </div>
 
                     </div>
+
                 </div>
                 <div id="book_restaurant_container" class="panel_admin_container">
                     <div id="header_list_restaurant_book" class="admin_rows">
@@ -205,11 +217,17 @@
                         <div class="medium_content" style="height: 350px;">
                             <div class="sub_menu_tool">Catégories</div>
                             <div class="tools_admin">
+                                <form enctype="multipart/form-data" method="POST" id="formtDataArticle">
+                                    <input type="file" name="file" required />
+                                </form>
+                                </div>
+                            <div class="tools_admin">
                                 <input id="inpt_addCategoryName" type="text" placeholder="Nom"
                                        class="beauty_input input_admin medium_content">
 
                                 <input id="inpt_addCategoryPrice" type="number" min="0" placeholder="Prix"
                                        class="beauty_input input_admin medium_content">
+
                             </div>
 
                             <div class="tools_admin">
@@ -218,7 +236,7 @@
                                 </div>
                             </div>
 
-                            <div class="tools_admin" style="margin-top: 28px">
+                            <div class="tools_admin" style="margin-top: 13px">
 
                                 <select id="slct_updtCategoryId" type="text"
                                         class="beauty_input input_admin medium_content">
@@ -237,7 +255,7 @@
                                 </div>
                             </div>
 
-                            <div class="tools_admin" style="margin-top: 28px">
+                            <div class="tools_admin" style="margin-top: 14px">
                                 <select id="slct_removeCategory" class="beauty_input input_admin medium_content">
                                     <option></option>
                                 </select>
@@ -464,7 +482,8 @@
                             </div>
 
                             <div class="tools_admin" style="margin-top: 28px">
-                                <select id="slct_removeInvalideFestiveRoomID" class="beauty_input input_admin medium_content">
+                                <select id="slct_removeInvalideFestiveRoomID"
+                                        class="beauty_input input_admin medium_content">
                                     <option></option>
                                 </select>
                             </div>

@@ -32,8 +32,10 @@ public class PictureRoomCategoryController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public void addPictureRoomCategory(@RequestBody PictureRoomCategory pictureRoomCategory, @RequestParam("file") MultipartFile file, @RequestParam("token") String token) {
+    public void addPictureRoomCategory(@RequestParam("file") MultipartFile file, @RequestParam("token") String token, @RequestParam("id") Long id) {
         if (clientService.adminAccess(token)) {
+            PictureRoomCategory pictureRoomCategory = new PictureRoomCategory();
+            pictureRoomCategory.setIdRoomCategory(id);
             String pathServer = PRE_PATH + "/" + pictureRoomCategory.getIdRoomCategory() + "/" + file.getOriginalFilename();
 
             FileManager fm = new FileManager();

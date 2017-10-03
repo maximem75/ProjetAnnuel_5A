@@ -22,8 +22,9 @@
             name: "create",
             method: "POST",
             url: "/roomCategory",
-            func: function () {
-                Core.service.admin.getListRoom();
+            func: function (id) {
+                Core.service.admin.getListRoom();                         
+                Core.service.pictureRoomCategory.create(id);
             },
             error: function () {
 

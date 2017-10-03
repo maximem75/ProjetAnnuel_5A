@@ -30,10 +30,12 @@ public class RoomCategoryController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public void addRoomCategory(@RequestBody RoomCategory roomCategory, @RequestParam("token") String token) {
+    public Long addRoomCategory(@RequestBody RoomCategory roomCategory, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            roomCategoryRepository.save(roomCategory);
+            return roomCategoryRepository.save(roomCategory).getId();
         }
+
+        return 0l;
     }
 
     @RequestMapping(method = PUT)

@@ -46,20 +46,20 @@
         body_container.innerHTML = "";
 
         var headers = [
-            "Nom", "Prénom", "Téléphone", "Email", "Adresse", "Code Postal", "Pays"
+            "ID", "Nom", "Prénom", "Téléphone", "Email", "Adresse", "Code Postal", "Pays"
         ];
 
         Core.utils.admin.createHeadTemplate(headers, header_container);
 
-        var body = [];
+       /* var body = [];
         if (jsonClientSorted.length > 0) {
             for (var i = 0; i < jsonClientSorted.length; i++) {
                 var client = list[i];
                 var id = "";
-                body[i] = [client.lastName, client.firstName, client.phone, client.email, client.address, client.postalCode, client.country];
+                body[i] = [client.id, client.lastName, client.firstName, client.phone, client.email, client.address, client.postalCode, client.country];
                 Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
             }
-        }
+        }*/
     };
 
     Core.controller.admin.initToolsClient = function () {
@@ -72,7 +72,7 @@
     };
 
     Core.controller.admin.searchClient = function (search) {
-        var validKeys = ["lastName", "firstName", "email"];
+        var validKeys = ["id", "lastName", "firstName", "email"];
         var list = utils.admin.search(search, validKeys, data.adminPanel.listClient);
         controller.admin.displayListClient(list);
     };
@@ -82,7 +82,6 @@
      *                        RoomBook                         *
      **********************************************************/
     Core.controller.admin.displayListBookRoom = function (list) {
-        //console.log(list);
         var container = document.getElementById("book_room_container");
         var classObject = "";
         var header_container = document.getElementById("header_list_room_book");
@@ -92,7 +91,7 @@
         body_container.innerHTML = "";
 
         var headers = [
-            "Ref", ""
+            "ID", "REF_BOOK", "Chambre ID", "Client ID",  "Email", "Début", "Fin"
         ];
 
 
@@ -100,12 +99,13 @@
 
         var body = [];
 
-        for (var i = 0; i < list.length; i++) {
+        /*for (var i = 0; i < list.length; i++) {
             var id = "";
-            body[i] = [];
+            var client = utils.admin.getClientById(list[i].idClient);
+            body[i] = [list[i].id, list[i].refBookRoom, list[i].idRoom, client.id, client.email, list[i].dateStart, list[i].dateEnd];
 
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
-        }
+        }*/
     };
 
     /***********************************************************
@@ -439,7 +439,6 @@
         utils.removeListener(btn_addCateg, "click");
         utils.addListener(btn_addCateg, "click", function () {
             if (inpt_addCategoryName.value != "" && inpt_addCategoryPrice.value != "") {
-
                 var json = {
                     name: inpt_addCategoryName.value,
                     price: inpt_addCategoryPrice.value

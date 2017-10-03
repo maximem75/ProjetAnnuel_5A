@@ -39,4 +39,26 @@ public class FileManager {
             }
         }
     }
+
+   /* public void checkDirectory(String pathServer){
+        String path = System.getProperty("user.dir") + pathServer;
+        File theDir = new File(path);
+        System.out.println(path);
+
+        if (!theDir.exists()) {
+            System.out.println("creating directory: " + theDir.getName());
+            boolean result = false;
+
+            try{
+                theDir.mkdir();
+                result = true;
+            }
+            catch(SecurityException se){
+                //handle it
+            }
+            if(result) {
+                System.out.println("DIR created");
+            }
+        }
+    }*/
 }
