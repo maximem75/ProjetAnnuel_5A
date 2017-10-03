@@ -16,12 +16,9 @@ public class CurrencyConvert {
     //key -> 782190b443d12320a3c4ae56
     public static float getConvertedPrice(float price) {
         JSONObject jsonObject = new JSONObject(CurrencyConvert.countryCurrencyInfo("", "EUR", "bulk"));
-        Object rates = jsonObject.get("rates");
-        String tmp = rates.toString().substring(rates.toString().indexOf("XAF"));
-        tmp = tmp.substring(tmp.toString().indexOf(":")+1);
-
-        float rate = Float.parseFloat(tmp.substring(0, tmp.toString().indexOf(",") - 1));
-        float result = price / rate;
+        JSONObject r = jsonObject.getJSONObject("rates");
+        double rates = r.getDouble("XAF");
+        float result = price / (float) rates;
 
         return result;
     }

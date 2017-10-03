@@ -50,7 +50,7 @@
             "Email", "Nom", "Prénom", "Téléphone", "Pays", "Code Postal", "Adresse", "ID"
         ];
 
-        Core.utils.admin.createHeadTemplate(headers, header_container);
+        Core.utils.admin.createHeadTemplateException(headers, header_container);
 
         var body = [];
         if (jsonClientSorted.length > 0) {
@@ -58,7 +58,7 @@
                 var c = list[i];
                 var id = "";
                 body[i] = [c.email, c.lastName, c.firstName, c.phone, c.country, c.postalCode, c.address, c.id];
-                Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
+                Core.utils.admin.createBodyTemplateException(body[i], body_container, classObject, id);
             }
         }
     };
@@ -250,7 +250,6 @@
      *                 FestiveRoomBook                         *
      **********************************************************/
     Core.controller.admin.displayListBookFestiveRoom = function (list) {
-        console.log(list);
         utils.sortByDate(list, "dateStart");
         var container = document.getElementById("book_festiveRoom_container");
         var classObject = "";
@@ -1161,7 +1160,7 @@
      **********************************************************/
     Core.controller.admin.displayListArticles = function (list) {
         //console.log(list);
-        var container = document.getElementById("article_container");
+        var container = document.getElementById("article_container_admin");
         var classObject = "";
         var header_container = document.getElementById("header_list_article");
         var body_container = document.getElementById("body_list_article");

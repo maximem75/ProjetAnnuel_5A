@@ -33,6 +33,8 @@
         container.innerHTML += template;
     };
 
+
+
     Core.utils.admin.getClientById = function (id) {
         var array = data.adminPanel.listClient;
 
@@ -145,5 +147,32 @@
             }
         }
         return list;
+    };
+
+    Core.utils.admin.createHeadTemplateException = function (headers, container) {
+        var template = "<div class='book_row_admin'>";
+        var style="";
+
+        for (var i = 0; i < headers.length; i++) {
+            var c = "book_ex_"+ i;
+            template += "<div class='book_cell_title "+ c +"'><span class='book_span_title'>" + headers[i] + "</span></div>";
+        }
+
+        template += "</div>";
+
+        container.innerHTML += template;
+    };
+
+    Core.utils.admin.createBodyTemplateException = function (body, container, classObject, id) {
+        var template = "<div class='book_row_admin_body " + classObject + "' id='" + id + "'>";
+
+        for (var i = 0; i < body.length; i++) {
+            var c = "book_ex_"+ i;
+            template += "<div class='book_cell "+ c +"'><span class='book_span'>" + body[i] + "</span></div>";
+        }
+
+        template += "</div>";
+
+        container.innerHTML += template;
     };
 })();

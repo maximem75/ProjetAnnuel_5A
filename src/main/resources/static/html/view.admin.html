@@ -30,13 +30,13 @@
                         <input id="inpt_list_client_search" type="text"
                                class="beauty_input input_admin long_input_admin">
                     </div>
-
                 </div>
                 <div id="book_room_container" class="panel_admin_container">
                     <div class="tools_admin">
                         <div class="medium_content">
                             <div class="sub_menu_tool">Réservations actives</div>
-                            <div id="header_list_room_book" class="book_cell_title" style="margin-top: 2px; border-right: 1px solid white">
+                            <div id="header_list_room_book" class="book_cell_title"
+                                 style="margin-top: 2px; border-right: 1px solid white">
                             </div>
                             <div id="body_list_room_book" class="admin_rows body_admin">
 
@@ -87,7 +87,8 @@
                     <div class="tools_admin">
                         <div class="medium_content">
                             <div class="sub_menu_tool">Salle des fêtes</div>
-                            <div id="header_list_festiveroom_book" class="book_cell_title" style="margin-top: 2px; border-right: 1px solid white">
+                            <div id="header_list_festiveroom_book" class="book_cell_title"
+                                 style="margin-top: 2px; border-right: 1px solid white">
                             </div>
                             <div id="body_list_festiveroom_book" class="admin_rows body_admin">
 
@@ -102,13 +103,15 @@
                         </div>
                         <div class="medium_content">
                             <div class="sub_menu_tool">Services</div>
-                            <div id="header_list_festiveroom_book_service" style="margin-top: 2px;" class="book_cell_title">
+                            <div id="header_list_festiveroom_book_service" style="margin-top: 2px;"
+                                 class="book_cell_title">
                             </div>
                             <div id="body_list_festiveroom_book_service" class="admin_rows body_admin">
 
                             </div>
                             <div class="tools_admin">
-                                <div id="btn_list_festiveroom_book_service_search" class="btn_book_admin" style="flex: 1;">
+                                <div id="btn_list_festiveroom_book_service_search" class="btn_book_admin"
+                                     style="flex: 1;">
                                     <a class="span_book">TRIER</a>
                                 </div>
                                 <input id="inpt_list_festiveroom_book_service_search" style="flex: 1;" type="text"
@@ -423,9 +426,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
 
                 <div id="festiveRoom_container" class="panel_admin_container">
                     <div class="medium_container">
@@ -573,12 +574,46 @@
 
             <div id="list_content_container" class="list_container_class">
                 <div id="article_container" class="panel_admin_container">
-                    <div id="header_list_article" class="admin_rows">
-                    </div>
-                    <div id="body_list_article" class="admin_rows body_admin">
 
-                    </div>
+
+                    <div class="sub_menu_tool">Ajouter un article</div>
+
+                    <input id="add_article_title" type="text" placeholder="Titre"
+                           class="beauty_input title_article">
+
+
+                                <textarea id="add_article_content" type="text"
+                                          class="beauty_input content_article"></textarea>
+
+
+                    <form class="form_picture" enctype="multipart/form-data" method="POST"
+                          id="form_add_article">
+                        <input class="beauty_input input_picture" type="file" name="file" required/>
+                    </form>
+
+                    <div class="btn_book_admin" id="btn_create_article" style="flex: 1;">AJOUTER</div>
+
+
+                    <div class="sub_menu_tool">Modifier un article</div>
+                    <input id="updt_article_title" type="text" placeholder="Titre"
+                           class="beauty_input title_article">
+
+                    <textarea id="updt_article_content" type="text"></textarea>
+
+                    <form class="form_picture" enctype="multipart/form-data" method="POST" id="form_updt_article">
+                        <input class="beauty_input input_picture" type="file" name="file" required/>
+                    </form>
+
+                    <div class="btn_delete_admin" id="btn_delete_article" style="flex: 1;">DELETE</div>
+                    <div class="btn_update_admin" id="btn_updt_article" style="flex: 1;">MODIFIER</div>
+
+
+                    <select id="slct_updt_article" class="beauty_input input_admin medium_content">
+                        <option></option>
+                    </select>
+
                 </div>
+
                 <div id="galery_container" class="panel_admin_container">
                     <div id="header_list_galery" class="admin_rows">
                     </div>
