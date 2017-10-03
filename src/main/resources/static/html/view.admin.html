@@ -217,11 +217,6 @@
                         <div class="medium_content" style="height: 350px;">
                             <div class="sub_menu_tool">Catégories</div>
                             <div class="tools_admin">
-                                <form enctype="multipart/form-data" method="POST" id="formtDataArticle">
-                                    <input class="beauty_input" type="file" name="file" required />
-                                </form>
-                                </div>
-                            <div class="tools_admin">
                                 <input id="inpt_addCategoryName" type="text" placeholder="Nom"
                                        class="beauty_input input_admin medium_content">
 
@@ -234,10 +229,12 @@
                                 <div id="btn_addCategory" class="btn_book_admin medium_content">
                                     <a class="span_book no-select">AJOUTER</a>
                                 </div>
+                                <form class="form_picture" enctype="multipart/form-data" method="POST" id="formtDataArticle">
+                                    <input class="beauty_input input_picture" type="file" name="file" required/>
+                                </form>
                             </div>
 
-                            <div class="tools_admin" style="margin-top: 13px">
-
+                            <div class="tools_admin" style="margin-top: 28px">
                                 <select id="slct_updtCategoryId" type="text"
                                         class="beauty_input input_admin medium_content">
                                     <option></option>
@@ -253,9 +250,13 @@
                                 <div id="btn_updateCategory" class="btn_update_admin" style="flex: 1;">
                                     <a class="span_book no-select">MODIFIER</a>
                                 </div>
+                                <form class="form_picture" enctype="multipart/form-data" method="POST"
+                                      id="formtUpdateDataArticle">
+                                    <input class="beauty_input input_picture" type="file" name="file" required/>
+                                </form>
                             </div>
 
-                            <div class="tools_admin" style="margin-top: 14px">
+                            <div class="tools_admin" style="margin-top: 28px">
                                 <select id="slct_removeCategory" class="beauty_input input_admin medium_content">
                                     <option></option>
                                 </select>

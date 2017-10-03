@@ -974,3 +974,17 @@ a{
 	flex: 1;
 	border-right: 1px solid white;
 }
+
+.form_picture{
+	vertical-align: middle;
+	flex: 1;
+	height:40px;
+	line-height: 40px;
+	background: #efefef;
+	margin-top: 2px;
+}
+
+.input_picture{
+	line-height: 40px;
+	color: #efefef;
+}
