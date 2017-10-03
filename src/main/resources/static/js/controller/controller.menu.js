@@ -62,7 +62,7 @@
                 createButton("btn_festiveRoom", "Salle des fêtes", menuLastChild);
 
                 if(client.accreditation === "admin")
-                    createButton("btn_admin", "Administration", menuLastChild);
+                    createButton("btn_admin", "ADMIN", menuLastChild);
 
                 if(client.accreditation === "user")
                     createButton("btn_clientListBook", "Réservations", menuLastChild);
