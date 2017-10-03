@@ -2,11 +2,13 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import server.model.FestiveRoomBooking;
 import server.model.FestiveRoomBookingServices;
 import server.repository.FestiveRoomBookingServicesRepository;
 import server.repository.FestiveRoomServiceRepository;
 import server.service.ClientService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -45,6 +47,21 @@ public class FestiveRoomBookingServicesController {
     public List<FestiveRoomBookingServices> getFestiveRoomBookingServicesByIdFestiveRoomBooking(@RequestParam("id") Long id, @RequestParam("token") String token) {
         if (clientService.findByToken(token) != null) {
             return festiveRoomBookingServicesRepository.getFestiveRoomBookingServicesByIdFestiveRoomBooking(id);
+        }
+
+        return null;
+    }
+
+    @RequestMapping(path = "/getByListFestiveRoomBook", method = POST)
+    @ResponseStatus(OK)
+    public List<FestiveRoomBookingServices> getByListFestiveRoomBookServices(@RequestBody List<FestiveRoomBooking> festiveRoomBookingList, @RequestParam("token") String token){
+        if(clientService.adminAccess(token)){
+            List<FestiveRoomBookingServices> res = new ArrayList<>();
+
+            for(FestiveRoomBooking f : festiveRoomBookingList){
+                res.addAll(festiveRoomBookingServicesRepository.getFestiveRoomBookingServicesByIdFestiveRoomBooking(f.getId()));
+            }
+            return res;
         }
 
         return null;

@@ -57,9 +57,9 @@
     };
 
     Core.utils.admin.getServiceById = function (id) {
-        for (var i = 0; i < data.listFesiveRoomService.length; i++) {
-            if (data.listFesiveRoomService[i].id == id)
-                return data.listFesiveRoomService[i];
+        for (var i = 0; i < data.adminPanel.listFestiveRoomServices.length; i++) {
+            if (data.adminPanel.listFestiveRoomServices[i].id == id)
+                return data.adminPanel.listFestiveRoomServices[i];
         }
     };
 
@@ -69,7 +69,6 @@
                 return data.adminPanel.listRoom[i];
         }
     };
-
 
     Core.utils.admin.search = function (search, keys, currentList) {
         var list = [];

@@ -94,6 +94,8 @@
             url: "/festiveRoomBooking/getListValidated",
             func: function (list) {
                 data.adminPanel.listFestiveRoomBook = list;
+                Core.service.admin.getListServiceFestiveRoom();
+                Core.service.admin.getListFestiveRoomBookServices(data.adminPanel.listFestiveRoomBook);
                 Core.controller.admin.displayListBookFestiveRoom(list);
             },
             error: function (statusCode) {
@@ -101,6 +103,24 @@
         };
 
         utils.ajaxRequest(object, paramRequest);
+    };
+
+    Core.service.admin.getListFestiveRoomBookServices = function (list) {
+        var paramRequest = "token=" + client.token;
+
+        var object =  {
+            name: "getListFestiveRoomBookServices",
+            method: "POST",
+            url: "/festiveRoomBookingServices/getByListFestiveRoomBook",
+            func: function (list) {
+                data.adminPanel.listFestiveRoomBookServices = list;
+                Core.controller.admin.displayListBookFestiveRoomServices(list);
+            },
+            error: function (statusCode) {
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest, JSON.stringify(list));
     };
 
     Core.service.admin.getListRoom = function () {
@@ -240,13 +260,13 @@
             method: "GET",
             url: "/festiveRoomService",
             func: function (list) {
-
+                data.adminPanel.listFestiveRoomServices = list;
             },
             error: function (statusCode) {
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, newsLetter, false, true);
+        utils.ajaxRequest(object, paramRequest);
     };
 
     Core.service.admin.getListServiceFestiveRoomBookById = function (idFestiveRoomBook) {

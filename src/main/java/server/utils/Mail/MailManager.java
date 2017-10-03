@@ -59,7 +59,7 @@ public class MailManager {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(clientEmail));
             message.setSubject(mailSubject);
-            System.out.println(mailContent);
+
             String email = mailContent;
             message.setContent(email,"text/html");
             Transport.send(message);

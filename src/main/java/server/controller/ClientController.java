@@ -178,6 +178,5 @@ public class ClientController {
     @RequestMapping(path = "/sendMail", method = GET)
     @ResponseStatus(OK)
     public void test(@RequestParam("content") String content){
-        System.out.println(content);
     }
 }

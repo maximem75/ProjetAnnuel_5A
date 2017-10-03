@@ -79,7 +79,7 @@ public class RestaurantTableBookingService {
                 return 1;
             }
         }
-        System.out.println("-1");
+
         return -1;
     }
 
@@ -139,7 +139,6 @@ public class RestaurantTableBookingService {
     }
 
     public boolean cancelAvailable(Date date){
-        System.out.println("ins");
         Date currentTime = new Date();
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 14);

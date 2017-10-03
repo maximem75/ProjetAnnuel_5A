@@ -15,8 +15,9 @@ import java.util.List;
 @Repository
 public interface FestiveRoomBookingRepository extends JpaRepository<FestiveRoomBooking, Long>{
 
+    @Query("select frb from FestiveRoomBooking frb where status = 'active' and idClient = :idClient ")
     List<FestiveRoomBooking> findByIdClient(@Param("idClient") Long idClient);
 
-    @Query("select frb from FestiveRoomBooking frb where status = 'active'")
+    @Query("select frb from FestiveRoomBooking frb where status = 'active' and dateEnd > CURRENT_TIME ")
     List<FestiveRoomBooking> getListActivated();
 }

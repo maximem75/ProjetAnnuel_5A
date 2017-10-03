@@ -47,7 +47,7 @@
         body_container.innerHTML = "";
 
         var headers = [
-            "Email", "Nom", "Prénom", "Téléphone", "Pays", "Code Postal", "Adresse"
+            "Email", "Nom", "Prénom", "Téléphone", "Pays", "Code Postal", "Adresse", "ID"
         ];
 
         Core.utils.admin.createHeadTemplate(headers, header_container);
@@ -57,7 +57,7 @@
             for (var i = 0; i < jsonClientSorted.length; i++) {
                 var c = list[i];
                 var id = "";
-                body[i] = [c.email, c.lastName, c.firstName, c.phone, c.country, c.postalCode, c.address];
+                body[i] = [c.email, c.lastName, c.firstName, c.phone, c.country, c.postalCode, c.address, c.id];
                 Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
             }
         }
@@ -250,17 +250,18 @@
      *                 FestiveRoomBook                         *
      **********************************************************/
     Core.controller.admin.displayListBookFestiveRoom = function (list) {
-        //console.log(list);
+        console.log(list);
+        utils.sortByDate(list, "dateStart");
         var container = document.getElementById("book_festiveRoom_container");
         var classObject = "";
-        var header_container = document.getElementById("header_list_festiveRoom_book");
-        var body_container = document.getElementById("body_list_festiveRoom_book");
+        var header_container = document.getElementById("header_list_festiveroom_book");
+        var body_container = document.getElementById("body_list_festiveroom_book");
 
         header_container.innerHTML = "";
         body_container.innerHTML = "";
 
         var headers = [
-            ""
+            "ID", "Client ID", "Début", "Fin"
         ];
 
         Core.utils.admin.createHeadTemplate(headers, header_container);
@@ -269,10 +270,73 @@
 
         for (var i = 0; i < list.length; i++) {
             var id = "";
-            body[i] = [];
+            var fr = list[i];
+            body[i] = [fr.id, fr.idClient, utils.formatDateAdmin(fr.dateStart), utils.formatDateAdmin(fr.dateEnd)];
 
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
+
+        var btn_search = document.getElementById("btn_list_festiveroom_book_search");
+        var inp_search = document.getElementById("inpt_list_festiveroom_book_search");
+
+        var keys = [
+            "id", "idClient"
+        ];
+        utils.removeListener(btn_search, "click");
+        utils.addListener(btn_search, "click", function () {
+           if (inp_search.value != ""){
+               Core.controller.admin.displayListBookFestiveRoom(utils.admin.search(inp_search.value, keys, data.adminPanel.listFestiveRoomBook));
+            } else {
+               Core.controller.admin.displayListBookFestiveRoom(data.adminPanel.listFestiveRoomBook);
+           }
+        }, false);
+    };
+
+    Core.controller.admin.displayListBookFestiveRoomServices = function (list) {
+        utils.numberSort(list, "idFestiveRoomBooking");
+        var classObject = "";
+        var header_container = document.getElementById("header_list_festiveroom_book_service");
+        var body_container = document.getElementById("body_list_festiveroom_book_service");
+
+        header_container.innerHTML = "";
+        body_container.innerHTML = "";
+
+        var headers = [
+            "Réservation ID", "Nom", "Quantité"
+        ];
+
+        Core.utils.admin.createHeadTemplate(headers, header_container);
+
+        var body = [];
+        for (var i = 0; i < list.length; i++) {
+            var id = "";
+            var s = list[i];
+            var service = utils.admin.getServiceById(s.idFestiveRoomService);
+
+            body[i] = [s.idFestiveRoomBooking, service.name, s.quantity];
+
+            Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
+        }
+
+        var btn_search = document.getElementById("btn_list_festiveroom_book_service_search");
+        var inp_search = document.getElementById("inpt_list_festiveroom_book_service_search");
+
+        var keys = [
+            "idFestiveRoomBooking"
+        ];
+        utils.removeListener(btn_search, "click");
+        utils.addListener(btn_search, "click", function () {
+            if (inp_search.value != ""){
+                Core.controller.admin.displayListBookFestiveRoomServices(utils.admin.search(inp_search.value, keys, data.adminPanel.listFestiveRoomBookServices));
+            } else {
+                Core.controller.admin.displayListBookFestiveRoomServices(data.adminPanel.listFestiveRoomBookServices);
+            }
+        }, false);
+    };
+
+
+    Core.controller.admin.searchFestiveRoomBookService = function () {
+
     };
 
     /***********************************************************
@@ -407,7 +471,6 @@
         utils.removeListener(slct_updtRoomId, "change");
         utils.addListener(slct_updtRoomId, "change", function () {
             var room = utils.admin.getRoomById(slct_updtRoomId.options[slct_updtRoomId.selectedIndex].getAttribute("name"));
-            console.log(room);
             if (room != null) {
                 for (var i = 0; i < slct_updtCategory.options.length; i++) {
                     var tmp = slct_updtCategory.options[i];
