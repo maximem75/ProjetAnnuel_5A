@@ -24,10 +24,10 @@ public interface RoomBookingRepository extends JpaRepository<RoomBooking, Long> 
     @Query("select rb from RoomBooking rb where idClient = :IdClient and status = 'active'")
     List<RoomBooking> getListRoomBookingByIdClient(@Param("IdClient") Long IdClient);
 
-    @Query("select rb from RoomBooking rb where status = 'active' and (dateEnd > current_timestamp dateEnd = current_timestamp)")
+    @Query("select rb from RoomBooking rb where status = 'active' and (dateEnd > current_timestamp or dateEnd = current_timestamp)")
     List<RoomBooking> getListActivated();
 
-    @Query("select rb from RoomBooking rb where status = 'active' and dateEnd < current_timestamp ")
+    @Query("select rb from RoomBooking rb where status = 'active' and dateEnd < current_timestamp")
     List<RoomBooking> getListActivatedHold();
 
 }
