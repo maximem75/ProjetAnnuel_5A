@@ -737,6 +737,7 @@
     };
 
     Core.controller.admin.manageFestiveRoomEvents = function () {
+        console.log(data.adminPanel.listDateInvalideFestiveRoom);
         data.adminPanel.listDateInvalideFestiveRoom = utils.sortByDate(data.adminPanel.listDateInvalideFestiveRoom, "dateStart");
         data.listFesiveRoomService = utils.alphabeticSortAsc(data.listFesiveRoomService, "name");
 
