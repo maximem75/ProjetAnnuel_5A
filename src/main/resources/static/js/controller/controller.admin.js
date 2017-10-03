@@ -51,15 +51,15 @@
 
         Core.utils.admin.createHeadTemplate(headers, header_container);
 
-       /* var body = [];
+        var body = [];
         if (jsonClientSorted.length > 0) {
             for (var i = 0; i < jsonClientSorted.length; i++) {
-                var client = list[i];
+                var c = list[i];
                 var id = "";
-                body[i] = [client.id, client.lastName, client.firstName, client.phone, client.email, client.address, client.postalCode, client.country];
+                body[i] = [c.id, c.lastName, c.firstName, c.phone, c.email, c.address, c.postalCode, c.country];
                 Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
             }
-        }*/
+        }
     };
 
     Core.controller.admin.initToolsClient = function () {
@@ -875,7 +875,7 @@
             });
 
             slct_removeInvalideFestiveRoomID.innerHTML = "<option disabled selected>ID</option>";
-
+            console.log(data.adminPanel.listDateInvalideFestiveRoom);
             var tmp = data.adminPanel.listDateInvalideFestiveRoom;
             tmp = utils.numberSort(tmp, "id");
             for (var i = 0; i < data.adminPanel.listDateInvalideFestiveRoom.length; i++) {
