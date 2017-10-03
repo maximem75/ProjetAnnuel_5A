@@ -36,7 +36,7 @@ public class PictureRoomCategoryController {
         if (clientService.adminAccess(token)) {
             PictureRoomCategory pictureRoomCategory = new PictureRoomCategory();
             pictureRoomCategory.setIdRoomCategory(id);
-            String pathServer = PRE_PATH + "/" + file.getOriginalFilename();
+            String pathServer = PRE_PATH + file.getOriginalFilename();
 
             FileManager fm = new FileManager();
             fm.saveImage(file, pathServer);
