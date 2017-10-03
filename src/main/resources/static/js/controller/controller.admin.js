@@ -36,7 +36,7 @@
      *                          Client                         *
      **********************************************************/
     Core.controller.admin.displayListClient = function (list) {
-        var jsonClientSorted = Core.utils.alphabeticSortDesc(list, "lastName");
+        var jsonClientSorted = Core.utils.numberSort(list, "id");
         var container = document.getElementById("client_container");
         var header_container = document.getElementById("header_list_client");
         var body_container = document.getElementById("body_list_client");
@@ -67,13 +67,25 @@
         var inputSearch = document.getElementById("inpt_list_client_search");
 
         utils.addListener(btnSearch, "click", function () {
-            controller.admin.searchClient(inputSearch.value);
+            if(inputSearch.value != "")
+                controller.admin.searchClient(inputSearch.value);
+            else
+                Core.controller.admin.displayListClient(data.adminPanel.listClient);
         });
     };
 
     Core.controller.admin.searchClient = function (search) {
-        var validKeys = ["id", "lastName", "firstName", "email"];
-        var list = utils.admin.search(search, validKeys, data.adminPanel.listClient);
+        var list = [];
+        var type = isNaN(search);
+
+        if(type == true){
+            var validKeys = ["lastName", "firstName", "email"];
+            list = utils.admin.search(search, validKeys, data.adminPanel.listClient);
+        } else if(type == false){
+            var validKeys = ["id"];
+            list = utils.admin.searchByIdClient(search, validKeys, data.adminPanel.listClient);
+        }
+
         controller.admin.displayListClient(list);
     };
 
@@ -438,7 +450,7 @@
 
         utils.removeListener(btn_addCateg, "click");
         utils.addListener(btn_addCateg, "click", function () {
-            if (inpt_addCategoryName.value != "" && inpt_addCategoryPrice.value != "") {
+            if (inpt_addCategoryName.value != "" && inpt_addCategoryPrice.value != "" && document.getElementById("inpt_addCategoryPrice").value) {
                 var json = {
                     name: inpt_addCategoryName.value,
                     price: inpt_addCategoryPrice.value
@@ -452,7 +464,7 @@
             var selectedCategoryId = slct_updtCategoryId.options[slct_updtCategoryId.selectedIndex];
             var id = selectedCategoryId.value;
 
-            if (id != null && id != undefined) {
+            if (id != null && id != undefined && inpt_updtCategoryName.value != "" && inpt_updtCategoryPrice.value != null) {
                 var json = {
                     id: id,
                     name: inpt_updtCategoryName.value,

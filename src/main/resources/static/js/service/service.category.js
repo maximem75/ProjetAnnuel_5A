@@ -45,8 +45,9 @@
             name: "update",
             method: "PUT",
             url: "/roomCategory",
-            func: function () {
+            func: function (id) {
                 Core.service.admin.getListRoom();
+                Core.service.pictureRoomCategory.update(id);
             },
             error: function () {
 

@@ -49,6 +49,7 @@ public class PictureRoomCategoryController {
     @RequestMapping(method = PUT)
     @ResponseStatus(ACCEPTED)
     public void updatePictureRoomCategory(@RequestParam("file") MultipartFile file, @RequestParam("token") String token, @RequestParam("id") Long id) {
+        System.out.println("in");
         if (clientService.adminAccess(token)) {
             PictureRoomCategory pictureRoomCategory = pictureRoomCategoryRepository.getOne(id);
             String pathServer = PRE_PATH + file.getOriginalFilename();

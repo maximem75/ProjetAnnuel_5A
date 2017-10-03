@@ -69,10 +69,10 @@
     };
 
 
-
     Core.utils.admin.search = function (search, keys, currentList) {
-        var srch = search.toLowerCase();
         var list = [];
+
+        var srch = search.toLowerCase();
 
         for (var i = 0; i < currentList.length; i++) {
             var tmp = currentList[i];
@@ -86,6 +86,27 @@
                 }
             }
         }
+
+        return list;
+    };
+
+    Core.utils.admin.searchByIdClient = function (search, keys, currentList) {
+        var list = [];
+        var srch = search;
+
+        for (var i = 0; i < currentList.length; i++) {
+            var tmp = currentList[i];
+            for (var k in tmp) {
+                if (keys.includes(k)) {
+                    var val = tmp[k];
+                    if (val == srch) {
+                        list.push(tmp);
+                        break;
+                    }
+                }
+            }
+        }
+
         return list;
     };
 

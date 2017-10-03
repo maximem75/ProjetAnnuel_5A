@@ -489,8 +489,16 @@
     Core.utils.alphabeticSortDesc = function (array, key) {
         if (array.length > 0) {
             return array.sort(function (a, b) {
-                var x = a[key].toLowerCase();
-                var y = b[key].toLowerCase();
+                if(typeof a[key] == "string")
+                    var x = a[key].toLowerCase();
+                else
+                    var x = a[key];
+
+                if(typeof b[key] == "string")
+                    var y = b[key].toLowerCase();
+                else
+                    var y = b[key];
+
                 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
             });
         }
@@ -501,8 +509,16 @@
     Core.utils.alphabeticSortAsc = function (array, key) {
         if (array.length > 0) {
             return array.sort(function (a, b) {
-                var x = a[key].toLowerCase();
-                var y = b[key].toLowerCase();
+                if(typeof a[key] == "string")
+                    var x = a[key].toLowerCase();
+                else
+                    var x = a[key];
+
+                if(typeof b[key] == "string")
+                    var y = b[key].toLowerCase();
+                else
+                    var y = b[key];
+
                 return ((x > y) ? -1 : ((x < y) ? 1 : 0));
             });
         }

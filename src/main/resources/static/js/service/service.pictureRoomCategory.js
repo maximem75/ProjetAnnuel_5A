@@ -47,6 +47,27 @@
         oReq.send(formData);
     };
 
+    Core.service.pictureRoomCategory.update = function (id) {
+        var paramRequest = data.basicUrl + "/pictureRoomCategory?token=" + client.token + "&id=" + id;
+        console.log(paramRequest);
+        var form = document.getElementById("formtUpdateDataArticle");
+        form.action = paramRequest;
+        var formData = new FormData(form);
+
+        var oReq = new XMLHttpRequest();
+        oReq.open("put", paramRequest, true);
+        oReq.onload = function(oEvent) {
+            if (oReq.status == 201) {
+                Core.service.pictureRoomCategory.getList();
+            } else {
+                alert("error")
+            }
+        };
+
+        if(document.getElementById("update_picture_galery").value != "")
+            oReq.send(formData);
+    };
+
     Core.service.pictureRoomCategory.delete = function () {
 
     };

@@ -40,10 +40,12 @@ public class RoomCategoryController {
 
     @RequestMapping(method = PUT)
     @ResponseStatus(ACCEPTED)
-    public void updateRoomCategory(@RequestBody RoomCategory roomCategory, @RequestParam("token") String token) {
+    public Long updateRoomCategory(@RequestBody RoomCategory roomCategory, @RequestParam("token") String token) {
         if (clientService.adminAccess(token)) {
-            roomCategoryRepository.save(roomCategory);
+            return roomCategoryRepository.save(roomCategory).getId();
         }
+
+        return 0l;
     }
 
     @RequestMapping(method = DELETE)
