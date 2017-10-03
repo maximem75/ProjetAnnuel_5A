@@ -53,15 +53,8 @@ public class FestiveRoomController {
 
     @RequestMapping(method = PUT)
     @ResponseStatus(ACCEPTED)
-    public void updateFestiveRoom(@RequestBody FestiveRoom festiveRoom, @RequestParam("token") String token, @RequestParam("file") MultipartFile file){
-
+    public void updateFestiveRoom(@RequestBody FestiveRoom festiveRoom, @RequestParam("token") String token){
         if(clientService.adminAccess(token)){
-            String pathServer = PRE_PATH + file.getOriginalFilename();
-
-            FileManager fm = new FileManager();
-            fm.saveImage(file, pathServer);
-
-            festiveRoom.setPicturePath(PRE_PATH_FRONT + file.getOriginalFilename());
             festiveRoomRepository.save(festiveRoom);
         }
     }

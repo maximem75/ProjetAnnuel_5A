@@ -36,7 +36,7 @@
      *                          Client                         *
      **********************************************************/
     Core.controller.admin.displayListClient = function (list) {
-        var jsonClientSorted = Core.utils.alphabeticSort(list, "lastName");
+        var jsonClientSorted = Core.utils.alphabeticSortDesc(list, "lastName");
         var container = document.getElementById("client_container");
         var header_container = document.getElementById("header_list_client");
         var body_container = document.getElementById("body_list_client");
@@ -191,7 +191,6 @@
      *                           Room                          *
      **********************************************************/
     Core.controller.admin.displayListRoom = function (list) {
-        Core.controller.admin.manageRoomEvents();
         var container = document.getElementById("building_container");
         var classObject = "";
         var header_container = document.getElementById("header_list_room");
@@ -228,6 +227,7 @@
 
         var body = [];
 
+        utils.numberSort(list, "number");
         for (var i = 0; i < list.length; i++) {
             var id = "";
             var room = list[i];
@@ -237,7 +237,7 @@
         }
 
         var category_body = [];
-
+        utils.alphabeticSortDesc(data.listRoomCategories, "name");
         for (var i = 0; i < data.listRoomCategories.length; i++) {
             var id = "";
             var category = data.listRoomCategories[i];
@@ -248,6 +248,7 @@
 
         var invalid_body = [];
 
+        utils.sortByDate(data.adminPanel.listDateInvalideRoom, "dateStart");
         for (var i = 0; i < data.adminPanel.listDateInvalideRoom.length; i++) {
             var id = "";
             var invalid = data.adminPanel.listDateInvalideRoom[i];
@@ -255,6 +256,8 @@
             invalid_body[i] = [invalid.id, utils.formatDateAdmin(invalid.dateStart), utils.formatDateAdmin(invalid.dateEnd), invalid.idRoom];
             Core.utils.admin.createBodyTemplate(invalid_body[i], body_invalidRoom_container, classObject, id);
         }
+
+        Core.controller.admin.manageRoomEvents();
     };
 
     Core.controller.admin.manageRoomEvents = function () {
@@ -290,13 +293,14 @@
 
             inpt_addNumber.value = "";
             inpt_updtRoomNumber.value = "";
-
+            utils.numberSort(data.adminPanel.listRoom, "id");
             for (var i = 0; i < data.adminPanel.listRoom.length; i++) {
                 var room = data.adminPanel.listRoom[i];
                 slct_updtRoomId.innerHTML += "<option name='" + room.id + "'>" + room.id + "</option>";
                 slct_rmvRoom.innerHTML += "<option name='" + room.id + "'>" + room.id + "</option>";
             }
 
+            utils.numberSort(data.listRoomCategories, "id");
             for (var i = 0; i < data.listRoomCategories.length; i++) {
                 var category = data.listRoomCategories[i];
 
@@ -311,6 +315,28 @@
                 slct_updtBuilding.innerHTML += "<option name='" + building.id + "'>" + building.name + "</option>";
             }
         }();
+
+        utils.removeListener(slct_updtRoomId, "change");
+        utils.addListener(slct_updtRoomId, "change", function () {
+            var room = utils.admin.getRoomById(slct_updtRoomId.options[slct_updtRoomId.selectedIndex].getAttribute("name"));
+            console.log(room);
+            if(room != null){
+                for(var i = 0 ; i < slct_updtCategory.options.length ; i++){
+                    var tmp = slct_updtCategory.options[i];
+                    if(tmp.getAttribute("name") == room.roomCategory.id){;
+                        slct_updtCategory.options[i].selected = "selected";
+                    }
+                }
+
+                for(var i = 0 ; i < slct_updtBuilding.options.length ; i++){
+                    var tmp = slct_updtBuilding.options[i];
+                    if(tmp.getAttribute("name") == room.building.id)
+                        slct_updtBuilding.options[i].selected = "selected";
+                }
+
+                inpt_updtRoomNumber.value = room.number;
+            }
+        }, false);
 
         utils.removeListener(btn_add, "click");
         utils.addListener(btn_add, "click", function () {
@@ -389,17 +415,25 @@
             inpt_updtCategoryName.value = "";
             inpt_updtCategoryPrice.value = "";
 
+            utils.alphabeticSortDesc(data.listRoomCategories, "name");
             for (var i = 0; i < data.listRoomCategories.length; i++) {
                 var category = data.listRoomCategories[i];
-                slct_updtCategoryId.innerHTML += "<option name='" + category.name + "'>" + category.id + "</option>";
                 slct_removeCategoryById.innerHTML += "<option name='" + category.id + "'>" + category.name + "</option>";
 
+            }
+
+            utils.numberSort(data.listRoomCategories, "id");
+            for (var i = 0; i < data.listRoomCategories.length; i++) {
+                var category = data.listRoomCategories[i];
+                slct_updtCategoryId.innerHTML += "<option name='" + category.id + "'>" + category.id + "</option>";
             }
         }();
 
         utils.removeListener(slct_updtCategoryId, "change");
         utils.addListener(slct_updtCategoryId, "change", function () {
-            inpt_updtCategoryName.value = slct_updtCategoryId.options[slct_updtCategoryId.selectedIndex].getAttribute("name");
+            var category = utils.admin.getCategoryById(slct_updtCategoryId.options[slct_updtCategoryId.selectedIndex].getAttribute("name"));
+            inpt_updtCategoryName.value = category.name;
+            inpt_updtCategoryPrice.value = category.price;
         }, false);
 
         utils.removeListener(btn_addCateg, "click");
@@ -480,11 +514,13 @@
             slct_addInvalidaRoomID.innerHTML = "<option disabled selected>Chambre ID</option>";
             slct_removeInvalideRoomID.innerHTML = "<option disabled selected>ID</option>";
 
+            utils.numberSort(data.adminPanel.listDateInvalideRoom, "id");
             for (var i = 0; i < data.adminPanel.listDateInvalideRoom.length; i++) {
                 var invalid = data.adminPanel.listDateInvalideRoom[i];
                 slct_removeInvalideRoomID.innerHTML += "<option name='" + invalid.id + "'>" + invalid.id + "</option>";
             }
 
+            utils.numberSort(data.listRoom, "id");
             for (var i = 0; i < data.listRoom.length; i++) {
                 var room = data.listRoom[i];
                 slct_addInvalidaRoomID.innerHTML += "<option name='" + room.id + "'>" + room.id + "</option>";
@@ -516,7 +552,7 @@
         utils.addListener(btn_removeInvalideRoom, "click", function () {
             var selectedInvalideId = slct_removeInvalideRoomID.options[slct_removeInvalideRoomID.selectedIndex];
 
-            if(selectedInvalideId.value != "" && selectedInvalideId.value != "ID"){
+            if (selectedInvalideId.value != "" && selectedInvalideId.value != "ID") {
                 Core.service.invalidDateRoom.delete(selectedInvalideId.value);
             }
         }, false);
@@ -581,6 +617,11 @@
             }
         }();
 
+        utils.removeListener(slct_updt, "change");
+        utils.addListener(slct_updt, "change", function () {
+            inpt_updt.value = slct_updt.options[slct_updt.selectedIndex].getAttribute("chairs");
+        }, false);
+
         utils.removeListener(btn_add, "click");
         utils.addListener(btn_add, "click", function () {
             if (inpt_add.value != "" && inpt_addNbr.value != "") {
@@ -623,17 +664,30 @@
      *                     FestiveRoom                         *
      **********************************************************/
     Core.controller.admin.displayListFestiveRoom = function (list) {
-        //console.log(list);
         var container = document.getElementById("festiveRoom_container");
         var classObject = "";
+
         var header_container = document.getElementById("header_list_festiveRoom");
         var body_container = document.getElementById("body_list_festiveRoom");
+
+        var header_service_container = document.getElementById("header_list_service");
+        var body_service_container = document.getElementById("body_list_service");
+
+        var header_invalid_container = document.getElementById("header_list_invalidFestive");
+        var body_invalid_container = document.getElementById("body_list_invalidFestive");
 
         header_container.innerHTML = "";
         body_container.innerHTML = "";
 
+        header_service_container.innerHTML = "";
+        body_service_container.innerHTML = "";
+
+        header_invalid_container.innerHTML = "";
+        body_invalid_container.innerHTML = "";
+
+
         var headers = [
-            ""
+            "ID", "Prix"
         ];
 
         Core.utils.admin.createHeadTemplate(headers, header_container);
@@ -642,12 +696,223 @@
 
         for (var i = 0; i < list.length; i++) {
             var id = "";
-            body[i] = [];
-
+            body[i] = [list[i].id, list[i].price];
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
+
+        var headers_service = [
+            "ID", "Nom", "Prix", "Quantité"
+        ];
+
+        Core.utils.admin.createHeadTemplate(headers_service, header_service_container);
+
+        var body_service = [];
+
+        var tmp = utils.alphabeticSortDesc(data.listFesiveRoomService, "name");
+        for (var i = 0; i < tmp.length; i++) {
+            var id = "";
+            var service = tmp[i];
+            body_service[i] = [service.id, service.name, service.price, service.quantity];
+
+            Core.utils.admin.createBodyTemplate(body_service[i], body_service_container, classObject, id);
+        }
+
+        var headers_invalid = [
+            "ID", "Début", "Fin"
+        ];
+
+        Core.utils.admin.createHeadTemplate(headers_invalid, header_invalid_container);
+
+        var body_invalid = [];
+        utils.sortByDate(data.adminPanel.listDateInvalideFestiveRoom, "dateStart");
+        for (var i = 0; i < data.adminPanel.listDateInvalideFestiveRoom.length; i++) {
+            var id = "";
+            var invalid = data.adminPanel.listDateInvalideFestiveRoom[i];
+            body_invalid[i] = [invalid.id, utils.formatDateAdmin(invalid.dateStart), utils.formatDateAdmin(invalid.dateEnd)];
+
+            Core.utils.admin.createBodyTemplate(body_invalid[i], body_invalid_container, classObject, id);
+        }
+
+        //// Events ////
+        controller.admin.manageFestiveRoomEvents();
     };
 
+    Core.controller.admin.manageFestiveRoomEvents = function () {
+        data.adminPanel.listDateInvalideFestiveRoom = utils.sortByDate(data.adminPanel.listDateInvalideFestiveRoom, "dateStart");
+        data.listFesiveRoomService = utils.alphabeticSortAsc(data.listFesiveRoomService, "name");
+
+        /************* Festive Room ******************/
+
+        var btn_update = document.getElementById("btn_updateFestiveRoom");
+        var selectPrice = document.getElementById("slct_updtFestiveRoomPrice");
+        selectPrice.value = "";
+
+        utils.removeListener(btn_update);
+        utils.addListener(btn_update, "click", function () {
+            if (selectPrice.value != "") {
+                var json = data.listFestiveRoom[0];
+                json.price = selectPrice.value;
+
+                Core.service.festiveRoom.update(JSON.stringify(json));
+            }
+        }, false);
+
+        /************* Service  ******************/
+        var btn_addService = document.getElementById("btn_addService");
+        var btn_updateService = document.getElementById("btn_updateService");
+        var btn_removeService = document.getElementById("btn_removeService");
+
+        var inpt_addServiceName = document.getElementById("inpt_addServiceName");
+        var inpt_addServicePrice = document.getElementById("inpt_addServicePrice");
+        var inpt_addServiceQuantity = document.getElementById("inpt_addServiceQuantity");
+
+        var slct_updtServiceId = document.getElementById("slct_updtServiceId");
+        var inpt_updtServiceName = document.getElementById("inpt_updtServiceName");
+        var inpt_updtServicePrice = document.getElementById("inpt_updtServicePrice");
+        var inpt_updtServiceQuantity = document.getElementById("inpt_updtServiceQuantity");
+
+        var slct_removeService = document.getElementById("slct_removeService");
+
+        var initService = function () {
+            inpt_addServiceName.value = "";
+            inpt_addServicePrice.value = "";
+            inpt_addServiceQuantity.value = "";
+
+            slct_updtServiceId.innerHTML = "<option disabled selected>ID</option>";
+            inpt_updtServiceName.value = "";
+            inpt_updtServicePrice.value = "";
+            inpt_updtServiceQuantity.value = "";
+
+            slct_removeService.innerHTML = "<option disabled selected>ID</option>";
+
+            var tmp = data.listFesiveRoomService;
+            tmp = utils.numberSort(tmp, "id");
+            for (var i = 0; i < tmp.length; i++) {
+                var service = tmp[i];
+                slct_updtServiceId.innerHTML += "<option name='" + service.id + "'>" + service.id + "</option>";
+                slct_removeService.innerHTML += "<option name='" + service.id + "'>" + service.id + "</option>";
+            }
+        }();
+
+        utils.removeListener(slct_updtServiceId, "change");
+        utils.addListener(slct_updtServiceId, "change", function () {
+            var selected = slct_updtServiceId.options[slct_updtServiceId.selectedIndex];
+            var service = utils.admin.getServiceById(selected.getAttribute("name"));
+            inpt_updtServiceName.value = service.name;
+            inpt_updtServicePrice.value = service.price;
+            inpt_updtServiceQuantity.value = service.quantity;
+        }, false);
+
+        utils.removeListener(btn_addService, "click");
+        utils.addListener(btn_addService, "click", function () {
+            if (inpt_addServiceName.value != "" && inpt_addServicePrice.value != "" && inpt_addServiceQuantity.value != "") {
+                var json = {
+                    name: inpt_addServiceName.value,
+                    price: inpt_addServicePrice.value,
+                    quantity: inpt_addServiceQuantity.value
+                };
+
+                service.services.create(JSON.stringify(json));
+            }
+        }, false);
+
+        utils.removeListener(btn_updateService, "click");
+        utils.addListener(btn_updateService, "click", function () {
+            var selected = slct_updtServiceId.options[slct_updtServiceId.selectedIndex];
+            if (selected.value != "" && selected.value != "ID" && inpt_updtServiceName.value != "" && inpt_updtServicePrice.value != "" && inpt_updtServiceQuantity.value != "") {
+                var json = {
+                    id: selected.getAttribute("name"),
+                    name: inpt_updtServiceName.value,
+                    price: inpt_updtServicePrice.value,
+                    quantity: inpt_updtServiceQuantity.value
+                };
+
+                service.services.update(JSON.stringify(json));
+            }
+
+        }, false);
+
+        utils.removeListener(btn_removeService, "click");
+        utils.addListener(btn_removeService, "click", function () {
+            var selected = slct_removeService.options[slct_removeService.selectedIndex];
+            if (selected.value != "" && selected.value != "ID") {
+                service.services.delete(selected.getAttribute("name"));
+            }
+        }, false);
+
+
+        /************* Invalide date  ******************/
+
+        var btn_addInvalideFestiveRoom = document.getElementById("btn_addInvalideFestiveRoom");
+        var btn_removeInvalideFestiveRoom = document.getElementById("btn_removeInvalideFestiveRoom");
+
+        var startDatePicker = document.getElementById("date_invalidFestiveStart");
+        var endDatePicker = document.getElementById("date_invalidFestiveEnd");
+
+        startDatePicker.value = "";
+        endDatePicker.value = "";
+
+        var startDateID = "#date_invalidFestiveStart";
+        var endDateID = "#date_invalidFestiveEnd";
+
+        var minStart = new Date();
+        var minEnd = new Date();
+
+        minStart.setDate(minStart.getDate());
+        minEnd.setDate(minEnd.getDate() + 1);
+
+        var slct_removeInvalideFestiveRoomID = document.getElementById("slct_removeInvalideFestiveRoomID");
+
+        var initInvalideFestiveRoom = function () {
+            utils.reservation.datePicker(startDateID, minStart, null);
+            utils.reservation.datePicker(endDateID, minEnd, null);
+
+            $(startDateID).datepicker("option", "onSelect", function () {
+                var minDate = $(startDateID).datepicker("getDate");
+                var minDateEnd = $(startDateID).datepicker("getDate");
+                minDateEnd.setDate(minDateEnd.getDate() + 1);
+
+                $(endDateID).datepicker("option", "minDate", minDateEnd);
+            });
+
+            slct_removeInvalideFestiveRoomID.innerHTML = "<option disabled selected>ID</option>";
+
+            var tmp = data.adminPanel.listDateInvalideFestiveRoom;
+            tmp = utils.numberSort(tmp, "id");
+            for (var i = 0; i < data.adminPanel.listDateInvalideFestiveRoom.length; i++) {
+                var invalid = tmp[i];
+                slct_removeInvalideFestiveRoomID.innerHTML += "<option name='" + invalid.id + "'>" + invalid.id + "</option>";
+            }
+
+        }();
+        utils.removeListener(btn_addInvalideFestiveRoom, "click");
+        utils.addListener(btn_addInvalideFestiveRoom, "click", function () {
+
+            if (startDatePicker.value != "" && endDatePicker.value != "") {
+                var dateStart = $("#date_invalidFestiveStart").val().split("/");
+                var dateEnd = $("#date_invalidFestiveEnd").val().split("/");
+
+                var formatStart = dateStart[2] + "-" + dateStart[1] + "-" + dateStart[0];
+                var formatEnd = dateEnd[2] + "-" + dateEnd[1] + "-" + dateEnd[0];
+
+                var json = {
+                    dateStart: formatStart,
+                    dateEnd: formatEnd,
+                    idFestiveRoom: data.listFestiveRoom[0].id
+                };
+                Core.service.invalidDateFestiveRoom.create(JSON.stringify(json));
+            }
+
+        }, false);
+
+        utils.removeListener(btn_removeInvalideFestiveRoom, "click");
+        utils.addListener(btn_removeInvalideFestiveRoom, "click", function () {
+            var selectedInvalideId = slct_removeInvalideFestiveRoomID.options[slct_removeInvalideFestiveRoomID.selectedIndex];
+            if (selectedInvalideId.value != "" && selectedInvalideId.value != "ID") {
+                Core.service.invalidDateFestiveRoom.delete(selectedInvalideId.getAttribute("name"));
+            }
+        }, false);
+    };
 
     /***********************************************************
      *                       Buildings                         *

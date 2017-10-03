@@ -132,6 +132,8 @@
             url: "/festiveRoom",
             func: function (list) {
                 data.adminPanel.listFestiveRoom = list;
+                Core.service.festiveRoom.services.getListAdmin();
+                Core.service.invalidDateFestiveRoom.getListInvalidDateFestiveRoom();
                 Core.controller.admin.displayListFestiveRoom(list);
             },
             error: function (statusCode) {

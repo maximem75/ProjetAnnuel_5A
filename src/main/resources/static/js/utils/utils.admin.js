@@ -54,6 +54,22 @@
         }
     };
 
+    Core.utils.admin.getServiceById = function (id) {
+        for (var i = 0; i < data.listFesiveRoomService.length; i++) {
+            if (data.listFesiveRoomService[i].id == id)
+                return data.listFesiveRoomService[i];
+        }
+    };
+
+    Core.utils.admin.getRoomById = function (id) {
+        for (var i = 0; i < data.adminPanel.listRoom.length; i++) {
+            if (data.adminPanel.listRoom[i].id == id)
+                return data.adminPanel.listRoom[i];
+        }
+    };
+
+
+
     Core.utils.admin.search = function (search, keys, currentList) {
         var srch = search.toLowerCase();
         var list = [];

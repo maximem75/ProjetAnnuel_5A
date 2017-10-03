@@ -19,7 +19,7 @@
             method : "POST",
             url    : "/festiveRoom",
             func : function () {
-
+                Core.service.admin.getListFestiveRoom();
             },
             error : function(){
 
@@ -29,22 +29,22 @@
         utils.ajaxRequest(object, paramRequest);
     };
 
-    Core.service.festiveRoom.update = function (festiveRoom, formData) {
-        var paramRequest = "token=" + client.token + "&file=" + formData;
+    Core.service.festiveRoom.update = function (festiveRoom) {
+        var paramRequest = "token=" + client.token;
 
         var object = {
             name   : "update",
             method : "PUT",
             url    : "/festiveRoom",
             func : function () {
-
+                Core.service.admin.getListFestiveRoom();
             },
             error : function(){
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest);
+        utils.ajaxRequest(object, paramRequest, festiveRoom, false, true);
     };
 
     Core.service.festiveRoom.delete = function (idFestiveRoom) {
@@ -55,7 +55,7 @@
             method : "DELETE",
             url    : "/festiveRoom",
             func : function () {
-
+                Core.service.admin.getListFestiveRoom();
             },
             error : function(){
 
@@ -73,6 +73,7 @@
             method : "GET",
             url    : "/festiveRoom",
             func : function (festiveRoom) {
+                data.listFestiveRoom = festiveRoom;
                 data.costFestiveRoom = festiveRoom[0].price;
             },
             error : function(){

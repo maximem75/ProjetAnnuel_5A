@@ -484,16 +484,28 @@
         return [];
     };
 
-    Core.utils.alphabeticSort = function (array, key) {
+    Core.utils.alphabeticSortDesc = function (array, key) {
         if(array.length > 0){
             return array.sort(function(a, b) {
-                var x = a[key]; var y = b[key];
+                var x = a[key].toLowerCase(); var y = b[key].toLowerCase();
                 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
             });
         }
 
         return [];
     };
+
+    Core.utils.alphabeticSortAsc = function (array, key) {
+        if(array.length > 0){
+            return array.sort(function(a, b) {
+                var x = a[key].toLowerCase(); var y = b[key].toLowerCase();
+                return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+            });
+        }
+
+        return [];
+    };
+
 
     Core.utils.sortByDate = function (arrayDate, key) {
         if(arrayDate.length > 0) {

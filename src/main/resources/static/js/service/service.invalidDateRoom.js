@@ -14,7 +14,7 @@
 
     Core.service.invalidDateRoom = Core.service.invalidDateRoom || {};
 
-    Core.service.invalidDateRoom.getListinvalidDateRoom = function (json) {
+    Core.service.invalidDateRoom.getListinvalidDateRoom = function () {
         var paramRequest = "token=" + client.token;
 
         var object = {

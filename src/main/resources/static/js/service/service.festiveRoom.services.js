@@ -83,4 +83,21 @@
 
         utils.ajaxRequest(object, paramRequest);
     };
+
+    Core.service.festiveRoom.services.getListAdmin = function () {
+        var paramRequest = "token=" + client.token;
+
+        var object = {
+            name: "getList",
+            method: "GET",
+            url: "/festiveRoomService",
+            func: function (json) {
+                data.listFesiveRoomService = json;
+            },
+            error: function (statusCode) {
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
+    };
 })();
