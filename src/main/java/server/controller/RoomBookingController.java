@@ -164,4 +164,14 @@ public class RoomBookingController {
 
         return null;
     }
+
+    @RequestMapping(path = "/getListActivatedHold", method = GET)
+    @ResponseStatus(OK)
+    public List<RoomBooking> getListActivatedHold(@RequestParam("token") String token) {
+        if (clientService.adminAccess(token)) {
+            return roomBookingRepository.getListActivatedHold();
+        }
+
+        return null;
+    }
 }

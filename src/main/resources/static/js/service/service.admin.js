@@ -48,6 +48,24 @@
         utils.ajaxRequest(object, paramRequest);
     };
 
+    Core.service.admin.getListRoomBookHold = function () {
+        var paramRequest = "token=" + client.token;
+
+        var object =  {
+            name: "getListRoomBook",
+            method: "GET",
+            url: "/roomBooking/getListActivatedHold",
+            func: function (list) {
+                data.adminPanel.listRoomBookHold = list;
+                Core.controller.admin.displayListBookRoomHold(list);
+            },
+            error: function (statusCode) {
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
+    };
+
     Core.service.admin.getListRestaurantBook = function () {
         var paramRequest = "token=" + client.token;
 

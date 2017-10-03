@@ -34,9 +34,11 @@
     };
 
     Core.utils.admin.getClientById = function (id) {
-        for (var i = 0; i < data.adminPanel.listClient.length; i++) {
-            if (data.adminPanel.listClient[i].id == id)
-                return data.adminPanel.listClient[i];
+        var array = data.adminPanel.listClient;
+
+        for (var i = 0; i < array.length; i++) {
+            if (array[i].id == id)
+                return array[i];
         }
     };
 

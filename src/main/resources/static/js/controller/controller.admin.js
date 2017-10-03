@@ -17,6 +17,7 @@
     Core.controller.admin.initView = function () {
         service.admin.getListClient();
         service.admin.getListRoomBook();
+        //service.admin.getListRoomBookHold();
         service.admin.getListRestaurantBook();
         service.admin.getListFestiveRoomBook();
         service.admin.getListBuildings();
@@ -46,7 +47,7 @@
         body_container.innerHTML = "";
 
         var headers = [
-            "ID", "Nom", "Prénom", "Téléphone", "Email", "Adresse", "Code Postal", "Pays"
+            "Email", "Nom", "Prénom", "Téléphone", "Pays", "Code Postal", "Adresse"
         ];
 
         Core.utils.admin.createHeadTemplate(headers, header_container);
@@ -56,7 +57,7 @@
             for (var i = 0; i < jsonClientSorted.length; i++) {
                 var c = list[i];
                 var id = "";
-                body[i] = [c.id, c.lastName, c.firstName, c.phone, c.email, c.address, c.postalCode, c.country];
+                body[i] = [c.email, c.lastName, c.firstName, c.phone, c.country, c.postalCode, c.address];
                 Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
             }
         }
@@ -103,7 +104,7 @@
         body_container.innerHTML = "";
 
         var headers = [
-            "ID", "REF_BOOK", "Chambre ID", "Client ID",  "Email", "Début", "Fin"
+            "ID", "REF_BOOK", "Chambre ID", "Client ID", "Début", "Fin"
         ];
 
 
@@ -111,13 +112,42 @@
 
         var body = [];
 
-        /*for (var i = 0; i < list.length; i++) {
+        var l = list;
+        for (var i = 0 ; i < l.length ; i++) {
             var id = "";
-            var client = utils.admin.getClientById(list[i].idClient);
-            body[i] = [list[i].id, list[i].refBookRoom, list[i].idRoom, client.id, client.email, list[i].dateStart, list[i].dateEnd];
+            var client = utils.admin.getClientById(l[i].idClient);
+            body[i] = [l[i].id, l[i].refRoomBook, l[i].idRoom, client.id, utils.formatDateAdmin(l[i].dateStart), utils.formatDateAdmin(l[i].dateEnd)];
 
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
-        }*/
+        }
+    };
+
+    Core.controller.admin.displayListBookRoomHold = function (list) {
+        var container = document.getElementById("book_room_container");
+        var classObject = "";
+        var header_container = document.getElementById("header_list_room_book_hold");
+        var body_container = document.getElementById("body_list_room_book_hold");
+
+        header_container.innerHTML = "";
+        body_container.innerHTML = "";
+
+        var headers = [
+            "ID", "REF_BOOK", "Chambre ID", "Client ID", "Début", "Fin"
+        ];
+
+
+        Core.utils.admin.createHeadTemplate(headers, header_container);
+
+        var body = [];
+
+        var l = list;
+        for (var i = 0 ; i < l.length ; i++) {
+            var id = "";
+            var client = utils.admin.getClientById(l[i].idClient);
+            body[i] = [l[i].id, l[i].refRoomBook, l[i].idRoom, client.id, utils.formatDateAdmin(l[i].dateStart), utils.formatDateAdmin(l[i].dateEnd)];
+
+            Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
+        }
     };
 
     /***********************************************************
@@ -1161,7 +1191,7 @@
 
         controller.admin.unDisplayStructureManager();
 
-        building_container.style.display = "block";
+        room_container.style.display = "block";
 
         utils.addListener(building_btn, "click", function () {
             controller.admin.unDisplayStructureManager();

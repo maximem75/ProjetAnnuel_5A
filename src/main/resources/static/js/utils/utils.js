@@ -535,7 +535,6 @@
                 return new Date(x) - new Date(y);
             });
         }
-        ;
     };
 
     /**
