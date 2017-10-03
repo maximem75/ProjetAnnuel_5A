@@ -87,7 +87,7 @@
             }
         },
         basicUrl   : "https://residencedeshautsdemenaye.fr/api",
-        //   : "http://localhost:8080/api",
+        //basicUrl   : "http://localhost:8080/api",
         getMenu : function () {
             return document.getElementById("ul_menu");
         },
