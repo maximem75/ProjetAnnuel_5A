@@ -42,7 +42,7 @@ public class ArticleController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public void addArticle(@RequestParam("file") MultipartFile file, @RequestParam("token") String token, @RequestParam("title") String title, @RequestParam("content") String content){
+    public void addArticle(@RequestParam("token") String token, @RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("file") MultipartFile file){
         if (clientService.adminAccess(token)){
             Article article = new Article();
 

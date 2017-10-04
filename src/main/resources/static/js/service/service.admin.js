@@ -243,7 +243,7 @@
             method: "POST",
             url: "/newsletter",
             func: function () {
-
+                Core.controller.admin.displaySendNewsLetter();
             },
             error: function (statusCode) {
             }

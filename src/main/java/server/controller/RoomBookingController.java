@@ -10,10 +10,7 @@ import server.model.RoomBooking;
 import server.repository.BuildingRepository;
 import server.repository.ClientRepository;
 import server.repository.RoomBookingRepository;
-import server.service.ClientService;
-import server.service.RoomBookingService;
-import server.service.RoomCategoryService;
-import server.service.RoomService;
+import server.service.*;
 import server.utils.DateComparer;
 
 import java.util.*;
@@ -45,6 +42,9 @@ public class RoomBookingController {
 
     @Autowired
     private RoomCategoryService roomCategoryService;
+
+    @Autowired
+    private TemplateService templateService;
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
@@ -105,6 +105,8 @@ public class RoomBookingController {
                         roomBookingRepository.save(rb);
                     }
                 }
+
+                templateService.GenerateTemplate(client,refBookRoom);
             }
         }
     }

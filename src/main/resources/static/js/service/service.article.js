@@ -16,9 +16,9 @@
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
     Core.service.article.create = function (title, content) {
-        var paramRequest = data.basicUrl + "/article?token=" + client.token + "&title=" + title + "&content=" + content;;
+        var paramRequest = data.basicUrl + "/article?token=" + client.token + "&title=" + title + "&content=" + content;
 
-        var form = document.getElementById("formtDataArticle");
+        var form = document.getElementById("formDataArticle");
         form.action =  + paramRequest;
         var formData = new FormData(form);
 
@@ -26,7 +26,8 @@
         oReq.open("post", paramRequest, true);
         oReq.onload = function(oEvent) {
             if (oReq.status == 201) {
-                Core.service.pictureRoomCategory.getList();
+                Core.service.article.getList();
+                Core.controller.admin.displayListArticles(data.listArticle);
             } else {
                 alert("error")
             }
@@ -39,44 +40,46 @@
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.article.udapte = function (json) {
+    Core.service.article.udapte = function (article) {
         var paramRequest = "token=" + client.token;
 
         var object = {
             name: "udapte",
             method: "PUT",
             url: "/article",
-            func: function () {
-
+            func: function (res) {
+                Core.service.article.getList();
+                Core.controller.admin.displayListArticles();
             },
             error: function () {
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, json);
+        utils.ajaxRequest(object, paramRequest, article, false, true);
     };
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.article.delete = function () {
-        var paramRequest = "token=" + client.token + "&id=" + id;
+    Core.service.article.delete = function (id) {
+        var paramRequest = "id=" + id + "&token=" + client.token;
 
         var object = {
             name: "delete",
             method: "DELETE",
             url: "/article",
-            func: function () {
-
+            func: function (res) {
+                Core.service.article.getList();
+                Core.controller.admin.displayListArticles(data.listArticle);
             },
             error: function () {
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, null);
+        utils.ajaxRequest(object, paramRequest, null, false, true);
     };
 
     /**
@@ -89,7 +92,7 @@
             method: "GET",
             url: "/article/all",
             func: function (list) {
-                Core.controller.article.displayArticles(list);
+                data.listArticle = list;               
             },
             error: function () {
 

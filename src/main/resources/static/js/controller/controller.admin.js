@@ -30,6 +30,7 @@
         Core.controller.admin.displayBookManager();
         Core.controller.admin.displayStructureManager();
         Core.controller.admin.displayContentManager();
+        Core.controller.admin.displaySendNewsLetter();
 
     };
 
@@ -154,7 +155,7 @@
 
         var btn_search = document.getElementById("btn_list_room_book_hold_search");
         var ipt_search = document.getElementById("inpt_list_room_book_hold_search");
-        
+
         header_container.innerHTML = "";
         body_container.innerHTML = "";
 
@@ -281,11 +282,11 @@
         ];
         utils.removeListener(btn_search, "click");
         utils.addListener(btn_search, "click", function () {
-           if (inp_search.value != ""){
-               Core.controller.admin.displayListBookFestiveRoom(utils.admin.search(inp_search.value, keys, data.adminPanel.listFestiveRoomBook));
+            if (inp_search.value != "") {
+                Core.controller.admin.displayListBookFestiveRoom(utils.admin.search(inp_search.value, keys, data.adminPanel.listFestiveRoomBook));
             } else {
-               Core.controller.admin.displayListBookFestiveRoom(data.adminPanel.listFestiveRoomBook);
-           }
+                Core.controller.admin.displayListBookFestiveRoom(data.adminPanel.listFestiveRoomBook);
+            }
         }, false);
     };
 
@@ -323,7 +324,7 @@
         ];
         utils.removeListener(btn_search, "click");
         utils.addListener(btn_search, "click", function () {
-            if (inp_search.value != ""){
+            if (inp_search.value != "") {
                 Core.controller.admin.displayListBookFestiveRoomServices(utils.admin.search(inp_search.value, keys, data.adminPanel.listFestiveRoomBookServices));
             } else {
                 Core.controller.admin.displayListBookFestiveRoomServices(data.adminPanel.listFestiveRoomBookServices);
@@ -1157,7 +1158,7 @@
      *                        Articles                         *
      **********************************************************/
     Core.controller.admin.displayListArticles = function (list) {
-        console.log(list);
+        data.listArticle = list;
         var container = document.getElementById("article_container_admin");
 
         var btnAdd = document.getElementById("btn_create_article");
@@ -1165,15 +1166,66 @@
         var addContent = document.getElementById("add_article_content");
         var addPicture = document.getElementById("form_add_article");
 
+        addTitle.value = "";
+        addContent.value = "";
+
         utils.removeListener(btnAdd, "click");
         utils.addListener(btnAdd, "click", function () {
-            if(addTitle.value != "" && addContent != ""){
-                
+            if (addTitle.value != "" && addContent.value != "") {
+                Core.service.article.create(addTitle.value, addContent.value);
             }
         }, false);
 
         var btnUpdt = document.getElementById("btn_updt_article");
+        var updtTitle = document.getElementById("updt_article_title");
+        var updtContent = document.getElementById("updt_article_content");
+        var select = document.getElementById("slct_updt_article");
+
         var btnRmv = document.getElementById("btn_delete_article");
+
+        updtTitle.value = "";
+        updtContent.value = "";
+        select.innerHTML = "<option></option>";
+
+        for (var i = 0; i < list.length; i++) {
+            var article = list[i];
+            select.innerHTML += "<option name='" + article.id + "'>" + article.title + "</option>";
+        }
+
+        utils.removeListener(select, "change");
+        utils.addListener(select, "change", function () {
+            var selected = select.options[select.selectedIndex];
+            var article = utils.admin.getArticleById(selected.getAttribute("name"));
+
+            updtTitle.value = article.title;
+            updtContent.value = article.content;
+        }, false);
+
+        utils.removeListener(btnUpdt, "click");
+        utils.addListener(btnUpdt, "click", function () {
+            if (updtTitle.value != "" && updtContent.value != "") {
+                var selected = select.options[select.selectedIndex];
+                var article = utils.admin.getArticleById(selected.getAttribute("name"));
+
+                var json = {
+                    id: article.id,
+                    title: updtTitle.value,
+                    content: updtContent.value,
+                    picturePath: article.picturePath
+                };
+
+                Core.service.article.udapte(JSON.stringify(json));
+            }
+        }, false);
+
+        utils.removeListener(btnRmv, "click");
+        utils.addListener(btnRmv, "click", function () {
+            var selected = select.options[select.selectedIndex];
+            var article = utils.admin.getArticleById(selected.getAttribute("name"));
+
+            Core.service.article.delete(article.id);
+        }, false);
+
 
     };
 
@@ -1181,18 +1233,8 @@
      *                          Galery                         *
      **********************************************************/
     Core.controller.admin.displayListGalery = function (list) {
-        //console.log(list);
         var container = document.getElementById("galery_container");
         var classObject = "";
-        var header_container = document.getElementById("header_list_galery");
-        var body_container = document.getElementById("body_list_galery");
-
-        header_container.innerHTML = "";
-        body_container.innerHTML = "";
-
-        var headers = [
-            ""
-        ];
 
         Core.utils.admin.createHeadTemplate(headers, container);
 
@@ -1210,31 +1252,28 @@
      *                      NewsLetter                         *
      **********************************************************/
     Core.controller.admin.displaySendNewsLetter = function (list) {
-        //console.log(list);
         var container = document.getElementById("newsLetter_container");
-        var classObject = "";
-        var header_container = document.getElementById("header_list_newsLetter");
-        var body_container = document.getElementById("body_list_newsLetter");
+        var subject = document.getElementById("titleNews");
+        var content = document.getElementById("contentNews");
 
-        header_container.innerHTML = "";
-        body_container.innerHTML = "";
+        subject.value = "";
+        content.value = "";
 
-        var headers = [
-            ""
-        ];
+        var btn = document.getElementById("btn_news");
+        utils.removeListener(btn, "click");
+        utils.addListener(btn, "click", function () {
 
-        Core.utils.admin.createHeadTemplate(headers, container);
+            if(subject.value != "" && content.value != ""){
+                var newsLetter = {
+                    content: content.value,
+                    reason: "0"
+                };
 
-        var body = [];
+                Core.service.admin.sendNewsLetter(JSON.stringify(newsLetter), subject.value);
+            }
+        }, false);
 
-        for (var i = 0; i < list.length; i++) {
-            var id = "";
-            body[i] = [];
 
-            Core.utils.admin.createBodyTemplate(body[i], container, classObject, id);
-        }
-
-        //Core.service.admin.sendNewsLetter(newsLetter, subject);
     };
 
 

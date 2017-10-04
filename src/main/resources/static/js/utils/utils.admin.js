@@ -33,7 +33,14 @@
         container.innerHTML += template;
     };
 
+    Core.utils.admin.getArticleById = function (id) {
+        var array = data.listArticle;
 
+        for (var i = 0; i < array.length; i++) {
+            if (array[i].id == id)
+                return array[i];
+        }
+    };
 
     Core.utils.admin.getClientById = function (id) {
         var array = data.adminPanel.listClient;

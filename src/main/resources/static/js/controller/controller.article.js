@@ -16,6 +16,7 @@
      */
     Core.controller.article.initView = function () {
         Core.service.article.getList();
+        Core.controller.article.displayArticles(data.listArticle);
     };
 
     Core.controller.article.displayArticles = function (listArticles) {
