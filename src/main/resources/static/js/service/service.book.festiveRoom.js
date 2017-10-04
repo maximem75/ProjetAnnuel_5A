@@ -131,5 +131,23 @@
 
         utils.ajaxRequest(object, paramRequest);
     };
+
+    Core.service.book.festiveRoom.initRowFestiveRoom = function (festiveRoom) {
+        var paramRequest = "token=" + client.token + "&id=" + festiveRoom.id;
+
+        var object = {
+            name: "getPrice",
+            method: "GET",
+            url: "/festiveRoomBooking/getPrice",
+            func: function (price) {
+                Core.controller.clientListBook.initRowFestiveRoom(festiveRoom, price);
+            },
+            error: function (statusCode) {
+
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
+    };
     
 })();

@@ -53,9 +53,12 @@ public class PictureGaleryController {
 
     @RequestMapping(method = DELETE)
     @ResponseStatus(OK)
-    public void deletePictureGalery(@RequestBody PictureGalery pictureGalery, @RequestParam("token") String token) {
+    public void deletePictureGalery(@RequestParam("token") String token, @RequestParam("id") Long id) {
         if (clientService.adminAccess(token)) {
-            pictureGaleryRepository.delete(pictureGalery.getId());
+            PictureGalery pictureGalery = pictureGaleryRepository.getOne(id);
+            if(pictureGalery != null){
+                pictureGaleryRepository.delete(pictureGalery.getId());
+            }
         }
     }
 

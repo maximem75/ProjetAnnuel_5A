@@ -14,51 +14,31 @@
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.galery.create = function (json) {
-        var paramRequest = "token=" + client.token;
+    Core.service.galery.create = function () {
+        var paramRequest = data.basicUrl + "/pictureGalery?token=" + client.token;
 
-        var object = {
-            name: "create",
-            method: "POST",
-            url: "/pictureGalery",
-            func: function () {
+        var form = document.getElementById("formDataGalery");
+        form.action =  + paramRequest;
+        var formData = new FormData(form);
 
-            },
-            error: function () {
-
+        var oReq = new XMLHttpRequest();
+        oReq.open("post", paramRequest, true);
+        oReq.onload = function(oEvent) {
+            if (oReq.status == 201) {
+                Core.service.galery.getListAdmin();
+            } else {
+                alert("error")
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, json);
+        oReq.send(formData);
     };
 
     /**
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.galery.udapte = function (json) {
-        var paramRequest = "token=" + client.token;
-
-        var object = {
-            name: "udapte",
-            method: "PUT",
-            url: "/pictureGalery",
-            func: function () {
-
-            },
-            error: function () {
-
-            }
-        };
-
-        utils.ajaxRequest(object, paramRequest, json);
-    };
-
-    /**
-     *
-     * @returns {{name: string, method: string, url: string, func: func, error: error}}
-     */
-    Core.service.galery.delete = function () {
+    Core.service.galery.delete = function (id) {
         var paramRequest = "token=" + client.token + "&id=" + id;
 
         var object = {
@@ -66,14 +46,14 @@
             method: "DELETE",
             url: "/pictureGalery",
             func: function () {
-
+                service.admin.getListGalery();
             },
             error: function () {
 
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, null);
+        utils.ajaxRequest(object, paramRequest, null, false, true);
     };
 
     /**
@@ -86,7 +66,25 @@
             method: "GET",
             url: "/pictureGalery",
             func: function (list) {
-                Core.controller.galery.displayGalery(list);
+               Core.controller.galery.displayGalery(list);
+
+            },
+            error: function () {
+
+            }
+        };
+
+        utils.ajaxRequest(object);
+    };
+
+    Core.service.galery.getListAdmin = function () {
+        var object = {
+            name: "getList",
+            method: "GET",
+            url: "/pictureGalery",
+            func: function (list) {
+                Core.controller.admin.getListGalery();
+
             },
             error: function () {
 

@@ -114,14 +114,14 @@ ul {
 .error_container {
     padding-bottom: 10px;
     color: red;
-    font: 22px Roboto, Helvetica, Arial, sans-serif;
+    font: 22px Roboto, sans-serif;
     text-align: center;
 }
 
 .valide_container {
     padding-bottom: 10px;
     color: green;
-    font: 28px Roboto, Helvetica, Arial, sans-serif;
+    font: 22px Roboto, sans-serif;
     text-align: center;
 }
 
@@ -845,12 +845,12 @@ ul {
     overflow: auto;
 }
 
-.book_row:hover span#btn_remove_restaurantBook {
+.book_row:hover span.btn_book_list {
     opacity: 1;
     visibility: visible;
 }
 
-span#btn_remove_restaurantBook {
+span.btn_book_list {
     opacity: 0;
     visibility: hidden;
     cursor: pointer;
@@ -1061,4 +1061,17 @@ a {
 
 .book_ex_0 {
     flex: 3;
+}
+
+.festive_0{
+    margin-left: 25px;
+}
+
+.listService{
+    width: 100%;
+    height: 200px;
+}
+
+.book_festiveRoom_object{
+    background-color: #DFDFDF;
 }

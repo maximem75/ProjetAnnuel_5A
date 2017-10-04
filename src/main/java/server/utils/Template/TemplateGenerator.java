@@ -1,20 +1,9 @@
 package server.utils.Template;
 
-import com.itextpdf.text.DocumentException;
-import org.w3c.dom.Document;
-import org.xhtmlrenderer.pdf.ITextRenderer;
-import org.xhtmlrenderer.resource.XMLResource;
 import server.model.RoomCategory;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class TemplateGenerator {
     private String patternDateForPdf = "dd/MM/yyyy";
@@ -142,60 +131,16 @@ public class TemplateGenerator {
         return value;
     }
 
-    public int daysBetween(Date d1, Date d2) {
-        return (int) ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
-    }
 
-    private String replaceListOfValueInText(String content, List<String> oldValues, List<String> newValues) {
-        for (String oldValue : oldValues) {
-            for (String newValue : newValues) {
-                content.replace(oldValue, newValue);
-            }
-        }
-        return content;
-    }
-
-    private String replaceListOfValueInText(String content, String[] oldValues, String[] newValues) {
-        for (int i = 0; i < oldValues.length; i++) {
-            content = content.replace(oldValues[i], newValues[i]);
-        }
-        return content;
-    }
 
     public int getOccurrenceRoomBooking(Long roomId, List<RoomCategory> list) {
         int count = 0;
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId() == roomId) {
+            if (Objects.equals(list.get(i).getId(), roomId)) {
                 count++;
             }
         }
         return count;
     }
 
-    private void convertStringToPdf(String invoice, String fileDestination) {
-        // On convertis la string qui contient du code html en fichier pdf en générant un objet document
-        Document document = XMLResource.load(new ByteArrayInputStream(invoice.getBytes())).getDocument();
-        ITextRenderer renderer = new ITextRenderer();
-        renderer.setDocument(document, null);
-        renderer.layout();
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(fileDestination);
-            renderer.createPDF(fos);
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }  catch (DocumentException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String convertHtmlFileIntoString(String htmlFile) {
-        StringBuilder contentBuilder = new StringBuilder();
-        contentBuilder.append(htmlFile);
-        String content = contentBuilder.toString();
-        return content;
-    }
 }

@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 import server.model.Client;
 import server.model.RoomBooking;
 import server.model.RoomCategory;
+import server.repository.ClientRepository;
 import server.repository.RoomCategoryRepository;
 import server.utils.Mail.MailManager;
 import server.utils.Template.TemplateGenerator;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class TemplateService {
@@ -27,6 +25,9 @@ public class TemplateService {
 
     @Autowired
     private RoomCategoryRepository roomCategoryRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -51,7 +52,6 @@ public class TemplateService {
 
         MailManager mailManager = new MailManager();
         mailManager.sendEmailToClient("Votre facture RHM ", client.getEmail(), invoice);
-        sendReminderMailToClient(myLis.get(0).getDateEnd(), client.getEmail());
     }
 
     public void sendFacturation(Client client, String refRom) {
@@ -70,7 +70,6 @@ public class TemplateService {
 
         MailManager mailManager = new MailManager();
         mailManager.sendEmailToClient("Votre facture RHM ", mail, invoice);
-        sendReminderMailToClient(myLis.get(0).getDateEnd(), mail);
     }
 
     private String getClientFullname(Client client) {
@@ -82,44 +81,6 @@ public class TemplateService {
         String date = new SimpleDateFormat(patterndate).format(new Date());
 
         return date;
-    }
-
-    private void getDataFromDatabase(Date lastBookingDate, String email) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date d1 = (lastBookingDate);
-            Date d2 = sdf.parse(getCurrentDate());
-            int count = 60;
-            Boolean send = false;
-            if (daysBetween(d2, d1) < 0) {
-                if (daysBetween(d1, d2) >= count && !send) {
-                    send = true;
-                    MailManager mailManager = new MailManager();
-                    mailManager.sendReminderMailToClient(email);
-                }
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public int daysBetween(Date d1, Date d2) {
-        return (int) ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
-    }
-
-    private void sendReminderMailToClient(Date end, String email) {
-        this.scheduler = Executors.newScheduledThreadPool(1);
-        ScheduledFuture<?> taskHandle = scheduler.scheduleAtFixedRate(
-                new Runnable() {
-                    public void run() {
-                        try {
-                            getDataFromDatabase(end, email);
-                        } catch (Exception ex) {
-                            ex.printStackTrace(); //or loggger would be better
-                        }
-                    }
-                }, 0, 1, TimeUnit.DAYS);
-
     }
 
 }

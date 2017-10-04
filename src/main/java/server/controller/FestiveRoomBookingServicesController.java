@@ -2,6 +2,7 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import server.model.Client;
 import server.model.FestiveRoomBooking;
 import server.model.FestiveRoomBookingServices;
 import server.repository.FestiveRoomBookingServicesRepository;
@@ -62,6 +63,20 @@ public class FestiveRoomBookingServicesController {
                 res.addAll(festiveRoomBookingServicesRepository.getFestiveRoomBookingServicesByIdFestiveRoomBooking(f.getId()));
             }
             return res;
+        }
+
+        return null;
+    }
+
+    @RequestMapping(path = "/getByListFestiveRoomBookByIdBook", method = GET)
+    @ResponseStatus(OK)
+    public List<FestiveRoomBookingServices> getByListFestiveRoomBookByIdBook(@RequestParam("token") String token, @RequestParam("id") Long id){
+        Client client = clientService.findByToken(token);
+
+        if(client != null){
+            List<FestiveRoomBookingServices> festiveRoomBookingList = festiveRoomBookingServicesRepository.getFestiveRoomBookingServicesByIdFestiveRoomBooking(id);
+
+            return festiveRoomBookingList;
         }
 
         return null;

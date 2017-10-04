@@ -22,7 +22,6 @@
         var image = "<image class='picture_galery' src='"+listGalery[data.currentPictureGalery].path+"'></image>";
 
         container.innerHTML = image;
-
         for(var i = 1 ; i < listGalery.length ; i++){
             var image = "<image class='picture_galery' src='"+listGalery[i].path+"'></image>";
             container.innerHTML += image;

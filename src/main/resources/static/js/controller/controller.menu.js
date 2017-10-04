@@ -57,18 +57,20 @@
             if(window.client){
                 removeButtons();
 
-                createButton("btn_restaurant", "Restaurant");
-                createButton("btn_festiveRoom", "Salle des fêtes");
-                createButton("btn_listArticle", "Article");
-
-                if(client.accreditation === "admin")
+                if(client.accreditation === "admin"){
                     createButton("btn_admin", "ADMIN");
 
-                if(client.accreditation === "user")
+                }
+
+                if(client.accreditation === "user") {
+                    createButton("btn_restaurant", "Restaurant");
+                    createButton("btn_festiveRoom", "Salle des fêtes");
+                    createButton("btn_listArticle", "Article");
                     createButton("btn_clientListBook", "Réservations");
+                    createButton("btn_compte", "Compte");
+                }
 
 
-                createButton("btn_compte", "Compte");
                 createButton("btn_logout", "Déconnecter");
             } else {
                 removeButtons();

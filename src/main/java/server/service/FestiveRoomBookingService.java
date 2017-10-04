@@ -44,7 +44,6 @@ public class FestiveRoomBookingService {
             FestiveRoomService frb = festiveRoomServiceRepository.getOne(frbs.getIdFestiveRoomService());
             price += (frb.getPrice() * frbs.getQuantity() * days);
         }
-
         return price;
     }
 

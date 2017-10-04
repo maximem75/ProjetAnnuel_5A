@@ -83,7 +83,24 @@
 
         utils.ajaxRequest(object, paramRequest);
     };
+    
+    Core.service.festiveRoom.services.getListBooked = function () {
+        var paramRequest = "token=" + client.token;
 
+        var object = {
+            name: "getList",
+            method: "GET",
+            url: "/festiveRoomService",
+            func: function (json) {
+                data.listFesiveRoomService = json;
+            },
+            error: function (statusCode) {
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
+    };
+    
     Core.service.festiveRoom.services.getListAdmin = function () {
         var paramRequest = "token=" + client.token;
 
@@ -93,6 +110,23 @@
             url: "/festiveRoomService",
             func: function (json) {
                 data.listFesiveRoomService = json;
+            },
+            error: function (statusCode) {
+            }
+        };
+
+        utils.ajaxRequest(object, paramRequest);
+    };
+
+    Core.service.festiveRoom.services.getListServiceByFestiveRoomBookId = function (id, container) {
+        var paramRequest = "token=" + client.token + "&id=" + id;
+
+        var object = {
+            name: "getList",
+            method: "GET",
+            url: "/festiveRoomBookingServices/getByListFestiveRoomBookByIdBook",
+            func: function (listServices) {
+                Core.controller.clientListBook.initFestiveRoomService(listServices, container);
             },
             error: function (statusCode) {
             }

@@ -74,8 +74,8 @@ public class MailManager {
             message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(clientEmail));
-            message.setSubject("Ca fait longtemps qu'on vous a vu");
-            String email = "Ca fait presque 60 jours que vous n'avez pas fait de réservation. \n Pensez à vous connecté sur notre site en cas de déplacement.";
+            message.setSubject("Cela fait longtemps que l'on ne vous a pas vu");
+            String email = "Cela fait presque 60 jours que vous n'avez pas fait de réservation. \n Pensez à vous connecté sur notre site en cas de déplacement.";
             message.setContent(email,"text/html");
             Transport.send(message);
         } catch (MessagingException e) {

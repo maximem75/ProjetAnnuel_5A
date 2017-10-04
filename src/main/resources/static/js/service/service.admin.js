@@ -232,7 +232,7 @@
             }
         };
 
-        utils.ajaxRequest(object, paramRequest);
+        utils.ajaxRequest(object, paramRequest, null);
     };
 
     Core.service.admin.sendNewsLetter = function (newsLetter, subject) {

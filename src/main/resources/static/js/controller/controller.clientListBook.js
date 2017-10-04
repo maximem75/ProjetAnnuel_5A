@@ -16,9 +16,11 @@
      * Display all list book for a client
      */
     Core.controller.clientListBook.initView = function () {
+        Core.service.festiveRoom.services.getListBooked();
         Core.service.book.room.getlistRoomById();
         Core.service.book.restaurant.getByIdClient();
         Core.service.book.festiveRoom.getListBookById();
+
 
         var chambre = document.getElementById("room_container");
         var restaurant = document.getElementById("room_restaurant");
@@ -47,10 +49,10 @@
         container.style.display = "block";
         container.innerHTML = "";
 
-        var headers = ["Ref", "Arrivée", "Départ", "Chambre", "Catégorie", "Prix"];
+        var headers = ["Ref", "Arrivée", "Départ", "Numéro de Chambre", "Catégorie", "Prix"];
 
         Core.controller.clientListBook.createHeadTemplate(headers, container);
-
+        utils.sortByDate(listRoom, "dateStart");
         for (var i = 0; i < listRoom.length; i++) {
             var current = listRoom[i];
             var category = utils.getCategoryById(current.idRoomCategory);
@@ -119,9 +121,9 @@
 
         for (var j = 0; j < arrayBook.length; j++) {
             var span = document.createElement("span");
-            span.className = "glyphicon glyphicon-remove";
+            span.className = "glyphicon glyphicon-remove btn_book_list";
             span.refID = arrayBook[j].id.split("_")[1];
-            span.id = "btn_remove_restaurantBook";
+            span.id = "btn_remove_restaurantBook_" + j;
 
             arrayBook[j].appendChild(span);
 
@@ -129,30 +131,34 @@
                 Core.service.book.restaurant.cancel(e.target.refID);
             });
         }
-        
     };
 
     Core.controller.clientListBook.initListFestiveRoom = function (listFestiveRoom) {
-        var classObject = "book_festiveRoom_object";
+        var classObject = "festive_";
         var container = document.getElementById("room_festiveRoom");
         container.style.display = "none";
         container.innerHTML = "";
 
         var headers = ["Ref", "Début", "Fin", "Prix"];
-
-        Core.controller.clientListBook.createHeadTemplate(headers, container);
-
+        Core.controller.clientListBook.createHeadTemplate(headers, container, classObject);
+        utils.sortByDate(listFestiveRoom, "dateStart");
         for (var i = 0; i < listFestiveRoom.length; i++) {
-            var current = listFestiveRoom[i];
-            var dateStart = new Date(current.dateStart);
-            var dateEnd = new Date(current.dateEnd);
-            var dateStringStart = utils.beautifyDate(dateStart);
-            var dateStringEnd = utils.beautifyDate(dateEnd);
-            var price = Math.round(data.countryInfo.rate * data.costFestiveRoom * utils.getDays(dateStart.getTime(), dateEnd.getTime()).day) + " " + data.symbol;
-            var body = [current.id, dateStringStart, dateStringEnd, price];
-
-            Core.controller.clientListBook.createBodyTemplate(body, container, classObject);
+            Core.service.book.festiveRoom.initRowFestiveRoom(listFestiveRoom[i]);
+            Core.service.festiveRoom.services.getListServiceByFestiveRoomBookId(listFestiveRoom[i].id, container.lastElementChild);
         }
+    };
+
+    Core.controller.clientListBook.initRowFestiveRoom = function (festiveRoom, p) {
+        var classObject = "book_festiveRoom_object ref_"+festiveRoom.id;
+        var container = document.getElementById("room_festiveRoom");
+        var dateStart = new Date(festiveRoom.dateStart);
+        var dateEnd = new Date(festiveRoom.dateEnd);
+        var dateStringStart = utils.beautifyDate(dateStart);
+        var dateStringEnd = utils.beautifyDate(dateEnd);
+        var price = Math.round(data.countryInfo.rate * p) + " " + data.symbol;
+        var body = [festiveRoom.id, dateStringStart, dateStringEnd, price];
+
+        Core.controller.clientListBook.createBodyTemplate(body, container, classObject);
     };
 
     Core.controller.clientListBook.switchView = function (view) {
@@ -163,11 +169,43 @@
         view.style.display = "block";
     };
 
-    Core.controller.clientListBook.createHeadTemplate = function (list, container) {
+    Core.controller.clientListBook.initFestiveRoomService = function (listServices, container) {
+        var divServices = document.createElement("div");
+        divServices.class = "listService";
+
+        container.parentElement.appendChild(divServices);
+
+        for(var i = 0 ; i < listServices.length ; i++){
+            var current = listServices[i];
+            var service = utils.getServiceById(current.idFestiveRoomService);
+            var span = document.createElement("span");
+            span.style.display = "inline-block";
+            span.style.marginLeft = "10px";
+
+            var div = document.createElement("div");
+            div.style.display = "block";
+            div.style.textAlign = "left";
+
+            var many = "";
+
+            if(current.quantity > 1)
+                many = "s";
+
+            span.textContent = current.quantity + " " + service.name + many;
+
+
+            divServices.appendChild(div);
+            div.appendChild(span);
+
+        }
+    };
+
+
+    Core.controller.clientListBook.createHeadTemplate = function (list, container, classObject) {
         var template = "<div class='book_row'>";
 
         for (var i = 0; i < list.length; i++) {
-            template += "<div class='book_cell_title'><span class='book_span_title'>" + list[i] + "</span></div>";
+            template += "<div class='book_cell_title " + classObject + i + "'><span class='book_span_title'>" + list[i] + "</span></div>";
         }
 
         template += "</div>";

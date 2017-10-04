@@ -216,17 +216,20 @@
         Core.utils.admin.createHeadTemplate(headers, header_container);
 
         var body = [];
+ 
 
         for (var i = 0; i < list.length; i++) {
             var id = "";
             var b = list[i];
             var client = utils.admin.getClientById(list[i].idClient);
-            var fullName = client.lastName.charAt(0).toUpperCase() + client.firstName.slice(1) + " " + client.firstName.charAt(0).toUpperCase() + client.lastName.slice(1);
-            var date = utils.formatDateTime(b.date);
+            if(client != undefined){
+                var fullName = client.lastName.charAt(0).toUpperCase() + client.lastName.slice(1) + " " + client.firstName.charAt(0).toUpperCase() + client.firstName.slice(1);
+                var date = utils.formatDateTime(b.date);
 
-            body[i] = [client.id, fullName, date, b.number];
+                body[i] = [client.id, fullName, date, b.number];
 
-            Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
+                Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
+            }
         }
     };
 
@@ -1234,18 +1237,45 @@
      **********************************************************/
     Core.controller.admin.displayListGalery = function (list) {
         var container = document.getElementById("galery_container");
-        var classObject = "";
 
-        Core.utils.admin.createHeadTemplate(headers, container);
+        var btnAdd = document.getElementById("btn_addGalery");
+        var btnDelete = document.getElementById("btn_removePicture");
+        
+        var inpt = document.getElementById("inptGalery");
 
-        var body = [];
+        var form = document.getElementById("formDataGalery");
+        var img = document.getElementById("imageGalery");
+        var select = document.getElementById("slct_removeGalery");
+
+        select.innerHTML = "<option></option>";
 
         for (var i = 0; i < list.length; i++) {
-            var id = "";
-            body[i] = [];
+            var picture = list[i];
 
-            Core.utils.admin.createBodyTemplate(body[i], container, classObject, id);
+            select.innerHTML += "<option name='" + picture.path + "'>" + picture.id + "</option>";
         }
+
+        utils.removeListener(select, "change");
+        utils.addListener(select, "change", function(){
+            img.src = select.options[select.selectedIndex].getAttribute("name");
+        }, false);
+
+        utils.removeListener(btnAdd, "click");
+        utils.addListener(btnAdd, "click", function(){
+            if(inpt.value != ""){
+                Core.service.galery.create(select.value);
+            }
+        }, false); 
+
+        utils.removeListener(btnDelete, "click");
+        utils.addListener(btnDelete, "click", function(){
+            var selected = select.options[select.selectedIndex];
+            if(selected.value != ""){
+                Core.service.galery.delete(selected.value);
+                img.src = "";
+            }
+
+        }, false);
     };
 
     /***********************************************************

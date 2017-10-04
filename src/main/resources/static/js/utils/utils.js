@@ -450,6 +450,12 @@
         return tmp;
     };
 
+    Core.utils.getServiceById = function (id) {
+        for (var i = 0; i < data.listFesiveRoomService.length; i++) {
+            if (data.listFesiveRoomService[i].id == id)
+                return data.listFesiveRoomService[i];
+        }
+    };
     /**
      * capitalizeFirstLetter
      * @param string
@@ -463,7 +469,7 @@
         var view = function () {
             utils.empty(data.getIncludeContainer());
             data.getIncludeContainer().innerHTML = "" +
-                "<div style='display: inline-block; width: 100%;font-family: Roboto sans; color: " + color + "; text-align: center; padding-bottom: 40px;'>" +
+                "<div style='display: inline-block; width: 100%; color: green; font: 22px Roboto, sans-serif color: " + color + "; text-align: center; padding-bottom: 40px;'>" +
                 "</br>" + message + "</div>";
         }();
         var redirection = function () {
@@ -471,7 +477,7 @@
                 var tmID = setTimeout(function () {
                     Core.utils.empty(data.getIncludeContainer());
                     utils.include(pageObject.viewPath, pageObject.name);
-                }, 6000);
+                }, 5000);
             }();
         }();
     };

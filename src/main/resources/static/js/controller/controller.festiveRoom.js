@@ -202,10 +202,16 @@
                     var div = document.createElement("div");
                     div.style.display = "block";
 
-                    var span = document.createElement("span");
-                    span.textContent = item.quantity + " " + data.listFesiveRoomService[i].name + " : " + (Math.round((data.listFesiveRoomService[i].price * data.countryInfo.rate * item.quantity))) + " " + data.symbol;
+                    var label = document.createElement("label");
+                    var many = "";
 
-                    div.appendChild(span);
+                    if(item.quantity > 1)
+                        many = "s";
+
+                    label.className = "text_span";
+                    label.textContent = item.quantity + " " + utils.capitalizeFirstLetter(data.listFesiveRoomService[i].name) + many + " : " + (Math.round((data.listFesiveRoomService[i].price * data.countryInfo.rate * item.quantity))) + " " + data.symbol;
+
+                    div.appendChild(label);
                     container.appendChild(div);
                 }
             }
