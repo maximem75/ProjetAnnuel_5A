@@ -65,9 +65,6 @@
             case "listArticle":
                 controller.article.initView();
                 break;
-            case "contact":
-                controller.contact.initView();
-                break;
             case "galery":
                 controller.galery.initView();
                 break;

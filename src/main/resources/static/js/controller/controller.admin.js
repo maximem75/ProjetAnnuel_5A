@@ -119,8 +119,7 @@
         var l = list;
         for (var i = 0; i < l.length; i++) {
             var id = "";
-            var client = utils.admin.getClientById(l[i].idClient);
-            body[i] = [l[i].id, l[i].refRoomBook, l[i].idRoom, client.id, utils.formatDateAdmin(l[i].dateStart), utils.formatDateAdmin(l[i].dateEnd)];
+            body[i] = [l[i].id, l[i].refRoomBook, l[i].idRoom, l[i].idClient, utils.formatDateAdmin(l[i].dateStart), utils.formatDateAdmin(l[i].dateEnd)];
 
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
@@ -169,8 +168,7 @@
         var l = list;
         for (var i = 0; i < l.length; i++) {
             var id = "";
-            var client = utils.admin.getClientById(l[i].idClient);
-            body[i] = [l[i].id, l[i].refRoomBook, l[i].idRoom, client.id, utils.formatDateAdmin(l[i].dateStart), utils.formatDateAdmin(l[i].dateEnd)];
+            body[i] = [l[i].id, l[i].refRoomBook, l[i].idRoom, l[i].idClient, utils.formatDateAdmin(l[i].dateStart), utils.formatDateAdmin(l[i].dateEnd)];
 
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
@@ -1159,29 +1157,10 @@
      *                        Articles                         *
      **********************************************************/
     Core.controller.admin.displayListArticles = function (list) {
-        //console.log(list);
+        console.log(list);
         var container = document.getElementById("article_container_admin");
-        var classObject = "";
-        var header_container = document.getElementById("header_list_article");
-        var body_container = document.getElementById("body_list_article");
 
-        header_container.innerHTML = "";
-        body_container.innerHTML = "";
 
-        var headers = [
-            ""
-        ];
-
-        Core.utils.admin.createHeadTemplate(headers, container);
-
-        var body = [];
-
-        for (var i = 0; i < list.length; i++) {
-            var id = "";
-            body[i] = [];
-
-            Core.utils.admin.createBodyTemplate(body[i], container, classObject, id);
-        }
     };
 
     /***********************************************************

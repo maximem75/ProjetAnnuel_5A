@@ -573,44 +573,47 @@
             </ul>
 
             <div id="list_content_container" class="list_container_class">
-                <div id="article_container" class="panel_admin_container">
+                <div id="article_container" class="panel_admin_container" style="width:100%;">
+
+                    <div style="display: flex; flex-wrap: wrap;">
+                        <div style="flex:1;">
+                            <div class="sub_menu_tool">Ajouter un article</div>
+
+                            <input id="add_article_title" type="text" placeholder="Titre"
+                                   class="beauty_input title_article_admin">
+                                    <textarea id="add_article_content" type="text"
+                                              class="beauty_input content_article_admin"></textarea>
 
 
-                    <div class="sub_menu_tool">Ajouter un article</div>
+                            <form class="form_picture" enctype="multipart/form-data" method="POST"
+                                  id="form_add_article">
+                                <input class="beauty_input input_picture" type="file" name="file" required/>
+                            </form>
 
-                    <input id="add_article_title" type="text" placeholder="Titre"
-                           class="beauty_input title_article">
+                            <div class="btn_book_admin" id="btn_create_article" style="flex: 1;">AJOUTER</div>
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap;">
 
+                            <div class="sub_menu_tool">Modifier un article</div>
+                            <input id="updt_article_title" type="text" placeholder="Titre"
+                                   class="beauty_input title_article_admin">
 
-                                <textarea id="add_article_content" type="text"
-                                          class="beauty_input content_article"></textarea>
+                            <textarea id="updt_article_content" class="content_article_admin" type="text"></textarea>
 
+                            <form class="form_picture" enctype="multipart/form-data" method="POST"
+                                  id="form_updt_article">
+                                <input class="beauty_input input_picture" type="file" name="file" required/>
+                            </form>
 
-                    <form class="form_picture" enctype="multipart/form-data" method="POST"
-                          id="form_add_article">
-                        <input class="beauty_input input_picture" type="file" name="file" required/>
-                    </form>
-
-                    <div class="btn_book_admin" id="btn_create_article" style="flex: 1;">AJOUTER</div>
-
-
-                    <div class="sub_menu_tool">Modifier un article</div>
-                    <input id="updt_article_title" type="text" placeholder="Titre"
-                           class="beauty_input title_article">
-
-                    <textarea id="updt_article_content" type="text"></textarea>
-
-                    <form class="form_picture" enctype="multipart/form-data" method="POST" id="form_updt_article">
-                        <input class="beauty_input input_picture" type="file" name="file" required/>
-                    </form>
-
-                    <div class="btn_delete_admin" id="btn_delete_article" style="flex: 1;">DELETE</div>
-                    <div class="btn_update_admin" id="btn_updt_article" style="flex: 1;">MODIFIER</div>
+                            <div class="btn_delete_admin" id="btn_delete_article" style="flex: 1;">DELETE</div>
+                            <div class="btn_update_admin" id="btn_updt_article" style="flex: 1;">MODIFIER</div>
 
 
-                    <select id="slct_updt_article" class="beauty_input input_admin medium_content">
-                        <option></option>
-                    </select>
+                            <select id="slct_updt_article" class="beauty_input input_admin medium_content">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
 
                 </div>
 

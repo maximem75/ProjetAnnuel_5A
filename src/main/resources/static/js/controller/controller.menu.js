@@ -31,9 +31,8 @@
      */
     Core.controller.menu.addContextualMenuButtons = function () {
         var menu = data.getMenu();
-        var menuLastChild = menu.children[menu.children.length-1];
 
-        var createButton = function (id, content, elementAfter) {
+        var createButton = function (id, content) {
             var baliseLi, baliseA;
 
             baliseLi = document.createElement("li");
@@ -46,7 +45,7 @@
             baliseA.textContent = content;
 
             baliseLi.appendChild(baliseA);
-            menu.insertBefore(baliseLi, elementAfter);
+            menu.appendChild(baliseLi);
         };
         var removeButtons = function () {
             var arrayButtons = document.getElementsByClassName("contextualMenu");
@@ -58,21 +57,22 @@
             if(window.client){
                 removeButtons();
 
-                createButton("btn_restaurant", "Restaurant", menuLastChild);
-                createButton("btn_festiveRoom", "Salle des fêtes", menuLastChild);
+                createButton("btn_restaurant", "Restaurant");
+                createButton("btn_festiveRoom", "Salle des fêtes");
+                createButton("btn_listArticle", "Article");
 
                 if(client.accreditation === "admin")
-                    createButton("btn_admin", "ADMIN", menuLastChild);
+                    createButton("btn_admin", "ADMIN");
 
                 if(client.accreditation === "user")
-                    createButton("btn_clientListBook", "Réservations", menuLastChild);
+                    createButton("btn_clientListBook", "Réservations");
 
-                createButton("btn_listArticle", "Article", menuLastChild);
-                createButton("btn_compte", "Compte", menuLastChild);
-                createButton("btn_logout", "Déconnecter", menuLastChild);
+
+                createButton("btn_compte", "Compte");
+                createButton("btn_logout", "Déconnecter");
             } else {
                 removeButtons();
-                createButton("btn_connexion", "Connexion", menuLastChild);
+                createButton("btn_connexion", "Connexion");
             }
         }();
     };
