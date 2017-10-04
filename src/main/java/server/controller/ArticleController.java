@@ -42,8 +42,14 @@ public class ArticleController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public void addArticle(@RequestBody Article article, @RequestParam("file") MultipartFile file, @RequestParam("token") String token){
+    public void addArticle(@RequestParam("file") MultipartFile file, @RequestParam("token") String token, @RequestParam("title") String title, @RequestParam("content") String content){
         if (clientService.adminAccess(token)){
+            Article article = new Article();
+
+            article.setTitle(title);
+            article.setContent(content);
+            article.setDate(new Date());
+
             String pathServer = PRE_PATH + file.getOriginalFilename();
 
             FileManager fm = new FileManager();
@@ -57,15 +63,9 @@ public class ArticleController {
 
     @RequestMapping(method = PUT)
     @ResponseStatus(ACCEPTED)
-    public void updateArticle(@RequestBody Article article, @RequestParam("file") MultipartFile file, @RequestParam("token") String token){
+    public void updateArticle(@RequestBody Article article, @RequestParam("token") String token){
         if (clientService.adminAccess(token)){
-            String pathServer = PRE_PATH + file.getOriginalFilename();
-
-            FileManager fm = new FileManager();
-            fm.saveImage(file, pathServer);
-
             article.setDate(new Date());
-            article.setPicturePath(PRE_PATH_FRONT + file.getOriginalFilename());
             articleRepository.save(article);
         }
     }

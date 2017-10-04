@@ -30,7 +30,7 @@
     Core.service.pictureRoomCategory.create = function (id) {
         var paramRequest = data.basicUrl + "/pictureRoomCategory?token=" + client.token + "&id=" + id;;
 
-        var form = document.getElementById("formtDataArticle");
+        var form = document.getElementById("formDataCategory");
         form.action =  + paramRequest;
         var formData = new FormData(form);
 
@@ -49,7 +49,7 @@
 
     Core.service.pictureRoomCategory.update = function (id) {
         var paramRequest = data.basicUrl + "/pictureRoomCategory/update?token=" + client.token + "&id=" + id;
-        var form = document.getElementById("formtUpdateDataArticle");
+        var form = document.getElementById("formDataUpdateCategory");
         form.action = paramRequest;
         var formData = new FormData(form);
 

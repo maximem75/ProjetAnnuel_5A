@@ -1160,6 +1160,20 @@
         console.log(list);
         var container = document.getElementById("article_container_admin");
 
+        var btnAdd = document.getElementById("btn_create_article");
+        var addTitle = document.getElementById("add_article_title");
+        var addContent = document.getElementById("add_article_content");
+        var addPicture = document.getElementById("form_add_article");
+
+        utils.removeListener(btnAdd, "click");
+        utils.addListener(btnAdd, "click", function () {
+            if(addTitle.value != "" && addContent != ""){
+                
+            }
+        }, false);
+
+        var btnUpdt = document.getElementById("btn_updt_article");
+        var btnRmv = document.getElementById("btn_delete_article");
 
     };
 

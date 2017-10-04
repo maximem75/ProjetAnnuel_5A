@@ -15,22 +15,24 @@
      *
      * @returns {{name: string, method: string, url: string, func: func, error: error}}
      */
-    Core.service.article.create = function (json) {
-        var paramRequest = "token=" + client.token;
+    Core.service.article.create = function (title, content) {
+        var paramRequest = data.basicUrl + "/article?token=" + client.token + "&title=" + title + "&content=" + content;;
 
-        var object = {
-            name: "create",
-            method: "POST",
-            url: "/article",
-            func: function () {
-               
-            },
-            error: function () {
+        var form = document.getElementById("formtDataArticle");
+        form.action =  + paramRequest;
+        var formData = new FormData(form);
 
+        var oReq = new XMLHttpRequest();
+        oReq.open("post", paramRequest, true);
+        oReq.onload = function(oEvent) {
+            if (oReq.status == 201) {
+                Core.service.pictureRoomCategory.getList();
+            } else {
+                alert("error")
             }
         };
 
-        utils.ajaxRequest(object, paramRequest, json , null, true);
+        oReq.send(formData);
     };
 
     /**
