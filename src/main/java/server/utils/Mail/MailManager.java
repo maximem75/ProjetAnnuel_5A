@@ -51,6 +51,19 @@ public class MailManager {
         }
     }
 
+    public void sendContactEmail(String msg){
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(USERNAME));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(USERNAME));
+            message.setSubject("Un client vous a contacté !");
+            message.setContent(msg,"text/html");
+            Transport.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void sendEmailToClient(String mailSubject ,String clientEmail, String mailContent){
         try {

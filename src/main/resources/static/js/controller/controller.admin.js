@@ -216,20 +216,18 @@
         Core.utils.admin.createHeadTemplate(headers, header_container);
 
         var body = [];
- 
+
 
         for (var i = 0; i < list.length; i++) {
             var id = "";
             var b = list[i];
             var client = utils.admin.getClientById(list[i].idClient);
-            if(client != undefined){
-                var fullName = client.lastName.charAt(0).toUpperCase() + client.lastName.slice(1) + " " + client.firstName.charAt(0).toUpperCase() + client.firstName.slice(1);
-                var date = utils.formatDateTime(b.date);
+            var fullName = client.lastName.charAt(0).toUpperCase() + client.lastName.slice(1) + " " + client.firstName.charAt(0).toUpperCase() + client.firstName.slice(1);
+            var date = utils.formatDateTime(b.date);
 
-                body[i] = [client.id, fullName, date, b.number];
+            body[i] = [client.id, fullName, date, b.number];
 
-                Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
-            }
+            Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }
     };
 
@@ -1240,7 +1238,7 @@
 
         var btnAdd = document.getElementById("btn_addGalery");
         var btnDelete = document.getElementById("btn_removePicture");
-        
+
         var inpt = document.getElementById("inptGalery");
 
         var form = document.getElementById("formDataGalery");
@@ -1263,9 +1261,9 @@
         utils.removeListener(btnAdd, "click");
         utils.addListener(btnAdd, "click", function(){
             if(inpt.value != ""){
-                Core.service.galery.create(select.value);
+
             }
-        }, false); 
+        }, false);
 
         utils.removeListener(btnDelete, "click");
         utils.addListener(btnDelete, "click", function(){
