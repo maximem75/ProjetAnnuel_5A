@@ -210,7 +210,7 @@
         body_container.innerHTML = "";
 
         var headers = [
-            "Client", "Date", "Places"
+            "ID", "Client", "Date", "Places"
         ];
 
         Core.utils.admin.createHeadTemplate(headers, header_container);
@@ -221,10 +221,10 @@
             var id = "";
             var b = list[i];
             var client = utils.admin.getClientById(list[i].idClient);
-            var fullName = client.lastName.charAt(0).toUpperCase() + client.lastName.slice(1) + " " + client.firstName.charAt(0).toUpperCase() + client.lastName.slice(1);
+            var fullName = client.lastName.charAt(0).toUpperCase() + client.firstName.slice(1) + " " + client.firstName.charAt(0).toUpperCase() + client.lastName.slice(1);
             var date = utils.formatDateTime(b.date);
 
-            body[i] = [fullName, date, b.number];
+            body[i] = [client.id, fullName, date, b.number];
 
             Core.utils.admin.createBodyTemplate(body[i], body_container, classObject, id);
         }

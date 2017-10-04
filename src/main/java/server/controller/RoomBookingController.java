@@ -107,6 +107,7 @@ public class RoomBookingController {
                 }
 
                 templateService.GenerateTemplate(client,refBookRoom);
+                templateService.sendFacturation(client,refBookRoom);
             }
         }
     }

@@ -52,8 +52,25 @@ public class TemplateService {
         MailManager mailManager = new MailManager();
         mailManager.sendEmailToClient("Votre facture RHM ", client.getEmail(), invoice);
         sendReminderMailToClient(myLis.get(0).getDateEnd(), client.getEmail());
-        //templateGenerator.generateInvoice("C:\\Users\\stanley\\Documents\\RHM_Invoice.pdf",client,myLis,listCateg);
+    }
 
+    public void sendFacturation(Client client, String refRom) {
+        String mail = "residencedeshautsdemenaye@gmail.com";
+        List<RoomBooking> myLis = roomBookingService.getListRoomBookingByRefBookRoom(refRom);
+        List<RoomCategory> listCateg = new ArrayList<>();
+        for (RoomBooking r : myLis) {
+            listCateg.add(roomCategoryRepository.findOne(r.getIdRoomCategory()));
+        }
+
+        TemplateGenerator templateGenerator = new TemplateGenerator();
+        String invoice;
+
+        invoice = templateGenerator.getFacturation(refRom, getCurrentDate(), getClientFullname(client),
+                client.getAddress(), client.getCity(), client.getCountry(), listCateg);
+
+        MailManager mailManager = new MailManager();
+        mailManager.sendEmailToClient("Votre facture RHM ", mail, invoice);
+        sendReminderMailToClient(myLis.get(0).getDateEnd(), mail);
     }
 
     private String getClientFullname(Client client) {
