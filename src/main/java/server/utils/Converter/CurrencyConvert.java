@@ -28,7 +28,7 @@ public class CurrencyConvert {
 
         try {
             //Create connection
-            URL oracle = new URL("https://v3.exchangerate-api.com/"+ localisate +"/25aa0eb5220ed3dbf84509e6/"+ countryCode +"/" + ipClient);
+            URL oracle = new URL("https://v3.exchangerate-api.com/"+ localisate +"/637b20a985d1bbeedf50f80b/"+ countryCode +"/" + ipClient);
             yc = (HttpURLConnection) oracle.openConnection();
 
             yc.setRequestProperty("Content-Type",
